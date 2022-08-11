@@ -1,3 +1,5 @@
+// Levels should be in 32x18 scale
+
 export class Level {
   constructor(objects, player) {
     this.objects = objects;

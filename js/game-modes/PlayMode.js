@@ -5,8 +5,8 @@ import { Vector } from "../math/Vector.js";
 
 const makeTestLevel = () => {
   return new Level(
-    [new Rectangle(0, 500, 960, 540), new Rectangle(400, 450, 960, 540), new Rectangle(800, 400, 960, 540)],
-    new Player(new Vector(200, 350)),
+    [new Rectangle(0, 17, 32, 18), new Rectangle(16, 16, 32, 18), new Rectangle(24, 15, 32, 18)],
+    new Player(new Vector(12, 6)),
   );
 };
 

@@ -5,18 +5,18 @@ import { clamp, sign } from "../math/Common.js";
 import { Circle } from "../math/Shapes.js";
 import { Vector } from "../math/Vector.js";
 
-const PLAYER_RADIUS = 20;
+const PLAYER_RADIUS = 0.8;
 
 // Running parameters
-const PLAYER_MAX_SPEED = 300;
+const PLAYER_MAX_SPEED = 16;
 const PLAYER_ACCEL = PLAYER_MAX_SPEED / 0.3;
-const PLAYER_DECEL = 1.2 * PLAYER_ACCEL;
+const PLAYER_DECEL = 2 * PLAYER_ACCEL;
 const TURN_SPEED = 1.8 * PLAYER_ACCEL;
 // const FRICTION = 0.8;
 // const PLAYER_SPEED = 100;
 
 // Jump speed parameters
-const JUMP_HEIGHT = 120;
+const JUMP_HEIGHT = 4;
 const JUMP_DURATION = 0.6;
 const PARAM_A = (4 * JUMP_HEIGHT) / JUMP_DURATION;
 const JUMP_INITIAL_SPEED = PARAM_A;

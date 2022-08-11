@@ -9,6 +9,7 @@ class ScreenManager {
     }
 
     this.canvas = canvas;
+    this.canvas.scale(30, 30);
   }
 
   test() {

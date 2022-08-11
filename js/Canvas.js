@@ -65,6 +65,15 @@ export class Canvas {
   }
 
   /**
+   * Scale the canvas.
+   * @param {number} xScale
+   * @param {number} yScale
+   */
+  scale(xScale, yScale) {
+    this[CTX].scale(xScale, yScale);
+  }
+
+  /**
    * Set the colour to be used for drawing on the canvas.
    * @param {string} colorString The name of the color to be used
    */
