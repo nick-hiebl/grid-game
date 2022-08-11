@@ -1,18 +1,9 @@
-import { Level } from "../level/Level.js";
-import { Player } from "../level/Player.js";
-import { Rectangle } from "../math/Shapes.js";
-import { Vector } from "../math/Vector.js";
-
-const makeTestLevel = () => {
-  return new Level(
-    [new Rectangle(0, 17, 32, 18), new Rectangle(16, 16, 32, 18), new Rectangle(24, 15, 32, 18)],
-    new Player(new Vector(12, 6)),
-  );
-};
+import { LevelManager } from "../level/LevelManager.js";
 
 export class PlayMode {
   constructor() {
-    this.level = makeTestLevel();
+    this.levelManager = new LevelManager();
+    this.currentLevel = this.levelManager.getInitialLevel();
   }
 
   /**
@@ -21,7 +12,11 @@ export class PlayMode {
    * @param {object} inputState The current state of inputs.
    */
   update(deltaTime, inputState) {
-    this.level.update(deltaTime, inputState);
+    this.currentLevel.update(deltaTime, inputState);
+    const exit = this.currentLevel.shouldExit();
+    if (exit) {
+      this.currentLevel = this.levelManager.getLevel(exit.key, exit);
+    }
   }
 
   /**
@@ -29,6 +24,6 @@ export class PlayMode {
    * @param {Canvas} canvas The canvas to draw upon.
    */
   draw(canvas) {
-    this.level.draw(canvas);
+    this.currentLevel.draw(canvas);
   }
 }

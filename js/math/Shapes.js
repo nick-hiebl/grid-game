@@ -65,25 +65,6 @@ export class Circle {
       pToCenter,
       (this.radius - distFromCenter) / distFromCenter
     );
-
-    // const p1 = Vector.add(p0, movementVector);
-
-    // const a = Vector.sqrDist(movementVector, new Vector(0, 0));
-    // const b =
-    //   2 * (p1.x - p0.x) * (p0.x - this.position.x) +
-    //   2 * (p1.y - p0.y) * (p0.y - this.position.y);
-    // const c = Vector.sqrDist(p0, this.position) - this.radius * this.radius;
-
-    // const determinant = b * b - 4 * a * c;
-
-    // // If the determinant is 0, then the circle and line are kissing. If the
-    // // determinant is negative then they are not touching.
-    // if (determinant <= 0) {
-    //   return new Vector(0, 0);
-    // }
-
-    // const t = (-b - Math.sqrt(determinant)) / (2 * a);
-    // return Vector.scale(movementVector, t);
   }
 
   /**
@@ -133,7 +114,7 @@ export class Rectangle {
       this.x1 <= point.x &&
       point.x <= this.x2 &&
       this.y1 <= point.y &&
-      this.y2 <= point.y
+      point.y <= this.y2
     );
   }
 

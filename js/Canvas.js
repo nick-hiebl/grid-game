@@ -118,6 +118,57 @@ export class Canvas {
     this.setColor(colorString);
   }
 
+  saveTransform() {
+    this[CTX].save();
+  }
+
+  restoreTransform() {
+    this[CTX].restore();
+  }
+
+  /**
+   * Draw another image to this canvas
+   * @param {Canvas} imageSource
+   * @param {number} sourceX
+   * @param {number} sourceY
+   * @param {number} sourceWidth
+   * @param {number} sourceHeight
+   * @param {number} destinationX
+   * @param {number} destinationY
+   * @param {number} destinationWidth
+   * @param {nubmer} destinationHeight
+   */
+  drawImageFromCanvas(
+    imageSource,
+    sourceX,
+    sourceY,
+    sourceWidth,
+    sourceHeight,
+    destinationX,
+    destinationY,
+    destinationWidth,
+    destinationHeight
+  ) {
+    let image;
+    if (imageSource instanceof Canvas) {
+      image = imageSource[CANVAS];
+    } else {
+      throw Error("Drawing something unmanageable");
+    }
+
+    this[CTX].drawImage(
+      image,
+      sourceX,
+      sourceY,
+      sourceWidth,
+      sourceHeight,
+      destinationX,
+      destinationY,
+      destinationWidth,
+      destinationHeight
+    );
+  }
+
   /**
    * Create a Canvas from an id.
    * @param {string} id The id attribute of the HTMLCanvasElement
@@ -131,8 +182,10 @@ export class Canvas {
   /**
    * Create a new HTMLCanvasElement and use that as the basis for a Canvas.
    */
-  static fromScratch() {
-    const canvas = document.createElement(canvas);
+  static fromScratch(width, height) {
+    const canvas = document.createElement("canvas");
+    canvas.width = width;
+    canvas.height = height;
 
     return new Canvas(canvas);
   }

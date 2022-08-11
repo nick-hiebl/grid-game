@@ -29,6 +29,7 @@ class App {
     // Do stuff
     this.gameModeManager.update(deltaTime, this.inputManager.getKeyState());
     this.gameModeManager.draw(this.screenManager.canvas);
+    this.screenManager.drawToScreen();
 
     // Loop
     requestAnimationFrame(() => this.mainLoop());
