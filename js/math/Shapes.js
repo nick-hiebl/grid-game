@@ -99,10 +99,6 @@ export class Rectangle {
     this.y1 = y1;
     this.x2 = x2;
     this.y2 = y2;
-
-    // Consider storing center Vector and pre-computed half-widths and half-heights if useful.
-    this.width = x2 - x1;
-    this.height = y2 - y1;
   }
 
   /**
@@ -116,6 +112,14 @@ export class Rectangle {
       this.y1 <= point.y &&
       point.y <= this.y2
     );
+  }
+
+  get width() {
+    return this.x2 - this.x1;
+  }
+
+  get height() {
+    return this.y2 - this.y1;
   }
 
   /**

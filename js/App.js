@@ -44,6 +44,8 @@ const main = () => {
   const app = new App();
 
   app.start();
+
+  window.app = app;
 };
 
 window.onload = () => {

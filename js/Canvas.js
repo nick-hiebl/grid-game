@@ -38,6 +38,17 @@ export class Canvas {
   }
 
   /**
+   * Draw the outline of a rectangle on the canvas.
+   * @param {number} x The horizontal position of the top-left corner.
+   * @param {number} y The vertical position of the top-left corner.
+   * @param {number} width The width of the rectangle.
+   * @param {number} height The height of the rectangle.
+   */
+  strokeRect(x, y, width, height) {
+    this[CTX].strokeRect(x, y, width, height);
+  }
+
+  /**
    * Fill an ellipse on the canvas.
    * @param {number} x The horizontal position of the ellipse center.
    * @param {number} y The vertical position of the ellipse center.
@@ -85,6 +96,14 @@ export class Canvas {
     this.color = colorString;
     this[CTX].fillStyle = colorString;
     this[CTX].strokeStyle = colorString;
+  }
+
+  setLineWidth(width) {
+    this[CTX].lineWidth = width;
+  }
+
+  setLineDash(pattern) {
+    this[CTX].setLineDash(pattern);
   }
 
   /**
