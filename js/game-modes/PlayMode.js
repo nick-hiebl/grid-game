@@ -3,7 +3,12 @@ import { LevelManager } from "../level/LevelManager.js";
 export class PlayMode {
   constructor() {
     this.levelManager = new LevelManager();
-    this.currentLevel = this.levelManager.getInitialLevel();
+    this.startLevel(this.levelManager.getInitialLevel());
+  }
+
+  startLevel(level) {
+    this.currentLevel = level;
+    level.start();
   }
 
   /**
@@ -16,7 +21,7 @@ export class PlayMode {
 
     const exit = this.currentLevel.shouldExit();
     if (exit) {
-      this.currentLevel = this.levelManager.getLevel(exit.key, exit);
+      this.startLevel(this.levelManager.getLevel(exit.key, exit));
     }
   }
 

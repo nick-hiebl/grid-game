@@ -17,7 +17,9 @@ class ScreenManager {
     this[REAL_CANVAS] = screenCanvas;
     // this.canvas.scale(60, 60);
 
-    this.canvas = Canvas.fromScratch(CANVAS_WIDTH * 2, CANVAS_HEIGHT * 2);
+    this.staticWorldCanvas = Canvas.fromScratch(CANVAS_WIDTH * 2, CANVAS_HEIGHT * 2);
+    this.dynamicWorldCanvas = Canvas.fromScratch(CANVAS_WIDTH * 2, CANVAS_HEIGHT * 2);
+    this.uiCanvas = Canvas.fromScratch(CANVAS_WIDTH, CANVAS_HEIGHT);
 
     // Stores the top-left position of the camera
     this.camera = new Vector(0, 0);
@@ -29,9 +31,31 @@ class ScreenManager {
 
   drawToScreen() {
     this[REAL_CANVAS].drawImageFromCanvas(
-      this.canvas,
+      this.staticWorldCanvas,
       this.camera.x,
       this.camera.y,
+      CANVAS_WIDTH,
+      CANVAS_HEIGHT,
+      0,
+      0,
+      CANVAS_WIDTH,
+      CANVAS_HEIGHT
+    );
+    this[REAL_CANVAS].drawImageFromCanvas(
+      this.dynamicWorldCanvas,
+      this.camera.x,
+      this.camera.y,
+      CANVAS_WIDTH,
+      CANVAS_HEIGHT,
+      0,
+      0,
+      CANVAS_WIDTH,
+      CANVAS_HEIGHT
+    );
+    this[REAL_CANVAS].drawImageFromCanvas(
+      this.uiCanvas,
+      0,
+      0,
       CANVAS_WIDTH,
       CANVAS_HEIGHT,
       0,

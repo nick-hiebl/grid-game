@@ -42,6 +42,10 @@ const makeTestLevel = i => {
   return f.create();
 };
 
+/**
+ * Responsible for finding and loading levels, not managing what level is
+ * currently active.
+ */
 export class LevelManager {
   constructor() {
     const key = 1;

@@ -1,6 +1,7 @@
+import { Input } from "../constants/Keys.js";
+import { clamp } from "../math/Common.js";
 import { Vector } from "../math/Vector.js";
 import { Player } from "./Player.js";
-import { clamp } from "../math/Common.js";
 
 // Levels should be in 32x18 scale
 const SCREEN_WIDTH = 32;
@@ -45,6 +46,13 @@ export class Level {
     this.height = height;
 
     this.camera = this.getIdealCamera();
+    this.interactingWith = undefined;
+
+    this.drawnStatic = false;
+  }
+
+  start() {
+    this.drawnStatic = false;
   }
 
   feedPlayerInfo(previousPlayer, previousExit) {
@@ -71,6 +79,9 @@ export class Level {
     this.interactibles.forEach(interactible => {
       interactible.update(this.player.position, deltaTime);
     });
+    if (!this.interactingWith?.isTriggered) {
+      this.interactingWith = undefined;
+    }
 
     this.camera = Vector.lerp(
       this.camera,
@@ -79,13 +90,24 @@ export class Level {
     );
   }
 
+  isPlayerActive() {
+    return !this.interactingWith;
+  }
+
   /**
    * Function for when an interaction input occurs from the InputManager
    * @param {InputEvent} input The input event to be processed
    */
   onInput(input) {
-    this.player.onInput(input);
+    if (this.isPlayerActive()) {
+      this.player.onInput(input);
+    }
     // Do something?
+    if (input.input === Input.Interact) {
+      this.interactingWith = this.interactibles.find(i => i.isTriggered);
+    } else if (input.input === Input.Escape) {
+      this.interactingWith = undefined;
+    }
   }
 
   /**
@@ -117,33 +139,54 @@ export class Level {
     );
   }
 
+  withSetupCanvas(canvas, action) {
+    canvas.saveTransform();
+    canvas.scale(60, 60);
+    action(canvas);
+    canvas.restoreTransform();
+  }
+
   /**
    * Draw the current level.
    * @param {ScreenManager} screenManager The screen to draw on
    */
   draw(screenManager) {
-    const canvas = screenManager.canvas;
-    canvas.saveTransform();
-    canvas.scale(60, 60);
+    if (!this.drawnStatic) {
+      this.withSetupCanvas(screenManager.staticWorldCanvas, canvas => {
+        // Fill background
+        canvas.setColorRGB(100, 0, 200);
+        canvas.fillRect(0, 0, canvas.width, canvas.height);
 
-    // Fill background
-    canvas.setColorRGB(100, 0, 200);
-    canvas.fillRect(0, 0, canvas.width, canvas.height);
+        // Draw walls
+        canvas.setColor("black");
+        for (const object of this.objects) {
+          object.draw(canvas);
+        }
+      });
 
-    // Draw interactibles
-    this.interactibles.forEach(interactible => {
-      interactible.draw(canvas);
-    });
-
-    // Draw walls
-    canvas.setColor("black");
-    for (const object of this.objects) {
-      object.draw(canvas);
+      this.drawnStatic = true;
     }
 
-    // Draw player
-    this.player.draw(canvas);
-    canvas.restoreTransform();
+    this.withSetupCanvas(screenManager.dynamicWorldCanvas, canvas => {
+      canvas.clear();
+
+      // Draw interactibles
+      this.interactibles.forEach(interactible => {
+        interactible.draw(canvas);
+      });
+
+      // Draw player
+      this.player.draw(canvas);
+    });
+
+    if (this.isPlayerActive()) {
+      this.withSetupCanvas(screenManager.uiCanvas, canvas => {
+        canvas.clear();
+
+        canvas.setColorRGB(255, 0, 0);
+        canvas.fillEllipse(0.4, this.height - 0.4, 0.2, 0.2);
+      });
+    }
 
     screenManager.setCamera(Vector.scale(this.camera, 60));
   }

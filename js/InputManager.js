@@ -1,7 +1,8 @@
 import { Input } from "./constants/Keys.js";
 
 const KEY_MAP = {
-  ' ': Input.Up,
+  " ": Input.Jump,
+  w: Input.Up,
   a: Input.Left,
   s: Input.Down,
   d: Input.Right,
@@ -54,6 +55,9 @@ export class InputManager {
    */
   init() {
     document.addEventListener("keydown", e => {
+      if (e.repeat) {
+        return;
+      }
       const symbol = KEY_MAP[e.key];
       if (!symbol) {
         return;

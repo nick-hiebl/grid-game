@@ -37,6 +37,10 @@ export class Canvas {
     this[CTX].fillRect(x, y, width, height);
   }
 
+  clear() {
+    this[CTX].clearRect(0, 0, this.width, this.height);
+  }
+
   /**
    * Draw the outline of a rectangle on the canvas.
    * @param {number} x The horizontal position of the top-left corner.
