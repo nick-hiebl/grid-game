@@ -13,6 +13,7 @@ export class PlayMode {
    */
   update(deltaTime, inputState) {
     this.currentLevel.update(deltaTime, inputState);
+
     const exit = this.currentLevel.shouldExit();
     if (exit) {
       this.currentLevel = this.levelManager.getLevel(exit.key, exit);

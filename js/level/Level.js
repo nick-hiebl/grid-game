@@ -10,7 +10,7 @@ export class ExitTrigger {
   constructor(collider, key, nextLevelCollider) {
     this.collider = collider;
     this.key = key;
-    this.nextLevelCollider = collider || nextLevelCollider;
+    this.nextLevelCollider = nextLevelCollider || collider;
   }
 
   hasEntered(player) {

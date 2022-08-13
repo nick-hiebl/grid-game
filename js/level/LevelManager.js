@@ -19,8 +19,8 @@ const makeTestLevel = i => {
       Rectangle.widthForm(x, baseY + 2, 1, 1)
     ])
     .addExits([
-      new ExitTrigger(Rectangle.widthForm(-32, baseY, 32, 18), `${i - 1}`),
-      new ExitTrigger(Rectangle.widthForm(32, baseY, 32, 18), `${i + 1}`)
+      new ExitTrigger(Rectangle.widthForm(-32, baseY, 32, 18), `${i - 1}`, i === 2 ? Rectangle.widthForm(-32, baseY - 18, 32, 36) : undefined),
+      new ExitTrigger(Rectangle.widthForm(32, baseY, 32, 18), `${i + 1}`, i === 0 ? Rectangle.widthForm(32, baseY - 18, 32, 36) : undefined)
     ]);
   if (i === 0) {
     f.addObjects([Rectangle.widthForm(0, baseY, 1, 18)]);
