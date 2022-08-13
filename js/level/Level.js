@@ -43,6 +43,8 @@ export class Level {
 
     this.width = width;
     this.height = height;
+
+    this.camera = this.getIdealCamera();
   }
 
   feedPlayerInfo(previousPlayer, previousExit) {
@@ -55,6 +57,8 @@ export class Level {
     this.player.position.y = position.y;
 
     this.player.velocity = previousPlayer.velocity.copy();
+
+    this.camera = this.getIdealCamera();
   }
 
   /**
@@ -67,6 +71,12 @@ export class Level {
     this.interactibles.forEach(interactible => {
       interactible.update(this.player.position, deltaTime);
     });
+
+    this.camera = Vector.lerp(
+      this.camera,
+      this.getIdealCamera(),
+      Math.min(1, deltaTime * 10)
+    );
   }
 
   /**
@@ -90,6 +100,21 @@ export class Level {
     if (triggeredExit) {
       return triggeredExit;
     }
+  }
+
+  getIdealCamera() {
+    return new Vector(
+      clamp(
+        this.player.position.x - SCREEN_WIDTH / 2,
+        0,
+        this.width - SCREEN_WIDTH
+      ),
+      clamp(
+        this.player.position.y - SCREEN_HEIGHT / 2,
+        0,
+        this.height - SCREEN_HEIGHT
+      )
+    );
   }
 
   /**
@@ -120,12 +145,7 @@ export class Level {
     this.player.draw(canvas);
     canvas.restoreTransform();
 
-    const camera = new Vector(
-      clamp(this.player.position.x - SCREEN_WIDTH / 2, 0, this.width - SCREEN_WIDTH),
-      clamp(this.player.position.y - SCREEN_HEIGHT / 2, 0, this.height - SCREEN_HEIGHT)
-    );
-
-    screenManager.setCamera(Vector.scale(camera, 60));
+    screenManager.setCamera(Vector.scale(this.camera, 60));
   }
 }
 

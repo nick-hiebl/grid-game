@@ -7,7 +7,7 @@ export class Vector {
   add(vector) {
     this.x += vector.x;
     this.y += vector.y;
-    
+
     return this;
   }
 
@@ -46,5 +46,9 @@ export class Vector {
 
   static dist(a, b) {
     return Math.hypot(a.x - b.x, a.y - b.y);
+  }
+
+  static lerp(v1, v2, t) {
+    return new Vector(v1.x * (1 - t) + v2.x * t, v1.y * (1 - t) + v2.y * t);
   }
 }
