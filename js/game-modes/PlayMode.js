@@ -21,6 +21,14 @@ export class PlayMode {
   }
 
   /**
+   * Function for when an interaction input occurs from the InputManager
+   * @param {InputEvent} input The input event to be processed
+   */
+  onInput(input) {
+    this.currentLevel.onInput(input);
+  }
+
+  /**
    * Draw.
    * @param {ScreenManager} screenManager The screenManager to draw upon.
    */

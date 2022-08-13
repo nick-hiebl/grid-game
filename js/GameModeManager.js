@@ -11,10 +11,18 @@ export class GameModeManager {
   /**
    * Update the current gamemode.
    * @param {number} deltaTime The time that has elapsed since the last update.
-   * @param {object} inputState The current state of inputs.
+   * @param {InputState} inputState The current state of inputs.
    */
   update(deltaTime, inputState) {
     this.currentMode.update(deltaTime, inputState);
+  }
+
+  /**
+   * Process an input event
+   * @param {InputEvent} input The input event to be processed
+   */
+  onInput(input) {
+    this.currentMode.onInput(input);
   }
 
   /**

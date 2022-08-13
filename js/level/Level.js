@@ -60,13 +60,22 @@ export class Level {
   /**
    * Update.
    * @param {number} deltaTime The time elapsed since the last update.
-   * @param {object} inputState The current state of inputs.
+   * @param {InputState} inputState The current state of inputs.
    */
   update(deltaTime, inputState) {
     this.player.update(deltaTime, inputState, this);
     this.interactibles.forEach(interactible => {
       interactible.update(this.player.position, deltaTime);
     });
+  }
+
+  /**
+   * Function for when an interaction input occurs from the InputManager
+   * @param {InputEvent} input The input event to be processed
+   */
+  onInput(input) {
+    this.player.onInput(input);
+    // Do something?
   }
 
   /**

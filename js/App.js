@@ -11,13 +11,21 @@ class App {
   constructor() {
     this.screenManager = new ScreenManager();
     this.gameModeManager = new GameModeManager();
-    this.inputManager = new InputManager();
+    this.inputManager = new InputManager(input => this.onInput(input));
   }
 
   start() {
     this.inputManager.init();
     this.lastFrameTime = performance.now();
     requestAnimationFrame(() => this.mainLoop());
+  }
+
+  /**
+   * Function for when an interaction input occurs from the InputManager
+   * @param {InputEvent} input The input event to be processed
+   */
+  onInput(input) {
+    this.gameModeManager.onInput(input);
   }
 
   mainLoop() {
@@ -27,7 +35,7 @@ class App {
       MAX_FRAME_TIME
     );
     // Do stuff
-    this.gameModeManager.update(deltaTime, this.inputManager.getKeyState());
+    this.gameModeManager.update(deltaTime, this.inputManager.getInputState());
     this.gameModeManager.draw(this.screenManager);
     this.screenManager.drawToScreen();
 
