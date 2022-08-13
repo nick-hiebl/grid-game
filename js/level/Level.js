@@ -1,4 +1,5 @@
 import { Input } from "../constants/Keys.js";
+import { InputState } from "../InputManager.js";
 import { clamp } from "../math/Common.js";
 import { Vector } from "../math/Vector.js";
 import { Player } from "./Player.js";
@@ -53,6 +54,7 @@ export class Level {
 
   start() {
     this.drawnStatic = false;
+    this.interactingWith = undefined;
   }
 
   feedPlayerInfo(previousPlayer, previousExit) {
@@ -75,7 +77,11 @@ export class Level {
    * @param {InputState} inputState The current state of inputs.
    */
   update(deltaTime, inputState) {
-    this.player.update(deltaTime, inputState, this);
+    this.player.update(
+      deltaTime,
+      this.isPlayerActive() ? inputState : InputState.empty(),
+      this
+    );
     this.interactibles.forEach(interactible => {
       interactible.update(this.player.position, deltaTime);
     });
@@ -179,14 +185,14 @@ export class Level {
       this.player.draw(canvas);
     });
 
-    if (this.isPlayerActive()) {
-      this.withSetupCanvas(screenManager.uiCanvas, canvas => {
-        canvas.clear();
+    this.withSetupCanvas(screenManager.uiCanvas, canvas => {
+      canvas.clear();
 
-        canvas.setColorRGB(255, 0, 0);
-        canvas.fillEllipse(0.4, this.height - 0.4, 0.2, 0.2);
-      });
-    }
+      if (this.isPlayerActive()) {
+        canvas.setColor("red");
+        canvas.fillEllipse(0.4, 0.4, 0.2, 0.2);
+      }
+    });
 
     screenManager.setCamera(Vector.scale(this.camera, 60));
   }

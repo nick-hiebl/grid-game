@@ -20,7 +20,6 @@ export class Canvas {
 
     this[CTX].fillStyle = "black";
     this[CTX].strokeStyle = "black";
-    this.color = "black";
 
     this.width = this[CANVAS].width;
     this.height = this[CANVAS].height;
@@ -93,11 +92,10 @@ export class Canvas {
    * @param {string} colorString The name of the color to be used
    */
   setColor(colorString) {
-    if (colorString === this.color) {
+    if (colorString === this[CTX].fillStyle) {
       return;
     }
 
-    this.color = colorString;
     this[CTX].fillStyle = colorString;
     this[CTX].strokeStyle = colorString;
   }

@@ -2,6 +2,10 @@ import { Input } from "./constants/Keys.js";
 
 const KEY_MAP = {
   " ": Input.Jump,
+  escape: Input.Escape,
+  esc: Input.Escape,
+  Escape: Input.Escape,
+  Esc: Input.Escape,
   w: Input.Up,
   a: Input.Left,
   s: Input.Down,
@@ -28,6 +32,10 @@ export class InputState {
    */
   isPressed(input) {
     return !!this.keyMap[input];
+  }
+
+  static empty() {
+    return new InputState({});
   }
 }
 
