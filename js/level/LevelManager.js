@@ -6,26 +6,38 @@ import { PuzzleInteractible } from "./PuzzleInteractible.js";
 
 const makeTestLevel = i => {
   const x = Math.floor(Math.random() * 30) + 1;
-  const f = new LevelFactory(`${i}`)
+  const width = 32;
+  const height = i === 1 ? 36 : 18;
+  const baseY = height - 18;
+  const f = new LevelFactory(`${i}`, width, height)
+    .setPlayerPos(new Vector(16, /*baseY +*/ 9))
     .addObjects([
-      new Rectangle(i, 0, i * 4 + 1, 1),
-      new Rectangle(0, 17, 32, 18),
-      new Rectangle(14, 16, 28, 18),
-      new Rectangle(24, 15, 28, 18),
-      new Rectangle(x, 2, x + 1, 3)
+      Rectangle.widthForm(i, baseY + 0, 1, 1),
+      Rectangle.widthForm(0, baseY + 17, 32, 1),
+      Rectangle.widthForm(14, baseY + 16, 14, 2),
+      Rectangle.widthForm(24, baseY + 15, 4, 3),
+      Rectangle.widthForm(x, baseY + 2, 1, 1)
     ])
     .addExits([
-      new ExitTrigger(new Rectangle(-32, 0, 0, 18), `${i - 1}`),
-      new ExitTrigger(new Rectangle(32, 0, 64, 18), `${i + 1}`)
+      new ExitTrigger(Rectangle.widthForm(-32, baseY, 32, 18), `${i - 1}`),
+      new ExitTrigger(Rectangle.widthForm(32, baseY, 32, 18), `${i + 1}`)
     ]);
   if (i === 0) {
-    f.addObjects([new Rectangle(0, 0, 1, 18)]);
+    f.addObjects([Rectangle.widthForm(0, baseY, 1, 18)]);
   } else if (i === 1) {
-    f.addInteractibles([new PuzzleInteractible(new Vector(5, 15), new Rectangle(3, 13, 7, 17))]);
+    f.addInteractibles([
+      new PuzzleInteractible(new Vector(5, baseY + 15), Rectangle.widthForm(3, baseY + 13, 4, 4))
+    ]);
+    f.addObjects([
+      Rectangle.widthForm(20, baseY + 11, 3, 1),
+      Rectangle.widthForm(16, baseY + 7, 3, 1),
+    ]);
   } else if (i === 3) {
-    f.addInteractibles([new PuzzleInteractible(new Vector(26, 13), new Rectangle(24, 11, 28, 15))]);
+    f.addInteractibles([
+      new PuzzleInteractible(new Vector(26, baseY + 13), Rectangle.widthForm(24, baseY + 11, 4, 4))
+    ]);
   } else if (i === 5) {
-    f.addObjects([new Rectangle(31, 0, 32, 18)]);
+    f.addObjects([Rectangle.widthForm(31, baseY, 18, 18)]);
   }
   return f.create();
 };

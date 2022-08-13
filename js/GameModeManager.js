@@ -19,9 +19,9 @@ export class GameModeManager {
 
   /**
    * Draw the current gamemode.
-   * @param {Canvas} canvas The canvas to draw on.
+   * @param {ScreenManager} screenManager The screenManager object.
    */
-  draw(canvas) {
-    this.currentMode.draw(canvas);
+  draw(screenManager) {
+    this.currentMode.draw(screenManager);
   }
 }

@@ -1,7 +1,10 @@
 import { Vector } from "../math/Vector.js";
 import { Player } from "./Player.js";
+import { clamp } from "../math/Common.js";
 
 // Levels should be in 32x18 scale
+const SCREEN_WIDTH = 32;
+const SCREEN_HEIGHT = 18;
 
 export class ExitTrigger {
   constructor(collider, key, nextLevelCollider) {
@@ -23,15 +26,23 @@ export class ExitTrigger {
 }
 
 export class Level {
-  constructor(key, objects, player, exitTriggers, interactibles) {
+  constructor(
+    key,
+    width,
+    height,
+    objects,
+    player,
+    exitTriggers,
+    interactibles
+  ) {
     this.key = key;
     this.objects = objects;
     this.player = player;
     this.exitTriggers = exitTriggers;
     this.interactibles = interactibles;
 
-    this.width = 32;
-    this.height = 18;
+    this.width = width;
+    this.height = height;
   }
 
   feedPlayerInfo(previousPlayer, previousExit) {
@@ -74,9 +85,10 @@ export class Level {
 
   /**
    * Draw the current level.
-   * @param {Canvas} canvas The canvas to draw on
+   * @param {ScreenManager} screenManager The screen to draw on
    */
-  draw(canvas) {
+  draw(screenManager) {
+    const canvas = screenManager.canvas;
     canvas.saveTransform();
     canvas.scale(60, 60);
 
@@ -98,14 +110,23 @@ export class Level {
     // Draw player
     this.player.draw(canvas);
     canvas.restoreTransform();
+
+    const camera = new Vector(
+      clamp(this.player.position.x - SCREEN_WIDTH / 2, 0, this.width - SCREEN_WIDTH),
+      clamp(this.player.position.y - SCREEN_HEIGHT / 2, 0, this.height - SCREEN_HEIGHT)
+    );
+
+    screenManager.setCamera(Vector.scale(camera, 60));
   }
 }
 
 export class LevelFactory {
-  constructor(key) {
+  constructor(key, width, height) {
     this.key = key;
+    this.width = width;
+    this.height = height;
     this.objects = [];
-    this.player = new Player(new Vector(16, 9));
+    this.playerPosition = new Vector(16, 9);
     this.exitTriggers = [];
     this.interactibles = [];
   }
@@ -125,11 +146,18 @@ export class LevelFactory {
     return this;
   }
 
+  setPlayerPos(pos) {
+    this.playerPosition = pos;
+    return this;
+  }
+
   create() {
     return new Level(
       this.key,
+      this.width,
+      this.height,
       this.objects,
-      this.player,
+      new Player(this.playerPosition),
       this.exitTriggers,
       this.interactibles
     );

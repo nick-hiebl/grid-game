@@ -21,9 +21,9 @@ export class PlayMode {
 
   /**
    * Draw.
-   * @param {Canvas} canvas The canvas to draw upon.
+   * @param {ScreenManager} screenManager The screenManager to draw upon.
    */
-  draw(canvas) {
-    this.currentLevel.draw(canvas);
+  draw(screenManager) {
+    this.currentLevel.draw(screenManager);
   }
 }

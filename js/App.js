@@ -28,7 +28,7 @@ class App {
     );
     // Do stuff
     this.gameModeManager.update(deltaTime, this.inputManager.getKeyState());
-    this.gameModeManager.draw(this.screenManager.canvas);
+    this.gameModeManager.draw(this.screenManager);
     this.screenManager.drawToScreen();
 
     // Loop

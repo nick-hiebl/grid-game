@@ -142,4 +142,8 @@ export class Rectangle {
   draw(canvas) {
     canvas.fillRect(this.x1, this.y1, this.width, this.height);
   }
+
+  static widthForm(x, y, width, height) {
+    return new Rectangle(x, y, x + width, y + height);
+  }
 }

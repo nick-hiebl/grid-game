@@ -92,6 +92,18 @@ export class Player {
         const collidingBy = this.collider.uncollideWithRectangle(object);
 
         this.velocity.add(collidingBy);
+        // Horizontal rebound
+        if (collidingBy.x > 0 && collidingBy.y === 0) {
+          this.velocity.x = Math.max(0, this.velocity.x);
+        } else if (collidingBy.x < 0 && collidingBy.y === 0) {
+          this.velocity.x = Math.min(0, this.velocity.x);
+        }
+        // Vertical rebound
+        if (collidingBy.y > 0 && collidingBy.x === 0) {
+          this.velocity.y = Math.max(0, this.velocity.y);
+        } else if (collidingBy.y < 0 && collidingBy.x === 0) {
+          this.velocity.y = Math.min(0, this.velocity.y);
+        }
         this.position.add(collidingBy);
       }
       return this.collider.intersectsRectangle(object);

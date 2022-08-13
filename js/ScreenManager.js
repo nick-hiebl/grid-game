@@ -17,7 +17,7 @@ class ScreenManager {
     this[REAL_CANVAS] = screenCanvas;
     // this.canvas.scale(60, 60);
 
-    this.canvas = Canvas.fromScratch(CANVAS_WIDTH, CANVAS_HEIGHT);
+    this.canvas = Canvas.fromScratch(CANVAS_WIDTH * 2, CANVAS_HEIGHT * 2);
 
     // Stores the top-left position of the camera
     this.camera = new Vector(0, 0);
