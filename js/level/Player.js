@@ -108,7 +108,7 @@ export class Player {
         this.isColliding = true;
         const collidingBy = this.collider.uncollideWithRectangle(object);
 
-        this.velocity.add(collidingBy);
+        this.velocity.add(Vector.scale(collidingBy, 1 / deltaTime));
         // Horizontal rebound
         if (collidingBy.x > 0 && collidingBy.y === 0) {
           this.velocity.x = Math.max(0, this.velocity.x);
