@@ -1,14 +1,30 @@
 import { LevelManager } from "../level/LevelManager.js";
+import { PuzzleManager } from "../puzzle-manager/PuzzleManager.js";
 
 export class PlayMode {
   constructor() {
     this.levelManager = new LevelManager();
     this.startLevel(this.levelManager.getInitialLevel());
+    this.puzzleManager = new PuzzleManager();
+
+    this.currentPuzzle = undefined;
   }
 
   startLevel(level) {
     this.currentLevel = level;
-    level.start();
+    level.start(this);
+  }
+
+  onLevelEvent(event) {
+    if (event.isExitEvent()) {
+      const exitTrigger = event.exitTrigger;
+      this.startLevel(this.levelManager.getLevel(exitTrigger.key, exitTrigger));
+    } else if (event.isOpenPuzzleEvent()) {
+      this.currentPuzzle = this.puzzleManager.getPuzzle(event.puzzleId);
+      this.currentPuzzle.open();
+    } else if (event.isClosePuzzleEvent()) {
+      this.currentPuzzle?.close();
+    }
   }
 
   /**
@@ -18,11 +34,7 @@ export class PlayMode {
    */
   update(deltaTime, inputState) {
     this.currentLevel.update(deltaTime, inputState);
-
-    const exit = this.currentLevel.shouldExit();
-    if (exit) {
-      this.startLevel(this.levelManager.getLevel(exit.key, exit));
-    }
+    this.currentPuzzle?.update(deltaTime);
   }
 
   /**
@@ -39,5 +51,6 @@ export class PlayMode {
    */
   draw(screenManager) {
     this.currentLevel.draw(screenManager);
+    this.currentPuzzle?.draw(screenManager);
   }
 }

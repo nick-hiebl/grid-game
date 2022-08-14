@@ -2,30 +2,12 @@ import { Input } from "../constants/Keys.js";
 import { InputState } from "../InputManager.js";
 import { clamp } from "../math/Common.js";
 import { Vector } from "../math/Vector.js";
+import { ClosePuzzleEvent, ExitEvent, OpenPuzzleEvent } from "./LevelEvent.js";
 import { Player } from "./Player.js";
 
 // Levels should be in 32x18 scale
 const SCREEN_WIDTH = 32;
 const SCREEN_HEIGHT = 18;
-
-export class ExitTrigger {
-  constructor(collider, key, nextLevelCollider) {
-    this.collider = collider;
-    this.key = key;
-    this.nextLevelCollider = nextLevelCollider || collider;
-  }
-
-  hasEntered(player) {
-    return this.collider.intersectsPoint(player.position);
-  }
-
-  translatePlayerToNext(player) {
-    return Vector.diff(
-      player.position,
-      new Vector(this.nextLevelCollider.x1, this.nextLevelCollider.y1)
-    );
-  }
-}
 
 export class Level {
   constructor(
@@ -50,11 +32,22 @@ export class Level {
     this.interactingWith = undefined;
 
     this.drawnStatic = false;
+
+    this.playModeManager = undefined;
   }
 
-  start() {
+  start(playModeManager) {
     this.drawnStatic = false;
     this.interactingWith = undefined;
+    this.playModeManager = playModeManager;
+  }
+
+  emitEvent(event) {
+    // TODO: Either guarantee that this is available or create a queue to send
+    // these events once it does become available.
+    if (this.playModeManager) {
+      this.playModeManager.onLevelEvent(event);
+    }
   }
 
   feedPlayerInfo(previousPlayer, previousExit) {
@@ -77,27 +70,36 @@ export class Level {
    * @param {InputState} inputState The current state of inputs.
    */
   update(deltaTime, inputState) {
+    // Update player
     this.player.update(
       deltaTime,
       this.isPlayerActive() ? inputState : InputState.empty(),
       this
     );
+
+    // Update interactibles
     this.interactibles.forEach(interactible => {
       interactible.update(this.player.position, deltaTime);
     });
     if (!this.interactingWith?.isTriggered) {
+      this.closeCurrentPuzzle();
       this.interactingWith = undefined;
     }
 
-    this.camera = Vector.lerp(
-      this.camera,
-      this.getIdealCamera(),
-      Math.min(1, deltaTime * 10)
-    );
+    this.updateCamera(deltaTime);
+
+    this.updateExits();
   }
 
   isPlayerActive() {
     return !this.interactingWith;
+  }
+
+  closeCurrentPuzzle() {
+    // Don't close unnecessarily
+    if (this.interactingWith) {
+      this.emitEvent(new ClosePuzzleEvent(this.interactingWith.id));
+    }
   }
 
   /**
@@ -108,10 +110,15 @@ export class Level {
     if (this.isPlayerActive()) {
       this.player.onInput(input);
     }
-    // Do something?
+
     if (input.input === Input.Interact) {
       this.interactingWith = this.interactibles.find(i => i.isTriggered);
+      if (this.interactingWith) {
+        this.emitEvent(new OpenPuzzleEvent(this.interactingWith.id));
+      }
     } else if (input.input === Input.Escape) {
+      this.closeCurrentPuzzle();
+
       this.interactingWith = undefined;
     }
   }
@@ -120,13 +127,13 @@ export class Level {
    * Check if the player should exit.
    * @returns The trigger key.
    */
-  shouldExit() {
+  updateExits() {
     const triggeredExit = this.exitTriggers.find(trigger =>
       trigger.hasEntered(this.player)
     );
 
     if (triggeredExit) {
-      return triggeredExit;
+      this.emitEvent(new ExitEvent(triggeredExit));
     }
   }
 
@@ -142,6 +149,14 @@ export class Level {
         0,
         this.height - SCREEN_HEIGHT
       )
+    );
+  }
+
+  updateCamera(deltaTime) {
+    this.camera = Vector.lerp(
+      this.camera,
+      this.getIdealCamera(),
+      Math.min(1, deltaTime * 10)
     );
   }
 
@@ -188,8 +203,8 @@ export class Level {
     this.withSetupCanvas(screenManager.uiCanvas, canvas => {
       canvas.clear();
 
-      if (this.isPlayerActive()) {
-        canvas.setColor("red");
+      if (!this.isPlayerActive()) {
+        canvas.setColor("white");
         canvas.fillEllipse(0.4, 0.4, 0.2, 0.2);
       }
     });

@@ -88,6 +88,15 @@ export class Canvas {
   }
 
   /**
+   * Translate the canvas.
+   * @param {number} xOffset
+   * @param {number} yOffset
+   */
+  translate(xOffset, yOffset) {
+    this[CTX].translate(xOffset, yOffset);
+  }
+
+  /**
    * Set the colour to be used for drawing on the canvas.
    * @param {string} colorString The name of the color to be used
    */

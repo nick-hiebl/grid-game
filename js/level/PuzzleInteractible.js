@@ -6,7 +6,8 @@ export class PuzzleInteractible {
    * @param {Vector} position The position of the visual element
    * @param {Shape} area The area in which the puzzle is active
    */
-  constructor(position, area) {
+  constructor(id, position, area) {
+    this.id = id;
     this.position = position;
     this.area = area;
     this.isTriggered = false;
