@@ -91,13 +91,11 @@ export class Player {
       PLAYER_MAX_SPEED
     );
 
-    const step = Vector.add(
-      Vector.scale(this.velocity, deltaTime),
-      Vector.scale(acceleration, deltaTime * deltaTime)
-    );
+    const step = Vector.scale(this.velocity, deltaTime);
 
     step.x = clamp(step.x, -PLAYER_RADIUS, PLAYER_RADIUS);
     step.y = clamp(step.y, -PLAYER_RADIUS, PLAYER_RADIUS);
+
 
     this.position.add(step);
 

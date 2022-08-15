@@ -1,7 +1,10 @@
 import { clamp } from "../math/Common.js";
+import { Vector } from "../math/Vector.js";
 
 const OPEN_DURATION = 0.4;
 const CLOSE_DURATION = 0.25;
+
+const PUZZLE_WINDOW_WIDTH = 960;
 
 export class Puzzle {
   constructor(id) {
@@ -28,23 +31,38 @@ export class Puzzle {
    * @param {ScreenManager} screenManager The screenManager to draw upon.
    */
   draw(screenManager) {
+    const canvas = screenManager.uiCanvas;
+
+    canvas.clear();
+
     if (this.openCloseStatus === 0) {
       return;
     }
 
-    const canvas = screenManager.uiCanvas;
     const t = this.openCloseStatus;
     // Cubic with f(0) = 0, f(1) = 1, f'(1) = 0
     // Feel free to replace this with any other function moving those
     // parameters.
     const pos = Math.pow(t - 1, 3) + 1;
 
-    canvas.translate(0, canvas.height * (1 - pos));
+    canvas.saveTransform();
+
+    const slideInOffset = new Vector(0, canvas.height * (1 - pos));
+    const puzzleScreenOffset = new Vector((canvas.width - PUZZLE_WINDOW_WIDTH) / 2, (canvas.height - PUZZLE_WINDOW_WIDTH) / 2);
+    const offset = Vector.add(slideInOffset, puzzleScreenOffset);
+
+    canvas.translate(offset.x, offset.y);
 
     canvas.setColorRGB(0, 150, 255, 200);
-    canvas.fillRect(100, 100, 500, 300);
+    canvas.fillRect(0, 0, PUZZLE_WINDOW_WIDTH, PUZZLE_WINDOW_WIDTH);
 
-    canvas.translate(0, -canvas.height * (1 - pos));
+    canvas.setColorRGB(255, 255, 255, 100);
+    canvas.setLineWidth(6);
+    const LW = 3;
+    canvas.strokeRect(0 + LW, 0 + LW, PUZZLE_WINDOW_WIDTH - LW * 2, PUZZLE_WINDOW_WIDTH - LW * 2);
+
+    // canvas.translate(0, -canvas.height * (1 - pos));
+    canvas.restoreTransform();
   }
 
   update(deltaTime) {

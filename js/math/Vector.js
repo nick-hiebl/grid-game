@@ -27,7 +27,7 @@ export class Vector {
   }
 
   static add(a, b) {
-    return new Vector(a.x + b.x, a.y - b.y);
+    return new Vector(a.x + b.x, a.y + b.y);
   }
 
   static diff(a, b) {

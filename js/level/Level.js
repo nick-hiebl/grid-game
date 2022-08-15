@@ -200,15 +200,6 @@ export class Level {
       this.player.draw(canvas);
     });
 
-    this.withSetupCanvas(screenManager.uiCanvas, canvas => {
-      canvas.clear();
-
-      if (!this.isPlayerActive()) {
-        canvas.setColor("white");
-        canvas.fillEllipse(0.4, 0.4, 0.2, 0.2);
-      }
-    });
-
     screenManager.setCamera(Vector.scale(this.camera, 60));
   }
 }
