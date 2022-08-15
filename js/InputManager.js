@@ -1,4 +1,5 @@
 import { Input } from "./constants/Keys.js";
+import { Vector } from "./math/Vector.js";
 
 const KEY_MAP = {
   " ": Input.Jump,
@@ -14,8 +15,9 @@ const KEY_MAP = {
 };
 
 export class InputState {
-  constructor(keyMap) {
+  constructor(keyMap, mousePosition) {
     this.keyMap = keyMap;
+    this.mousePosition = mousePosition;
   }
 
   /**
@@ -45,9 +47,36 @@ export class InputEvent {
    * @param {Input} input This identifies the kind of input received
    * @param {Vector?} position The position (for mouse events only)
    */
-  constructor(input, position) {
+  constructor() {}
+
+  isForKey() {
+    return false;
+  }
+
+  isClick() {
+    return false;
+  }
+}
+
+export class KeyPressEvent extends InputEvent {
+  constructor(input) {
+    super();
     this.input = input;
+  }
+
+  isForKey(key) {
+    return key === this.input;
+  }
+}
+
+export class ClickEvent extends InputEvent {
+  constructor(position) {
+    super();
     this.position = position;
+  }
+
+  isClick() {
+    return true;
   }
 }
 
@@ -56,6 +85,9 @@ export class InputManager {
     this.isMouseDown = false;
     this.isButtonDown = {};
     this.listener = listener;
+    this.mousePosition = new Vector(0, 0);
+
+    this.canvas = document.getElementById("canvas");
   }
 
   /**
@@ -73,7 +105,7 @@ export class InputManager {
 
       this.isButtonDown[symbol] = true;
       if (this.listener) {
-        this.listener(new InputEvent(symbol));
+        this.listener(new KeyPressEvent(symbol));
       }
     });
 
@@ -85,12 +117,34 @@ export class InputManager {
 
       this.isButtonDown[symbol] = false;
     });
+
+    document.addEventListener("mousemove", event => {
+      this.mousePosition = this.toCanvasPosition(event);
+    });
+
+    document.addEventListener("click", event => {
+      this.mousePosition = this.toCanvasPosition(event);
+
+      if (this.listener) {
+        this.listener(new ClickEvent(this.mousePosition));
+      }
+    });
+  }
+
+  toCanvasPosition(event) {
+    return Vector.scale(
+      new Vector(
+        event.clientX - this.canvas.offsetLeft,
+        event.clientY - this.canvas.offsetTop
+      ),
+      this.canvas.width / this.canvas.clientWidth
+    );
   }
 
   /**
    * @return {InputState} The current state of inputs
    */
   getInputState() {
-    return new InputState(this.isButtonDown);
+    return new InputState(this.isButtonDown, this.mousePosition);
   }
 }

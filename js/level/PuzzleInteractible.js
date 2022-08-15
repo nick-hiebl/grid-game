@@ -27,7 +27,6 @@ export class PuzzleInteractible {
    * @param {Canvas} canvas The canvas to draw on.
    */
   draw(canvas) {
-    
     // Draw area boundary
     if (false) {
       canvas.setColorRGB(255, 255, 255);
@@ -44,7 +43,12 @@ export class PuzzleInteractible {
     const SCREEN_W = 1;
 
     canvas.setColorRGB(0, 0, 0);
-    canvas.fillRect(this.position.x - SCREEN_W / 2, this.position.y, SCREEN_W, 2);
+    canvas.fillRect(
+      this.position.x - SCREEN_W / 2,
+      this.position.y,
+      SCREEN_W,
+      2
+    );
 
     // Draw outline
     if (this.isTriggered) {
@@ -59,6 +63,19 @@ export class PuzzleInteractible {
 
     // Draw screen
     canvas.setColorRGB(0, 0, 0);
-    canvas.fillRect(this.position.x - SCREEN_W, this.position.y - SCREEN_W, SCREEN_W * 2, SCREEN_W * 2);
+    canvas.fillRect(
+      this.position.x - SCREEN_W,
+      this.position.y - SCREEN_W,
+      SCREEN_W * 2,
+      SCREEN_W * 2
+    );
+
+    canvas.setColorRGB(0, 150, 255);
+    canvas.fillRect(
+      this.position.x - SCREEN_W * 0.9,
+      this.position.y - SCREEN_W * 0.9,
+      SCREEN_W * 1.8,
+      SCREEN_W * 1.8
+    );
   }
 }

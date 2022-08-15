@@ -34,7 +34,7 @@ export class PlayMode {
    */
   update(deltaTime, inputState) {
     this.currentLevel.update(deltaTime, inputState);
-    this.currentPuzzle?.update(deltaTime);
+    this.currentPuzzle?.update(deltaTime, inputState);
   }
 
   /**
@@ -43,6 +43,7 @@ export class PlayMode {
    */
   onInput(input) {
     this.currentLevel.onInput(input);
+    this.currentPuzzle?.onInput(input);
   }
 
   /**

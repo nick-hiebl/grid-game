@@ -42,7 +42,7 @@ export class Player {
    * @param {InputEvent} input The input event to be processed
    */
   onInput(input) {
-    if (input.input === Input.Jump) {
+    if (input.isForKey(Input.Jump)) {
       this.wantsToJump = true;
     }
   }

@@ -122,6 +122,10 @@ export class Rectangle {
     return this.y2 - this.y1;
   }
 
+  get midpoint() {
+    return new Vector((this.x1 + this.x2) / 2, (this.y1 + this.y2) / 2);
+  }
+
   /**
    * Check if another rectangle intersects with this rectangle.
    * @param {Rectangle} otherRectangle The rectangle to check intersection with
