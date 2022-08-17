@@ -12,6 +12,8 @@ export class Canvas {
     this[CANVAS] = canvas;
     const ctx = canvas.getContext("2d");
 
+    ctx.imageSmoothingEnabled = false;
+
     if (!ctx) {
       throw Error("Unable to get 2d context");
     }

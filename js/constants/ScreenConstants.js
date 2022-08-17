@@ -1,5 +1,5 @@
-export const CANVAS_WIDTH = 960;
-export const CANVAS_HEIGHT = 540;
+export const CANVAS_WIDTH = 320;
+export const CANVAS_HEIGHT = 180;
 
 export const HORIZONTAL_TILES = 32;
 export const VERTICAL_TILES = 18;

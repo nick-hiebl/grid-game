@@ -7,8 +7,8 @@ const REAL_CANVAS = Symbol("real-canvas");
 
 function getRawCanvas() {
   const rawCanvas = document.getElementById("canvas");
-  rawCanvas.setAttribute("width", CANVAS_WIDTH);
-  rawCanvas.setAttribute("height", CANVAS_HEIGHT);
+  rawCanvas.setAttribute("width", 4 * CANVAS_WIDTH);
+  rawCanvas.setAttribute("height", 4 * CANVAS_HEIGHT);
   return rawCanvas;
 }
 
@@ -43,8 +43,8 @@ class ScreenManager {
       CANVAS_HEIGHT,
       0,
       0,
-      CANVAS_WIDTH,
-      CANVAS_HEIGHT
+      this[REAL_CANVAS].width,
+      this[REAL_CANVAS].height
     );
     this[REAL_CANVAS].drawImageFromCanvas(
       this.dynamicWorldCanvas,
@@ -54,8 +54,8 @@ class ScreenManager {
       CANVAS_HEIGHT,
       0,
       0,
-      CANVAS_WIDTH,
-      CANVAS_HEIGHT
+      this[REAL_CANVAS].width,
+      this[REAL_CANVAS].height
     );
     this[REAL_CANVAS].drawImageFromCanvas(
       this.uiCanvas,
@@ -65,8 +65,8 @@ class ScreenManager {
       CANVAS_HEIGHT,
       0,
       0,
-      CANVAS_WIDTH,
-      CANVAS_HEIGHT
+      this[REAL_CANVAS].width,
+      this[REAL_CANVAS].height
     );
   }
 }

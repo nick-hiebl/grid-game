@@ -1,4 +1,4 @@
-import { CANVAS_HEIGHT, PIXEL_WIDTH } from "../constants/ScreenConstants.js";
+import { CANVAS_HEIGHT, CANVAS_WIDTH, PIXEL_WIDTH } from "../constants/ScreenConstants.js";
 import { clamp } from "../math/Common.js";
 import { Rectangle } from "../math/Shapes.js";
 import { Vector } from "../math/Vector.js";
@@ -7,7 +7,6 @@ const OPEN_DURATION = 0.4;
 const CLOSE_DURATION = 0.25;
 
 const PUZZLE_WINDOW_WIDTH = 8 / 9 * CANVAS_HEIGHT;
-const PADDING = 10 * PIXEL_WIDTH;
 
 const PARTIAL_RADIUS = 0.4;
 
@@ -21,6 +20,7 @@ export class Puzzle {
 
     this.state = [];
     this.elements = [];
+    const PADDING = 2 * PIXEL_WIDTH * (this.cols + 1);
     for (let row = 0; row < this.rows; row++) {
       const currentRow = [];
 
@@ -62,10 +62,10 @@ export class Puzzle {
     // parameters.
     const pos = Math.pow(1 - this.openCloseStatus, 2);
 
-    const slideInOffset = new Vector(0, canvas.height * pos);
+    const slideInOffset = new Vector(0, CANVAS_HEIGHT * pos);
     const puzzleScreenOffset = new Vector(
-      (canvas.width - PUZZLE_WINDOW_WIDTH) / 2,
-      (canvas.height - PUZZLE_WINDOW_WIDTH) / 2
+      (CANVAS_WIDTH - PUZZLE_WINDOW_WIDTH) / 2,
+      (CANVAS_HEIGHT - PUZZLE_WINDOW_WIDTH) / 2
     );
     return Vector.add(slideInOffset, puzzleScreenOffset);
   }
