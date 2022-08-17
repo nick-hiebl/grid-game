@@ -5,7 +5,7 @@ export class PlayMode {
   constructor() {
     this.levelManager = new LevelManager();
     this.startLevel(this.levelManager.getInitialLevel());
-    this.puzzleManager = new PuzzleManager();
+    this.puzzleManager = PuzzleManager;
 
     this.currentPuzzle = undefined;
   }

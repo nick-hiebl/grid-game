@@ -1,4 +1,8 @@
-import { CANVAS_HEIGHT, CANVAS_WIDTH, PIXEL_WIDTH } from "../constants/ScreenConstants.js";
+import {
+  CANVAS_HEIGHT,
+  CANVAS_WIDTH,
+  PIXEL_WIDTH,
+} from "../constants/ScreenConstants.js";
 import { clamp } from "../math/Common.js";
 import { Rectangle } from "../math/Shapes.js";
 import { Vector } from "../math/Vector.js";
@@ -6,7 +10,7 @@ import { Vector } from "../math/Vector.js";
 const OPEN_DURATION = 0.4;
 const CLOSE_DURATION = 0.25;
 
-const PUZZLE_WINDOW_WIDTH = 8 / 9 * CANVAS_HEIGHT;
+const PUZZLE_WINDOW_WIDTH = (8 / 9) * CANVAS_HEIGHT;
 
 const PARTIAL_RADIUS = 0.4;
 
@@ -20,7 +24,23 @@ export class Puzzle {
 
     this.state = [];
     this.elements = [];
-    const PADDING = 2 * PIXEL_WIDTH * (this.cols + 1);
+
+    const PAD = 2 * PIXEL_WIDTH;
+
+    const CELL_WIDTH = Math.floor(
+      (PUZZLE_WINDOW_WIDTH - PAD * (this.cols + 1)) / this.cols
+    );
+    const CELL_HEIGHT = Math.floor(
+      (PUZZLE_WINDOW_WIDTH - PAD * (this.rows + 1)) / this.rows
+    );
+    const LEFT_PAD =
+      Math.ceil(
+        (PUZZLE_WINDOW_WIDTH - (CELL_WIDTH + PAD) * this.cols + PAD) / PAD / 2
+      ) * PAD;
+    const TOP_PAD =
+      Math.ceil(
+        (PUZZLE_WINDOW_WIDTH - (CELL_HEIGHT + PAD) * this.rows + PAD) / PAD / 2
+      ) * PAD;
     for (let row = 0; row < this.rows; row++) {
       const currentRow = [];
 
@@ -30,12 +50,12 @@ export class Puzzle {
           row,
           col,
           shape: Rectangle.widthForm(
-            col * ((PUZZLE_WINDOW_WIDTH - PADDING) / this.cols + PADDING / (this.cols + 1)) + PADDING / (this.cols + 1),
-            row * ((PUZZLE_WINDOW_WIDTH - PADDING) / this.rows + PADDING / (this.rows + 1)) + PADDING / (this.rows + 1),
-            (PUZZLE_WINDOW_WIDTH - PADDING) / this.cols,
-            (PUZZLE_WINDOW_WIDTH - PADDING) / this.rows
+            col * (CELL_WIDTH + PAD) + LEFT_PAD,
+            row * (CELL_HEIGHT + PAD) + TOP_PAD,
+            CELL_WIDTH,
+            CELL_HEIGHT
           ),
-          isHovered: false
+          isHovered: false,
         });
       }
 
@@ -119,11 +139,22 @@ export class Puzzle {
       const mid = element.shape.midpoint;
       if (cellState) {
         canvas.setColor("white");
-        canvas.fillEllipse(mid.x, mid.y, element.shape.width * PARTIAL_RADIUS, element.shape.width * PARTIAL_RADIUS);
-      } else if (cellState === false) { // Might be null, so need exact check
+        canvas.fillEllipse(
+          mid.x,
+          mid.y,
+          element.shape.width * PARTIAL_RADIUS,
+          element.shape.width * PARTIAL_RADIUS
+        );
+      } else if (cellState === false) {
+        // Might be null, so need exact check
         canvas.setColor("#ffffff64");
         canvas.setLineDash([PIXEL_WIDTH * 2, PIXEL_WIDTH * 2]);
-        canvas.strokeEllipse(mid.x, mid.y, element.shape.width * PARTIAL_RADIUS, element.shape.width * PARTIAL_RADIUS);
+        canvas.strokeEllipse(
+          mid.x,
+          mid.y,
+          element.shape.width * PARTIAL_RADIUS,
+          element.shape.width * PARTIAL_RADIUS
+        );
       }
     }
 

@@ -1,6 +1,6 @@
 import { Puzzle } from "./Puzzle.js";
 
-export class PuzzleManager {
+class PuzzleManagerInstance {
   constructor() {
     this.puzzleMap = {};
   }
@@ -16,3 +16,5 @@ export class PuzzleManager {
     return puzzle;
   }
 }
+
+export const PuzzleManager = new PuzzleManagerInstance();

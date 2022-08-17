@@ -1,4 +1,5 @@
 import { Vector } from "../math/Vector.js";
+import { PuzzleManager } from "../puzzle-manager/PuzzleManager.js";
 
 export class PuzzleInteractible {
   /**
@@ -11,6 +12,7 @@ export class PuzzleInteractible {
     this.position = position;
     this.area = area;
     this.isTriggered = false;
+    this.puzzle = PuzzleManager.getPuzzle(this.id);
   }
 
   /**
@@ -54,15 +56,23 @@ export class PuzzleInteractible {
     if (this.isTriggered) {
       canvas.setColorRGB(255, 255, 255, 128);
       canvas.fillRect(
-        this.position.x - SCREEN_W - 0.1,
-        this.position.y - SCREEN_W - 0.1,
-        SCREEN_W * 2 + 0.2,
-        SCREEN_W * 2 + 0.2
+        this.position.x - SCREEN_W - 0.2,
+        this.position.y - SCREEN_W - 0.2,
+        SCREEN_W * 2 + 0.4,
+        SCREEN_W * 2 + 0.4
       );
     }
 
     // Draw screen
     canvas.setColorRGB(0, 0, 0);
+    canvas.fillRect(
+      this.position.x - SCREEN_W - 0.1,
+      this.position.y - SCREEN_W - 0.1,
+      SCREEN_W * 2 + 0.2,
+      SCREEN_W * 2 + 0.2
+    );
+
+    canvas.setColorRGB(0, 150, 255);
     canvas.fillRect(
       this.position.x - SCREEN_W,
       this.position.y - SCREEN_W,
@@ -70,12 +80,20 @@ export class PuzzleInteractible {
       SCREEN_W * 2
     );
 
-    canvas.setColorRGB(0, 150, 255);
-    canvas.fillRect(
-      this.position.x - SCREEN_W * 0.9,
-      this.position.y - SCREEN_W * 0.9,
-      SCREEN_W * 1.8,
-      SCREEN_W * 1.8
-    );
+    const offset = new Vector(this.position.x - SCREEN_W, this.position.y - SCREEN_W);
+
+    canvas.translate(offset.x, offset.y);
+
+    const rows = this.puzzle.state;
+    for (let row = 0; row < rows.length; row++) {
+      for (let col = 0; col < rows[row].length; col++) {
+        canvas.setColor("white");
+        if (rows[row][col]) {
+          canvas.fillRect(0.1 + col * (SCREEN_W * 2 - 0.2) / rows[row].length, 0.1 + row * (SCREEN_W * 2 - 0.2) / rows.length, 0.2, 0.2);
+        }
+      }
+    }
+
+    canvas.translate(-offset.x, -offset.y);
   }
 }
