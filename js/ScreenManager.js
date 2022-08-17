@@ -1,4 +1,4 @@
-import { CANVAS_HEIGHT, CANVAS_WIDTH } from "./constants/ScreenConstants.js";
+import { CANVAS_HEIGHT, CANVAS_WIDTH, UI_CANVAS_HEIGHT, UI_CANVAS_WIDTH } from "./constants/ScreenConstants.js";
 import { Vector } from "./math/Vector.js";
 
 import { Canvas } from "./Canvas.js";
@@ -7,8 +7,8 @@ const REAL_CANVAS = Symbol("real-canvas");
 
 function getRawCanvas() {
   const rawCanvas = document.getElementById("canvas");
-  rawCanvas.setAttribute("width", 4 * CANVAS_WIDTH);
-  rawCanvas.setAttribute("height", 4 * CANVAS_HEIGHT);
+  rawCanvas.setAttribute("width", UI_CANVAS_WIDTH);
+  rawCanvas.setAttribute("height", UI_CANVAS_HEIGHT);
   return rawCanvas;
 }
 
