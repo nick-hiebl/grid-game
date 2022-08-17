@@ -1,8 +1,21 @@
 import { Puzzle } from "./Puzzle.js";
+import { PuzzleValidatorFactory } from "./PuzzleValidation.js";
 
 class PuzzleManagerInstance {
   constructor() {
     this.puzzleMap = {};
+  }
+
+  loadPuzzle(id) {
+    const factory = new PuzzleValidatorFactory()
+
+    if (id === "1") {
+      factory.addColumnCounts([null, 2, null, null]);
+    } else if (id === "3") {
+      factory.addRowCounts([4, null, null, null]);
+    }
+
+    return new Puzzle(id, 4, 4, factory.create());
   }
 
   getPuzzle(id) {
@@ -10,7 +23,7 @@ class PuzzleManagerInstance {
       return this.puzzleMap[id];
     }
 
-    const puzzle = new Puzzle(id);
+    const puzzle = this.loadPuzzle(id);
     this.puzzleMap[id] = puzzle;
 
     return puzzle;

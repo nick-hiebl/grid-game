@@ -15,36 +15,40 @@ const PUZZLE_WINDOW_WIDTH = (8 / 9) * CANVAS_HEIGHT;
 const PARTIAL_RADIUS = 0.4;
 
 export class Puzzle {
-  constructor(id) {
+  constructor(id, rows, columns, validator) {
     this.id = id;
     this.openCloseStatus = 0;
     this.isOpen = false;
-    this.rows = 5;
-    this.cols = 5;
+    this.rows = rows;
+    this.cols = columns;
 
     this.state = [];
     this.elements = [];
 
+    this.validator = validator;
+    this.isSolved = false;
+    this.hasBeenSolvedEver = false;
+
     const PAD = 2 * PIXEL_WIDTH;
 
     const CELL_WIDTH = Math.floor(
-      (PUZZLE_WINDOW_WIDTH - PAD * (this.cols + 1)) / this.cols
+      (PUZZLE_WINDOW_WIDTH - PAD * (columns + 1)) / columns
     );
     const CELL_HEIGHT = Math.floor(
-      (PUZZLE_WINDOW_WIDTH - PAD * (this.rows + 1)) / this.rows
+      (PUZZLE_WINDOW_WIDTH - PAD * (rows + 1)) / rows
     );
     const LEFT_PAD =
       Math.ceil(
-        (PUZZLE_WINDOW_WIDTH - (CELL_WIDTH + PAD) * this.cols + PAD) / PAD / 2
+        (PUZZLE_WINDOW_WIDTH - (CELL_WIDTH + PAD) * columns + PAD) / PAD / 2
       ) * PAD;
     const TOP_PAD =
       Math.ceil(
-        (PUZZLE_WINDOW_WIDTH - (CELL_HEIGHT + PAD) * this.rows + PAD) / PAD / 2
+        (PUZZLE_WINDOW_WIDTH - (CELL_HEIGHT + PAD) * rows + PAD) / PAD / 2
       ) * PAD;
-    for (let row = 0; row < this.rows; row++) {
+    for (let row = 0; row < rows; row++) {
       const currentRow = [];
 
-      for (let col = 0; col < this.cols; col++) {
+      for (let col = 0; col < columns; col++) {
         currentRow.push(null);
         this.elements.push({
           row,
@@ -158,6 +162,16 @@ export class Puzzle {
       }
     }
 
+    if (this.isSolved) {
+      canvas.setColor("green");
+      canvas.fillEllipse(PUZZLE_WINDOW_WIDTH, 0, PIXEL_WIDTH * 8, PIXEL_WIDTH * 8);
+    }
+
+    if (this.hasBeenSolvedEver) {
+      canvas.setColor("orange");
+      canvas.fillEllipse(PUZZLE_WINDOW_WIDTH, PUZZLE_WINDOW_WIDTH, PIXEL_WIDTH * 8, PIXEL_WIDTH * 8);
+    }
+
     canvas.translate(-offset.x, -offset.y);
   }
 
@@ -179,7 +193,15 @@ export class Puzzle {
     }
   }
 
+  onStateChange() {
+    this.isSolved = this.validator.isValid(this.state);
+    if (this.isSolved) {
+      this.hasBeenSolvedEver = true;
+    }
+  }
+
   onInput(input) {
+    let anyChange = false;
     if (input.isClick()) {
       const clickPosition = Vector.diff(input.position, this.uiPosition());
       for (const element of this.elements) {
@@ -187,6 +209,8 @@ export class Puzzle {
 
         if (element.isHovered) {
           const currentState = this.state[element.row][element.col];
+
+          anyChange = true;
 
           let nextState = null;
           if (input.isRightClick()) {
@@ -209,6 +233,10 @@ export class Puzzle {
           this.state[element.row][element.col] = nextState;
         }
       }
+    }
+
+    if (anyChange) {
+      this.onStateChange();
     }
   }
 }
