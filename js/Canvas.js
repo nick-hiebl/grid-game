@@ -65,6 +65,19 @@ export class Canvas {
   }
 
   /**
+   * Outline an ellipse on the canvas.
+   * @param {number} x The horizontal position of the ellipse center.
+   * @param {number} y The vertical position of the ellipse center.
+   * @param {number} width The horizontal radius of the ellipse.
+   * @param {number} height The vertical radius of the ellipse.
+   */
+   strokeEllipse(x, y, width, height) {
+    this[CTX].beginPath();
+    this[CTX].ellipse(x, y, width, height, 0, 0, 2 * Math.PI);
+    this[CTX].stroke();
+  }
+
+  /**
    * Draw a line on the canvas.
    * @param {number} x0 The start x position
    * @param {number} y0 The start y position

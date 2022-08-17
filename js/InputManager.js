@@ -70,13 +70,18 @@ export class KeyPressEvent extends InputEvent {
 }
 
 export class ClickEvent extends InputEvent {
-  constructor(position) {
+  constructor(position, isRightClick) {
     super();
     this.position = position;
+    this.isRight = isRightClick;
   }
 
   isClick() {
     return true;
+  }
+
+  isRightClick() {
+    return this.isRight;
   }
 }
 
@@ -126,7 +131,16 @@ export class InputManager {
       this.mousePosition = this.toCanvasPosition(event);
 
       if (this.listener) {
-        this.listener(new ClickEvent(this.mousePosition));
+        this.listener(new ClickEvent(this.mousePosition, false));
+      }
+    });
+
+    document.addEventListener("contextmenu", event => {
+      event.preventDefault();
+      this.mousePosition = this.toCanvasPosition(event);
+
+      if (this.listener) {
+        this.listener(new ClickEvent(this.mousePosition, true));
       }
     });
   }

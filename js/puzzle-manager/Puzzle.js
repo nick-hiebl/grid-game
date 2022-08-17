@@ -6,23 +6,37 @@ const OPEN_DURATION = 0.4;
 const CLOSE_DURATION = 0.25;
 
 const PUZZLE_WINDOW_WIDTH = 960;
+const PADDING = 100;
 
 export class Puzzle {
   constructor(id) {
     this.id = id;
     this.openCloseStatus = 0;
     this.isOpen = false;
+    this.rows = 5;
+    this.cols = 5;
 
+    this.state = [];
     this.elements = [];
-    for (let i = 0; i < 9; i++) {
-      const x = i % 3;
-      const y = Math.floor(i / 3);
+    for (let row = 0; row < this.rows; row++) {
+      const currentRow = [];
 
-      this.elements.push({
-        shape: Rectangle.widthForm(x * 315 + 15, y * 315 + 15, 300, 300),
-        isEnabled: false,
-        isHovered: false
-      });
+      for (let col = 0; col < this.cols; col++) {
+        currentRow.push(null);
+        this.elements.push({
+          row,
+          col,
+          shape: Rectangle.widthForm(
+            col * ((PUZZLE_WINDOW_WIDTH - PADDING) / this.cols + PADDING / (this.cols + 1)) + PADDING / (this.cols + 1),
+            row * ((PUZZLE_WINDOW_WIDTH - PADDING) / this.rows + PADDING / (this.rows + 1)) + PADDING / (this.rows + 1),
+            (PUZZLE_WINDOW_WIDTH - PADDING) / this.cols,
+            (PUZZLE_WINDOW_WIDTH - PADDING) / this.rows
+          ),
+          isHovered: false
+        });
+      }
+
+      this.state.push(currentRow);
     }
   }
 
@@ -90,6 +104,7 @@ export class Puzzle {
       } else {
         canvas.setColorRGB(255, 255, 255, 100);
       }
+      canvas.setLineDash([]);
       canvas.strokeRect(
         element.shape.x1 + LW,
         element.shape.y1 + LW,
@@ -97,9 +112,15 @@ export class Puzzle {
         element.shape.height - LW * 2
       );
 
-      if (element.isEnabled) {
-        const mid = element.shape.midpoint;
-        canvas.fillEllipse(mid.x, mid.y, 120, 120);
+      const cellState = this.state[element.row][element.col];
+      const mid = element.shape.midpoint;
+      if (cellState) {
+        canvas.setColorRGB(255, 255, 255, 255);
+        canvas.fillEllipse(mid.x, mid.y, element.shape.width * 0.4, element.shape.width * 0.4);
+      } else if (cellState === false) { // Might be null, so need exact check
+        canvas.setColorRGB(255, 255, 255, 100);
+        canvas.setLineDash([12, 12]);
+        canvas.strokeEllipse(mid.x, mid.y, element.shape.width * 0.4, element.shape.width * 0.4);
       }
     }
 
@@ -131,7 +152,27 @@ export class Puzzle {
         element.isHovered = element.shape.intersectsPoint(clickPosition);
 
         if (element.isHovered) {
-          element.isEnabled = !element.isEnabled;
+          const currentState = this.state[element.row][element.col];
+
+          let nextState = null;
+          if (input.isRightClick()) {
+            // Right click
+            // Exact checking bool as currentState is bool or null
+            if (currentState === false) {
+              nextState = null;
+            } else {
+              nextState = false;
+            }
+          } else {
+            // Left click
+            // Exact checking bool as currentState is bool or null
+            if (currentState === true) {
+              nextState = null;
+            } else {
+              nextState = true;
+            }
+          }
+          this.state[element.row][element.col] = nextState;
         }
       }
     }
