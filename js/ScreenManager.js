@@ -1,21 +1,26 @@
-import { Canvas } from "./Canvas.js";
+import { CANVAS_HEIGHT, CANVAS_WIDTH } from "./constants/ScreenConstants.js";
 import { Vector } from "./math/Vector.js";
+
+import { Canvas } from "./Canvas.js";
 
 const REAL_CANVAS = Symbol("real-canvas");
 
-const CANVAS_WIDTH = 1920;
-const CANVAS_HEIGHT = 1080;
+function getRawCanvas() {
+  const rawCanvas = document.getElementById("canvas");
+  rawCanvas.setAttribute("width", CANVAS_WIDTH);
+  rawCanvas.setAttribute("height", CANVAS_HEIGHT);
+  return rawCanvas;
+}
 
 class ScreenManager {
   constructor() {
-    const screenCanvas = Canvas.fromId("canvas");
+    const screenCanvas = new Canvas(getRawCanvas());
 
     if (!(screenCanvas instanceof Canvas)) {
       throw Error("No canvas found!");
     }
 
     this[REAL_CANVAS] = screenCanvas;
-    // this.canvas.scale(60, 60);
 
     this.staticWorldCanvas = Canvas.fromScratch(CANVAS_WIDTH * 2, CANVAS_HEIGHT * 2);
     this.dynamicWorldCanvas = Canvas.fromScratch(CANVAS_WIDTH * 2, CANVAS_HEIGHT * 2);

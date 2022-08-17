@@ -1,13 +1,12 @@
 import { Input } from "../constants/Keys.js";
+import { CANVAS_WIDTH, HORIZONTAL_TILES, VERTICAL_TILES } from "../constants/ScreenConstants.js";
 import { InputState } from "../InputManager.js";
 import { clamp } from "../math/Common.js";
 import { Vector } from "../math/Vector.js";
 import { ClosePuzzleEvent, ExitEvent, OpenPuzzleEvent } from "./LevelEvent.js";
 import { Player } from "./Player.js";
 
-// Levels should be in 32x18 scale
-const SCREEN_WIDTH = 32;
-const SCREEN_HEIGHT = 18;
+const SCALE_FACTOR = CANVAS_WIDTH / HORIZONTAL_TILES;
 
 export class Level {
   constructor(
@@ -140,14 +139,14 @@ export class Level {
   getIdealCamera() {
     return new Vector(
       clamp(
-        this.player.position.x - SCREEN_WIDTH / 2,
+        this.player.position.x - HORIZONTAL_TILES / 2,
         0,
-        this.width - SCREEN_WIDTH
+        this.width - HORIZONTAL_TILES
       ),
       clamp(
-        this.player.position.y - SCREEN_HEIGHT / 2,
+        this.player.position.y - VERTICAL_TILES / 2,
         0,
-        this.height - SCREEN_HEIGHT
+        this.height - VERTICAL_TILES
       )
     );
   }
@@ -162,7 +161,7 @@ export class Level {
 
   withSetupCanvas(canvas, action) {
     canvas.saveTransform();
-    canvas.scale(60, 60);
+    canvas.scale(SCALE_FACTOR, SCALE_FACTOR);
     action(canvas);
     canvas.restoreTransform();
   }
@@ -175,7 +174,7 @@ export class Level {
     if (!this.drawnStatic) {
       this.withSetupCanvas(screenManager.staticWorldCanvas, canvas => {
         // Fill background
-        canvas.setColorRGB(100, 0, 200);
+        canvas.setColor("#6400c8");
         canvas.fillRect(0, 0, canvas.width, canvas.height);
 
         // Draw walls
@@ -200,7 +199,7 @@ export class Level {
       this.player.draw(canvas);
     });
 
-    screenManager.setCamera(Vector.scale(this.camera, 60));
+    screenManager.setCamera(Vector.scale(this.camera, SCALE_FACTOR));
   }
 }
 

@@ -1,3 +1,4 @@
+import { CANVAS_HEIGHT, PIXEL_WIDTH } from "../constants/ScreenConstants.js";
 import { clamp } from "../math/Common.js";
 import { Rectangle } from "../math/Shapes.js";
 import { Vector } from "../math/Vector.js";
@@ -5,8 +6,10 @@ import { Vector } from "../math/Vector.js";
 const OPEN_DURATION = 0.4;
 const CLOSE_DURATION = 0.25;
 
-const PUZZLE_WINDOW_WIDTH = 960;
-const PADDING = 100;
+const PUZZLE_WINDOW_WIDTH = 8 / 9 * CANVAS_HEIGHT;
+const PADDING = 10 * PIXEL_WIDTH;
+
+const PARTIAL_RADIUS = 0.4;
 
 export class Puzzle {
   constructor(id) {
@@ -54,7 +57,7 @@ export class Puzzle {
   }
 
   uiPosition() {
-    // Function with f(0) = 1, f(1) = 0, f'(1) = 0
+    // Function with f(0) = 1, f(1) = 0, f"(1) = 0
     // Feel free to replace this with any other function moving those
     // parameters.
     const pos = Math.pow(1 - this.openCloseStatus, 2);
@@ -84,43 +87,43 @@ export class Puzzle {
 
     canvas.translate(offset.x, offset.y);
 
-    canvas.setColorRGB(0, 150, 255, 200);
+    canvas.setColor("#0096ffc8");
     canvas.fillRect(0, 0, PUZZLE_WINDOW_WIDTH, PUZZLE_WINDOW_WIDTH);
 
     // Draw outline
-    canvas.setColorRGB(255, 255, 255, 100);
-    canvas.setLineWidth(6);
-    const LW = 3;
+    canvas.setColor("#ffffff64");
+    canvas.setLineWidth(PIXEL_WIDTH);
+
     canvas.strokeRect(
-      0 + LW,
-      0 + LW,
-      PUZZLE_WINDOW_WIDTH - LW * 2,
-      PUZZLE_WINDOW_WIDTH - LW * 2
+      0 + PIXEL_WIDTH / 2,
+      0 + PIXEL_WIDTH / 2,
+      PUZZLE_WINDOW_WIDTH - PIXEL_WIDTH,
+      PUZZLE_WINDOW_WIDTH - PIXEL_WIDTH
     );
 
     for (const element of this.elements) {
       if (element.isHovered) {
-        canvas.setColorRGB(255, 255, 255, 255);
+        canvas.setColor("white");
       } else {
-        canvas.setColorRGB(255, 255, 255, 100);
+        canvas.setColor("#ffffff64");
       }
       canvas.setLineDash([]);
       canvas.strokeRect(
-        element.shape.x1 + LW,
-        element.shape.y1 + LW,
-        element.shape.width - LW * 2,
-        element.shape.height - LW * 2
+        element.shape.x1 + PIXEL_WIDTH / 2,
+        element.shape.y1 + PIXEL_WIDTH / 2,
+        element.shape.width - PIXEL_WIDTH,
+        element.shape.height - PIXEL_WIDTH
       );
 
       const cellState = this.state[element.row][element.col];
       const mid = element.shape.midpoint;
       if (cellState) {
-        canvas.setColorRGB(255, 255, 255, 255);
-        canvas.fillEllipse(mid.x, mid.y, element.shape.width * 0.4, element.shape.width * 0.4);
+        canvas.setColor("white");
+        canvas.fillEllipse(mid.x, mid.y, element.shape.width * PARTIAL_RADIUS, element.shape.width * PARTIAL_RADIUS);
       } else if (cellState === false) { // Might be null, so need exact check
-        canvas.setColorRGB(255, 255, 255, 100);
-        canvas.setLineDash([12, 12]);
-        canvas.strokeEllipse(mid.x, mid.y, element.shape.width * 0.4, element.shape.width * 0.4);
+        canvas.setColor("#ffffff64");
+        canvas.setLineDash([PIXEL_WIDTH * 2, PIXEL_WIDTH * 2]);
+        canvas.strokeEllipse(mid.x, mid.y, element.shape.width * PARTIAL_RADIUS, element.shape.width * PARTIAL_RADIUS);
       }
     }
 

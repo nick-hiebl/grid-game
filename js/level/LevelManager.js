@@ -27,7 +27,7 @@ const makeTestLevel = i => {
     factory.addObjects([Rectangle.widthForm(0, baseY, 1, 18)]);
   } else if (i === 1) {
     factory.addInteractibles([
-      new PuzzleInteractible('1', new Vector(5, baseY + 15), Rectangle.widthForm(3, baseY + 13, 4, 4))
+      new PuzzleInteractible("1", new Vector(5, baseY + 15), Rectangle.widthForm(3, baseY + 13, 4, 4))
     ]);
     factory.addObjects([
       Rectangle.widthForm(20, baseY + 11, 3, 1),
@@ -35,7 +35,7 @@ const makeTestLevel = i => {
     ]);
   } else if (i === 3) {
     factory.addInteractibles([
-      new PuzzleInteractible('3', new Vector(26, baseY + 13), Rectangle.widthForm(24, baseY + 11, 4, 4))
+      new PuzzleInteractible("3", new Vector(26, baseY + 13), Rectangle.widthForm(24, baseY + 11, 4, 4))
     ]);
   } else if (i === 5) {
     factory.addObjects([Rectangle.widthForm(31, baseY, 18, 18)]);
