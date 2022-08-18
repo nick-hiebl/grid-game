@@ -23,7 +23,7 @@ export class Puzzle {
     this.isSolved = false;
     this.hasBeenSolvedEver = false;
 
-    const getRect = positionGetter(rows, columns);
+    this.positionGetter = positionGetter(rows, columns);
     for (let row = 0; row < rows; row++) {
       const currentRow = [];
 
@@ -33,7 +33,7 @@ export class Puzzle {
         this.elements.push({
           row,
           col,
-          shape: getRect(row, col).inset(UI_PIXEL_WIDTH),
+          shape: this.positionGetter(row, col).inset(UI_PIXEL_WIDTH),
           isHovered: false,
         });
       }
@@ -86,11 +86,12 @@ export class Puzzle {
 
     canvas.translate(offset.x, offset.y);
 
+    // Draw screen background
     canvas.setColor("#0096ffc8");
     canvas.fillRect(0, 0, PUZZLE_WINDOW_WIDTH, PUZZLE_WINDOW_WIDTH);
 
     // Draw monitor leg
-    canvas.setColor("#222");
+    canvas.setColor("#222222");
     canvas.fillRect(
       PUZZLE_WINDOW_WIDTH / 4,
       PUZZLE_WINDOW_WIDTH,
@@ -100,6 +101,7 @@ export class Puzzle {
 
     // Draw monitor outline
     canvas.setLineWidth(UI_PIXEL_WIDTH * 8);
+    canvas.setLineDash([]);
     canvas.strokeRectInset(
       0,
       0,
@@ -110,6 +112,7 @@ export class Puzzle {
 
     const LIGHT_PIXEL = UI_PIXEL_WIDTH * 8;
 
+    // Draw currently solved light
     if (this.isSolved) {
       canvas.setColor("white");
       canvas.fillRect(
@@ -120,6 +123,7 @@ export class Puzzle {
       );
     }
 
+    // Draw ever solved light
     if (this.hasBeenSolvedEver) {
       canvas.setColor("yellow");
       canvas.fillRect(
@@ -130,7 +134,7 @@ export class Puzzle {
       );
     }
 
-    // Draw outline
+    // Draw screen outline
     canvas.setColor("#ffffff64");
     canvas.setLineWidth(UI_PIXEL_WIDTH);
 
@@ -142,6 +146,7 @@ export class Puzzle {
       UI_PIXEL_WIDTH / 2
     );
 
+    // Draw squares
     for (const element of this.elements) {
       if (element.isHovered) {
         canvas.setColor("white");
@@ -173,6 +178,8 @@ export class Puzzle {
         );
       }
     }
+
+    this.validator.draw(canvas, this.positionGetter);
 
     canvas.translate(-offset.x, -offset.y);
   }

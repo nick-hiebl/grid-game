@@ -1,3 +1,6 @@
+import { Circle, Rectangle } from "../math/Shapes.js";
+import { Vector } from "../math/Vector.js";
+
 class PuzzleValidator {
   constructor(validationItems) {
     this.validationItems = validationItems;
@@ -11,9 +14,9 @@ class PuzzleValidator {
     return this.validationItems.every(item => item.isValid);
   }
 
-  draw(canvas) {
+  draw(canvas, ...args) {
     this.validationItems.forEach(item => {
-      item.draw(canvas);
+      item.draw(canvas, ...args);
     });
   }
 }
@@ -31,6 +34,42 @@ class ValidationItem {
     // Do nothing...
   }
 }
+
+const EDGE_COUNT_LAYOUT = [
+  [new Circle(new Vector(0, 0), 0.33)],
+  [new Circle(new Vector(0, 0), 0.33)],
+  [
+    new Circle(new Vector(0, 0.4), 0.33),
+    new Circle(new Vector(0, -0.4), 0.33)
+  ],
+  [
+    new Circle(new Vector(-0.42, 0.4), 0.33),
+    new Circle(new Vector(0.42, 0.4), 0.33),
+    new Circle(new Vector(0, -0.4), 0.33),
+  ],
+  [
+    new Circle(new Vector(0.4, 0.4), 0.33),
+    new Circle(new Vector(0.4, -0.4), 0.33),
+    new Circle(new Vector(-0.4, 0.4), 0.33),
+    new Circle(new Vector(-0.4, -0.4), 0.33)
+  ],
+];
+
+const EDGE_GROUP_LAYOUT = [
+  [Rectangle.centerForm(0, 0, 0.33, 0.33)],
+  [Rectangle.centerForm(0, 0, 0.33, 0.33)],
+  [
+    Rectangle.centerForm(0, -0.4, 0.33, 0.33),
+    Rectangle.centerForm(0, 0.4, 0.33, 0.33)
+  ],
+  [
+    Rectangle.centerForm(0, -0.4, 0.33, 0.33),
+    Rectangle.centerForm(-0.4, 0.4, 0.33, 0.33),
+    Rectangle.centerForm(0.4, 0.4, 0.33, 0.33)
+  ],
+]
+
+const rotRight = vector => new Vector(-vector.y, vector.x);
 
 class EdgeCountValidationItem extends ValidationItem {
   constructor(isRow, index, count) {
@@ -58,9 +97,72 @@ class EdgeCountValidationItem extends ValidationItem {
     this.isValid = total === this.count;
   }
 
-  // draw(canvas) {
+  drawInCell(canvas, center, scaleBy, isSideways) {
+    const transformCircle = isSideways
+      ? circle => new Circle(rotRight(circle.position), circle.radius)
+      : v => v;
 
-  // }
+    for (let circle of EDGE_COUNT_LAYOUT[this.count]) {
+      circle = transformCircle(circle);
+      const position = Vector.add(center, Vector.scale(circle.position, scaleBy));
+
+      if (this.count === 0) {
+        canvas.setLineWidth(circle.radius * scaleBy * 0.5);
+        canvas.strokeEllipse(position.x, position.y, circle.radius * scaleBy * 0.75, circle.radius * scaleBy * 0.75);
+      } else {
+        canvas.fillEllipse(position.x, position.y, circle.radius * scaleBy, circle.radius * scaleBy);
+      }
+    }
+  }
+
+  draw(canvas, positionGetter) {
+    if (this.isValid) {
+      canvas.setColor("white");
+    } else {
+      canvas.setColor("red");
+    }
+
+    if (this.isRow) {
+      const cell = positionGetter(this.index, "end");
+
+      this.drawInCell(canvas, cell.midpoint, cell.width / 2, true);
+    } else {
+      const cell = positionGetter(-1, this.index);
+
+      this.drawInCell(canvas, cell.midpoint, cell.height / 2, false);
+    }
+  }
+}
+
+class EdgeGroupsValidationItem extends EdgeCountValidationItem {
+  constructor(isRow, index, count) {
+    super(isRow, index, count);
+  }
+
+  validate(state) {
+    const row = this.getRelevantRow(state);
+
+    const [numGroups] = row.reduce(([soFar, inGroup], item) =>
+      item && !inGroup
+        // Start of new group
+        ? [soFar + 1, true]
+        // Continue, updating inGroup based on current item state
+        : [soFar, !!item], [0, false]
+    );
+
+    this.isValid = numGroups === this.count;
+  }
+
+  drawInCell(canvas, center, scaleBy, isSideways) {
+    const moveCenter = pos => isSideways ? rotRight(pos) : pos;
+
+    for (const square of EDGE_GROUP_LAYOUT[this.count]) {
+      const position = Vector.add(center, Vector.scale(moveCenter(square.midpoint), scaleBy));
+      const width = square.width * scaleBy;
+
+      canvas.fillRect(position.x - width / 2, position.y - width / 2, width, width);
+    }
+  }
 }
 
 export class PuzzleValidatorFactory {
@@ -68,23 +170,33 @@ export class PuzzleValidatorFactory {
     this.validationItems = [];
   }
 
-  addEdgeCountValidators(nums, isRow) {
+  addEdgeValidators(nums, isRow, ValidationItemType = EdgeCountValidationItem) {
     nums.forEach((num, index) => {
       if (typeof num !== "number") {
         return;
       }
 
-      this.validationItems.push(new EdgeCountValidationItem(isRow, index, num));
+      this.validationItems.push(new ValidationItemType(isRow, index, num));
     });
   }
 
   addColumnCounts(nums) {
-    this.addEdgeCountValidators(nums, false);
+    this.addEdgeValidators(nums, false);
     return this;
   }
 
   addRowCounts(nums) {
-    this.addEdgeCountValidators(nums, true);
+    this.addEdgeValidators(nums, true);
+    return this;
+  }
+
+  addColumnGroups(nums) {
+    this.addEdgeValidators(nums, false, EdgeGroupsValidationItem);
+    return this;
+  }
+
+  addRowGroups(nums) {
+    this.addEdgeValidators(nums, true, EdgeGroupsValidationItem);
     return this;
   }
 

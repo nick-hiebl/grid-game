@@ -7,15 +7,20 @@ class PuzzleManagerInstance {
   }
 
   loadPuzzle(id) {
-    const factory = new PuzzleValidatorFactory()
+    const factory = new PuzzleValidatorFactory();
+    let rows = 3, cols = 4;
 
     if (id === "1") {
-      factory.addColumnCounts([null, 2, null, null]);
+      factory.addColumnCounts([1, 3, 1]);
+      factory.addRowCounts([2, 2, 1]);
+      rows = 3;
+      cols = 3;
     } else if (id === "3") {
-      factory.addRowCounts([4, null, null, null]);
+      factory.addRowCounts([4, 3, null]);
+      factory.addColumnGroups([1, null, null, 2]);
     }
 
-    return new Puzzle(id, 4, 4, factory.create());
+    return new Puzzle(id, rows, cols, factory.create());
   }
 
   getPuzzle(id) {

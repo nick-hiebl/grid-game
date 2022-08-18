@@ -163,4 +163,8 @@ export class Rectangle {
   static widthForm(x, y, width, height) {
     return new Rectangle(x, y, x + width, y + height);
   }
+
+  static centerForm(x, y, width, height) {
+    return new Rectangle(x - width, y - height, x + width, y + height);
+  }
 }

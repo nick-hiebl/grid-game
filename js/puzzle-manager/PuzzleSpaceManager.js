@@ -10,8 +10,14 @@ const produceObject = (rows, cols) => {
   // const SMALLER_DIR = Math.min(rows, cols);
   const CELL_SIZE = Math.ceil(PUZZLE_WINDOW_WIDTH / (LARGER_DIR + 1.2));
 
-  const topStart = Math.ceil(PUZZLE_WINDOW_WIDTH - CELL_SIZE * (LARGER_DIR + 1.5));
-  const leftStart = Math.ceil(PUZZLE_WINDOW_WIDTH - CELL_SIZE * (LARGER_DIR + 1.7));
+  const FULL_HEIGHT = Math.ceil(CELL_SIZE * (rows + 1.2));
+  const FULL_WIDTH = Math.ceil(CELL_SIZE * (cols + 1.2));
+
+  const TOP_EDGE = Math.max((FULL_WIDTH - FULL_HEIGHT) / 2, 0);
+  const LEFT_EDGE = Math.max((FULL_HEIGHT - FULL_WIDTH) / 2, 0);
+
+  const topStart = TOP_EDGE + Math.ceil(PUZZLE_WINDOW_WIDTH - CELL_SIZE * (LARGER_DIR + 1.5));
+  const leftStart = LEFT_EDGE + Math.ceil(PUZZLE_WINDOW_WIDTH - CELL_SIZE * (LARGER_DIR + 1.7));
 
   const matrix = [];
 
@@ -21,13 +27,13 @@ const produceObject = (rows, cols) => {
       const left = leftStart + col * CELL_SIZE;
       const top = topStart + row * CELL_SIZE;
       thisRow.push(new Rectangle(
-        Math.max(left, 0),
-        Math.max(top, 0),
+        Math.max(left, LEFT_EDGE),
+        Math.max(top, TOP_EDGE),
         // Cell not rectangular if it starts left off-screen, this was an
         // intentional decision
-        Math.min(left + CELL_SIZE, PUZZLE_WINDOW_WIDTH),
+        Math.min(left + CELL_SIZE, LEFT_EDGE + FULL_WIDTH),
         // Cell also not rectangular if it over-hangs the bottom.
-        Math.min(top + CELL_SIZE, PUZZLE_WINDOW_WIDTH)
+        Math.min(top + CELL_SIZE, TOP_EDGE + FULL_HEIGHT)
       ));
     }
     matrix.push(thisRow);
@@ -50,6 +56,8 @@ export const positionGetter = (rows, cols) => {
 
   // Indexed from [-1 to ROWS][-1 to COLS]
   return (row, col) => {
-    return matrix[row + 1][col + 1];
+    return matrix
+      [row === "end" ? rows + 1 : row + 1]
+      [col === "end" ? cols + 1 : col + 1];
   };
 };
