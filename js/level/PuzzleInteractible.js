@@ -46,6 +46,7 @@ export class PuzzleInteractible {
     const SCREEN_W = 1;
     const PIXEL_SCALE = 1 / PIXELS_PER_TILE;
 
+    // Draw monitor leg
     canvas.setColorRGB(0, 0, 0);
     canvas.fillRect(
       this.position.x - SCREEN_W / 2,

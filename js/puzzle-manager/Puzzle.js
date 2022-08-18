@@ -10,7 +10,7 @@ import { Vector } from "../math/Vector.js";
 const OPEN_DURATION = 0.4;
 const CLOSE_DURATION = 0.25;
 
-const PUZZLE_WINDOW_WIDTH = (8 / 9) * CANVAS_HEIGHT;
+const PUZZLE_WINDOW_WIDTH = (7 / 9) * CANVAS_HEIGHT;
 
 const PARTIAL_RADIUS = 0.4;
 
@@ -114,6 +114,47 @@ export class Puzzle {
     canvas.setColor("#0096ffc8");
     canvas.fillRect(0, 0, PUZZLE_WINDOW_WIDTH, PUZZLE_WINDOW_WIDTH);
 
+    // Draw monitor leg
+    canvas.setColor("#222");
+    canvas.fillRect(
+      PUZZLE_WINDOW_WIDTH / 4,
+      PUZZLE_WINDOW_WIDTH,
+      PUZZLE_WINDOW_WIDTH / 2,
+      PUZZLE_WINDOW_WIDTH
+    );
+
+    // Draw monitor outline
+    canvas.setLineWidth(PIXEL_WIDTH * 8);
+    canvas.strokeRectInset(
+      0,
+      0,
+      PUZZLE_WINDOW_WIDTH,
+      PUZZLE_WINDOW_WIDTH,
+      -PIXEL_WIDTH * 4
+    );
+
+    const LIGHT_PIXEL = PIXEL_WIDTH * 8;
+
+    if (this.isSolved) {
+      canvas.setColor("white");
+      canvas.fillRect(
+        PUZZLE_WINDOW_WIDTH - LIGHT_PIXEL * 6,
+        -LIGHT_PIXEL,
+        LIGHT_PIXEL * 2,
+        LIGHT_PIXEL
+      );
+    }
+
+    if (this.hasBeenSolvedEver) {
+      canvas.setColor("yellow");
+      canvas.fillRect(
+        PUZZLE_WINDOW_WIDTH - LIGHT_PIXEL * 3,
+        -LIGHT_PIXEL,
+        LIGHT_PIXEL * 2,
+        LIGHT_PIXEL
+      );
+    }
+
     // Draw outline
     canvas.setColor("#ffffff64");
     canvas.setLineWidth(PIXEL_WIDTH);
@@ -156,16 +197,6 @@ export class Puzzle {
           element.shape.width * PARTIAL_RADIUS
         );
       }
-    }
-
-    if (this.isSolved) {
-      canvas.setColor("white");
-      canvas.fillEllipse(PUZZLE_WINDOW_WIDTH, 0, PIXEL_WIDTH * 8, PIXEL_WIDTH * 8);
-    }
-
-    if (this.hasBeenSolvedEver) {
-      canvas.setColor("yellow");
-      canvas.fillEllipse(PUZZLE_WINDOW_WIDTH, PUZZLE_WINDOW_WIDTH, PIXEL_WIDTH * 8, PIXEL_WIDTH * 8);
     }
 
     canvas.translate(-offset.x, -offset.y);
