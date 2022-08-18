@@ -1,4 +1,4 @@
-import { CANVAS_HEIGHT, CANVAS_WIDTH, UI_CANVAS_HEIGHT, UI_CANVAS_WIDTH } from "./constants/ScreenConstants.js";
+import { CANVAS_HEIGHT, CANVAS_WIDTH, ON_SCREEN_CANVAS_HEIGHT, ON_SCREEN_CANVAS_WIDTH } from "./constants/ScreenConstants.js";
 import { Vector } from "./math/Vector.js";
 
 import { Canvas } from "./Canvas.js";
@@ -7,12 +7,12 @@ const REAL_CANVAS = Symbol("real-canvas");
 
 function getRawCanvas() {
   const rawCanvas = document.getElementById("canvas");
-  rawCanvas.setAttribute("width", UI_CANVAS_WIDTH);
-  rawCanvas.setAttribute("height", UI_CANVAS_HEIGHT);
+  rawCanvas.setAttribute("width", ON_SCREEN_CANVAS_WIDTH);
+  rawCanvas.setAttribute("height", ON_SCREEN_CANVAS_HEIGHT);
   return rawCanvas;
 }
 
-class ScreenManager {
+export class ScreenManager {
   constructor() {
     const screenCanvas = new Canvas(getRawCanvas());
 
@@ -70,5 +70,3 @@ class ScreenManager {
     );
   }
 }
-
-export { ScreenManager };

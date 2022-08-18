@@ -4,13 +4,10 @@ import {
   PIXEL_WIDTH,
 } from "../constants/ScreenConstants.js";
 import { clamp } from "../math/Common.js";
-import { Rectangle } from "../math/Shapes.js";
 import { Vector } from "../math/Vector.js";
 
-const OPEN_DURATION = 0.4;
-const CLOSE_DURATION = 0.25;
-
-const PUZZLE_WINDOW_WIDTH = (7 / 9) * CANVAS_HEIGHT;
+import { CLOSE_DURATION, OPEN_DURATION, PUZZLE_WINDOW_WIDTH } from "./constants.js";
+import { positionGetter } from "./PuzzleSpaceManager.js";
 
 const PARTIAL_RADIUS = 0.4;
 
@@ -29,36 +26,17 @@ export class Puzzle {
     this.isSolved = false;
     this.hasBeenSolvedEver = false;
 
-    const PAD = 2 * PIXEL_WIDTH;
-
-    const CELL_WIDTH = Math.floor(
-      (PUZZLE_WINDOW_WIDTH - PAD * (columns + 1)) / columns
-    );
-    const CELL_HEIGHT = Math.floor(
-      (PUZZLE_WINDOW_WIDTH - PAD * (rows + 1)) / rows
-    );
-    const LEFT_PAD =
-      Math.ceil(
-        (PUZZLE_WINDOW_WIDTH - (CELL_WIDTH + PAD) * columns + PAD) / PAD / 2
-      ) * PAD;
-    const TOP_PAD =
-      Math.ceil(
-        (PUZZLE_WINDOW_WIDTH - (CELL_HEIGHT + PAD) * rows + PAD) / PAD / 2
-      ) * PAD;
+    const getRect = positionGetter(rows, columns);
     for (let row = 0; row < rows; row++) {
       const currentRow = [];
 
       for (let col = 0; col < columns; col++) {
         currentRow.push(null);
+
         this.elements.push({
           row,
           col,
-          shape: Rectangle.widthForm(
-            col * (CELL_WIDTH + PAD) + LEFT_PAD,
-            row * (CELL_HEIGHT + PAD) + TOP_PAD,
-            CELL_WIDTH,
-            CELL_HEIGHT
-          ),
+          shape: getRect(row, col).inset(PIXEL_WIDTH),
           isHovered: false,
         });
       }

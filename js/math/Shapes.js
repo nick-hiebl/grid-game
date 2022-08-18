@@ -151,6 +151,15 @@ export class Rectangle {
     canvas.strokeRectInset(this.x1, this.y1, this.width, this.height, inset);
   }
 
+  inset(insetBy) {
+    return new Rectangle(
+      this.x1 + insetBy,
+      this.y1 + insetBy,
+      this.x2 - insetBy,
+      this.y2 - insetBy
+    );
+  }
+
   static widthForm(x, y, width, height) {
     return new Rectangle(x, y, x + width, y + height);
   }

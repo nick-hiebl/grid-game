@@ -1,5 +1,5 @@
 import { Input } from "./constants/Keys.js";
-import { CANVAS_WIDTH, UI_CANVAS_WIDTH } from "./constants/ScreenConstants.js";
+import { CANVAS_WIDTH, ON_SCREEN_CANVAS_WIDTH } from "./constants/ScreenConstants.js";
 import { Vector } from "./math/Vector.js";
 
 const KEY_MAP = {
@@ -152,7 +152,7 @@ export class InputManager {
         event.clientX - this.canvas.offsetLeft,
         event.clientY - this.canvas.offsetTop
       ),
-      this.canvas.width / this.canvas.clientWidth * CANVAS_WIDTH / UI_CANVAS_WIDTH
+      this.canvas.width / this.canvas.clientWidth * CANVAS_WIDTH / ON_SCREEN_CANVAS_WIDTH
     );
   }
 
