@@ -135,10 +135,6 @@ class EdgeCountValidationItem extends ValidationItem {
 }
 
 class EdgeGroupsValidationItem extends EdgeCountValidationItem {
-  constructor(isRow, index, count) {
-    super(isRow, index, count);
-  }
-
   validate(state) {
     const row = this.getRelevantRow(state);
 
@@ -147,10 +143,15 @@ class EdgeGroupsValidationItem extends EdgeCountValidationItem {
         // Start of new group
         ? [soFar + 1, true]
         // Continue, updating inGroup based on current item state
-        : [soFar, !!item], [0, false]
+        : [soFar, !!item],
+      [0, false]
     );
 
     this.isValid = numGroups === this.count;
+  }
+
+  drawSquare(canvas, position, width) {
+    canvas.fillRect(position.x - width / 2, position.y - width / 2, width, width);
   }
 
   drawInCell(canvas, center, scaleBy, isSideways) {
@@ -160,8 +161,37 @@ class EdgeGroupsValidationItem extends EdgeCountValidationItem {
       const position = Vector.add(center, Vector.scale(moveCenter(square.midpoint), scaleBy));
       const width = square.width * scaleBy;
 
-      canvas.fillRect(position.x - width / 2, position.y - width / 2, width, width);
+      this.drawSquare(canvas, position, width);
     }
+  }
+}
+
+class EdgeBlankGroupsValidationItem extends EdgeGroupsValidationItem {
+  constructor(isRow, index, count) {
+    super(isRow, index, count);
+
+    this.isValid = count === 1;
+  }
+
+  validate(state) {
+    const row = this.getRelevantRow(state);
+
+    const [numGroups] = row.reduce(([soFar, inGroup], item) =>
+      !item && inGroup
+        // Start of new group
+        ? [soFar + 1, false]
+        // Continue, updating inGroup based on current item state
+        : [soFar, !!item],
+      [0, true]
+    );
+
+    this.isValid = numGroups === this.count;
+  }
+
+  drawSquare(canvas, position, width) {
+    canvas.setLineDash([]);
+    canvas.setLineWidth(width * 0.25);
+    canvas.strokeRectInset(position.x, position.y, 0, 0, -width * 0.4);
   }
 }
 
@@ -197,6 +227,16 @@ export class PuzzleValidatorFactory {
 
   addRowGroups(nums) {
     this.addEdgeValidators(nums, true, EdgeGroupsValidationItem);
+    return this;
+  }
+
+  addColumnBlankGroups(nums) {
+    this.addEdgeValidators(nums, false, EdgeBlankGroupsValidationItem);
+    return this;
+  }
+
+  addRowBlankGroups(nums) {
+    this.addEdgeValidators(nums, true, EdgeBlankGroupsValidationItem);
     return this;
   }
 

@@ -12,7 +12,8 @@ class PuzzleManagerInstance {
 
     if (id === "1") {
       factory.addColumnCounts([1, 3, 1]);
-      factory.addRowCounts([2, 2, 1]);
+      factory.addRowCounts([2, 2, null]);
+      factory.addRowBlankGroups([null, null, 2]);
       rows = 3;
       cols = 3;
     } else if (id === "3") {
