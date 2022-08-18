@@ -1,10 +1,7 @@
-import {
-  CANVAS_HEIGHT,
-  CANVAS_WIDTH,
-  PIXEL_WIDTH,
-} from "../constants/ScreenConstants.js";
+import { UI_PIXEL_WIDTH, UI_CANVAS_HEIGHT, UI_CANVAS_WIDTH } from "../constants/ScreenConstants.js";
 import { clamp } from "../math/Common.js";
 import { Vector } from "../math/Vector.js";
+import { ScreenManager } from "../ScreenManager.js";
 
 import { CLOSE_DURATION, OPEN_DURATION, PUZZLE_WINDOW_WIDTH } from "./constants.js";
 import { positionGetter } from "./PuzzleSpaceManager.js";
@@ -36,7 +33,7 @@ export class Puzzle {
         this.elements.push({
           row,
           col,
-          shape: getRect(row, col).inset(PIXEL_WIDTH),
+          shape: getRect(row, col).inset(UI_PIXEL_WIDTH),
           isHovered: false,
         });
       }
@@ -64,10 +61,10 @@ export class Puzzle {
     // parameters.
     const pos = Math.pow(1 - this.openCloseStatus, 2);
 
-    const slideInOffset = new Vector(0, CANVAS_HEIGHT * pos);
+    const slideInOffset = new Vector(0, UI_CANVAS_HEIGHT * pos);
     const puzzleScreenOffset = new Vector(
-      (CANVAS_WIDTH - PUZZLE_WINDOW_WIDTH) / 2,
-      (CANVAS_HEIGHT - PUZZLE_WINDOW_WIDTH) / 2
+      (UI_CANVAS_WIDTH - PUZZLE_WINDOW_WIDTH) / 2,
+      (UI_CANVAS_HEIGHT - PUZZLE_WINDOW_WIDTH) / 2
     );
     return Vector.add(slideInOffset, puzzleScreenOffset);
   }
@@ -102,16 +99,16 @@ export class Puzzle {
     );
 
     // Draw monitor outline
-    canvas.setLineWidth(PIXEL_WIDTH * 8);
+    canvas.setLineWidth(UI_PIXEL_WIDTH * 8);
     canvas.strokeRectInset(
       0,
       0,
       PUZZLE_WINDOW_WIDTH,
       PUZZLE_WINDOW_WIDTH,
-      -PIXEL_WIDTH * 4
+      -UI_PIXEL_WIDTH * 4
     );
 
-    const LIGHT_PIXEL = PIXEL_WIDTH * 8;
+    const LIGHT_PIXEL = UI_PIXEL_WIDTH * 8;
 
     if (this.isSolved) {
       canvas.setColor("white");
@@ -135,14 +132,14 @@ export class Puzzle {
 
     // Draw outline
     canvas.setColor("#ffffff64");
-    canvas.setLineWidth(PIXEL_WIDTH);
+    canvas.setLineWidth(UI_PIXEL_WIDTH);
 
     canvas.strokeRectInset(
       0,
       0,
       PUZZLE_WINDOW_WIDTH,
       PUZZLE_WINDOW_WIDTH,
-      PIXEL_WIDTH / 2
+      UI_PIXEL_WIDTH / 2
     );
 
     for (const element of this.elements) {
@@ -152,7 +149,7 @@ export class Puzzle {
         canvas.setColor("#ffffff64");
       }
       canvas.setLineDash([]);
-      element.shape.stroke(canvas, PIXEL_WIDTH / 2);
+      element.shape.stroke(canvas, UI_PIXEL_WIDTH / 2);
 
       const cellState = this.state[element.row][element.col];
       const mid = element.shape.midpoint;
@@ -167,7 +164,7 @@ export class Puzzle {
       } else if (cellState === false) {
         // Might be null, so need exact check
         canvas.setColor("#ffffff64");
-        canvas.setLineDash([PIXEL_WIDTH * 2, PIXEL_WIDTH * 2]);
+        canvas.setLineDash([UI_PIXEL_WIDTH * 2, UI_PIXEL_WIDTH * 2]);
         canvas.strokeEllipse(
           mid.x,
           mid.y,

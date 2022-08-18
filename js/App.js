@@ -9,7 +9,7 @@ const MAX_FRAME_TIME = 1 / 20;
  */
 class App {
   constructor() {
-    this.screenManager = new ScreenManager();
+    this.screenManager = ScreenManager.getInstance();
     this.gameModeManager = new GameModeManager();
     this.inputManager = new InputManager(input => this.onInput(input));
   }
