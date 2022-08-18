@@ -1,3 +1,4 @@
+import { PIXEL_WIDTH } from "../constants/ScreenConstants.js";
 import { Rectangle } from "../math/Shapes.js";
 import { PUZZLE_WINDOW_WIDTH } from "./constants.js";
 
@@ -13,8 +14,8 @@ const produceObject = (rows, cols) => {
   const FULL_HEIGHT = Math.ceil(CELL_SIZE * (rows + 1.2));
   const FULL_WIDTH = Math.ceil(CELL_SIZE * (cols + 1.2));
 
-  const TOP_EDGE = Math.max((FULL_WIDTH - FULL_HEIGHT) / 2, 0);
-  const LEFT_EDGE = Math.max((FULL_HEIGHT - FULL_WIDTH) / 2, 0);
+  const TOP_EDGE = Math.max((FULL_WIDTH - FULL_HEIGHT) / 2, 0) + 2 * PIXEL_WIDTH;
+  const LEFT_EDGE = Math.max((FULL_HEIGHT - FULL_WIDTH) / 2, 0) + 2 * PIXEL_WIDTH;
 
   const topStart = TOP_EDGE + Math.ceil(PUZZLE_WINDOW_WIDTH - CELL_SIZE * (LARGER_DIR + 1.5));
   const leftStart = LEFT_EDGE + Math.ceil(PUZZLE_WINDOW_WIDTH - CELL_SIZE * (LARGER_DIR + 1.7));
@@ -31,9 +32,9 @@ const produceObject = (rows, cols) => {
         Math.max(top, TOP_EDGE),
         // Cell not rectangular if it starts left off-screen, this was an
         // intentional decision
-        Math.min(left + CELL_SIZE, LEFT_EDGE + FULL_WIDTH),
+        Math.min(left + CELL_SIZE, LEFT_EDGE + FULL_WIDTH - 2 * PIXEL_WIDTH),
         // Cell also not rectangular if it over-hangs the bottom.
-        Math.min(top + CELL_SIZE, TOP_EDGE + FULL_HEIGHT)
+        Math.min(top + CELL_SIZE, TOP_EDGE + FULL_HEIGHT - 2 * PIXEL_WIDTH)
       ));
     }
     matrix.push(thisRow);
