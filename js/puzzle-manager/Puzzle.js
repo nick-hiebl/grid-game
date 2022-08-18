@@ -118,11 +118,12 @@ export class Puzzle {
     canvas.setColor("#ffffff64");
     canvas.setLineWidth(PIXEL_WIDTH);
 
-    canvas.strokeRect(
-      0 + PIXEL_WIDTH / 2,
-      0 + PIXEL_WIDTH / 2,
-      PUZZLE_WINDOW_WIDTH - PIXEL_WIDTH,
-      PUZZLE_WINDOW_WIDTH - PIXEL_WIDTH
+    canvas.strokeRectInset(
+      0,
+      0,
+      PUZZLE_WINDOW_WIDTH,
+      PUZZLE_WINDOW_WIDTH,
+      PIXEL_WIDTH / 2
     );
 
     for (const element of this.elements) {
@@ -132,12 +133,7 @@ export class Puzzle {
         canvas.setColor("#ffffff64");
       }
       canvas.setLineDash([]);
-      canvas.strokeRect(
-        element.shape.x1 + PIXEL_WIDTH / 2,
-        element.shape.y1 + PIXEL_WIDTH / 2,
-        element.shape.width - PIXEL_WIDTH,
-        element.shape.height - PIXEL_WIDTH
-      );
+      element.shape.stroke(canvas, PIXEL_WIDTH / 2);
 
       const cellState = this.state[element.row][element.col];
       const mid = element.shape.midpoint;

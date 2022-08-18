@@ -1,3 +1,4 @@
+import { PIXELS_PER_TILE, PIXEL_WIDTH } from "../constants/ScreenConstants.js";
 import { Vector } from "../math/Vector.js";
 import { PuzzleManager } from "../puzzle-manager/PuzzleManager.js";
 
@@ -43,36 +44,42 @@ export class PuzzleInteractible {
     }
 
     const SCREEN_W = 1;
+    const PIXEL_SCALE = 1 / PIXELS_PER_TILE;
 
     canvas.setColorRGB(0, 0, 0);
     canvas.fillRect(
       this.position.x - SCREEN_W / 2,
-      this.position.y,
+      this.position.y + SCREEN_W,
       SCREEN_W,
       2
     );
 
-    // Draw outline
+    canvas.setLineWidth(PIXEL_SCALE);
+
+    // Draw hover outline
     if (this.isTriggered) {
       canvas.setColorRGB(255, 255, 255, 128);
-      canvas.fillRect(
-        this.position.x - SCREEN_W - 0.2,
-        this.position.y - SCREEN_W - 0.2,
-        SCREEN_W * 2 + 0.4,
-        SCREEN_W * 2 + 0.4
+      canvas.strokeRectInset(
+        this.position.x,
+        this.position.y,
+        0,
+        0,
+        -SCREEN_W -PIXEL_SCALE * 1.5
       );
     }
 
-    // Draw screen
+    // Draw monitor outline
     canvas.setColorRGB(0, 0, 0);
-    canvas.fillRect(
-      this.position.x - SCREEN_W - 0.1,
-      this.position.y - SCREEN_W - 0.1,
-      SCREEN_W * 2 + 0.2,
-      SCREEN_W * 2 + 0.2
+    canvas.strokeRectInset(
+      this.position.x,
+      this.position.y,
+      0,
+      0,
+      -SCREEN_W - PIXEL_SCALE / 2
     );
 
-    canvas.setColorRGB(0, 150, 255);
+    // Draw screen
+    canvas.setColorRGB(0, 150, 255, 200);
     canvas.fillRect(
       this.position.x - SCREEN_W,
       this.position.y - SCREEN_W,
@@ -84,12 +91,21 @@ export class PuzzleInteractible {
 
     canvas.translate(offset.x, offset.y);
 
+    canvas.setColor("white");
+
+    // Draw current selection
     const rows = this.puzzle.state;
+    const PAD = PIXEL_SCALE;
+
     for (let row = 0; row < rows.length; row++) {
       for (let col = 0; col < rows[row].length; col++) {
-        canvas.setColor("white");
         if (rows[row][col]) {
-          canvas.fillRect(0.1 + col * (SCREEN_W * 2 - 0.2) / rows[row].length, 0.1 + row * (SCREEN_W * 2 - 0.2) / rows.length, 0.2, 0.2);
+          canvas.fillRect(
+            PAD + col * 2 * (SCREEN_W - PAD) / rows[row].length,
+            PAD + row * 2 * (SCREEN_W - PAD) / rows.length,
+            PIXEL_SCALE * 2,
+            PIXEL_SCALE * 2
+          );
         }
       }
     }

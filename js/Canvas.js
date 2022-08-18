@@ -53,6 +53,10 @@ export class Canvas {
     this[CTX].strokeRect(x, y, width, height);
   }
 
+  strokeRectInset(x, y, width, height, inset) {
+    this.strokeRect(x + inset, y + inset, width - inset * 2, height - inset * 2);
+  }
+
   /**
    * Fill an ellipse on the canvas.
    * @param {number} x The horizontal position of the ellipse center.
@@ -126,6 +130,10 @@ export class Canvas {
 
   setLineWidth(width) {
     this[CTX].lineWidth = width;
+  }
+
+  get lineWidth() {
+    return this[CTX].lineWidth;
   }
 
   setLineDash(pattern) {

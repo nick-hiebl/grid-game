@@ -147,6 +147,10 @@ export class Rectangle {
     canvas.fillRect(this.x1, this.y1, this.width, this.height);
   }
 
+  stroke(canvas, inset = 0) {
+    canvas.strokeRectInset(this.x1, this.y1, this.width, this.height, inset);
+  }
+
   static widthForm(x, y, width, height) {
     return new Rectangle(x, y, x + width, y + height);
   }
