@@ -78,6 +78,26 @@ export class PuzzleInteractible {
       -SCREEN_W - PIXEL_SCALE / 2
     );
 
+    if (this.puzzle.isSolved) {
+      canvas.setColor("white");
+      canvas.fillRect(
+        this.position.x + SCREEN_W - 6 * PIXEL_SCALE,
+        this.position.y - SCREEN_W - 1 * PIXEL_SCALE,
+        PIXEL_SCALE * 2,
+        PIXEL_SCALE * 1
+      );
+    }
+
+    if (this.puzzle.hasBeenSolvedEver) {
+      canvas.setColor("yellow");
+      canvas.fillRect(
+        this.position.x + SCREEN_W - 3 * PIXEL_SCALE,
+        this.position.y - SCREEN_W - 1 * PIXEL_SCALE,
+        PIXEL_SCALE * 2,
+        PIXEL_SCALE * 1
+      );
+    }
+
     // Draw screen
     canvas.setColorRGB(0, 150, 255, 200);
     canvas.fillRect(

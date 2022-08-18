@@ -159,12 +159,12 @@ export class Puzzle {
     }
 
     if (this.isSolved) {
-      canvas.setColor("green");
+      canvas.setColor("white");
       canvas.fillEllipse(PUZZLE_WINDOW_WIDTH, 0, PIXEL_WIDTH * 8, PIXEL_WIDTH * 8);
     }
 
     if (this.hasBeenSolvedEver) {
-      canvas.setColor("orange");
+      canvas.setColor("yellow");
       canvas.fillEllipse(PUZZLE_WINDOW_WIDTH, PUZZLE_WINDOW_WIDTH, PIXEL_WIDTH * 8, PIXEL_WIDTH * 8);
     }
 
