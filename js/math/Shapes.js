@@ -1,4 +1,4 @@
-import { clamp } from "./Common.js";
+import { clamp, sign } from "./Common.js";
 import { Vector } from "./Vector.js";
 
 export class Circle {
@@ -38,33 +38,6 @@ export class Circle {
 
     // Find if the closest point in the rectangle overlaps with the circle.
     return this.intersectsVector(new Vector(closestX, closestY));
-  }
-
-  /**
-   * Compute the smallest vector in the reverse direction to movement to
-   * uncollide with a given rectangle.
-   *
-   * This ASSUMES that they do intersect, but only works correctly when the
-   * circle's center does not overlap the rectangle.
-   *
-   * @param {Rectangle} rectangle
-   */
-  uncollideWithRectangle(rectangle) {
-    const closestX = clamp(this.position.x, rectangle.x1, rectangle.x2);
-    const closestY = clamp(this.position.y, rectangle.y1, rectangle.y2);
-
-    const p0 = new Vector(closestX, closestY);
-    const pToCenter = Vector.diff(this.position, p0);
-    // TODO Handle this case way better.
-    const distFromCenter = pToCenter.magnitude || 1;
-
-    if (distFromCenter >= this.radius) {
-      return new Vector(0, 0);
-    }
-    return Vector.scale(
-      pToCenter,
-      (this.radius - distFromCenter) / distFromCenter
-    );
   }
 
   /**
@@ -136,6 +109,43 @@ export class Rectangle {
       this.x1 <= otherRectangle.x2 &&
       otherRectangle.y1 <= this.y2 &&
       this.y1 <= otherRectangle.y2
+    );
+  }
+
+  /**
+   * Compute the smallest vector in the reverse direction to movement to
+   * uncollide with a given rectangle.
+   *
+   * This ASSUMES that they do intersect, but only works correctly when the
+   * circle's center does not overlap the rectangle.
+   *
+   * @param {Circle} circle
+   */
+  uncollideCircle(circle) {
+    const closestX = clamp(circle.position.x, this.x1, this.x2);
+    const closestY = clamp(circle.position.y, this.y1, this.y2);
+
+    const p0 = new Vector(closestX, closestY);
+    const pToCenter = Vector.diff(circle.position, p0);
+
+    const distFromCenter = pToCenter.magnitude || 1;
+
+    if (distFromCenter >= circle.radius) {
+      const circleDistToMyCenter = Vector.diff(circle.position, this.midpoint);
+      const horizontalDistance = this.width / 2 - Math.abs(circleDistToMyCenter.x);
+      const verticalDistance = this.height / 2 - Math.abs(circleDistToMyCenter.y);
+
+      // Shortest way out is horizontally
+      if (horizontalDistance < verticalDistance) {
+        return new Vector((horizontalDistance + circle.radius) * sign(circleDistToMyCenter.x), 0);
+      } else {
+        return new Vector(0, (verticalDistance + circle.radius) * sign(circleDistToMyCenter.y), 0);
+      }
+    }
+
+    return Vector.scale(
+      pToCenter,
+      (circle.radius - distFromCenter) / distFromCenter
     );
   }
 

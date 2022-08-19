@@ -103,7 +103,7 @@ export class Player {
     level.objects.forEach((object) => {
       if (this.collider.intersectsRectangle(object)) {
         this.isColliding = true;
-        const collidingBy = this.collider.uncollideWithRectangle(object);
+        const collidingBy = object.uncollideCircle(this.collider);
 
         this.velocity.add(Vector.scale(collidingBy, 1 / deltaTime));
         // Horizontal rebound
@@ -131,13 +131,7 @@ export class Player {
    * @param {Canvas} canvas The canvas to draw on
    */
   draw(canvas) {
-    if (this.isGrounded) {
-      canvas.setColor("yellow");
-    } else if (this.isColliding) {
-      canvas.setColor("red");
-    } else {
-      canvas.setColorRGB(255, 0, 255);
-    }
+    canvas.setColor("yellow");
 
     this.collider.draw(canvas);
   }

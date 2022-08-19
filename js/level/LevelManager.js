@@ -1,3 +1,4 @@
+import { HORIZONTAL_TILES, VERTICAL_TILES } from "../constants/ScreenConstants.js";
 import { Rectangle } from "../math/Shapes.js";
 import { Vector } from "../math/Vector.js";
 
@@ -5,18 +6,30 @@ import { ExitTrigger } from "./ExitTrigger.js";
 import { LevelFactory } from "./Level.js";
 import { PuzzleInteractible } from "./PuzzleInteractible.js";
 
+const EDGE_BUFFER = 8;
+
 const makeTestLevel = (i) => {
   const x = Math.floor(Math.random() * 30) + 1;
   const width = 32;
   const height = i === 1 ? 36 : 18;
   const baseY = height - 18;
   const factory = new LevelFactory(`${i}`, width, height)
-    .setPlayerPos(new Vector(16, /*baseY +*/ 9))
+    .setPlayerPos(new Vector(16, 9))
     .addObjects([
+      // Floating level marker
       Rectangle.widthForm(i, baseY + 0, 1, 1),
-      Rectangle.widthForm(0, baseY + 17, 32, 1),
+      // Floor
+      new Rectangle(
+        -EDGE_BUFFER,
+        baseY + VERTICAL_TILES - 1,
+        HORIZONTAL_TILES + EDGE_BUFFER,
+        baseY + VERTICAL_TILES + EDGE_BUFFER
+      ),
+      // Step 1
       Rectangle.widthForm(14, baseY + 16, 14, 2),
+      // Step 2
       Rectangle.widthForm(24, baseY + 15, 4, 3),
+      // Random floating marker
       Rectangle.widthForm(x, baseY + 2, 1, 1),
     ])
     .addExits([

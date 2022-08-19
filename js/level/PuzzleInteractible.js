@@ -1,5 +1,6 @@
 import { PIXELS_PER_TILE, PIXEL_WIDTH } from "../constants/ScreenConstants.js";
 import { Vector } from "../math/Vector.js";
+import { DEFAULT_BACKGROUND, SOLVED_BACKGROUND } from "../puzzle-manager/constants.js";
 import { PuzzleManager } from "../puzzle-manager/PuzzleManager.js";
 
 export class PuzzleInteractible {
@@ -100,7 +101,7 @@ export class PuzzleInteractible {
     }
 
     // Draw screen
-    canvas.setColorRGB(0, 150, 255, 200);
+    canvas.setColor(this.puzzle.isSolved ? SOLVED_BACKGROUND : DEFAULT_BACKGROUND);
     canvas.fillRect(
       this.position.x - SCREEN_W,
       this.position.y - SCREEN_W,

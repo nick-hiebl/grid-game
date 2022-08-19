@@ -9,8 +9,10 @@ import { ScreenManager } from "../ScreenManager.js";
 
 import {
   CLOSE_DURATION,
+  DEFAULT_BACKGROUND,
   OPEN_DURATION,
   PUZZLE_WINDOW_WIDTH,
+  SOLVED_BACKGROUND,
 } from "./constants.js";
 import { positionGetter } from "./PuzzleSpaceManager.js";
 
@@ -95,7 +97,7 @@ export class Puzzle {
     canvas.translate(offset.x, offset.y);
 
     // Draw screen background
-    canvas.setColor("#0096ffc8");
+    canvas.setColor(this.isSolved ? SOLVED_BACKGROUND : DEFAULT_BACKGROUND);
     canvas.fillRect(0, 0, PUZZLE_WINDOW_WIDTH, PUZZLE_WINDOW_WIDTH);
 
     // Draw monitor leg
