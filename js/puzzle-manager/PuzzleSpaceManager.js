@@ -8,41 +8,48 @@ const cacheKey = (rows, cols) => `${rows}-${cols}`;
 
 const produceObject = (rows, cols) => {
   const LARGER_DIR = Math.max(rows, cols);
-  // const SMALLER_DIR = Math.min(rows, cols);
-  const CELL_SIZE = Math.ceil(PUZZLE_WINDOW_WIDTH / (LARGER_DIR + 1.2));
+  const WIDE_EDGE = 0.7;
+  const NARROW_EDGE = 0.5;
+  const CELL_SIZE = Math.floor(PUZZLE_WINDOW_WIDTH / (LARGER_DIR + WIDE_EDGE + NARROW_EDGE));
+  const NARROW_SIZE = Math.floor(CELL_SIZE * NARROW_EDGE);
+  const WIDE_SIZE = PUZZLE_WINDOW_WIDTH - CELL_SIZE * LARGER_DIR - NARROW_SIZE;
 
-  const FULL_HEIGHT = Math.ceil(CELL_SIZE * (rows + 1.2));
-  const FULL_WIDTH = Math.ceil(CELL_SIZE * (cols + 1.2));
+  const FULL_HEIGHT = WIDE_SIZE + NARROW_SIZE + rows * CELL_SIZE;
+  const FULL_WIDTH = WIDE_SIZE + NARROW_SIZE + cols * CELL_SIZE;
 
   const TOP_EDGE =
-    Math.max((FULL_WIDTH - FULL_HEIGHT) / 2, 0) + 2 * PIXEL_WIDTH;
+    Math.max((FULL_WIDTH - FULL_HEIGHT) / 2, 0);
   const LEFT_EDGE =
-    Math.max((FULL_HEIGHT - FULL_WIDTH) / 2, 0) + 2 * PIXEL_WIDTH;
+    Math.max((FULL_HEIGHT - FULL_WIDTH) / 2, 0);
 
-  const topStart =
-    TOP_EDGE + Math.ceil(PUZZLE_WINDOW_WIDTH - CELL_SIZE * (LARGER_DIR + 1.5));
-  const leftStart =
-    LEFT_EDGE + Math.ceil(PUZZLE_WINDOW_WIDTH - CELL_SIZE * (LARGER_DIR + 1.7));
+  const xSpacing = [[LEFT_EDGE, LEFT_EDGE + NARROW_SIZE]];
+  let lastX = LEFT_EDGE + NARROW_SIZE;
+
+  for (let i = 0; i < cols; i++) {
+    xSpacing.push([lastX, lastX + CELL_SIZE]);
+    lastX += CELL_SIZE;
+  }
+
+  xSpacing.push([lastX, lastX + WIDE_SIZE]);
+
+  const ySpacing = [[TOP_EDGE, TOP_EDGE + WIDE_SIZE]];
+  let lastY = TOP_EDGE + WIDE_SIZE;
+
+  for (let i = 0; i < rows; i++) {
+    ySpacing.push([lastY, lastY + CELL_SIZE]);
+    lastY += CELL_SIZE;
+  }
+
+  ySpacing.push([lastY, lastY + NARROW_SIZE]);
 
   const matrix = [];
 
-  for (let row = 0; row <= rows + 1; row++) {
+  for (const [y1, y2] of ySpacing) {
     const thisRow = [];
-    for (let col = 0; col <= cols + 1; col++) {
-      const left = leftStart + col * CELL_SIZE;
-      const top = topStart + row * CELL_SIZE;
-      thisRow.push(
-        new Rectangle(
-          Math.max(left, LEFT_EDGE),
-          Math.max(top, TOP_EDGE),
-          // Cell not rectangular if it starts left off-screen, this was an
-          // intentional decision
-          Math.min(left + CELL_SIZE, LEFT_EDGE + FULL_WIDTH - 2 * PIXEL_WIDTH),
-          // Cell also not rectangular if it over-hangs the bottom.
-          Math.min(top + CELL_SIZE, TOP_EDGE + FULL_HEIGHT - 2 * PIXEL_WIDTH)
-        )
-      );
+    for (const [x1, x2] of xSpacing) {
+      thisRow.push(new Rectangle(x1, y1, x2, y2));
     }
+
     matrix.push(thisRow);
   }
 
