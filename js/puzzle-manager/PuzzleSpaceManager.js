@@ -14,11 +14,15 @@ const produceObject = (rows, cols) => {
   const FULL_HEIGHT = Math.ceil(CELL_SIZE * (rows + 1.2));
   const FULL_WIDTH = Math.ceil(CELL_SIZE * (cols + 1.2));
 
-  const TOP_EDGE = Math.max((FULL_WIDTH - FULL_HEIGHT) / 2, 0) + 2 * PIXEL_WIDTH;
-  const LEFT_EDGE = Math.max((FULL_HEIGHT - FULL_WIDTH) / 2, 0) + 2 * PIXEL_WIDTH;
+  const TOP_EDGE =
+    Math.max((FULL_WIDTH - FULL_HEIGHT) / 2, 0) + 2 * PIXEL_WIDTH;
+  const LEFT_EDGE =
+    Math.max((FULL_HEIGHT - FULL_WIDTH) / 2, 0) + 2 * PIXEL_WIDTH;
 
-  const topStart = TOP_EDGE + Math.ceil(PUZZLE_WINDOW_WIDTH - CELL_SIZE * (LARGER_DIR + 1.5));
-  const leftStart = LEFT_EDGE + Math.ceil(PUZZLE_WINDOW_WIDTH - CELL_SIZE * (LARGER_DIR + 1.7));
+  const topStart =
+    TOP_EDGE + Math.ceil(PUZZLE_WINDOW_WIDTH - CELL_SIZE * (LARGER_DIR + 1.5));
+  const leftStart =
+    LEFT_EDGE + Math.ceil(PUZZLE_WINDOW_WIDTH - CELL_SIZE * (LARGER_DIR + 1.7));
 
   const matrix = [];
 
@@ -27,15 +31,17 @@ const produceObject = (rows, cols) => {
     for (let col = 0; col <= cols + 1; col++) {
       const left = leftStart + col * CELL_SIZE;
       const top = topStart + row * CELL_SIZE;
-      thisRow.push(new Rectangle(
-        Math.max(left, LEFT_EDGE),
-        Math.max(top, TOP_EDGE),
-        // Cell not rectangular if it starts left off-screen, this was an
-        // intentional decision
-        Math.min(left + CELL_SIZE, LEFT_EDGE + FULL_WIDTH - 2 * PIXEL_WIDTH),
-        // Cell also not rectangular if it over-hangs the bottom.
-        Math.min(top + CELL_SIZE, TOP_EDGE + FULL_HEIGHT - 2 * PIXEL_WIDTH)
-      ));
+      thisRow.push(
+        new Rectangle(
+          Math.max(left, LEFT_EDGE),
+          Math.max(top, TOP_EDGE),
+          // Cell not rectangular if it starts left off-screen, this was an
+          // intentional decision
+          Math.min(left + CELL_SIZE, LEFT_EDGE + FULL_WIDTH - 2 * PIXEL_WIDTH),
+          // Cell also not rectangular if it over-hangs the bottom.
+          Math.min(top + CELL_SIZE, TOP_EDGE + FULL_HEIGHT - 2 * PIXEL_WIDTH)
+        )
+      );
     }
     matrix.push(thisRow);
   }
@@ -57,8 +63,8 @@ export const positionGetter = (rows, cols) => {
 
   // Indexed from [-1 to ROWS][-1 to COLS]
   return (row, col) => {
-    return matrix
-      [row === "end" ? rows + 1 : row + 1]
-      [col === "end" ? cols + 1 : col + 1];
+    return matrix[row === "end" ? rows + 1 : row + 1][
+      col === "end" ? cols + 1 : col + 1
+    ];
   };
 };

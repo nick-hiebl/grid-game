@@ -1,9 +1,17 @@
-import { UI_PIXEL_WIDTH, UI_CANVAS_HEIGHT, UI_CANVAS_WIDTH } from "../constants/ScreenConstants.js";
+import {
+  UI_PIXEL_WIDTH,
+  UI_CANVAS_HEIGHT,
+  UI_CANVAS_WIDTH,
+} from "../constants/ScreenConstants.js";
 import { clamp } from "../math/Common.js";
 import { Vector } from "../math/Vector.js";
 import { ScreenManager } from "../ScreenManager.js";
 
-import { CLOSE_DURATION, OPEN_DURATION, PUZZLE_WINDOW_WIDTH } from "./constants.js";
+import {
+  CLOSE_DURATION,
+  OPEN_DURATION,
+  PUZZLE_WINDOW_WIDTH,
+} from "./constants.js";
 import { positionGetter } from "./PuzzleSpaceManager.js";
 
 const PARTIAL_RADIUS = 0.4;

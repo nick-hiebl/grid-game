@@ -1,5 +1,8 @@
 import { Input } from "./constants/Keys.js";
-import { UI_CANVAS_WIDTH, ON_SCREEN_CANVAS_WIDTH } from "./constants/ScreenConstants.js";
+import {
+  UI_CANVAS_WIDTH,
+  ON_SCREEN_CANVAS_WIDTH,
+} from "./constants/ScreenConstants.js";
 import { Vector } from "./math/Vector.js";
 
 const KEY_MAP = {
@@ -12,7 +15,7 @@ const KEY_MAP = {
   a: Input.Left,
   s: Input.Down,
   d: Input.Right,
-  e: Input.Interact
+  e: Input.Interact,
 };
 
 export class InputState {
@@ -100,7 +103,7 @@ export class InputManager {
    * Set up event listeners.
    */
   init() {
-    document.addEventListener("keydown", e => {
+    document.addEventListener("keydown", (e) => {
       if (e.repeat) {
         return;
       }
@@ -115,7 +118,7 @@ export class InputManager {
       }
     });
 
-    document.addEventListener("keyup", e => {
+    document.addEventListener("keyup", (e) => {
       const symbol = KEY_MAP[e.key];
       if (!symbol) {
         return;
@@ -124,11 +127,11 @@ export class InputManager {
       this.isButtonDown[symbol] = false;
     });
 
-    document.addEventListener("mousemove", event => {
+    document.addEventListener("mousemove", (event) => {
       this.mousePosition = this.toCanvasPosition(event);
     });
 
-    document.addEventListener("click", event => {
+    document.addEventListener("click", (event) => {
       this.mousePosition = this.toCanvasPosition(event);
 
       if (this.listener) {
@@ -136,7 +139,7 @@ export class InputManager {
       }
     });
 
-    document.addEventListener("contextmenu", event => {
+    document.addEventListener("contextmenu", (event) => {
       event.preventDefault();
       this.mousePosition = this.toCanvasPosition(event);
 
@@ -152,7 +155,8 @@ export class InputManager {
         event.clientX - this.canvas.offsetLeft,
         event.clientY - this.canvas.offsetTop
       ),
-      this.canvas.width / this.canvas.clientWidth * UI_CANVAS_WIDTH / ON_SCREEN_CANVAS_WIDTH
+      ((this.canvas.width / this.canvas.clientWidth) * UI_CANVAS_WIDTH) /
+        ON_SCREEN_CANVAS_WIDTH
     );
   }
 

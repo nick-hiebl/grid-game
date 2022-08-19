@@ -58,7 +58,7 @@ export class Player {
 
     const acceleration = new Vector(inputX * PLAYER_ACCEL, 0);
 
-    this.isGrounded = level.objects.some(object =>
+    this.isGrounded = level.objects.some((object) =>
       this.collider.isKissingBelow(object)
     );
 
@@ -96,12 +96,11 @@ export class Player {
     step.x = clamp(step.x, -PLAYER_RADIUS, PLAYER_RADIUS);
     step.y = clamp(step.y, -PLAYER_RADIUS, PLAYER_RADIUS);
 
-
     this.position.add(step);
 
     this.isColliding = false;
 
-    level.objects.forEach(object => {
+    level.objects.forEach((object) => {
       if (this.collider.intersectsRectangle(object)) {
         this.isColliding = true;
         const collidingBy = this.collider.uncollideWithRectangle(object);

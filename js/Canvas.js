@@ -54,7 +54,12 @@ export class Canvas {
   }
 
   strokeRectInset(x, y, width, height, inset) {
-    this.strokeRect(x + inset, y + inset, width - inset * 2, height - inset * 2);
+    this.strokeRect(
+      x + inset,
+      y + inset,
+      width - inset * 2,
+      height - inset * 2
+    );
   }
 
   /**
@@ -77,7 +82,7 @@ export class Canvas {
    * @param {number} width The horizontal radius of the ellipse.
    * @param {number} height The vertical radius of the ellipse.
    */
-   strokeEllipse(x, y, width, height) {
+  strokeEllipse(x, y, width, height) {
     this[CTX].beginPath();
     this[CTX].ellipse(x, y, width, height, 0, 0, 2 * Math.PI);
     this[CTX].stroke();

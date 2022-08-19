@@ -7,15 +7,15 @@ class PuzzleValidator {
   }
 
   isValid(state) {
-    this.validationItems.forEach(item => {
+    this.validationItems.forEach((item) => {
       item.validate(state);
     });
 
-    return this.validationItems.every(item => item.isValid);
+    return this.validationItems.every((item) => item.isValid);
   }
 
   draw(canvas, ...args) {
-    this.validationItems.forEach(item => {
+    this.validationItems.forEach((item) => {
       item.draw(canvas, ...args);
     });
   }
@@ -38,10 +38,7 @@ class ValidationItem {
 const EDGE_COUNT_LAYOUT = [
   [new Circle(new Vector(0, 0), 0.33)],
   [new Circle(new Vector(0, 0), 0.33)],
-  [
-    new Circle(new Vector(0, 0.4), 0.33),
-    new Circle(new Vector(0, -0.4), 0.33)
-  ],
+  [new Circle(new Vector(0, 0.4), 0.33), new Circle(new Vector(0, -0.4), 0.33)],
   [
     new Circle(new Vector(-0.42, 0.4), 0.33),
     new Circle(new Vector(0.42, 0.4), 0.33),
@@ -51,7 +48,7 @@ const EDGE_COUNT_LAYOUT = [
     new Circle(new Vector(0.4, 0.4), 0.33),
     new Circle(new Vector(0.4, -0.4), 0.33),
     new Circle(new Vector(-0.4, 0.4), 0.33),
-    new Circle(new Vector(-0.4, -0.4), 0.33)
+    new Circle(new Vector(-0.4, -0.4), 0.33),
   ],
 ];
 
@@ -60,16 +57,16 @@ const EDGE_GROUP_LAYOUT = [
   [Rectangle.centerForm(0, 0, 0.33, 0.33)],
   [
     Rectangle.centerForm(0, -0.4, 0.33, 0.33),
-    Rectangle.centerForm(0, 0.4, 0.33, 0.33)
+    Rectangle.centerForm(0, 0.4, 0.33, 0.33),
   ],
   [
     Rectangle.centerForm(0, -0.4, 0.33, 0.33),
     Rectangle.centerForm(-0.4, 0.4, 0.33, 0.33),
-    Rectangle.centerForm(0.4, 0.4, 0.33, 0.33)
+    Rectangle.centerForm(0.4, 0.4, 0.33, 0.33),
   ],
-]
+];
 
-const rotRight = vector => new Vector(-vector.y, vector.x);
+const rotRight = (vector) => new Vector(-vector.y, vector.x);
 
 class EdgeValidationItem extends ValidationItem {
   constructor(isRow, index) {
@@ -84,7 +81,7 @@ class EdgeValidationItem extends ValidationItem {
     if (this.isRow) {
       return state[this.index];
     } else {
-      return state.map(row => row[this.index]);
+      return state.map((row) => row[this.index]);
     }
   }
 
@@ -130,25 +127,38 @@ class EdgeCountValidationItem extends EdgeValidationItem {
   }
 
   validateRow(row) {
-    const count = row.reduce((soFar, item) => item ? soFar + 1 : soFar, 0);
+    const count = row.reduce((soFar, item) => (item ? soFar + 1 : soFar), 0);
 
     return count === this.count;
   }
 
   drawInCell(canvas, center, scaleBy, isSideways) {
     const transformCircle = isSideways
-      ? circle => new Circle(rotRight(circle.position), circle.radius)
-      : v => v;
+      ? (circle) => new Circle(rotRight(circle.position), circle.radius)
+      : (v) => v;
 
     for (let circle of EDGE_COUNT_LAYOUT[this.count]) {
       circle = transformCircle(circle);
-      const position = Vector.add(center, Vector.scale(circle.position, scaleBy));
+      const position = Vector.add(
+        center,
+        Vector.scale(circle.position, scaleBy)
+      );
 
       if (this.count === 0) {
         canvas.setLineWidth(circle.radius * scaleBy * 0.5);
-        canvas.strokeEllipse(position.x, position.y, circle.radius * scaleBy * 0.75, circle.radius * scaleBy * 0.75);
+        canvas.strokeEllipse(
+          position.x,
+          position.y,
+          circle.radius * scaleBy * 0.75,
+          circle.radius * scaleBy * 0.75
+        );
       } else {
-        canvas.fillEllipse(position.x, position.y, circle.radius * scaleBy, circle.radius * scaleBy);
+        canvas.fillEllipse(
+          position.x,
+          position.y,
+          circle.radius * scaleBy,
+          circle.radius * scaleBy
+        );
       }
     }
   }
@@ -156,12 +166,13 @@ class EdgeCountValidationItem extends EdgeValidationItem {
 
 class EdgeGroupsValidationItem extends EdgeCountValidationItem {
   validateRow(row) {
-    const [numGroups] = row.reduce(([soFar, inGroup], item) =>
-      item && !inGroup
-        // Start of new group
-        ? [soFar + 1, true]
-        // Continue, updating inGroup based on current item state
-        : [soFar, !!item],
+    const [numGroups] = row.reduce(
+      ([soFar, inGroup], item) =>
+        item && !inGroup
+          ? // Start of new group
+            [soFar + 1, true]
+          : // Continue, updating inGroup based on current item state
+            [soFar, !!item],
       [0, false]
     );
 
@@ -169,14 +180,22 @@ class EdgeGroupsValidationItem extends EdgeCountValidationItem {
   }
 
   drawSquare(canvas, position, width) {
-    canvas.fillRect(position.x - width / 2, position.y - width / 2, width, width);
+    canvas.fillRect(
+      position.x - width / 2,
+      position.y - width / 2,
+      width,
+      width
+    );
   }
 
   drawInCell(canvas, center, scaleBy, isSideways) {
-    const moveCenter = pos => isSideways ? rotRight(pos) : pos;
+    const moveCenter = (pos) => (isSideways ? rotRight(pos) : pos);
 
     for (const square of EDGE_GROUP_LAYOUT[this.count]) {
-      const position = Vector.add(center, Vector.scale(moveCenter(square.midpoint), scaleBy));
+      const position = Vector.add(
+        center,
+        Vector.scale(moveCenter(square.midpoint), scaleBy)
+      );
       const width = square.width * scaleBy;
 
       this.drawSquare(canvas, position, width);
@@ -192,12 +211,13 @@ class EdgeBlankGroupsValidationItem extends EdgeGroupsValidationItem {
   }
 
   validateRow(row) {
-    const [numGroups] = row.reduce(([soFar, inGroup], item) =>
-      !item && inGroup
-        // Start of new group
-        ? [soFar + 1, false]
-        // Continue, updating inGroup based on current item state
-        : [soFar, !!item],
+    const [numGroups] = row.reduce(
+      ([soFar, inGroup], item) =>
+        !item && inGroup
+          ? // Start of new group
+            [soFar + 1, false]
+          : // Continue, updating inGroup based on current item state
+            [soFar, !!item],
       [0, true]
     );
 
@@ -248,10 +268,7 @@ class EdgeNoTripleValidationItem extends EdgeValidationItem {
       )
     );
     canvas.fillEllipse(center2.x, center2.y, 0.22 * scaleBy, 0.22 * scaleBy);
-    const center3 = Vector.add(
-      center,
-      Vector.diff(center, center2)
-    );
+    const center3 = Vector.add(center, Vector.diff(center, center2));
 
     const radius = scaleBy * 0.22;
     canvas.drawLine(

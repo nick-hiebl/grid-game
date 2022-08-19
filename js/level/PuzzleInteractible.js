@@ -65,7 +65,7 @@ export class PuzzleInteractible {
         this.position.y,
         0,
         0,
-        -SCREEN_W -PIXEL_SCALE * 1.5
+        -SCREEN_W - PIXEL_SCALE * 1.5
       );
     }
 
@@ -108,7 +108,10 @@ export class PuzzleInteractible {
       SCREEN_W * 2
     );
 
-    const offset = new Vector(this.position.x - SCREEN_W, this.position.y - SCREEN_W);
+    const offset = new Vector(
+      this.position.x - SCREEN_W,
+      this.position.y - SCREEN_W
+    );
 
     canvas.translate(offset.x, offset.y);
 
@@ -122,8 +125,8 @@ export class PuzzleInteractible {
       for (let col = 0; col < rows[row].length; col++) {
         if (rows[row][col]) {
           canvas.fillRect(
-            PAD + col * 2 * (SCREEN_W - PAD) / rows[row].length,
-            PAD + row * 2 * (SCREEN_W - PAD) / rows.length,
+            PAD + (col * 2 * (SCREEN_W - PAD)) / rows[row].length,
+            PAD + (row * 2 * (SCREEN_W - PAD)) / rows.length,
             PIXEL_SCALE * 2,
             PIXEL_SCALE * 2
           );

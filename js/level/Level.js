@@ -1,5 +1,9 @@
 import { Input } from "../constants/Keys.js";
-import { CANVAS_WIDTH, HORIZONTAL_TILES, VERTICAL_TILES } from "../constants/ScreenConstants.js";
+import {
+  CANVAS_WIDTH,
+  HORIZONTAL_TILES,
+  VERTICAL_TILES,
+} from "../constants/ScreenConstants.js";
 import { InputState } from "../InputManager.js";
 import { clamp } from "../math/Common.js";
 import { Vector } from "../math/Vector.js";
@@ -77,7 +81,7 @@ export class Level {
     );
 
     // Update interactibles
-    this.interactibles.forEach(interactible => {
+    this.interactibles.forEach((interactible) => {
       interactible.update(this.player.position, deltaTime);
     });
     if (!this.interactingWith?.isTriggered) {
@@ -111,7 +115,7 @@ export class Level {
     }
 
     if (input.input === Input.Interact) {
-      this.interactingWith = this.interactibles.find(i => i.isTriggered);
+      this.interactingWith = this.interactibles.find((i) => i.isTriggered);
       if (this.interactingWith) {
         this.emitEvent(new OpenPuzzleEvent(this.interactingWith.id));
       }
@@ -127,7 +131,7 @@ export class Level {
    * @returns The trigger key.
    */
   updateExits() {
-    const triggeredExit = this.exitTriggers.find(trigger =>
+    const triggeredExit = this.exitTriggers.find((trigger) =>
       trigger.hasEntered(this.player)
     );
 
@@ -172,7 +176,7 @@ export class Level {
    */
   draw(screenManager) {
     if (!this.drawnStatic) {
-      this.withSetupCanvas(screenManager.staticWorldCanvas, canvas => {
+      this.withSetupCanvas(screenManager.staticWorldCanvas, (canvas) => {
         // Fill background
         canvas.setColor("#6400c8");
         canvas.fillRect(0, 0, canvas.width, canvas.height);
@@ -187,11 +191,11 @@ export class Level {
       this.drawnStatic = true;
     }
 
-    this.withSetupCanvas(screenManager.dynamicWorldCanvas, canvas => {
+    this.withSetupCanvas(screenManager.dynamicWorldCanvas, (canvas) => {
       canvas.clear();
 
       // Draw interactibles
-      this.interactibles.forEach(interactible => {
+      this.interactibles.forEach((interactible) => {
         interactible.draw(canvas);
       });
 

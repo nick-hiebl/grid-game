@@ -8,7 +8,8 @@ class PuzzleManagerInstance {
 
   loadPuzzle(id) {
     const factory = new PuzzleValidatorFactory();
-    let rows = 3, cols = 4;
+    let rows = 3,
+      cols = 4;
 
     if (id === "1") {
       factory.addColumnCounts([1, 3, 1]);

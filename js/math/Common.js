@@ -1,6 +1,6 @@
 /**
  * Clamps a parameter between a low and high bound.
- * @param {number} x The number to be clamped 
+ * @param {number} x The number to be clamped
  * @param {number} low The lowest value that could be returned
  * @param {number} high The highest value that could be returned
  */
@@ -16,4 +16,4 @@ export const sign = (x) => {
   } else {
     return -1;
   }
-}
+};

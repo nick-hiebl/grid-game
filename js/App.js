@@ -11,7 +11,7 @@ class App {
   constructor() {
     this.screenManager = ScreenManager.getInstance();
     this.gameModeManager = new GameModeManager();
-    this.inputManager = new InputManager(input => this.onInput(input));
+    this.inputManager = new InputManager((input) => this.onInput(input));
   }
 
   start() {
