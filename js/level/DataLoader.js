@@ -51,9 +51,7 @@ function firstPass(level) {
   entityLayer.entityInstances.forEach((entity) => {
     switch (entity.__identifier) {
       case "PlayerStart":
-        factory.setPlayerPos(
-          new Vector(entity.__grid[0], entity.__grid[1])
-        );
+        factory.setPlayerPos(new Vector(entity.__grid[0], entity.__grid[1]));
         setStartPos = true;
         break;
       case "PuzzleScreen":
@@ -67,8 +65,8 @@ function firstPass(level) {
           new PuzzleInteractible(
             key.__value,
             center,
-            Rectangle.aroundPoint(center, 2, 2),
-          )
+            Rectangle.aroundPoint(center, 2, 2)
+          ),
         ]);
         break;
       default:

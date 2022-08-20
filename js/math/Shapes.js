@@ -187,6 +187,11 @@ export class Rectangle {
   }
 
   static aroundPoint(point, halfWidth, halfHeight) {
-    return new Rectangle(point.x - halfWidth, point.y - halfHeight, point.x + halfWidth, point.y + halfHeight);
+    return new Rectangle(
+      point.x - halfWidth,
+      point.y - halfHeight,
+      point.x + halfWidth,
+      point.y + halfHeight
+    );
   }
 }
