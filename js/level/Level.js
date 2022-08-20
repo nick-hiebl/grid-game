@@ -141,26 +141,27 @@ export class Level {
     }
   }
 
-  getIdealCamera() {
+  clampCamera(camera) {
     return new Vector(
-      clamp(
-        this.player.position.x - HORIZONTAL_TILES / 2,
-        0,
-        this.width - HORIZONTAL_TILES
-      ),
-      clamp(
-        this.player.position.y - VERTICAL_TILES / 2,
-        0,
-        this.height - VERTICAL_TILES
-      )
+      clamp(camera.x, 0, this.width - HORIZONTAL_TILES),
+      clamp(camera.y, 0, this.height - VERTICAL_TILES)
     );
   }
 
+  getNaiveCamera() {
+    return new Vector(
+      this.player.position.x - HORIZONTAL_TILES / 2,
+      this.player.position.y - VERTICAL_TILES / 2
+    );
+  }
+
+  getIdealCamera() {
+    return this.clampCamera(this.getNaiveCamera());
+  }
+
   updateCamera(deltaTime) {
-    this.camera = Vector.lerp(
-      this.camera,
-      this.getIdealCamera(),
-      Math.min(1, deltaTime * 10)
+    this.camera = this.clampCamera(
+      Vector.lerp(this.camera, this.getNaiveCamera(), deltaTime * 2)
     );
   }
 
@@ -183,7 +184,7 @@ export class Level {
         canvas.fillRect(0, 0, canvas.width, canvas.height);
 
         // Draw walls
-        canvas.setColor("black");
+        canvas.setColor("red");
         for (const object of this.objects) {
           object.draw(canvas);
         }
@@ -213,6 +214,11 @@ export class Level {
       this.player.draw(canvas);
     });
 
-    screenManager.setCamera(Vector.scale(this.camera, SCALE_FACTOR));
+    screenManager.setCamera(
+      new Vector(
+        Math.floor(this.camera.x * SCALE_FACTOR),
+        Math.floor(this.camera.y * SCALE_FACTOR)
+      )
+    );
   }
 }

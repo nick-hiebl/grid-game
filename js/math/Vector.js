@@ -44,6 +44,10 @@ export class Vector {
     return xDiff * xDiff + yDiff * yDiff;
   }
 
+  static manhattanDist(a, b) {
+    return Math.max(Math.abs(a.x - b.x), Math.abs(a.y - b.y));
+  }
+
   static dist(a, b) {
     return Math.hypot(a.x - b.x, a.y - b.y);
   }

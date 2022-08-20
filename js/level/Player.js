@@ -123,15 +123,16 @@ export class Player {
 
     const { x, y } = this.position;
 
+    // Re-ordered to prioritise collisions with closer blocks first
     const nearbyObjects = [
-      getRectAt(x - 1, y - 1),
-      getRectAt(x, y - 1),
-      getRectAt(x + 1, y - 1),
-      getRectAt(x - 1, y),
       getRectAt(x, y),
-      getRectAt(x + 1, y),
-      getRectAt(x - 1, y + 1),
       getRectAt(x, y + 1),
+      getRectAt(x, y - 1),
+      getRectAt(x - 1, y),
+      getRectAt(x + 1, y),
+      getRectAt(x - 1, y - 1),
+      getRectAt(x + 1, y - 1),
+      getRectAt(x - 1, y + 1),
       getRectAt(x + 1, y + 1),
     ].filter((rect) => !!rect);
 
