@@ -9,7 +9,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "build": "esbuild js/App.js --bundle --outfile=build/index.js",
+    "build": "esbuild js/App.js --bundle --minify --outfile=build/index.js",
     "watch": "nodemon --exec \"npm run build && http-server\" -e js --ignore build/"
   },
   "repository": {

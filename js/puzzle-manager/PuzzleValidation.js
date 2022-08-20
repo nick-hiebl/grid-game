@@ -50,6 +50,40 @@ const EDGE_COUNT_LAYOUT = [
     new Circle(new Vector(-0.4, 0.4), 0.33),
     new Circle(new Vector(-0.4, -0.4), 0.33),
   ],
+  [
+    new Circle(new Vector(0, 0.3), 0.28),
+    new Circle(new Vector(0.64, 0.3), 0.28),
+    new Circle(new Vector(-0.64, 0.3), 0.28),
+    new Circle(new Vector(-0.32, -0.3), 0.28),
+    new Circle(new Vector(0.32, -0.3), 0.28),
+  ],
+  [
+    new Circle(new Vector(0, 0.6), 0.28),
+    new Circle(new Vector(0.64, 0.6), 0.28),
+    new Circle(new Vector(-0.64, 0.6), 0.28),
+    new Circle(new Vector(-0.32, 0), 0.28),
+    new Circle(new Vector(0.32, 0), 0.28),
+    new Circle(new Vector(0, -0.6), 0.28),
+  ],
+  [
+    new Circle(new Vector(0, 0), 0.28),
+    new Circle(new Vector(0.64, 0), 0.28),
+    new Circle(new Vector(-0.64, 0), 0.28),
+    new Circle(new Vector(-0.32, -0.6), 0.28),
+    new Circle(new Vector(0.32, -0.6), 0.28),
+    new Circle(new Vector(-0.32, 0.6), 0.28),
+    new Circle(new Vector(0.32, 0.6), 0.28),
+  ],
+  [
+    new Circle(new Vector(0, 0.6), 0.28),
+    new Circle(new Vector(0.64, 0.6), 0.28),
+    new Circle(new Vector(-0.64, 0.6), 0.28),
+    new Circle(new Vector(-0.32, 0), 0.28),
+    new Circle(new Vector(0.32, 0), 0.28),
+    new Circle(new Vector(0, -0.6), 0.28),
+    new Circle(new Vector(0.64, -0.6), 0.28),
+    new Circle(new Vector(-0.64, -0.6), 0.28),
+  ]
 ];
 
 const EDGE_GROUP_LAYOUT = [
@@ -61,6 +95,12 @@ const EDGE_GROUP_LAYOUT = [
   ],
   [
     Rectangle.centerForm(0, -0.4, 0.33, 0.33),
+    Rectangle.centerForm(-0.4, 0.4, 0.33, 0.33),
+    Rectangle.centerForm(0.4, 0.4, 0.33, 0.33),
+  ],
+  [
+    Rectangle.centerForm(-0.4, -0.4, 0.33, 0.33),
+    Rectangle.centerForm(0.4, -0.4, 0.33, 0.33),
     Rectangle.centerForm(-0.4, 0.4, 0.33, 0.33),
     Rectangle.centerForm(0.4, 0.4, 0.33, 0.33),
   ],
