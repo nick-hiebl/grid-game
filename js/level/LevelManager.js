@@ -1,13 +1,4 @@
-import { HORIZONTAL_TILES, VERTICAL_TILES } from "../constants/ScreenConstants.js";
-import { Rectangle } from "../math/Shapes.js";
-import { Vector } from "../math/Vector.js";
-
 import { DataLoader } from "./DataLoader.js";
-import { ExitTrigger } from "./ExitTrigger.js";
-import { LevelFactory } from "./LevelFactory.js";
-import { PuzzleInteractible } from "./PuzzleInteractible.js";
-
-const EDGE_BUFFER = 8;
 
 /**
  * Responsible for finding and loading levels, not managing what level is
