@@ -60,8 +60,12 @@ export class Player {
       return level.levelGrid[Math.floor(y)]?.[Math.floor(x)];
     };
     const getRectAt = (x, y) => {
-      if (getCellAt(x, y)) {
-        return RectPool.get(Math.floor(y), Math.floor(x));
+      const type = getCellAt(x, y);
+      if (type) {
+        return {
+          type: getCellAt(x, y),
+          rect: RectPool.get(Math.floor(y), Math.floor(x)),
+        };
       }
     };
 
@@ -124,7 +128,7 @@ export class Player {
     const { x, y } = this.position;
 
     // Re-ordered to prioritise collisions with closer blocks first
-    const nearbyObjects = [
+    const nearbyBlocks = [
       getRectAt(x, y),
       getRectAt(x, y + 1),
       getRectAt(x, y - 1),
@@ -136,10 +140,10 @@ export class Player {
       getRectAt(x + 1, y + 1),
     ].filter((rect) => !!rect);
 
-    nearbyObjects.concat(level.objects).forEach((object) => {
-      if (this.collider.intersectsRectangle(object)) {
+    nearbyBlocks.forEach(({ type, rect }) => {
+      if (this.collider.intersectsRectangle(rect)) {
         this.isColliding = true;
-        const collidingBy = object.uncollideCircle(this.collider);
+        const collidingBy = rect.uncollideCircle(this.collider);
 
         this.velocity.add(Vector.scale(collidingBy, 1 / deltaTime));
         // Horizontal rebound
@@ -156,7 +160,7 @@ export class Player {
         }
         this.position.add(collidingBy);
       }
-      return this.collider.intersectsRectangle(object);
+      return this.collider.intersectsRectangle(rect);
     });
 
     this.wantsToJump = false;
