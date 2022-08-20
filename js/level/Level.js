@@ -148,20 +148,29 @@ export class Level {
     );
   }
 
-  getNaiveCamera() {
+  getNaiveCamera(position = this.player.position) {
     return new Vector(
-      this.player.position.x - HORIZONTAL_TILES / 2,
-      this.player.position.y - VERTICAL_TILES / 2
+      position.x - HORIZONTAL_TILES / 2,
+      position.y - VERTICAL_TILES / 2
     );
   }
 
-  getIdealCamera() {
-    return this.clampCamera(this.getNaiveCamera());
+  getIdealCamera(position = this.player.position) {
+    return this.clampCamera(this.getNaiveCamera(position));
   }
 
   updateCamera(deltaTime) {
     this.camera = this.clampCamera(
-      Vector.lerp(this.camera, this.getNaiveCamera(), deltaTime * 2)
+      Vector.lerp(
+        this.camera,
+        this.getNaiveCamera(
+          Vector.add(
+            this.player.position,
+            Vector.scale(this.player.velocity, 0.4)
+          )
+        ),
+        deltaTime * 2
+      )
     );
   }
 
