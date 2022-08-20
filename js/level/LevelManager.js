@@ -69,6 +69,7 @@ const makeTestLevel = (i) => {
   } else if (i === 5) {
     factory.addObjects([Rectangle.widthForm(31, baseY, 18, 18)]);
   }
+  factory.generateLevelGrid();
   return factory.create();
 };
 

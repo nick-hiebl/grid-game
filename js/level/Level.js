@@ -17,12 +17,14 @@ export class Level {
     key,
     width,
     height,
+    levelGrid,
     objects,
     player,
     exitTriggers,
     interactibles
   ) {
     this.key = key;
+    this.levelGrid = levelGrid;
     this.objects = objects;
     this.player = player;
     this.exitTriggers = exitTriggers;
@@ -186,6 +188,15 @@ export class Level {
         for (const object of this.objects) {
           object.draw(canvas);
         }
+
+        canvas.setColor("black");
+        for (let row = 0; row < this.height; row++) {
+          for (let col = 0; col < this.width; col++) {
+            if (this.levelGrid[row][col]) {
+              canvas.fillRect(col, row, 1, 1);
+            }
+          }
+        }
       });
 
       this.drawnStatic = true;
@@ -212,6 +223,7 @@ export class LevelFactory {
     this.key = key;
     this.width = width;
     this.height = height;
+    this.levelGrid = [];
     this.objects = [];
     this.playerPosition = new Vector(16, 9);
     this.exitTriggers = [];
@@ -238,11 +250,38 @@ export class LevelFactory {
     return this;
   }
 
+  setLevelGrid(grid) {
+    this.levelGrid = grid;
+  }
+
+  generateLevelGrid() {
+    this.levelGrid = [];
+
+    for (let row = 0; row < this.height; row++) {
+      const thisRow = [];
+      for (let col = 0; col < this.width; col++) {
+        const vec = new Vector(col + 0.5, row + 0.5);
+        const isSolid = this.objects.some((rect) => rect.intersectsPoint(vec));
+
+        if (isSolid) {
+          thisRow.push(1);
+        } else {
+          thisRow.push(0);
+        }
+      }
+
+      this.levelGrid.push(thisRow);
+    }
+
+    this.objects = [];
+  }
+
   create() {
     return new Level(
       this.key,
       this.width,
       this.height,
+      this.levelGrid,
       this.objects,
       new Player(this.playerPosition),
       this.exitTriggers,

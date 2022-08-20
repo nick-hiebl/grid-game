@@ -5,6 +5,8 @@ import { clamp, sign } from "../math/Common.js";
 import { Circle } from "../math/Shapes.js";
 import { Vector } from "../math/Vector.js";
 
+import { RectPool } from "./RectPool.js";
+
 const PLAYER_RADIUS = 0.8;
 
 // Running parameters
@@ -54,17 +56,33 @@ export class Player {
    * @param {Level} level The level that the player is in.
    */
   update(deltaTime, inputState, level) {
-    const inputX = inputState.getHorizontalAxis();
+    const getCellAt = (x, y) => {
+      return level.levelGrid[Math.floor(y)]?.[Math.floor(x)];
+    };
+    const getRectAt = (x, y) => {
+      if (getCellAt(x, y)) {
+        return RectPool.get(Math.floor(y), Math.floor(x));
+      }
+    }
 
+    // Process horizontal input
+    const inputX = inputState.getHorizontalAxis();
     const acceleration = new Vector(inputX * PLAYER_ACCEL, 0);
 
-    this.isGrounded = level.objects.some((object) =>
+    // Check grounded
+    const playerBottom = this.position.y + this.collider.radius;
+    const gridCellBelow = getCellAt(this.position.x, playerBottom);
+    const groundedOnGridCell = gridCellBelow && playerBottom === Math.floor(playerBottom);
+
+    this.isGrounded = groundedOnGridCell || level.objects.some((object) =>
       this.collider.isKissingBelow(object)
     );
 
+    // General motion
     if (this.isGrounded) {
       this.inAirFor = 0;
       if (sign(inputX)) {
+        // Turn speed
         if (sign(inputX) !== sign(this.velocity.x)) {
           acceleration.x += -TURN_SPEED * sign(this.velocity.x);
         }
@@ -76,10 +94,12 @@ export class Player {
 
       this.velocity.y = 0;
     } else {
+      // Gravity
       this.inAirFor += deltaTime;
       acceleration.y += GRAVITY;
     }
 
+    // Coyote jump
     if (this.inAirFor < COYOTE_TIME && this.wantsToJump) {
       this.velocity.y = -JUMP_INITIAL_SPEED;
     }
@@ -100,7 +120,15 @@ export class Player {
 
     this.isColliding = false;
 
-    level.objects.forEach((object) => {
+    const { x, y } = this.position;
+
+    const nearbyObjects = [
+      getRectAt(x - 1, y - 1), getRectAt(x, y - 1), getRectAt(x + 1, y - 1),
+      getRectAt(x - 1, y), getRectAt(x, y), getRectAt(x + 1, y),
+      getRectAt(x - 1, y + 1), getRectAt(x, y + 1), getRectAt(x + 1, y + 1),
+    ].filter((rect) => !!rect);
+
+    nearbyObjects.concat(level.objects).forEach((object) => {
       if (this.collider.intersectsRectangle(object)) {
         this.isColliding = true;
         const collidingBy = object.uncollideCircle(this.collider);
