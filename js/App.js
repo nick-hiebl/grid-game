@@ -60,6 +60,12 @@ const main = () => {
 
     window.app = app;
   });
+
+  if (!location.href.includes("localhost")) {
+    Array.from(document.getElementsByTagName("p")).forEach((tag) =>
+      tag.classList.add("visible")
+    );
+  }
 };
 
 window.onload = () => {
