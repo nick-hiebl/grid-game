@@ -153,6 +153,7 @@ export class Player {
         type === BlockType.LEDGE &&
         this.velocity.y >= 0 &&
         this.position.y < rect.y1;
+
       if (BlockType.isSolid(type) || isActiveLedge) {
         if (this.collider.intersectsRectangle(rect)) {
           this.isColliding = true;

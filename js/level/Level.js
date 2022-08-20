@@ -13,7 +13,7 @@ import { ClosePuzzleEvent, ExitEvent, OpenPuzzleEvent } from "./LevelEvent.js";
 const SCALE_FACTOR = CANVAS_WIDTH / HORIZONTAL_TILES;
 
 const TileImage = new Image();
-TileImage.src = "../../img/tileset.png";
+TileImage.src = "./img/tileset.png";
 
 export class Level {
   constructor(
