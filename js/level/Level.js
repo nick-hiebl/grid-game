@@ -8,7 +8,6 @@ import { InputState } from "../InputManager.js";
 import { clamp } from "../math/Common.js";
 import { Vector } from "../math/Vector.js";
 import { ClosePuzzleEvent, ExitEvent, OpenPuzzleEvent } from "./LevelEvent.js";
-import { Player } from "./Player.js";
 
 const SCALE_FACTOR = CANVAS_WIDTH / HORIZONTAL_TILES;
 
@@ -215,77 +214,5 @@ export class Level {
     });
 
     screenManager.setCamera(Vector.scale(this.camera, SCALE_FACTOR));
-  }
-}
-
-export class LevelFactory {
-  constructor(key, width, height) {
-    this.key = key;
-    this.width = width;
-    this.height = height;
-    this.levelGrid = [];
-    this.objects = [];
-    this.playerPosition = new Vector(16, 9);
-    this.exitTriggers = [];
-    this.interactibles = [];
-  }
-
-  addObjects(objects) {
-    this.objects = this.objects.concat(objects);
-    return this;
-  }
-
-  addExits(exits) {
-    this.exitTriggers = this.exitTriggers.concat(exits);
-    return this;
-  }
-
-  addInteractibles(is) {
-    this.interactibles = this.interactibles.concat(is);
-    return this;
-  }
-
-  setPlayerPos(pos) {
-    this.playerPosition = pos;
-    return this;
-  }
-
-  setLevelGrid(grid) {
-    this.levelGrid = grid;
-  }
-
-  generateLevelGrid() {
-    this.levelGrid = [];
-
-    for (let row = 0; row < this.height; row++) {
-      const thisRow = [];
-      for (let col = 0; col < this.width; col++) {
-        const vec = new Vector(col + 0.5, row + 0.5);
-        const isSolid = this.objects.some((rect) => rect.intersectsPoint(vec));
-
-        if (isSolid) {
-          thisRow.push(1);
-        } else {
-          thisRow.push(0);
-        }
-      }
-
-      this.levelGrid.push(thisRow);
-    }
-
-    this.objects = [];
-  }
-
-  create() {
-    return new Level(
-      this.key,
-      this.width,
-      this.height,
-      this.levelGrid,
-      this.objects,
-      new Player(this.playerPosition),
-      this.exitTriggers,
-      this.interactibles
-    );
   }
 }

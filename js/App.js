@@ -1,3 +1,5 @@
+import { DataLoader } from "./level/DataLoader.js";
+
 import { GameModeManager } from "./GameModeManager.js";
 import { InputManager } from "./InputManager.js";
 import { ScreenManager } from "./ScreenManager.js";
@@ -57,5 +59,7 @@ const main = () => {
 };
 
 window.onload = () => {
-  main();
+  DataLoader.start().then(() => {
+    main();
+  });
 };
