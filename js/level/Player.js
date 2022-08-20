@@ -35,6 +35,7 @@ export class Player {
 
     this.isColliding = false;
     this.isGrounded = false;
+    this.isDropping = false;
 
     this.wantsToJump = false;
     this.inAirFor = 1;
@@ -74,11 +75,17 @@ export class Player {
     const inputX = inputState.getHorizontalAxis();
     const acceleration = new Vector(inputX * PLAYER_ACCEL, 0);
 
+    if (inputState.isPressed(Input.Down)) {
+      this.isDropping = true;
+    }
+
     // Check grounded
     const playerBottom = this.position.y + this.collider.radius;
-    const groundingCellBelow = BlockType.isGrounding(
-      getCellAt(this.position.x, playerBottom)
-    );
+    const cellBelow = getCellAt(this.position.x, playerBottom);
+    const groundingCellBelow = this.isDropping
+      ? BlockType.isSolid(cellBelow)
+      : BlockType.isGrounding(cellBelow);
+
     const gridCellWithin = getCellAt(this.position.x, this.position.y);
     const groundedOnGridCell =
       groundingCellBelow && playerBottom === Math.floor(playerBottom);
@@ -148,14 +155,23 @@ export class Player {
       getRectAt(x + 1, y + 1),
     ].filter((rect) => !!rect);
 
+    let contactingAnyLedge = false;
+
     nearbyBlocks.forEach(({ type, rect }) => {
       const isActiveLedge =
+        !this.isDropping &&
         type === BlockType.LEDGE &&
         this.velocity.y >= 0 &&
         this.position.y < rect.y1;
 
+      const intersects = this.collider.intersectsRectangle(rect);
+
+      if (intersects && type === BlockType.LEDGE) {
+        contactingAnyLedge = true;
+      }
+
       if (BlockType.isSolid(type) || isActiveLedge) {
-        if (this.collider.intersectsRectangle(rect)) {
+        if (intersects) {
           this.isColliding = true;
           const collidingBy = rect.uncollideCircle(this.collider);
 
@@ -179,6 +195,7 @@ export class Player {
     });
 
     this.wantsToJump = false;
+    this.isDropping = this.isDropping && contactingAnyLedge;
   }
 
   /**
