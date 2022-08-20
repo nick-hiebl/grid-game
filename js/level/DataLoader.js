@@ -55,7 +55,6 @@ function firstPass(level) {
         setStartPos = true;
         break;
       case "PuzzleScreen":
-        console.log("PuzzleScreen", entity);
         const key = find(entity.fieldInstances, "key");
         if (!key) {
           console.warn("Puzzle with no key in:", level.identifier);
