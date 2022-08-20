@@ -54,23 +54,8 @@ export class LevelFactory {
     this.worldPosition = vec;
   }
 
-  setCell(row, col, isSolid) {
-    this.levelGrid[row][col] = isSolid ? 1 : 0;
-  }
-
-  generateLevelGrid() {
-    this.makeGridSpace();
-
-    for (let row = 0; row < this.height; row++) {
-      for (let col = 0; col < this.width; col++) {
-        const vec = new Vector(col + 0.5, row + 0.5);
-        const isSolid = this.objects.some((rect) => rect.intersectsPoint(vec));
-
-        this.setCell(row, col, isSolid);
-      }
-    }
-
-    this.objects = [];
+  setCell(row, col, blockType) {
+    this.levelGrid[row][col] = blockType;
   }
 
   create() {

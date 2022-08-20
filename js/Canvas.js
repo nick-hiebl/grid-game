@@ -196,7 +196,7 @@ export class Canvas {
    * @param {number} destinationWidth
    * @param {nubmer} destinationHeight
    */
-  drawImageFromCanvas(
+  drawImage(
     imageSource,
     sourceX,
     sourceY,
@@ -210,6 +210,8 @@ export class Canvas {
     let image;
     if (imageSource instanceof Canvas) {
       image = imageSource[CANVAS];
+    } else if (imageSource instanceof Image) {
+      image = imageSource;
     } else {
       throw Error("Drawing something unmanageable");
     }

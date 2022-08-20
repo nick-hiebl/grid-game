@@ -51,7 +51,7 @@ export class ScreenManager {
   }
 
   drawToScreen() {
-    this[REAL_CANVAS].drawImageFromCanvas(
+    this[REAL_CANVAS].drawImage(
       this.staticWorldCanvas,
       this.camera.x,
       this.camera.y,
@@ -62,7 +62,7 @@ export class ScreenManager {
       this[REAL_CANVAS].width,
       this[REAL_CANVAS].height
     );
-    this[REAL_CANVAS].drawImageFromCanvas(
+    this[REAL_CANVAS].drawImage(
       this.dynamicWorldCanvas,
       this.camera.x,
       this.camera.y,
@@ -73,7 +73,7 @@ export class ScreenManager {
       this[REAL_CANVAS].width,
       this[REAL_CANVAS].height
     );
-    this[REAL_CANVAS].drawImageFromCanvas(
+    this[REAL_CANVAS].drawImage(
       this.uiCanvas,
       0,
       0,

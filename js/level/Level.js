@@ -2,6 +2,7 @@ import { Input } from "../constants/Keys.js";
 import {
   CANVAS_WIDTH,
   HORIZONTAL_TILES,
+  PIXELS_PER_TILE,
   VERTICAL_TILES,
 } from "../constants/ScreenConstants.js";
 import { InputState } from "../InputManager.js";
@@ -10,6 +11,9 @@ import { Vector } from "../math/Vector.js";
 import { ClosePuzzleEvent, ExitEvent, OpenPuzzleEvent } from "./LevelEvent.js";
 
 const SCALE_FACTOR = CANVAS_WIDTH / HORIZONTAL_TILES;
+
+const TileImage = new Image();
+TileImage.src = "../../img/tileset.png";
 
 export class Level {
   constructor(
@@ -166,7 +170,7 @@ export class Level {
         this.getNaiveCamera(
           Vector.add(
             this.player.position,
-            new Vector(this.player.velocity.x * 0.6, 0)
+            new Vector(this.player.velocity.x * 0.3, 0)
           )
         ),
         deltaTime * 2
@@ -201,8 +205,20 @@ export class Level {
         canvas.setColor("black");
         for (let row = 0; row < this.height; row++) {
           for (let col = 0; col < this.width; col++) {
-            if (this.levelGrid[row][col]) {
-              canvas.fillRect(col, row, 1, 1);
+            const blockType = this.levelGrid[row][col];
+
+            if (blockType) {
+              canvas.drawImage(
+                TileImage,
+                (blockType - 1) * PIXELS_PER_TILE,
+                0,
+                PIXELS_PER_TILE,
+                PIXELS_PER_TILE,
+                col,
+                row,
+                1,
+                1
+              );
             }
           }
         }

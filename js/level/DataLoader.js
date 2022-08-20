@@ -23,6 +23,10 @@ function pxToTile(num) {
   return Math.floor(num / PIXELS_PER_TILE);
 }
 
+function srcToBlockType(src) {
+  return pxToTile(src[0]) + 1;
+}
+
 function firstPass(level) {
   const factory = new LevelFactory(
     level.identifier,
@@ -35,7 +39,9 @@ function firstPass(level) {
   for (const cell of solidLayer.gridTiles) {
     const col = pxToTile(cell.px[0]);
     const row = pxToTile(cell.px[1]);
-    factory.setCell(row, col, cell.src[0] === 0 && cell.src[1] === 0);
+    const blockType = srcToBlockType(cell.src);
+
+    factory.setCell(row, col, blockType);
   }
   const entityLayer = findLayer(level, "EntityLayer");
   const playerStart = find(entityLayer.entityInstances, "PlayerStart");
