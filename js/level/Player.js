@@ -4,6 +4,7 @@ import { Input } from "../constants/Keys.js";
 import { clamp, sign } from "../math/Common.js";
 import { Circle } from "../math/Shapes.js";
 import { Vector } from "../math/Vector.js";
+import { BlockType, isSolid } from "./BlockTypes.js";
 
 import { RectPool } from "./RectPool.js";
 
@@ -75,9 +76,10 @@ export class Player {
 
     // Check grounded
     const playerBottom = this.position.y + this.collider.radius;
-    const gridCellBelow = getCellAt(this.position.x, playerBottom);
+    const solidCellBelow = isSolid(getCellAt(this.position.x, playerBottom));
+    const gridCellWithin = getCellAt(this.position.x, this.position.y);
     const groundedOnGridCell =
-      gridCellBelow && playerBottom === Math.floor(playerBottom);
+      solidCellBelow && playerBottom === Math.floor(playerBottom);
 
     this.isGrounded =
       groundedOnGridCell ||
@@ -101,7 +103,11 @@ export class Player {
     } else {
       // Gravity
       this.inAirFor += deltaTime;
-      acceleration.y += GRAVITY;
+      if (gridCellWithin === BlockType.VENT) {
+        acceleration.y -= GRAVITY;
+      } else {
+        acceleration.y += GRAVITY;
+      }
     }
 
     // Coyote jump
@@ -141,26 +147,28 @@ export class Player {
     ].filter((rect) => !!rect);
 
     nearbyBlocks.forEach(({ type, rect }) => {
-      if (this.collider.intersectsRectangle(rect)) {
-        this.isColliding = true;
-        const collidingBy = rect.uncollideCircle(this.collider);
+      if (isSolid(type)) {
+        if (this.collider.intersectsRectangle(rect)) {
+          this.isColliding = true;
+          const collidingBy = rect.uncollideCircle(this.collider);
 
-        this.velocity.add(Vector.scale(collidingBy, 1 / deltaTime));
-        // Horizontal rebound
-        if (collidingBy.x > 0 && collidingBy.y === 0) {
-          this.velocity.x = Math.max(0, this.velocity.x);
-        } else if (collidingBy.x < 0 && collidingBy.y === 0) {
-          this.velocity.x = Math.min(0, this.velocity.x);
+          this.velocity.add(Vector.scale(collidingBy, 1 / deltaTime));
+          // Horizontal rebound
+          if (collidingBy.x > 0 && collidingBy.y === 0) {
+            this.velocity.x = Math.max(0, this.velocity.x);
+          } else if (collidingBy.x < 0 && collidingBy.y === 0) {
+            this.velocity.x = Math.min(0, this.velocity.x);
+          }
+          // Vertical rebound
+          if (collidingBy.y > 0 && collidingBy.x === 0) {
+            this.velocity.y = Math.max(0, this.velocity.y);
+          } else if (collidingBy.y < 0 && collidingBy.x === 0) {
+            this.velocity.y = Math.min(0, this.velocity.y);
+          }
+          this.position.add(collidingBy);
         }
-        // Vertical rebound
-        if (collidingBy.y > 0 && collidingBy.x === 0) {
-          this.velocity.y = Math.max(0, this.velocity.y);
-        } else if (collidingBy.y < 0 && collidingBy.x === 0) {
-          this.velocity.y = Math.min(0, this.velocity.y);
-        }
-        this.position.add(collidingBy);
+        return this.collider.intersectsRectangle(rect);
       }
-      return this.collider.intersectsRectangle(rect);
     });
 
     this.wantsToJump = false;
