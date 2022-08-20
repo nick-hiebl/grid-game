@@ -24,7 +24,12 @@ function pxToTile(num) {
 }
 
 function firstPass(level) {
-  const factory = new LevelFactory(level.identifier, level.iid, pxToTile(level.pxWid), pxToTile(level.pxHei));
+  const factory = new LevelFactory(
+    level.identifier,
+    level.iid,
+    pxToTile(level.pxWid),
+    pxToTile(level.pxHei)
+  );
   factory.makeGridSpace();
   const solidLayer = findLayer(level, "Solid");
   for (const cell of solidLayer.gridTiles) {
@@ -35,12 +40,16 @@ function firstPass(level) {
   const entityLayer = findLayer(level, "EntityLayer");
   const playerStart = find(entityLayer.entityInstances, "PlayerStart");
   if (playerStart) {
-    factory.setPlayerPos(new Vector(playerStart.__grid[0], playerStart.__grid[1]));
+    factory.setPlayerPos(
+      new Vector(playerStart.__grid[0], playerStart.__grid[1])
+    );
   } else {
-    console.warn('Level', level.identifier, 'is missing a PlayerStart');
+    console.warn(`Level ${level.identifier} is missing a PlayerStart`);
   }
 
-  factory.setWorldPosition(new Vector(pxToTile(level.worldX), pxToTile(level.worldY)));
+  factory.setWorldPosition(
+    new Vector(pxToTile(level.worldX), pxToTile(level.worldY))
+  );
 
   return factory;
 }
@@ -51,8 +60,15 @@ function secondPass(level, others) {
     const nId = neighbourInfo.levelIid;
     const neighbour = others[nId];
     const topLeft = Vector.diff(neighbour.worldPosition, factory.worldPosition);
-    const nextCollider = Rectangle.widthForm(topLeft.x, topLeft.y, neighbour.width, neighbour.height);
-    factory.addExits([new ExitTrigger(nextCollider, neighbour.key, nextCollider)]);
+    const nextCollider = Rectangle.widthForm(
+      topLeft.x,
+      topLeft.y,
+      neighbour.width,
+      neighbour.height
+    );
+    factory.addExits([
+      new ExitTrigger(nextCollider, neighbour.key, nextCollider),
+    ]);
   }
 
   return factory.create();

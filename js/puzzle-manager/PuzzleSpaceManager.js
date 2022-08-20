@@ -10,17 +10,17 @@ const produceObject = (rows, cols) => {
   const LARGER_DIR = Math.max(rows, cols);
   const WIDE_EDGE = 0.7;
   const NARROW_EDGE = 0.5;
-  const CELL_SIZE = Math.floor(PUZZLE_WINDOW_WIDTH / (LARGER_DIR + WIDE_EDGE + NARROW_EDGE));
+  const CELL_SIZE = Math.floor(
+    PUZZLE_WINDOW_WIDTH / (LARGER_DIR + WIDE_EDGE + NARROW_EDGE)
+  );
   const NARROW_SIZE = Math.floor(CELL_SIZE * NARROW_EDGE);
   const WIDE_SIZE = PUZZLE_WINDOW_WIDTH - CELL_SIZE * LARGER_DIR - NARROW_SIZE;
 
   const FULL_HEIGHT = WIDE_SIZE + NARROW_SIZE + rows * CELL_SIZE;
   const FULL_WIDTH = WIDE_SIZE + NARROW_SIZE + cols * CELL_SIZE;
 
-  const TOP_EDGE =
-    Math.max((FULL_WIDTH - FULL_HEIGHT) / 2, 0);
-  const LEFT_EDGE =
-    Math.max((FULL_HEIGHT - FULL_WIDTH) / 2, 0);
+  const TOP_EDGE = Math.max((FULL_WIDTH - FULL_HEIGHT) / 2, 0);
+  const LEFT_EDGE = Math.max((FULL_HEIGHT - FULL_WIDTH) / 2, 0);
 
   const xSpacing = [[LEFT_EDGE, LEFT_EDGE + NARROW_SIZE]];
   let lastX = LEFT_EDGE + NARROW_SIZE;

@@ -132,14 +132,22 @@ export class Rectangle {
 
     if (distFromCenter >= circle.radius) {
       const circleDistToMyCenter = Vector.diff(circle.position, this.midpoint);
-      const horizontalDistance = this.width / 2 - Math.abs(circleDistToMyCenter.x);
-      const verticalDistance = this.height / 2 - Math.abs(circleDistToMyCenter.y);
+      const horizontalDistance =
+        this.width / 2 - Math.abs(circleDistToMyCenter.x);
+      const verticalDistance =
+        this.height / 2 - Math.abs(circleDistToMyCenter.y);
 
       // Shortest way out is horizontally
       if (horizontalDistance < verticalDistance) {
-        return new Vector((horizontalDistance + circle.radius) * sign(circleDistToMyCenter.x), 0);
+        return new Vector(
+          (horizontalDistance + circle.radius) * sign(circleDistToMyCenter.x),
+          0
+        );
       } else {
-        return new Vector(0, (verticalDistance + circle.radius) * sign(circleDistToMyCenter.y), 0);
+        return new Vector(
+          0,
+          (verticalDistance + circle.radius) * sign(circleDistToMyCenter.y)
+        );
       }
     }
 

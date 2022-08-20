@@ -63,7 +63,7 @@ export class Player {
       if (getCellAt(x, y)) {
         return RectPool.get(Math.floor(y), Math.floor(x));
       }
-    }
+    };
 
     // Process horizontal input
     const inputX = inputState.getHorizontalAxis();
@@ -72,11 +72,12 @@ export class Player {
     // Check grounded
     const playerBottom = this.position.y + this.collider.radius;
     const gridCellBelow = getCellAt(this.position.x, playerBottom);
-    const groundedOnGridCell = gridCellBelow && playerBottom === Math.floor(playerBottom);
+    const groundedOnGridCell =
+      gridCellBelow && playerBottom === Math.floor(playerBottom);
 
-    this.isGrounded = groundedOnGridCell || level.objects.some((object) =>
-      this.collider.isKissingBelow(object)
-    );
+    this.isGrounded =
+      groundedOnGridCell ||
+      level.objects.some((object) => this.collider.isKissingBelow(object));
 
     // General motion
     if (this.isGrounded) {
@@ -123,9 +124,15 @@ export class Player {
     const { x, y } = this.position;
 
     const nearbyObjects = [
-      getRectAt(x - 1, y - 1), getRectAt(x, y - 1), getRectAt(x + 1, y - 1),
-      getRectAt(x - 1, y), getRectAt(x, y), getRectAt(x + 1, y),
-      getRectAt(x - 1, y + 1), getRectAt(x, y + 1), getRectAt(x + 1, y + 1),
+      getRectAt(x - 1, y - 1),
+      getRectAt(x, y - 1),
+      getRectAt(x + 1, y - 1),
+      getRectAt(x - 1, y),
+      getRectAt(x, y),
+      getRectAt(x + 1, y),
+      getRectAt(x - 1, y + 1),
+      getRectAt(x, y + 1),
+      getRectAt(x + 1, y + 1),
     ].filter((rect) => !!rect);
 
     nearbyObjects.concat(level.objects).forEach((object) => {
