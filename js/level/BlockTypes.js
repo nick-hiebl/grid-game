@@ -3,8 +3,10 @@ export const BlockType = {
   LEDGE: 2,
   VENT: 3,
   LADDER: 4,
-};
-
-export const isSolid = (blockType) => {
-  return blockType === BlockType.SOLID;
+  isSolid: (blockType) => {
+    return blockType === BlockType.SOLID;
+  },
+  isGrounding: (blockType) => {
+    return blockType === BlockType.SOLID || blockType === BlockType.LEDGE;
+  },
 };

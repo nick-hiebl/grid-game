@@ -51,15 +51,17 @@ class App {
  * The function used to kick off the whole app.
  */
 const main = () => {
-  const app = new App();
+  const loading = DataLoader.start();
 
-  app.start();
+  loading.then(() => {
+    const app = new App();
 
-  window.app = app;
+    app.start();
+
+    window.app = app;
+  });
 };
 
 window.onload = () => {
-  DataLoader.start().then(() => {
-    main();
-  });
+  main();
 };

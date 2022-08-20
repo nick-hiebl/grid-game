@@ -4,7 +4,7 @@ import { Input } from "../constants/Keys.js";
 import { clamp, sign } from "../math/Common.js";
 import { Circle } from "../math/Shapes.js";
 import { Vector } from "../math/Vector.js";
-import { BlockType, isSolid } from "./BlockTypes.js";
+import { BlockType } from "./BlockTypes.js";
 
 import { RectPool } from "./RectPool.js";
 
@@ -76,10 +76,12 @@ export class Player {
 
     // Check grounded
     const playerBottom = this.position.y + this.collider.radius;
-    const solidCellBelow = isSolid(getCellAt(this.position.x, playerBottom));
+    const groundingCellBelow = BlockType.isGrounding(
+      getCellAt(this.position.x, playerBottom)
+    );
     const gridCellWithin = getCellAt(this.position.x, this.position.y);
     const groundedOnGridCell =
-      solidCellBelow && playerBottom === Math.floor(playerBottom);
+      groundingCellBelow && playerBottom === Math.floor(playerBottom);
 
     this.isGrounded =
       groundedOnGridCell ||
@@ -147,7 +149,11 @@ export class Player {
     ].filter((rect) => !!rect);
 
     nearbyBlocks.forEach(({ type, rect }) => {
-      if (isSolid(type)) {
+      const isActiveLedge =
+        type === BlockType.LEDGE &&
+        this.velocity.y >= 0 &&
+        this.position.y < rect.y1;
+      if (BlockType.isSolid(type) || isActiveLedge) {
         if (this.collider.intersectsRectangle(rect)) {
           this.isColliding = true;
           const collidingBy = rect.uncollideCircle(this.collider);

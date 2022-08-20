@@ -5,7 +5,7 @@ import { ExitTrigger } from "./ExitTrigger.js";
 
 import { LevelFactory } from "./LevelFactory.js";
 
-const LEVEL_DATA_URL = "../../data/world.json";
+const LEVEL_DATA_URL = "./data/world.json";
 
 function loadJson(file) {
   return fetch(file).then((data) => data.json());
