@@ -1,0 +1,25 @@
+{
+  "name": "grid-game",
+  "version": "1.0.0",
+  "description": "",
+  "main": "js/App.js",
+  "dependencies": {
+    "esbuild": "^0.15.5",
+    "nodemon": "^2.0.19"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "build": "esbuild js/App.js --bundle --outfile=build/index.js",
+    "watch": "nodemon --exec \"npm run build && http-server\" -e js --ignore build/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nick-hiebl/grid-game.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nick-hiebl/grid-game/issues"
+  },
+  "homepage": "https://github.com/nick-hiebl/grid-game#readme"
+}
