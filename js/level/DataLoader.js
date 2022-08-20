@@ -4,6 +4,7 @@ import { Vector } from "../math/Vector.js";
 import { ExitTrigger } from "./ExitTrigger.js";
 
 import { LevelFactory } from "./LevelFactory.js";
+import { PuzzleInteractible } from "./PuzzleInteractible.js";
 
 const LEVEL_DATA_URL = "./data/world.json";
 
@@ -43,13 +44,39 @@ function firstPass(level) {
 
     factory.setCell(row, col, blockType);
   }
+
+  let setStartPos = false;
   const entityLayer = findLayer(level, "EntityLayer");
-  const playerStart = find(entityLayer.entityInstances, "PlayerStart");
-  if (playerStart) {
-    factory.setPlayerPos(
-      new Vector(playerStart.__grid[0], playerStart.__grid[1])
-    );
-  } else {
+
+  entityLayer.entityInstances.forEach((entity) => {
+    switch (entity.__identifier) {
+      case "PlayerStart":
+        factory.setPlayerPos(
+          new Vector(entity.__grid[0], entity.__grid[1])
+        );
+        setStartPos = true;
+        break;
+      case "PuzzleScreen":
+        console.log("PuzzleScreen", entity);
+        const key = find(entity.fieldInstances, "key");
+        if (!key) {
+          console.warn("Puzzle with no key in:", level.identifier);
+        }
+        const center = new Vector(entity.__grid[0] + 2, entity.__grid[1] + 2);
+        factory.addInteractibles([
+          new PuzzleInteractible(
+            key.__value,
+            center,
+            Rectangle.aroundPoint(center, 2, 2),
+          )
+        ]);
+        break;
+      default:
+        console.warn("Processing unknown entity type:", entity.__identifier);
+    }
+  });
+
+  if (!setStartPos) {
     console.warn(`Level ${level.identifier} is missing a PlayerStart`);
   }
 

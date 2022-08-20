@@ -10,7 +10,7 @@
 	},
 	"jsonVersion": "1.1.3",
 	"appBuildId": 458364,
-	"nextUid": 10,
+	"nextUid": 14,
 	"identifierStyle": "Capitalize",
 	"worldLayout": "GridVania",
 	"worldGridWidth": 320,
@@ -116,6 +116,64 @@
 			"pivotX": 0.5,
 			"pivotY": 0.5,
 			"fieldDefs": []
+		},
+		{
+			"identifier": "PuzzleScreen",
+			"uid": 10,
+			"tags": [],
+			"width": 40,
+			"height": 40,
+			"resizableX": false,
+			"resizableY": false,
+			"keepAspectRatio": false,
+			"tileOpacity": 1,
+			"fillOpacity": 0.08,
+			"lineOpacity": 0,
+			"hollow": false,
+			"color": "#94D9B3",
+			"renderMode": "Tile",
+			"showName": true,
+			"tilesetId": 11,
+			"tileId": 0,
+			"tileRenderMode": "FitInside",
+			"tileRect": { "tilesetUid": 11, "x": 0, "y": 0, "w": 40, "h": 40 },
+			"nineSliceBorders": [],
+			"maxCount": 0,
+			"limitScope": "PerLevel",
+			"limitBehavior": "MoveLastOne",
+			"pivotX": 0,
+			"pivotY": 0,
+			"fieldDefs": [
+				{
+					"identifier": "key",
+					"__type": "String",
+					"uid": 12,
+					"type": "F_String",
+					"isArray": false,
+					"canBeNull": false,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "Hidden",
+					"editorDisplayPos": "Above",
+					"editorAlwaysShow": false,
+					"editorCutLongValues": true,
+					"editorTextSuffix": null,
+					"editorTextPrefix": null,
+					"useForSmartColor": false,
+					"min": null,
+					"max": null,
+					"regex": null,
+					"acceptFileTypes": null,
+					"defaultOverride": null,
+					"textLanguageMode": null,
+					"symmetricalRef": false,
+					"autoChainRef": true,
+					"allowOutOfLevelRef": true,
+					"allowedRefs": "OnlySame",
+					"allowedRefTags": [],
+					"tilesetUid": null
+				}
+			]
 		}
 	], "tilesets": [
 		{
@@ -139,6 +197,25 @@
 				"opaqueTiles": "100011111111111111111111111111111111",
 				"averageColors": "f00040004aaaaa70ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
 			}
+		},
+		{
+			"__cWid": 3,
+			"__cHei": 3,
+			"identifier": "Entity_set",
+			"uid": 11,
+			"relPath": "../img/entity-set.png",
+			"embedAtlas": null,
+			"pxWid": 100,
+			"pxHei": 100,
+			"tileGridSize": 40,
+			"spacing": 0,
+			"padding": 0,
+			"tags": [],
+			"tagsSourceEnumUid": null,
+			"enumTags": [],
+			"customData": [],
+			"savedSelections": [],
+			"cachedPixelData": { "opaqueTiles": "011111111", "averageColors": "659cffff0000ffffffff0000000000000000" }
 		}
 	], "enums": [], "externalEnums": [], "levelFields": [] },
 	"levels": [
@@ -200,6 +277,23 @@
 							"defUid": 7,
 							"px": [265,295],
 							"fieldInstances": []
+						},
+						{
+							"__identifier": "PuzzleScreen",
+							"__grid": [37,31],
+							"__pivot": [0,0],
+							"__tags": [],
+							"__tile": { "tilesetUid": 11, "x": 0, "y": 0, "w": 40, "h": 40 },
+							"__smartColor": "#94D9B3",
+							"iid": "079e11c0-02f0-11ed-bbd2-9f18d95a84b9",
+							"width": 40,
+							"height": 40,
+							"defUid": 10,
+							"px": [370,310],
+							"fieldInstances": [{ "__identifier": "key", "__value": "1", "__type": "String", "__tile": null, "defUid": 12, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["1"]
+							}] }]
 						}
 					]
 				},
@@ -1012,7 +1106,25 @@
 					"seed": 113123,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "PuzzleScreen",
+							"__grid": [25,31],
+							"__pivot": [0,0],
+							"__tags": [],
+							"__tile": { "tilesetUid": 11, "x": 0, "y": 0, "w": 40, "h": 40 },
+							"__smartColor": "#94D9B3",
+							"iid": "105842e0-02f0-11ed-bbd2-41ab7db8302f",
+							"width": 40,
+							"height": 40,
+							"defUid": 10,
+							"px": [250,310],
+							"fieldInstances": [{ "__identifier": "key", "__value": "3", "__type": "String", "__tile": null, "defUid": 12, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["3"]
+							}] }]
+						}
+					]
 				},
 				{
 					"__identifier": "Solid",

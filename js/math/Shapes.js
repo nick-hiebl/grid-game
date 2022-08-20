@@ -185,4 +185,8 @@ export class Rectangle {
   static centerForm(x, y, width, height) {
     return new Rectangle(x - width, y - height, x + width, y + height);
   }
+
+  static aroundPoint(point, halfWidth, halfHeight) {
+    return new Rectangle(point.x - halfWidth, point.y - halfHeight, point.x + halfWidth, point.y + halfHeight);
+  }
 }
