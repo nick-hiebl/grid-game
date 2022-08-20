@@ -113,7 +113,7 @@ export class Player {
       // Gravity
       this.inAirFor += deltaTime;
       if (gridCellWithin === BlockType.VENT) {
-        acceleration.y -= GRAVITY;
+        acceleration.y -= GRAVITY * 1.05;
       } else {
         acceleration.y += GRAVITY;
       }
@@ -168,6 +168,9 @@ export class Player {
 
       if (intersects && type === BlockType.LEDGE) {
         contactingAnyLedge = true;
+        if (this.velocity.y < 0) {
+          this.isDropping = true;
+        }
       }
 
       if (BlockType.isSolid(type) || isActiveLedge) {
