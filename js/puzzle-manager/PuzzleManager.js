@@ -1,29 +1,55 @@
 import { Puzzle } from "./Puzzle.js";
 import { PuzzleValidatorFactory } from "./PuzzleValidation.js";
 
+function puzzleRules(id) {
+  if (id === "1") {
+    return new PuzzleValidatorFactory()
+      .addColumnCounts([1, 3, 1])
+      .addRowCounts([2, 2, 1])
+      .create();
+  } else if (id === "2") {
+    return new PuzzleValidatorFactory()
+      .addColumnCounts([4, 3, 2, 1])
+      .addRowCounts([1, 2, 3, 4])
+      .create();
+  } else if (id === "3") {
+    return new PuzzleValidatorFactory()
+      .addColumnCounts([1, 1, 1])
+      .addRowCounts([1, 1, 1])
+      .create();
+  } else if (id === "4") {
+    return new PuzzleValidatorFactory()
+      .addRowCounts([4, 3, null])
+      .addColumnGroups([1, null, null, 2])
+      .create();
+  } else {
+    console.error("Cannot find puzzle with id", id);
+  }
+  return new PuzzleValidatorFactory().create();
+}
+
+function makePuzzle(id) {
+  const rules = puzzleRules(id);
+  if (id === "1") {
+    return new Puzzle(id, 3, 3, rules);
+  } else if (id === "2") {
+    return new Puzzle(id, 4, 4, rules);
+  } else if (id === "3") {
+    return new Puzzle(id, 3, 3, rules);
+  } else if (id === "4") {
+    return new Puzzle(id, 3, 4, rules);
+  } else {
+    console.error("Cannot find puzzle with id", id);
+  }
+}
+
 class PuzzleManagerInstance {
   constructor() {
     this.puzzleMap = {};
   }
 
   loadPuzzle(id) {
-    const factory = new PuzzleValidatorFactory();
-    let rows = 3,
-      cols = 4;
-
-    if (id === "1") {
-      factory.addColumnCounts([1, 3, 1]);
-      factory.addRowCounts([null, 2, null]);
-      factory.addRowBlankGroups([null, null, 2]);
-      factory.addRowNoTriple([true, null, null]);
-      rows = 3;
-      cols = 3;
-    } else if (id === "3") {
-      factory.addRowCounts([4, 3, null]);
-      factory.addColumnGroups([1, null, null, 2]);
-    }
-
-    return new Puzzle(id, rows, cols, factory.create());
+    return makePuzzle(id);
   }
 
   getPuzzle(id) {

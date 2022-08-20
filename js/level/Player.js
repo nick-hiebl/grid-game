@@ -168,7 +168,7 @@ export class Player {
 
       if (intersects && type === BlockType.LEDGE) {
         contactingAnyLedge = true;
-        if (this.velocity.y < 0) {
+        if (this.velocity.y < 0 && this.position.y >= rect.y1) {
           this.isDropping = true;
         }
       }

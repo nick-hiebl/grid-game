@@ -294,6 +294,40 @@
 								"id": "V_String",
 								"params": ["1"]
 							}] }]
+						},
+						{
+							"__identifier": "PuzzleScreen",
+							"__grid": [3,19],
+							"__pivot": [0,0],
+							"__tags": [],
+							"__tile": { "tilesetUid": 11, "x": 0, "y": 0, "w": 40, "h": 40 },
+							"__smartColor": "#94D9B3",
+							"iid": "f27ac990-02f0-11ed-bbd2-ab77bd9ddb01",
+							"width": 40,
+							"height": 40,
+							"defUid": 10,
+							"px": [30,190],
+							"fieldInstances": [{ "__identifier": "key", "__value": "2", "__type": "String", "__tile": null, "defUid": 12, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["2"]
+							}] }]
+						},
+						{
+							"__identifier": "PuzzleScreen",
+							"__grid": [26,7],
+							"__pivot": [0,0],
+							"__tags": [],
+							"__tile": { "tilesetUid": 11, "x": 0, "y": 0, "w": 40, "h": 40 },
+							"__smartColor": "#94D9B3",
+							"iid": "f9283ac0-02f0-11ed-bbd2-fdfa3f2f7f60",
+							"width": 40,
+							"height": 40,
+							"defUid": 10,
+							"px": [260,70],
+							"fieldInstances": [{ "__identifier": "key", "__value": "3", "__type": "String", "__tile": null, "defUid": 12, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["3"]
+							}] }]
 						}
 					]
 				},
@@ -1131,9 +1165,9 @@
 							"height": 40,
 							"defUid": 10,
 							"px": [250,310],
-							"fieldInstances": [{ "__identifier": "key", "__value": "3", "__type": "String", "__tile": null, "defUid": 12, "realEditorValues": [{
+							"fieldInstances": [{ "__identifier": "key", "__value": "4", "__type": "String", "__tile": null, "defUid": 12, "realEditorValues": [{
 								"id": "V_String",
-								"params": ["3"]
+								"params": ["4"]
 							}] }]
 						}
 					]
