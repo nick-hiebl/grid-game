@@ -166,7 +166,7 @@ export class Level {
         this.getNaiveCamera(
           Vector.add(
             this.player.position,
-            Vector.scale(this.player.velocity, 0.4)
+            new Vector(this.player.velocity.x * 0.6, 0)
           )
         ),
         deltaTime * 2
