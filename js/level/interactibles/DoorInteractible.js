@@ -17,8 +17,6 @@ export class DoorInteractible extends Interactible {
   constructor(id, position, prerequisites) {
     super(id, position, mockTrigger, prerequisites);
 
-    console.log("I have prereqs", prerequisites);
-
     // 1 = fully closed, 0 = fully open
     this.closedness = prerequisites.length === 0 ? 0 : 1;
 
