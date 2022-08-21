@@ -1,32 +1,25 @@
-import { PIXELS_PER_TILE, PIXEL_WIDTH } from "../constants/ScreenConstants.js";
-import { Vector } from "../math/Vector.js";
+import { PIXELS_PER_TILE } from "../../constants/ScreenConstants.js";
+import { Vector } from "../../math/Vector.js";
 import {
   DEFAULT_BACKGROUND,
   SOLVED_BACKGROUND,
-} from "../puzzle-manager/constants.js";
-import { PuzzleManager } from "../puzzle-manager/PuzzleManager.js";
+} from "../../puzzle-manager/constants.js";
+import { PuzzleManager } from "../../puzzle-manager/PuzzleManager.js";
 
-export class PuzzleInteractible {
+import { OpenPuzzleEvent } from "../LevelEvent.js";
+
+import { Interactible } from "./Interactible.js";
+
+export class PuzzleInteractible extends Interactible {
   /**
    * Construct a puzzle interactible entity for the level.
    * @param {Vector} position The position of the visual element
    * @param {Shape} area The area in which the puzzle is active
    */
   constructor(id, position, area) {
-    this.id = id;
-    this.position = position;
-    this.area = area;
-    this.isTriggered = false;
-    this.puzzle = PuzzleManager.getPuzzle(this.id);
-  }
+    super(id, position, area);
 
-  /**
-   * Update the state of the entity.
-   * @param {Vector} playerPosition The position of the player in this update
-   * @param {number} deltaTime The timestep since the last update
-   */
-  update(playerPosition, deltaTime) {
-    this.isTriggered = this.area.intersectsPoint(playerPosition);
+    this.puzzle = PuzzleManager.getPuzzle(this.id);
   }
 
   /**
@@ -35,17 +28,7 @@ export class PuzzleInteractible {
    */
   draw(canvas) {
     // Draw area boundary
-    if (false) {
-      canvas.setColorRGB(255, 255, 255);
-      canvas.setLineWidth(0.1);
-      canvas.setLineDash([0.2, 0.2]);
-      canvas.strokeRect(
-        this.area.x1,
-        this.area.y1,
-        this.area.width,
-        this.area.height
-      );
-    }
+    super.draw(canvas);
 
     const SCREEN_W = 1;
     const PIXEL_SCALE = 1 / PIXELS_PER_TILE;
@@ -62,7 +45,7 @@ export class PuzzleInteractible {
     canvas.setLineWidth(PIXEL_SCALE);
 
     // Draw hover outline
-    if (this.isTriggered) {
+    if (this.isAreaActive) {
       canvas.setColorRGB(255, 255, 255, 128);
       canvas.strokeRectInset(
         this.position.x,
@@ -83,23 +66,20 @@ export class PuzzleInteractible {
       -SCREEN_W - PIXEL_SCALE / 2
     );
 
-    if (this.puzzle.isSolved) {
-      canvas.setColor("white");
-      canvas.fillRect(
-        this.position.x + SCREEN_W - 6 * PIXEL_SCALE,
-        this.position.y - SCREEN_W - 1 * PIXEL_SCALE,
-        PIXEL_SCALE * 2,
-        PIXEL_SCALE * 1
-      );
-    }
+    canvas.fillRect(
+      this.position.x + SCREEN_W - 3 * PIXEL_SCALE,
+      this.position.y - SCREEN_W - 4 * PIXEL_SCALE,
+      4 * PIXEL_SCALE,
+      4 * PIXEL_SCALE
+    );
 
     if (this.puzzle.hasBeenSolvedEver) {
-      canvas.setColor("yellow");
+      canvas.setColor("white");
       canvas.fillRect(
-        this.position.x + SCREEN_W - 3 * PIXEL_SCALE,
-        this.position.y - SCREEN_W - 1 * PIXEL_SCALE,
+        this.position.x + SCREEN_W - 2 * PIXEL_SCALE,
+        this.position.y - SCREEN_W - 3 * PIXEL_SCALE,
         PIXEL_SCALE * 2,
-        PIXEL_SCALE * 1
+        PIXEL_SCALE * 2
       );
     }
 
@@ -141,5 +121,9 @@ export class PuzzleInteractible {
     }
 
     canvas.translate(-offset.x, -offset.y);
+  }
+
+  onInteract() {
+    return new OpenPuzzleEvent(this.id);
   }
 }

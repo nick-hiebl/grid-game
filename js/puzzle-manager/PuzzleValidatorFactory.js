@@ -1,4 +1,7 @@
-import { ForcedCellValidation } from "./CellValidation.js";
+import {
+  CountInAreaValidation,
+  ForcedCellValidation,
+} from "./CellValidation.js";
 import {
   EdgeBlankGroupsValidationItem,
   EdgeCountValidationItem,
@@ -14,6 +17,11 @@ export class PuzzleValidatorFactory {
 
   addForcedCellValidator(row, column, mustBeOn) {
     this.validationItems.push(new ForcedCellValidation(row, column, mustBeOn));
+    return this;
+  }
+
+  addCountAreaValidator(row, column, count) {
+    this.validationItems.push(new CountInAreaValidation(row, column, count));
     return this;
   }
 

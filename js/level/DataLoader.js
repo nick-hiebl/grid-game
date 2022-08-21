@@ -1,10 +1,11 @@
 import { PIXELS_PER_TILE } from "../constants/ScreenConstants.js";
+import { PuzzleInteractible } from "./interactibles/PuzzleInteractible.js";
+import { SwitchInteractible } from "./interactibles/SwitchInteractible.js";
 import { Rectangle } from "../math/Shapes.js";
 import { Vector } from "../math/Vector.js";
-import { ExitTrigger } from "./ExitTrigger.js";
 
+import { ExitTrigger } from "./ExitTrigger.js";
 import { LevelFactory } from "./LevelFactory.js";
-import { PuzzleInteractible } from "./PuzzleInteractible.js";
 
 const LEVEL_DATA_URL = "./data/world.json";
 
@@ -65,6 +66,23 @@ function firstPass(level) {
             key.__value,
             center,
             Rectangle.aroundPoint(center, 2, 2)
+          ),
+        ]);
+        break;
+      case "Switch":
+        const id = find(entity.fieldInstances, "id");
+        if (!id) {
+          console.warn("Switch with no key in:", level.identifier);
+        }
+        const switchCenter = new Vector(
+          entity.__grid[0] + 2,
+          entity.__grid[1] + 2
+        );
+        factory.addInteractibles([
+          new SwitchInteractible(
+            id.__value,
+            switchCenter,
+            Rectangle.aroundPoint(switchCenter, 2, 2)
           ),
         ]);
         break;

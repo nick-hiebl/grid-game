@@ -1,3 +1,4 @@
+import { TileImage } from "../constants/Image.js";
 import { Input } from "../constants/Keys.js";
 import {
   CANVAS_WIDTH,
@@ -8,12 +9,10 @@ import {
 import { InputState } from "../InputManager.js";
 import { clamp } from "../math/Common.js";
 import { Vector } from "../math/Vector.js";
+
 import { ClosePuzzleEvent, ExitEvent, OpenPuzzleEvent } from "./LevelEvent.js";
 
 const SCALE_FACTOR = CANVAS_WIDTH / HORIZONTAL_TILES;
-
-const TileImage = new Image();
-TileImage.src = "./img/tileset.png";
 
 export class Level {
   constructor(
@@ -87,9 +86,9 @@ export class Level {
 
     // Update interactibles
     this.interactibles.forEach((interactible) => {
-      interactible.update(this.player.position, deltaTime);
+      interactible.update(this.player.position, deltaTime, this);
     });
-    if (!this.interactingWith?.isTriggered) {
+    if (!this.interactingWith?.isAreaActive) {
       this.closeCurrentPuzzle();
       this.interactingWith = undefined;
     }
@@ -120,9 +119,14 @@ export class Level {
     }
 
     if (input.input === Input.Interact) {
-      this.interactingWith = this.interactibles.find((i) => i.isTriggered);
-      if (this.interactingWith) {
-        this.emitEvent(new OpenPuzzleEvent(this.interactingWith.id));
+      const relevant = this.interactibles.find((i) => i.isAreaActive);
+      if (relevant) {
+        const event = relevant.onInteract();
+
+        if (event && event instanceof OpenPuzzleEvent) {
+          this.interactingWith = relevant;
+          this.emitEvent(event);
+        }
       }
     } else if (input.input === Input.Escape) {
       this.closeCurrentPuzzle();

@@ -1,78 +1,8 @@
-import { Circle, Rectangle } from "../math/Shapes.js";
+import { Circle } from "../math/Shapes.js";
 import { Vector } from "../math/Vector.js";
 
+import { N_CIRCLE_LAYOUT, N_SQUARE_LAYOUT } from "./constants.js";
 import { ValidationItem } from "./PuzzleValidation.js";
-
-const EDGE_COUNT_LAYOUT = [
-  [new Circle(new Vector(0, 0), 0.33)],
-  [new Circle(new Vector(0, 0), 0.33)],
-  [new Circle(new Vector(0, 0.4), 0.33), new Circle(new Vector(0, -0.4), 0.33)],
-  [
-    new Circle(new Vector(-0.42, 0.4), 0.33),
-    new Circle(new Vector(0.42, 0.4), 0.33),
-    new Circle(new Vector(0, -0.4), 0.33),
-  ],
-  [
-    new Circle(new Vector(0.4, 0.4), 0.33),
-    new Circle(new Vector(0.4, -0.4), 0.33),
-    new Circle(new Vector(-0.4, 0.4), 0.33),
-    new Circle(new Vector(-0.4, -0.4), 0.33),
-  ],
-  [
-    new Circle(new Vector(0, 0.3), 0.28),
-    new Circle(new Vector(0.64, 0.3), 0.28),
-    new Circle(new Vector(-0.64, 0.3), 0.28),
-    new Circle(new Vector(-0.32, -0.3), 0.28),
-    new Circle(new Vector(0.32, -0.3), 0.28),
-  ],
-  [
-    new Circle(new Vector(0, 0.6), 0.28),
-    new Circle(new Vector(0.64, 0.6), 0.28),
-    new Circle(new Vector(-0.64, 0.6), 0.28),
-    new Circle(new Vector(-0.32, 0), 0.28),
-    new Circle(new Vector(0.32, 0), 0.28),
-    new Circle(new Vector(0, -0.6), 0.28),
-  ],
-  [
-    new Circle(new Vector(0, 0), 0.28),
-    new Circle(new Vector(0.64, 0), 0.28),
-    new Circle(new Vector(-0.64, 0), 0.28),
-    new Circle(new Vector(-0.32, -0.6), 0.28),
-    new Circle(new Vector(0.32, -0.6), 0.28),
-    new Circle(new Vector(-0.32, 0.6), 0.28),
-    new Circle(new Vector(0.32, 0.6), 0.28),
-  ],
-  [
-    new Circle(new Vector(0, 0.6), 0.28),
-    new Circle(new Vector(0.64, 0.6), 0.28),
-    new Circle(new Vector(-0.64, 0.6), 0.28),
-    new Circle(new Vector(-0.32, 0), 0.28),
-    new Circle(new Vector(0.32, 0), 0.28),
-    new Circle(new Vector(0, -0.6), 0.28),
-    new Circle(new Vector(0.64, -0.6), 0.28),
-    new Circle(new Vector(-0.64, -0.6), 0.28),
-  ],
-];
-
-const EDGE_GROUP_LAYOUT = [
-  [Rectangle.centerForm(0, 0, 0.33, 0.33)],
-  [Rectangle.centerForm(0, 0, 0.33, 0.33)],
-  [
-    Rectangle.centerForm(0, -0.4, 0.33, 0.33),
-    Rectangle.centerForm(0, 0.4, 0.33, 0.33),
-  ],
-  [
-    Rectangle.centerForm(0, -0.4, 0.33, 0.33),
-    Rectangle.centerForm(-0.4, 0.4, 0.33, 0.33),
-    Rectangle.centerForm(0.4, 0.4, 0.33, 0.33),
-  ],
-  [
-    Rectangle.centerForm(-0.4, -0.4, 0.33, 0.33),
-    Rectangle.centerForm(0.4, -0.4, 0.33, 0.33),
-    Rectangle.centerForm(-0.4, 0.4, 0.33, 0.33),
-    Rectangle.centerForm(0.4, 0.4, 0.33, 0.33),
-  ],
-];
 
 const rotRight = (vector) => new Vector(-vector.y, vector.x);
 
@@ -103,7 +33,7 @@ class EdgeValidationItem extends ValidationItem {
     this.isValid = this.validateRow(row);
   }
 
-  drawInCell(canvas, center, scaleBy, isSideways) {
+  drawInCell() {
     throw new TypeError("Cannot draw a generic EdgeValidationItem");
   }
 
@@ -145,7 +75,7 @@ export class EdgeCountValidationItem extends EdgeValidationItem {
       ? (circle) => new Circle(rotRight(circle.position), circle.radius)
       : (v) => v;
 
-    for (let circle of EDGE_COUNT_LAYOUT[this.count]) {
+    for (let circle of N_CIRCLE_LAYOUT[this.count]) {
       circle = transformCircle(circle);
       const position = Vector.add(
         center,
@@ -199,7 +129,7 @@ export class EdgeGroupsValidationItem extends EdgeCountValidationItem {
   drawInCell(canvas, center, scaleBy, isSideways) {
     const moveCenter = (pos) => (isSideways ? rotRight(pos) : pos);
 
-    for (const square of EDGE_GROUP_LAYOUT[this.count]) {
+    for (const square of N_SQUARE_LAYOUT[this.count]) {
       const position = Vector.add(
         center,
         Vector.scale(moveCenter(square.midpoint), scaleBy)

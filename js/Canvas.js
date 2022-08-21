@@ -211,6 +211,9 @@ export class Canvas {
     if (imageSource instanceof Canvas) {
       image = imageSource[CANVAS];
     } else if (imageSource instanceof Image) {
+      if (!imageSource.complete) {
+        return;
+      }
       image = imageSource;
     } else {
       throw Error("Drawing something unmanageable");
