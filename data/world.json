@@ -442,7 +442,7 @@
 						},
 						{
 							"__identifier": "PuzzleScreen",
-							"__grid": [26,7],
+							"__grid": [51,15],
 							"__pivot": [0,0],
 							"__tags": [],
 							"__tile": { "tilesetUid": 11, "x": 0, "y": 0, "w": 40, "h": 40 },
@@ -451,13 +451,16 @@
 							"width": 40,
 							"height": 40,
 							"defUid": 10,
-							"px": [260,70],
+							"px": [510,150],
 							"fieldInstances": [
 								{ "__identifier": "key", "__value": "3", "__type": "String", "__tile": null, "defUid": 12, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["3"]
 								}] },
-								{ "__identifier": "prerequisites", "__value": [], "__type": "Array<String>", "__tile": null, "defUid": 16, "realEditorValues": [] }
+								{ "__identifier": "prerequisites", "__value": ["1"], "__type": "Array<String>", "__tile": null, "defUid": 16, "realEditorValues": [{
+									"id": "V_String",
+									"params": ["1"]
+								}] }
 							]
 						},
 						{

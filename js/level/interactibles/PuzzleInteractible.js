@@ -75,6 +75,7 @@ export class PuzzleInteractible extends Interactible {
     );
 
     if (this.puzzle.hasBeenSolvedEver) {
+      this.isEnabled = true;
       canvas.setColor("white");
       canvas.fillRect(
         this.position.x + SCREEN_W - 2 * PIXEL_SCALE,

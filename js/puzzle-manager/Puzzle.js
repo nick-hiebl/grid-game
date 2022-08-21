@@ -122,28 +122,6 @@ export class Puzzle {
 
     const LIGHT_PIXEL = UI_PIXEL_WIDTH * 8;
 
-    // Draw currently solved light
-    if (this.isSolved) {
-      canvas.setColor("white");
-      canvas.fillRect(
-        PUZZLE_WINDOW_WIDTH - LIGHT_PIXEL * 6,
-        -LIGHT_PIXEL,
-        LIGHT_PIXEL * 2,
-        LIGHT_PIXEL
-      );
-    }
-
-    // Draw ever solved light
-    if (this.hasBeenSolvedEver) {
-      canvas.setColor("yellow");
-      canvas.fillRect(
-        PUZZLE_WINDOW_WIDTH - LIGHT_PIXEL * 3,
-        -LIGHT_PIXEL,
-        LIGHT_PIXEL * 2,
-        LIGHT_PIXEL
-      );
-    }
-
     // Draw screen outline
     canvas.setColor("#ffffff64");
     canvas.setLineWidth(UI_PIXEL_WIDTH);
