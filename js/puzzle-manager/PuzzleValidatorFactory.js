@@ -1,3 +1,4 @@
+import { ForcedCellValidation } from "./CellValidation.js";
 import {
   EdgeBlankGroupsValidationItem,
   EdgeCountValidationItem,
@@ -9,6 +10,11 @@ import { PuzzleValidator } from "./PuzzleValidation.js";
 export class PuzzleValidatorFactory {
   constructor() {
     this.validationItems = [];
+  }
+
+  addForcedCellValidator(row, column, mustBeOn) {
+    this.validationItems.push(new ForcedCellValidation(row, column, mustBeOn));
+    return this;
   }
 
   addEdgeValidators(nums, isRow, ValidationItemType = EdgeCountValidationItem) {
