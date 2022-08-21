@@ -29,6 +29,11 @@ export class ScreenManager {
 
     this[REAL_CANVAS] = screenCanvas;
 
+    this.background = Canvas.fromScratch(CANVAS_WIDTH * 2, CANVAS_HEIGHT * 2);
+    this.behindGroundCanvas = Canvas.fromScratch(
+      CANVAS_WIDTH * 2,
+      CANVAS_HEIGHT * 2
+    );
     this.staticWorldCanvas = Canvas.fromScratch(
       CANVAS_WIDTH * 2,
       CANVAS_HEIGHT * 2
@@ -51,6 +56,28 @@ export class ScreenManager {
   }
 
   drawToScreen() {
+    this[REAL_CANVAS].drawImage(
+      this.background,
+      this.camera.x,
+      this.camera.y,
+      CANVAS_WIDTH,
+      CANVAS_HEIGHT,
+      0,
+      0,
+      this[REAL_CANVAS].width,
+      this[REAL_CANVAS].height
+    );
+    this[REAL_CANVAS].drawImage(
+      this.behindGroundCanvas,
+      this.camera.x,
+      this.camera.y,
+      CANVAS_WIDTH,
+      CANVAS_HEIGHT,
+      0,
+      0,
+      this[REAL_CANVAS].width,
+      this[REAL_CANVAS].height
+    );
     this[REAL_CANVAS].drawImage(
       this.staticWorldCanvas,
       this.camera.x,

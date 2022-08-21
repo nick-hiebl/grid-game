@@ -27,9 +27,9 @@ export class PuzzleInteractible extends Interactible {
    * Draw the element on the canvas.
    * @param {Canvas} canvas The canvas to draw on.
    */
-  draw(canvas) {
+  draw(canvas, screenManager) {
     // Draw area boundary
-    super.draw(canvas);
+    super.draw(canvas, screenManager);
 
     const SCREEN_W = 1;
     const PIXEL_SCALE = 1 / PIXELS_PER_TILE;

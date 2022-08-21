@@ -1,3 +1,5 @@
+import { Vector } from "../../math/Vector";
+
 const AREA_DEBUG = false;
 
 export class Interactible {
@@ -47,7 +49,7 @@ export class Interactible {
    * Draw the element on the canvas.
    * @param {Canvas} canvas The canvas to draw on.
    */
-  draw(canvas) {
+  draw(canvas, screenManager) {
     if (AREA_DEBUG) {
       canvas.setColorRGB(255, 255, 255);
       canvas.setLineWidth(0.1);
@@ -55,14 +57,28 @@ export class Interactible {
       this.triggerArea.stroke(canvas);
     }
 
-    canvas.setLineWidth(0.2);
+    screenManager.behindGroundCanvas.setLineWidth(0.2);
     for (const prereq of this.prereqEntities) {
-      canvas.setColor(prereq.isEnabled ? "white" : "black");
-      canvas.drawLine(
+      screenManager.behindGroundCanvas.setColor(
+        prereq.isEnabled ? "white" : "black"
+      );
+      const xDiff = Vector.manhattanDist(
+        prereq.connectionPoint,
+        this.connectionPoint
+      );
+      const mid = Vector.lerp(
+        prereq.connectionPoint,
+        this.connectionPoint,
+        0.5
+      );
+      const control = Vector.add(mid, new Vector(0, xDiff * 0.3));
+      screenManager.behindGroundCanvas.drawQuadratic(
         prereq.connectionPoint.x,
         prereq.connectionPoint.y,
         this.connectionPoint.x,
-        this.connectionPoint.y
+        this.connectionPoint.y,
+        control.x,
+        control.y
       );
     }
   }

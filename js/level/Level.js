@@ -196,11 +196,16 @@ export class Level {
    */
   draw(screenManager) {
     if (!this.drawnStatic) {
-      this.withSetupCanvas(screenManager.staticWorldCanvas, (canvas) => {
-        // Fill background
-        canvas.setColor("#6400c8");
-        canvas.fillRect(0, 0, canvas.width, canvas.height);
+      // Draw background
+      screenManager.background.setColor("#6400c8");
+      screenManager.background.fillRect(
+        0,
+        0,
+        screenManager.background.width,
+        screenManager.background.height
+      );
 
+      this.withSetupCanvas(screenManager.staticWorldCanvas, (canvas) => {
         // Draw walls
         canvas.setColor("red");
         for (const object of this.objects) {
@@ -235,9 +240,13 @@ export class Level {
     this.withSetupCanvas(screenManager.dynamicWorldCanvas, (canvas) => {
       canvas.clear();
 
-      // Draw interactibles
-      this.interactibles.forEach((interactible) => {
-        interactible.draw(canvas);
+      this.withSetupCanvas(screenManager.behindGroundCanvas, () => {
+        screenManager.behindGroundCanvas.clear();
+
+        // Draw interactibles
+        this.interactibles.forEach((interactible) => {
+          interactible.draw(canvas, screenManager);
+        });
       });
 
       // Draw player

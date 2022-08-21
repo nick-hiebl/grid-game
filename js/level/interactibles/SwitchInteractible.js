@@ -16,8 +16,8 @@ export class SwitchInteractible extends Interactible {
     }
   }
 
-  draw(canvas) {
-    super.draw(canvas);
+  draw(canvas, screenManager) {
+    super.draw(canvas, screenManager);
 
     const PIXEL_SCALE = 1 / PIXELS_PER_TILE;
 

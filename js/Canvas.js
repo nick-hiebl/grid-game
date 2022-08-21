@@ -103,6 +103,22 @@ export class Canvas {
   }
 
   /**
+   * Draw a quadratic bezier curve on the canvas.
+   * @param {*} x0 The starting x position
+   * @param {*} y0 The starting y position
+   * @param {*} x1 The ending x position
+   * @param {*} y1 The ending y position
+   * @param {*} xControl The control point x position
+   * @param {*} yControl The control point y position
+   */
+  drawQuadratic(x0, y0, x1, y1, xControl, yControl) {
+    this[CTX].beginPath();
+    this[CTX].moveTo(x0, y0);
+    this[CTX].quadraticCurveTo(xControl, yControl, x1, y1);
+    this[CTX].stroke();
+  }
+
+  /**
    * Scale the canvas.
    * @param {number} xScale
    * @param {number} yScale

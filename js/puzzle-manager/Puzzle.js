@@ -120,8 +120,6 @@ export class Puzzle {
       -UI_PIXEL_WIDTH * 4
     );
 
-    const LIGHT_PIXEL = UI_PIXEL_WIDTH * 8;
-
     // Draw screen outline
     canvas.setColor("#ffffff64");
     canvas.setLineWidth(UI_PIXEL_WIDTH);
