@@ -16,8 +16,8 @@ export class PuzzleInteractible extends Interactible {
    * @param {Vector} position The position of the visual element
    * @param {Shape} area The area in which the puzzle is active
    */
-  constructor(id, position, area) {
-    super(id, position, area);
+  constructor(id, position, area, prereqs) {
+    super(id, position, area, prereqs);
 
     this.puzzle = PuzzleManager.getPuzzle(this.id);
   }
@@ -83,16 +83,18 @@ export class PuzzleInteractible extends Interactible {
       );
     }
 
-    // Draw screen
-    canvas.setColor(
-      this.puzzle.isSolved ? SOLVED_BACKGROUND : DEFAULT_BACKGROUND
-    );
-    canvas.fillRect(
-      this.position.x - SCREEN_W,
-      this.position.y - SCREEN_W,
-      SCREEN_W * 2,
-      SCREEN_W * 2
-    );
+    if (this.prereqsActive) {
+      // Draw screen
+      canvas.setColor(
+        this.puzzle.isSolved ? SOLVED_BACKGROUND : DEFAULT_BACKGROUND
+      );
+      canvas.fillRect(
+        this.position.x - SCREEN_W,
+        this.position.y - SCREEN_W,
+        SCREEN_W * 2,
+        SCREEN_W * 2
+      );
+    }
 
     const offset = new Vector(
       this.position.x - SCREEN_W,

@@ -5,13 +5,13 @@ function puzzleRules(id) {
   if (id === "1") {
     return (
       new PuzzleValidatorFactory()
-        // .addColumnCounts([1, 3, 1])
-        // .addRowCounts([2, 2, 1])
-        .addCountAreaValidator(0, 0, 3)
-        .addCountAreaValidator(0, 2, 4)
-        .addCountAreaValidator(2, 1, 4)
-        .addCountAreaValidator(2, 2, 2)
-        .addCountAreaValidator(1, 1, 6)
+        .addColumnCounts([1, 3, 1])
+        .addRowCounts([2, 2, 1])
+        // .addCountAreaValidator(0, 0, 3)
+        // .addCountAreaValidator(0, 2, 4)
+        // .addCountAreaValidator(2, 1, 4)
+        // .addCountAreaValidator(2, 2, 2)
+        // .addCountAreaValidator(1, 1, 6)
         .create()
     );
   } else if (id === "2") {

@@ -7,18 +7,38 @@ export class Interactible {
     this.triggerArea = triggerArea;
 
     this.prerequisites = prerequisites;
+    this.prereqsActive = prerequisites.length === 0;
+    this.prereqEntities = [];
 
     this.isEnabled = false;
 
     this.isAreaActive = false;
   }
 
+  onStart(level) {
+    this.findPrerequisites(level);
+  }
+
+  findPrerequisites(level) {
+    if (this.prereqEntities.length === this.prerequisites.length) {
+      return this.prereqEntities;
+    }
+
+    this.prereqEntities = level.interactibles.filter((i) =>
+      this.prerequisites.includes(i.id)
+    );
+
+    return this.prereqEntities;
+  }
+
   /**
    * Update the state of the entity.
    * @param {Vector} playerPosition The position of the player in this update
    */
-  update(playerPosition) {
-    this.isAreaActive = this.triggerArea.intersectsPoint(playerPosition);
+  update(playerPosition, deltaTime, level) {
+    this.prereqsActive = this.findPrerequisites().every((i) => i.isEnabled);
+    this.isAreaActive =
+      this.prereqsActive && this.triggerArea.intersectsPoint(playerPosition);
   }
 
   /**
@@ -31,6 +51,17 @@ export class Interactible {
       canvas.setLineWidth(0.1);
       canvas.setLineDash([0.2, 0.2]);
       this.triggerArea.stroke(canvas);
+    }
+
+    canvas.setLineWidth(0.2);
+    for (const prereq of this.prereqEntities) {
+      canvas.setColor(prereq.isEnabled ? "white" : "black");
+      canvas.drawLine(
+        prereq.position.x,
+        prereq.position.y,
+        this.position.x,
+        this.position.y
+      );
     }
   }
 

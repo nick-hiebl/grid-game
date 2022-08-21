@@ -47,6 +47,7 @@ export class Level {
     this.drawnStatic = false;
     this.interactingWith = undefined;
     this.playModeManager = playModeManager;
+    this.interactibles.forEach((i) => i.onStart(this));
   }
 
   emitEvent(event) {

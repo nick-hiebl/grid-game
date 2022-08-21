@@ -8,8 +8,30 @@ export class SwitchInteractible extends Interactible {
     super(id, position, area);
   }
 
+  update(...args) {
+    if (this.isEnabled) {
+      this.isAreaActive = false;
+    } else {
+      super.update(...args);
+    }
+  }
+
   draw(canvas) {
     super.draw(canvas);
+
+    const PIXEL_SCALE = 1 / PIXELS_PER_TILE;
+
+    // Draw hover outline
+    if (this.isAreaActive) {
+      canvas.setColorRGB(255, 255, 255, 128);
+      canvas.strokeRectInset(
+        this.position.x - PIXEL_SCALE * 3,
+        this.position.y - PIXEL_SCALE * 4,
+        PIXEL_SCALE * 6,
+        PIXEL_SCALE * 8,
+        -PIXEL_SCALE * 1.5
+      );
+    }
 
     canvas.drawImage(
       EntityImage,
@@ -25,6 +47,6 @@ export class SwitchInteractible extends Interactible {
   }
 
   onInteract() {
-    this.isEnabled = !this.isEnabled;
+    this.isEnabled = true;
   }
 }
