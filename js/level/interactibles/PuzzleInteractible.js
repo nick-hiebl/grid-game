@@ -20,6 +20,7 @@ export class PuzzleInteractible extends Interactible {
     super(id, position, area, prereqs);
 
     this.puzzle = PuzzleManager.getPuzzle(this.id);
+    this.connectionPoint = Vector.add(position, new Vector(0, 1.2));
   }
 
   /**

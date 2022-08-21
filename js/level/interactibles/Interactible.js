@@ -13,6 +13,8 @@ export class Interactible {
     this.isEnabled = false;
 
     this.isAreaActive = false;
+
+    this.connectionPoint = this.position;
   }
 
   onStart(level) {
@@ -57,10 +59,10 @@ export class Interactible {
     for (const prereq of this.prereqEntities) {
       canvas.setColor(prereq.isEnabled ? "white" : "black");
       canvas.drawLine(
-        prereq.position.x,
-        prereq.position.y,
-        this.position.x,
-        this.position.y
+        prereq.connectionPoint.x,
+        prereq.connectionPoint.y,
+        this.connectionPoint.x,
+        this.connectionPoint.y
       );
     }
   }
