@@ -1,5 +1,5 @@
 import { Puzzle } from "./Puzzle.js";
-import { PuzzleValidatorFactory } from "./PuzzleValidation.js";
+import { PuzzleValidatorFactory } from "./PuzzleValidatorFactory.js";
 
 function puzzleRules(id) {
   if (id === "1") {
