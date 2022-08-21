@@ -206,11 +206,7 @@ export class Level {
       );
 
       this.withSetupCanvas(screenManager.staticWorldCanvas, (canvas) => {
-        // Draw walls
-        canvas.setColor("red");
-        for (const object of this.objects) {
-          object.draw(canvas);
-        }
+        canvas.clear();
 
         canvas.setColor("black");
         for (let row = 0; row < this.height; row++) {
@@ -239,6 +235,12 @@ export class Level {
 
     this.withSetupCanvas(screenManager.dynamicWorldCanvas, (canvas) => {
       canvas.clear();
+
+      // Draw walls
+      canvas.setColor("black");
+      for (const object of this.objects) {
+        object.draw(canvas);
+      }
 
       this.withSetupCanvas(screenManager.behindGroundCanvas, () => {
         screenManager.behindGroundCanvas.clear();

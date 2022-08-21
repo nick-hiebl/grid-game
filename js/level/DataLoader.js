@@ -6,6 +6,7 @@ import { Vector } from "../math/Vector.js";
 
 import { ExitTrigger } from "./ExitTrigger.js";
 import { LevelFactory } from "./LevelFactory.js";
+import { DoorInteractible } from "./interactibles/DoorInteractible.js";
 
 const LEVEL_DATA_URL = "./data/world.json";
 
@@ -29,18 +30,21 @@ function srcToBlockType(src) {
   return pxToTile(src[0]) + 1;
 }
 
+function getPrereqs(entity) {
+  return find(entity.fieldInstances, "prerequisites")?.__value || [];
+}
+
 function createPuzzle(entity) {
   const key = find(entity.fieldInstances, "key");
   if (!key) {
     console.warn("Puzzle with no key in:", level.identifier);
   }
   const center = new Vector(entity.__grid[0] + 2, entity.__grid[1] + 2);
-  const prereqs = find(entity.fieldInstances, "prerequisites")?.__value || [];
   return new PuzzleInteractible(
     key.__value,
     center,
     Rectangle.aroundPoint(center, 2, 2),
-    prereqs
+    getPrereqs(entity)
   );
 }
 
@@ -49,12 +53,22 @@ function createSwitch(entity) {
   if (!id) {
     console.warn("Switch with no key in:", level.identifier);
   }
-  const switchCenter = new Vector(entity.__grid[0] + 2, entity.__grid[1] + 2);
+  const center = new Vector(entity.__grid[0] + 2, entity.__grid[1] + 2);
   return new SwitchInteractible(
     id.__value,
-    switchCenter,
-    Rectangle.aroundPoint(switchCenter, 2, 2)
+    center,
+    Rectangle.aroundPoint(center, 2, 2),
+    getPrereqs(entity)
   );
+}
+
+function createDoor(entity) {
+  const id = find(entity.fieldInstances, "id");
+  if (!id) {
+    console.warn("Door with no key in:", level.identifier);
+  }
+  const door = new Vector(entity.__grid[0] + 2, entity.__grid[1] + 2);
+  return new DoorInteractible(id.__value, door, getPrereqs(entity));
 }
 
 function firstPass(level) {
@@ -88,6 +102,9 @@ function firstPass(level) {
         break;
       case "Switch":
         factory.addInteractibles([createSwitch(entity)]);
+        break;
+      case "Door":
+        factory.addInteractibles([createDoor(entity)]);
         break;
       default:
         console.warn("Processing unknown entity type:", entity.__identifier);

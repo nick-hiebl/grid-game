@@ -4,8 +4,8 @@ import { PIXELS_PER_TILE } from "../../constants/ScreenConstants.js";
 import { Interactible } from "./Interactible.js";
 
 export class SwitchInteractible extends Interactible {
-  constructor(id, position, area) {
-    super(id, position, area);
+  constructor(id, position, area, prerequisites) {
+    super(id, position, area, prerequisites);
   }
 
   update(...args) {
