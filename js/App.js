@@ -3,6 +3,7 @@ import { DataLoader } from "./level/DataLoader.js";
 import { GameModeManager } from "./GameModeManager.js";
 import { InputManager } from "./InputManager.js";
 import { ScreenManager } from "./ScreenManager.js";
+import { IS_MOBILE } from "./constants/ScreenConstants.js";
 
 const MAX_FRAME_TIME = 1 / 20;
 
@@ -61,10 +62,16 @@ const main = () => {
     window.app = app;
   });
 
-  if (!location.href.includes("localhost")) {
+  if (!IS_MOBILE && !location.href.includes("localhost")) {
     Array.from(document.getElementsByTagName("p")).forEach((tag) =>
       tag.classList.add("visible")
     );
+  }
+  if (!IS_MOBILE) {
+    document.getElementById("mobile-controls").remove();
+  }
+  if (IS_MOBILE) {
+    document.getElementById("canvas").classList.add("fit-screen");
   }
 };
 

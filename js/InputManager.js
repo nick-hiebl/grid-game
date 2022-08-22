@@ -103,6 +103,12 @@ export class InputManager {
    * Set up event listeners.
    */
   init() {
+    const onKeyEvent = (symbol) => {
+      if (this.listener) {
+        this.listener(new KeyPressEvent(symbol));
+      }
+    }
+
     document.addEventListener("keydown", (e) => {
       if (e.repeat) {
         return;
@@ -113,9 +119,7 @@ export class InputManager {
       }
 
       this.isButtonDown[symbol] = true;
-      if (this.listener) {
-        this.listener(new KeyPressEvent(symbol));
-      }
+      onKeyEvent(symbol);
     });
 
     document.addEventListener("keyup", (e) => {
@@ -147,6 +151,38 @@ export class InputManager {
         this.listener(new ClickEvent(this.mousePosition, true));
       }
     });
+
+    const wireButton = (id, input) => {
+      const btn = document.getElementById(id);
+
+      if (!btn) {
+        return;
+      }
+
+      btn.addEventListener("touchstart", (e) => {
+        e.preventDefault();
+        this.isButtonDown[input] = true;
+
+        onKeyEvent(input);
+      });
+
+      btn.addEventListener("touchcancel", (e) => {
+        e.preventDefault();
+        this.isButtonDown[input] = false;
+      });
+
+      btn.addEventListener("touchend", (e) => {
+        e.preventDefault();
+        this.isButtonDown[input] = false;
+      });
+    };
+
+    wireButton("left", Input.Left);
+    wireButton("right", Input.Right);
+    wireButton("jump", Input.Jump);
+    wireButton("down", Input.Down);
+    wireButton("escape", Input.Escape);
+    wireButton("interact", Input.Interact);
   }
 
   toCanvasPosition(event) {

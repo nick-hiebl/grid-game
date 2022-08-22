@@ -24,12 +24,66 @@
     .visible {
       visibility: visible;
     }
+    .fit-screen {
+      max-height: 100vh;
+      text-align: center;
+    }
+    #br-controls {
+      position: fixed;
+      bottom: 5vh;
+      right: 5vh;
+      display: flex;
+      flex-direction: row;
+    }
+    #bl-controls {
+      position: fixed;
+      bottom: 5vh;
+      left: 5vh;
+      display: flex;
+      flex-direction: column;
+    }
+    #tl-controls {
+      position: fixed;
+      top: 5vh;
+      left: 5vh;
+    }
+    #tr-controls {
+      position: fixed;
+      top: 5vh;
+      right: 5vh;
+    }
+    #left, #right, #jump, #down, #escape, #interact {
+      width: 20vh;
+      height: 20vh;
+      font-size: 10vh;
+      font-weight: bold;
+      font-family: sans-serif;
+      border: none;
+      opacity: 50%;
+      margin: 5px;
+    }
   </style>
 </head>
 
 <body>
   <canvas id="canvas" width="1920" height="1080"></canvas>
-  <p>WASD, space, E, Escape</p>
+  <div id="mobile-controls">
+    <div id="tl-controls">
+      <button id="escape">X</button>
+    </div>
+    <div id="tr-controls">
+      <button id="interact">E</button>
+    </div>
+    <div id="br-controls">
+      <button id="left"> ← </button>
+      <button id="right"> → </button>
+    </div>
+    <div id="bl-controls">
+      <button id="jump"> ↑ </button>
+      <button id="down"> ↓ </button>
+    </div>
+  </div>
+  <p>WASD, space, E, Escape (mobile)</p>
 </body>
 
 <script src="./build/index.js" type="module"></script>
