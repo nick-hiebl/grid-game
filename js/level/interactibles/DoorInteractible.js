@@ -3,6 +3,7 @@ import { PIXELS_PER_TILE } from "../../constants/ScreenConstants.js";
 import { clamp } from "../../math/Common.js";
 import { Rectangle } from "../../math/Shapes.js";
 import { Vector } from "../../math/Vector.js";
+import { BlockType } from "../BlockTypes.js";
 
 import { Interactible } from "./Interactible.js";
 
@@ -20,7 +21,7 @@ export class DoorInteractible extends Interactible {
     // 1 = fully closed, 0 = fully open
     this.closedness = prerequisites.length === 0 ? 0 : 1;
 
-    this.connectionPoint = Vector.add(position, new Vector(0, -1.5));
+    this.connectionPoint = Vector.add(position, new Vector(0, -1.8));
 
     this.headCollider = Rectangle.centerForm(
       this.position.x,
@@ -36,18 +37,6 @@ export class DoorInteractible extends Interactible {
     );
   }
 
-  onStart(level) {
-    super.onStart(level);
-
-    if (!level.objects.includes(this.doorCollider)) {
-      level.objects.push(this.doorCollider);
-    }
-
-    if (!level.objects.includes(this.headCollider)) {
-      level.objects.push(this.headCollider);
-    }
-  }
-
   update(player, deltaTime, level) {
     super.update(...arguments);
 
@@ -59,10 +48,30 @@ export class DoorInteractible extends Interactible {
       this.doorCollider.y1,
       this.doorCollider.y1 + 4
     );
+
+    player.collideWithBlock(BlockType.SOLID, this.headCollider, deltaTime);
+    player.collideWithBlock(BlockType.SOLID, this.doorCollider, deltaTime);
   }
 
   draw(canvas, screenManager) {
     super.draw(canvas, screenManager);
+
+    const h = this.doorCollider.height;
+    if (h > 0) {
+      const intH = Math.floor(PIXELS_PER_TILE * h) / PIXELS_PER_TILE;
+      const rem = h - intH;
+      canvas.drawImage(
+        EntityImage,
+        0,
+        40 + (40 - PIXELS_PER_TILE * intH),
+        PIXELS_PER_TILE * 4,
+        PIXELS_PER_TILE * intH,
+        this.position.x - 2,
+        this.position.y - 2 + rem,
+        4,
+        intH
+      );
+    }
 
     canvas.drawImage(
       EntityImage,
