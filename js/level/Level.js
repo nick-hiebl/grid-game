@@ -87,7 +87,7 @@ export class Level {
 
     // Update interactibles
     this.interactibles.forEach((interactible) => {
-      interactible.update(this.player.position, deltaTime, this);
+      interactible.update(this.player, deltaTime, this);
     });
     if (!this.interactingWith?.isAreaActive) {
       this.closeCurrentPuzzle();

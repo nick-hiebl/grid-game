@@ -48,7 +48,7 @@ export class DoorInteractible extends Interactible {
     }
   }
 
-  update(playerPosition, deltaTime, level) {
+  update(player, deltaTime, level) {
     super.update(...arguments);
 
     const motion =

@@ -39,10 +39,10 @@ export class Interactible {
    * Update the state of the entity.
    * @param {Vector} playerPosition The position of the player in this update
    */
-  update(playerPosition, deltaTime, level) {
+  update(player, deltaTime, level) {
     this.prereqsActive = this.findPrerequisites().every((i) => i.isEnabled);
     this.isAreaActive =
-      this.prereqsActive && this.triggerArea.intersectsPoint(playerPosition);
+      this.prereqsActive && this.triggerArea.intersectsPoint(player.position);
   }
 
   /**

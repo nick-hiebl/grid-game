@@ -72,6 +72,7 @@ const main = () => {
   }
   if (IS_MOBILE) {
     document.getElementById("canvas").classList.add("fit-screen");
+    document.getElementById("mobile-controls").classList.remove("hidden");
   }
 };
 

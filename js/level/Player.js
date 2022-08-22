@@ -51,6 +51,46 @@ export class Player {
     }
   }
 
+  collideWithBlock(type, rect, deltaTime) {
+    const isActiveLedge =
+      !this.isDropping &&
+      type === BlockType.LEDGE &&
+      this.velocity.y >= 0 &&
+      this.position.y < rect.y1;
+
+    const intersects = this.collider.intersectsRectangle(rect);
+
+    if (intersects && type === BlockType.LEDGE) {
+      this.contactingAnyLedge = true;
+      if (this.velocity.y < 0 && this.position.y >= rect.y1) {
+        this.isDropping = true;
+      }
+    }
+
+    if (BlockType.isSolid(type) || isActiveLedge) {
+      if (intersects) {
+        this.isColliding = true;
+        const collidingBy = rect.uncollideCircle(this.collider);
+
+        this.velocity.add(Vector.scale(collidingBy, 1 / deltaTime));
+        // Horizontal rebound
+        if (collidingBy.x > 0 && collidingBy.y === 0) {
+          this.velocity.x = Math.max(0, this.velocity.x);
+        } else if (collidingBy.x < 0 && collidingBy.y === 0) {
+          this.velocity.x = Math.min(0, this.velocity.x);
+        }
+        // Vertical rebound
+        if (collidingBy.y > 0 && collidingBy.x === 0) {
+          this.velocity.y = Math.max(0, this.velocity.y);
+        } else if (collidingBy.y < 0 && collidingBy.x === 0) {
+          this.velocity.y = Math.min(0, this.velocity.y);
+        }
+        this.position.add(collidingBy);
+      }
+      return this.collider.intersectsRectangle(rect);
+    }
+  }
+
   /**
    * Update.
    * @param {number} deltaTime The time elapsed since the last update.
@@ -156,52 +196,16 @@ export class Player {
       getRectAt(x + 1, y + 1),
     ].filter((rect) => !!rect);
 
-    let contactingAnyLedge = false;
+    this.contactingAnyLedge = false;
 
     nearbyBlocks
       .concat(level.objects.map((o) => ({ type: BlockType.SOLID, rect: o })))
       .forEach(({ type, rect }) => {
-        const isActiveLedge =
-          !this.isDropping &&
-          type === BlockType.LEDGE &&
-          this.velocity.y >= 0 &&
-          this.position.y < rect.y1;
-
-        const intersects = this.collider.intersectsRectangle(rect);
-
-        if (intersects && type === BlockType.LEDGE) {
-          contactingAnyLedge = true;
-          if (this.velocity.y < 0 && this.position.y >= rect.y1) {
-            this.isDropping = true;
-          }
-        }
-
-        if (BlockType.isSolid(type) || isActiveLedge) {
-          if (intersects) {
-            this.isColliding = true;
-            const collidingBy = rect.uncollideCircle(this.collider);
-
-            this.velocity.add(Vector.scale(collidingBy, 1 / deltaTime));
-            // Horizontal rebound
-            if (collidingBy.x > 0 && collidingBy.y === 0) {
-              this.velocity.x = Math.max(0, this.velocity.x);
-            } else if (collidingBy.x < 0 && collidingBy.y === 0) {
-              this.velocity.x = Math.min(0, this.velocity.x);
-            }
-            // Vertical rebound
-            if (collidingBy.y > 0 && collidingBy.x === 0) {
-              this.velocity.y = Math.max(0, this.velocity.y);
-            } else if (collidingBy.y < 0 && collidingBy.x === 0) {
-              this.velocity.y = Math.min(0, this.velocity.y);
-            }
-            this.position.add(collidingBy);
-          }
-          return this.collider.intersectsRectangle(rect);
-        }
+        this.collideWithBlock(type, rect, deltaTime);
       });
 
     this.wantsToJump = false;
-    this.isDropping = this.isDropping && contactingAnyLedge;
+    this.isDropping = this.isDropping && this.contactingAnyLedge;
   }
 
   /**
