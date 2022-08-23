@@ -7,7 +7,7 @@ import {
   EdgeCountValidationItem,
   EdgeGroupsValidationItem,
   EdgeNoTripleValidationItem,
-} from "./EdgeValidation";
+} from "./EdgeValidation.js";
 import { PuzzleValidator } from "./PuzzleValidation.js";
 
 export class PuzzleValidatorFactory {
