@@ -56,8 +56,7 @@ export class CountInAreaValidation extends CellValidation {
     this.isCellColoured = false;
   }
 
-  validate(state) {
-    let count = 0;
+  *iterateArea(state) {
     for (
       let row = Math.max(this.row - 1, 0);
       row <= Math.min(this.row + 1, state.length - 1);
@@ -68,9 +67,17 @@ export class CountInAreaValidation extends CellValidation {
         col <= Math.min(this.column + 1, state[row].length - 1);
         col++
       ) {
-        if (!!state[row][col]) {
-          count++;
-        }
+        yield [row, col];
+      }
+    }
+  }
+
+  validate(state) {
+    let count = 0;
+
+    for (let [row, col] of this.iterateArea(state)) {
+      if (!!state[row][col]) {
+        count++;
       }
     }
 
