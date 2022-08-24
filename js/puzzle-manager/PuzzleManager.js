@@ -5,8 +5,8 @@ function puzzleRules(id) {
   if (id === "1") {
     return (
       new PuzzleValidatorFactory()
-        .addColumnCounts([1, 3, 1])
-        .addRowCounts([2, 2, 1])
+        .addColumnCounts([1])
+        .addRowCounts([1])
         // .addCountAreaValidator(0, 0, 3)
         // .addCountAreaValidator(0, 2, 4)
         // .addCountAreaValidator(2, 1, 4)
@@ -38,7 +38,7 @@ function puzzleRules(id) {
 function makePuzzle(id) {
   const rules = puzzleRules(id);
   if (id === "1") {
-    return new Puzzle(id, 3, 3, rules);
+    return new Puzzle(id, 1, 1, rules);
   } else if (id === "2") {
     return new Puzzle(id, 4, 4, rules);
   } else if (id === "3") {

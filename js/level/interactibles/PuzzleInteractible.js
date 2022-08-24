@@ -109,16 +109,21 @@ export class PuzzleInteractible extends Interactible {
 
     // Draw current selection
     const rows = this.puzzle.state;
-    const PAD = PIXEL_SCALE;
+    const SCREEN_PIXEL = SCREEN_W * 2 / (3 * Math.max(rows.length, rows[0].length) + 1);
+    const SCR_WIDTH = SCREEN_PIXEL * (3 * rows[0].length + 1);
+    const SCR_HEIGHT = SCREEN_PIXEL * (3 * rows.length + 1);
+
+    const TOP_PAD = Math.max(0, (SCR_WIDTH - SCR_HEIGHT) / 2);
+    const LEFT_PAD = Math.max(0, (SCR_HEIGHT - SCR_WIDTH) / 2);
 
     for (let row = 0; row < rows.length; row++) {
       for (let col = 0; col < rows[row].length; col++) {
         if (rows[row][col]) {
           canvas.fillRect(
-            PAD + (col * 2 * (SCREEN_W - PAD)) / rows[row].length,
-            PAD + (row * 2 * (SCREEN_W - PAD)) / rows.length,
-            PIXEL_SCALE * 2,
-            PIXEL_SCALE * 2
+            LEFT_PAD + SCREEN_PIXEL * (3 * col + 1),
+            TOP_PAD + SCREEN_PIXEL * (3 * row + 1),
+            SCREEN_PIXEL * 2,
+            SCREEN_PIXEL * 2
           );
         }
       }
