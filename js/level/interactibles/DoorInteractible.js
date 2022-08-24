@@ -12,7 +12,7 @@ const mockTrigger = {
   stroke: () => null,
 };
 
-const OPEN_CLOSE_SPEED = 1;
+const OPEN_CLOSE_SPEED = 0.4;
 
 export class DoorInteractible extends Interactible {
   constructor(id, position, prerequisites) {
@@ -58,14 +58,15 @@ export class DoorInteractible extends Interactible {
 
     const h = this.doorCollider.height;
     if (h > 0) {
-      const intH = Math.floor(PIXELS_PER_TILE * h) / PIXELS_PER_TILE;
+      const pixH = Math.floor(PIXELS_PER_TILE * h);
+      const intH = +(pixH / PIXELS_PER_TILE).toFixed(1);
       const rem = h - intH;
       canvas.drawImage(
         EntityImage,
         0,
-        40 + (40 - PIXELS_PER_TILE * intH),
+        40 + (40 - pixH),
         PIXELS_PER_TILE * 4,
-        PIXELS_PER_TILE * intH,
+        pixH,
         this.position.x - 2,
         this.position.y - 2 + rem,
         4,

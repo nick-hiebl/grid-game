@@ -14,8 +14,8 @@ function loadJson(file) {
   return fetch(file).then((data) => data.json());
 }
 
-function find(list, iden) {
-  return list.find((item) => item.__identifier === iden);
+function find(list, iden, key = "__identifier") {
+  return list.find((item) => item[key] === iden);
 }
 
 function findLayer(level, key) {
@@ -31,31 +31,38 @@ function srcToBlockType(src) {
 }
 
 function getPrereqs(entity) {
-  return find(entity.fieldInstances, "prerequisites")?.__value || [];
+  const raw = find(entity.fieldInstances, "prerequisites")?.__value || [];
+  return raw.map((ref) => ref.entityIid);
 }
 
 function createPuzzle(entity) {
+  const id = entity.iid;
   const key = find(entity.fieldInstances, "key");
   if (!key) {
     console.warn("Puzzle with no key in:", level.identifier);
   }
   const center = new Vector(entity.__grid[0] + 2, entity.__grid[1] + 2);
+  const config = {
+    isFlipped: find(entity.fieldInstances, "isFlipped").__value
+  };
   return new PuzzleInteractible(
-    key.__value,
+    id,
     center,
     Rectangle.aroundPoint(center, 2, 2),
-    getPrereqs(entity)
+    getPrereqs(entity),
+    key.__value,
+    config
   );
 }
 
 function createSwitch(entity) {
-  const id = find(entity.fieldInstances, "id");
+  const id = entity.iid;
   if (!id) {
     console.warn("Switch with no key in:", level.identifier);
   }
   const center = new Vector(entity.__grid[0] + 2, entity.__grid[1] + 2);
   return new SwitchInteractible(
-    id.__value,
+    id,
     center,
     Rectangle.aroundPoint(center, 2, 2),
     getPrereqs(entity)
@@ -63,12 +70,12 @@ function createSwitch(entity) {
 }
 
 function createDoor(entity) {
-  const id = find(entity.fieldInstances, "id");
+  const id = entity.iid;
   if (!id) {
     console.warn("Door with no key in:", level.identifier);
   }
   const door = new Vector(entity.__grid[0] + 2, entity.__grid[1] + 2);
-  return new DoorInteractible(id.__value, door, getPrereqs(entity));
+  return new DoorInteractible(id, door, getPrereqs(entity));
 }
 
 function firstPass(level) {
@@ -91,7 +98,8 @@ function firstPass(level) {
   let setStartPos = false;
   const entityLayer = findLayer(level, "EntityLayer");
 
-  entityLayer.entityInstances.forEach((entity) => {
+  const entities = entityLayer.entityInstances;
+  entities.forEach((entity) => {
     switch (entity.__identifier) {
       case "PlayerStart":
         factory.setPlayerPos(new Vector(entity.__grid[0], entity.__grid[1]));

@@ -29,18 +29,18 @@ export class ScreenManager {
 
     this[REAL_CANVAS] = screenCanvas;
 
-    this.background = Canvas.fromScratch(CANVAS_WIDTH * 2, CANVAS_HEIGHT * 2);
+    this.background = Canvas.fromScratch(CANVAS_WIDTH * 3, CANVAS_HEIGHT * 3);
     this.behindGroundCanvas = Canvas.fromScratch(
-      CANVAS_WIDTH * 2,
-      CANVAS_HEIGHT * 2
+      CANVAS_WIDTH * 3,
+      CANVAS_HEIGHT * 3
     );
     this.staticWorldCanvas = Canvas.fromScratch(
-      CANVAS_WIDTH * 2,
-      CANVAS_HEIGHT * 2
+      CANVAS_WIDTH * 3,
+      CANVAS_HEIGHT * 3
     );
     this.dynamicWorldCanvas = Canvas.fromScratch(
-      CANVAS_WIDTH * 2,
-      CANVAS_HEIGHT * 2
+      CANVAS_WIDTH * 3,
+      CANVAS_HEIGHT * 3
     );
     this.uiCanvas = Canvas.fromScratch(
       ON_SCREEN_CANVAS_WIDTH,

@@ -17,6 +17,7 @@ export class Interactible {
     this.isAreaActive = false;
 
     this.connectionPoint = this.position;
+    this.outputPoint = this.position;
   }
 
   onStart(level) {
@@ -63,18 +64,18 @@ export class Interactible {
         prereq.isEnabled ? "white" : "black"
       );
       const xDiff = Vector.manhattanDist(
-        prereq.connectionPoint,
+        prereq.outputPoint,
         this.connectionPoint
       );
       const mid = Vector.lerp(
-        prereq.connectionPoint,
+        prereq.outputPoint,
         this.connectionPoint,
         0.5
       );
       const control = Vector.add(mid, new Vector(0, xDiff * 0.3));
       screenManager.behindGroundCanvas.drawQuadratic(
-        prereq.connectionPoint.x,
-        prereq.connectionPoint.y,
+        prereq.outputPoint.x,
+        prereq.outputPoint.y,
         this.connectionPoint.x,
         this.connectionPoint.y,
         control.x,

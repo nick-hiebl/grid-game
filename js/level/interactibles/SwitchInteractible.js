@@ -24,6 +24,8 @@ export class SwitchInteractible extends Interactible {
     // Draw hover outline
     if (this.isAreaActive) {
       canvas.setColorRGB(255, 255, 255, 128);
+      canvas.setLineWidth(PIXEL_SCALE);
+      canvas.setLineDash([]);
       canvas.strokeRectInset(
         this.position.x - PIXEL_SCALE * 3,
         this.position.y - PIXEL_SCALE * 4,

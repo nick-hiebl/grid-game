@@ -16,11 +16,17 @@ export class PuzzleInteractible extends Interactible {
    * @param {Vector} position The position of the visual element
    * @param {Shape} area The area in which the puzzle is active
    */
-  constructor(id, position, area, prereqs) {
+  constructor(id, position, area, prereqs, puzzleId, config) {
     super(id, position, area, prereqs);
 
-    this.puzzle = PuzzleManager.getPuzzle(this.id);
+    this.puzzleId = puzzleId;
+    this.puzzle = PuzzleManager.getPuzzle(puzzleId);
     this.connectionPoint = Vector.add(position, new Vector(0, 1.2));
+    this.outputPoint = Vector.add(
+      position,
+      new Vector(config.isFlipped ? -1 : 1, -1.15)
+    );
+    this.config = config;
   }
 
   /**
@@ -40,7 +46,7 @@ export class PuzzleInteractible extends Interactible {
       this.position.x - SCREEN_W / 2,
       this.position.y + SCREEN_W,
       SCREEN_W,
-      2
+      1
     );
 
     canvas.setLineWidth(PIXEL_SCALE);
@@ -67,8 +73,10 @@ export class PuzzleInteractible extends Interactible {
       -SCREEN_W - PIXEL_SCALE / 2
     );
 
+    // Draw light area
+    const isFlippedMul = this.config.isFlipped ? -1 : 1;
     canvas.fillRect(
-      this.position.x + SCREEN_W - 3 * PIXEL_SCALE,
+      this.position.x + isFlippedMul * (SCREEN_W - PIXEL_SCALE) - 2 * PIXEL_SCALE,
       this.position.y - SCREEN_W - 4 * PIXEL_SCALE,
       4 * PIXEL_SCALE,
       4 * PIXEL_SCALE
@@ -78,7 +86,7 @@ export class PuzzleInteractible extends Interactible {
       this.isEnabled = true;
       canvas.setColor("white");
       canvas.fillRect(
-        this.position.x + SCREEN_W - 2 * PIXEL_SCALE,
+        this.position.x + isFlippedMul * (SCREEN_W - PIXEL_SCALE) - PIXEL_SCALE,
         this.position.y - SCREEN_W - 3 * PIXEL_SCALE,
         PIXEL_SCALE * 2,
         PIXEL_SCALE * 2
@@ -133,6 +141,6 @@ export class PuzzleInteractible extends Interactible {
   }
 
   onInteract() {
-    return new OpenPuzzleEvent(this.id);
+    return new OpenPuzzleEvent(this.puzzleId);
   }
 }
