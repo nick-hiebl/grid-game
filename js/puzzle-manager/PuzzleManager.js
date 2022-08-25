@@ -1,30 +1,15 @@
 import { Puzzle } from "./Puzzle.js";
+import { initPuzzle } from "./PuzzleFactory.js";
 import { PuzzleValidatorFactory } from "./PuzzleValidatorFactory.js";
 
+const RULES = {
+  "1": { rows: 1, cols: 1, columnCounts: [1], rowCounts: [1] },
+  "2": { rows: 2, cols: 1, columnCounts: [2], rowCounts: [1, 1] },
+  "3": { rows: 2, cols: 2, columnCounts: [2, 1], rowCounts: [1, 2] },
+};
+
 function puzzleRules(id) {
-  if (id === "1") {
-    return (
-      new PuzzleValidatorFactory()
-        .addColumnCounts([1])
-        .addRowCounts([1])
-        // .addCountAreaValidator(0, 0, 3)
-        // .addCountAreaValidator(0, 2, 4)
-        // .addCountAreaValidator(2, 1, 4)
-        // .addCountAreaValidator(2, 2, 2)
-        // .addCountAreaValidator(1, 1, 6)
-        .create()
-    );
-  } else if (id === "2") {
-    return new PuzzleValidatorFactory()
-      .addColumnCounts([4, 3, 2, 1])
-      .addRowCounts([1, 2, 3, 4])
-      .create();
-  } else if (id === "3") {
-    return new PuzzleValidatorFactory()
-      .addColumnCounts([1, 1, 1])
-      .addRowCounts([1, 1, 1])
-      .create();
-  } else if (id === "4") {
+  if (id === "4") {
     return new PuzzleValidatorFactory()
       .addRowCounts([4, 3, null])
       .addColumnGroups([1, null, null, 2])
@@ -36,14 +21,11 @@ function puzzleRules(id) {
 }
 
 function makePuzzle(id) {
+  if (id in RULES) {
+    return initPuzzle(id, RULES[id]);
+  }
   const rules = puzzleRules(id);
-  if (id === "1") {
-    return new Puzzle(id, 1, 1, rules);
-  } else if (id === "2") {
-    return new Puzzle(id, 4, 4, rules);
-  } else if (id === "3") {
-    return new Puzzle(id, 3, 3, rules);
-  } else if (id === "4") {
+  if (id === "4") {
     return new Puzzle(id, 3, 4, rules);
   } else {
     console.error("Cannot find puzzle with id", id);
