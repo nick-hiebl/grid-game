@@ -10,7 +10,12 @@ const RULES = {
   5: { rows: 3, cols: 3, columnCounts: [2, 3, 1], rowCounts: [2, 3, 1] },
   6: { rows: 3, cols: 4, columnCounts: [2, 1, 3, 2], rowCounts: [3, 4, 1] },
   7: { rows: 4, cols: 4, columnCounts: [2, 4, 2, 1], rowCounts: [4, 1, 1, 3] },
-  8: { rows: 5, cols: 5, columnCounts: [2, 4, 2, 3, 5], rowCounts: [1, 3, 5, 5, 2] },
+  8: {
+    rows: 5,
+    cols: 5,
+    columnCounts: [2, 4, 2, 3, 5],
+    rowCounts: [1, 3, 5, 5, 2],
+  },
 };
 
 function puzzleRules(id) {

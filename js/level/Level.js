@@ -236,12 +236,6 @@ export class Level {
     this.withSetupCanvas(screenManager.dynamicWorldCanvas, (canvas) => {
       canvas.clear();
 
-      // Draw walls
-      canvas.setColor("black");
-      for (const object of this.objects) {
-        object.draw(canvas);
-      }
-
       this.withSetupCanvas(screenManager.behindGroundCanvas, () => {
         screenManager.behindGroundCanvas.clear();
 

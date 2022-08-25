@@ -39,6 +39,17 @@ export class DoorInteractible extends Interactible {
     this.fullHeight = height;
   }
 
+  onStart(level) {
+    super.onStart(level);
+
+    if (!level.objects.find(({ rect }) => rect === this.headCollider)) {
+      level.objects.push({ type: BlockType.SOLID, rect: this.headCollider });
+    }
+    if (!level.objects.find(({ rect }) => rect === this.doorCollider)) {
+      level.objects.push({ type: BlockType.SOLID, rect: this.doorCollider });
+    }
+  }
+
   update(player, deltaTime, level) {
     super.update(...arguments);
 
@@ -50,11 +61,6 @@ export class DoorInteractible extends Interactible {
       this.doorCollider.y1,
       this.doorCollider.y1 + this.fullHeight
     );
-
-    player.collideWithBlock(BlockType.SOLID, this.headCollider, deltaTime);
-    if (this.doorCollider.y2 > this.headCollider.y2) {
-      player.collideWithBlock(BlockType.SOLID, this.doorCollider, deltaTime);
-    }
   }
 
   draw(canvas, screenManager) {
@@ -63,12 +69,7 @@ export class DoorInteractible extends Interactible {
     const h = this.doorCollider.height;
     if (h > 0) {
       canvas.setColor("black");
-      canvas.fillRect(
-        this.position.x - 0.5,
-        this.position.y - 2,
-        1,
-        h
-      );
+      canvas.fillRect(this.position.x - 0.5, this.position.y - 2, 1, h);
       canvas.setColor("white");
       canvas.fillRect(
         this.position.x - 0.5,

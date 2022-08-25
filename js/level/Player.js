@@ -136,7 +136,10 @@ export class Player {
 
     this.isGrounded =
       groundedOnGridCell ||
-      level.objects.some((object) => this.collider.isKissingBelow(object));
+      level.objects.some(
+        ({ type, rect }) =>
+          BlockType.isGrounding(type) && this.collider.isKissingBelow(rect)
+      );
 
     // General motion
     if (this.isGrounded) {
@@ -203,7 +206,7 @@ export class Player {
     this.contactingAnyLedge = false;
 
     nearbyBlocks
-      .concat(level.objects.map((o) => ({ type: BlockType.SOLID, rect: o })))
+      .concat(level.objects)
       .forEach(({ type, rect }) => {
         this.collideWithBlock(type, rect, deltaTime);
       });
