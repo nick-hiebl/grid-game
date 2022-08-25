@@ -3,9 +3,9 @@ import { initPuzzle } from "./PuzzleFactory.js";
 import { PuzzleValidatorFactory } from "./PuzzleValidatorFactory.js";
 
 const RULES = {
-  "1": { rows: 1, cols: 1, columnCounts: [1], rowCounts: [1] },
-  "2": { rows: 2, cols: 1, columnCounts: [2], rowCounts: [1, 1] },
-  "3": { rows: 2, cols: 2, columnCounts: [2, 1], rowCounts: [1, 2] },
+  1: { rows: 1, cols: 1, columnCounts: [1], rowCounts: [1] },
+  2: { rows: 2, cols: 1, columnCounts: [2], rowCounts: [1, 1] },
+  3: { rows: 2, cols: 2, columnCounts: [2, 1], rowCounts: [1, 2] },
 };
 
 function puzzleRules(id) {

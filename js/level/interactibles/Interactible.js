@@ -67,11 +67,7 @@ export class Interactible {
         prereq.outputPoint,
         this.connectionPoint
       );
-      const mid = Vector.lerp(
-        prereq.outputPoint,
-        this.connectionPoint,
-        0.5
-      );
+      const mid = Vector.lerp(prereq.outputPoint, this.connectionPoint, 0.5);
       const control = Vector.add(mid, new Vector(0, xDiff * 0.3));
       screenManager.behindGroundCanvas.drawQuadratic(
         prereq.outputPoint.x,

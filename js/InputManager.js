@@ -107,7 +107,7 @@ export class InputManager {
       if (this.listener) {
         this.listener(new KeyPressEvent(symbol));
       }
-    }
+    };
 
     document.addEventListener("keydown", (e) => {
       if (e.repeat) {

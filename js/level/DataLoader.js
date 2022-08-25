@@ -43,7 +43,7 @@ function createPuzzle(entity) {
   }
   const center = new Vector(entity.__grid[0] + 2, entity.__grid[1] + 2);
   const config = {
-    isFlipped: find(entity.fieldInstances, "isFlipped").__value
+    isFlipped: find(entity.fieldInstances, "isFlipped").__value,
   };
   return new PuzzleInteractible(
     id,

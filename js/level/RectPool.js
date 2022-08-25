@@ -24,7 +24,12 @@ class RectPoolClass {
   }
 
   get(row, col, isShort = false) {
-    return this.innerGet(row, col, isShort, isShort ? this.shortGrid : this.grid);
+    return this.innerGet(
+      row,
+      col,
+      isShort,
+      isShort ? this.shortGrid : this.grid
+    );
   }
 }
 

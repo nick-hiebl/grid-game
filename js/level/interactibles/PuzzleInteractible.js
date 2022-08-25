@@ -76,7 +76,9 @@ export class PuzzleInteractible extends Interactible {
     // Draw light area
     const isFlippedMul = this.config.isFlipped ? -1 : 1;
     canvas.fillRect(
-      this.position.x + isFlippedMul * (SCREEN_W - PIXEL_SCALE) - 2 * PIXEL_SCALE,
+      this.position.x +
+        isFlippedMul * (SCREEN_W - PIXEL_SCALE) -
+        2 * PIXEL_SCALE,
       this.position.y - SCREEN_W - 4 * PIXEL_SCALE,
       4 * PIXEL_SCALE,
       4 * PIXEL_SCALE
@@ -117,7 +119,8 @@ export class PuzzleInteractible extends Interactible {
 
     // Draw current selection
     const rows = this.puzzle.state;
-    const SCREEN_PIXEL = SCREEN_W * 2 / (3 * Math.max(rows.length, rows[0].length) + 1);
+    const SCREEN_PIXEL =
+      (SCREEN_W * 2) / (3 * Math.max(rows.length, rows[0].length) + 1);
     const SCR_WIDTH = SCREEN_PIXEL * (3 * rows[0].length + 1);
     const SCR_HEIGHT = SCREEN_PIXEL * (3 * rows.length + 1);
 
