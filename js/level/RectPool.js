@@ -9,17 +9,22 @@ import { Rectangle } from "../math/Shapes.js";
 class RectPoolClass {
   constructor() {
     this.grid = [];
+    this.shortGrid = [];
   }
 
-  get(row, col) {
-    if (!(row in this.grid)) {
-      this.grid[row] = [];
+  innerGet(row, col, isShort, grid) {
+    if (!(row in grid)) {
+      grid[row] = [];
     }
-    if (!(col in this.grid[row])) {
-      this.grid[row][col] = Rectangle.widthForm(col, row, 1, 1);
+    if (!(col in grid[row])) {
+      grid[row][col] = Rectangle.widthForm(col, row, 1, isShort ? 0.2 : 1);
     }
 
-    return this.grid[row][col];
+    return grid[row][col];
+  }
+
+  get(row, col, isShort = false) {
+    return this.innerGet(row, col, isShort, isShort ? this.shortGrid : this.grid);
   }
 }
 

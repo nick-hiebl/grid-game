@@ -106,7 +106,7 @@ export class Player {
       if (type) {
         return {
           type: getCellAt(x, y),
-          rect: RectPool.get(Math.floor(y), Math.floor(x)),
+          rect: RectPool.get(Math.floor(y), Math.floor(x), type === BlockType.LEDGE),
         };
       }
     };
