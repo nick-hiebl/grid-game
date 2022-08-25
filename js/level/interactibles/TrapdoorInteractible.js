@@ -47,7 +47,7 @@ export class TrapdoorInteractible extends Interactible {
       0.6
     );
     this.rightDoor = Rectangle.widthForm(
-      this.position.x - this.hasLeft ? width / 2 : 0,
+      this.position.x - (this.hasLeft ? 0 : width / 2),
       this.position.y,
       this.hasLeft ? width / 2 : width,
       0.6
