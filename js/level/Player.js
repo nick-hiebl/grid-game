@@ -138,7 +138,9 @@ export class Player {
       groundedOnGridCell ||
       level.objects.some(
         ({ type, rect }) =>
-          BlockType.isGrounding(type) && this.collider.isKissingBelow(rect)
+          (this.isDropping
+            ? BlockType.isSolid(type)
+            : BlockType.isGrounding(type)) && this.collider.isKissingBelow(rect)
       );
 
     // General motion
@@ -205,11 +207,9 @@ export class Player {
 
     this.contactingAnyLedge = false;
 
-    nearbyBlocks
-      .concat(level.objects)
-      .forEach(({ type, rect }) => {
-        this.collideWithBlock(type, rect, deltaTime);
-      });
+    nearbyBlocks.concat(level.objects).forEach(({ type, rect }) => {
+      this.collideWithBlock(type, rect, deltaTime);
+    });
 
     this.wantsToJump = false;
     this.isDropping = this.isDropping && this.contactingAnyLedge;

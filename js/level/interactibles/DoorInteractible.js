@@ -18,9 +18,6 @@ export class DoorInteractible extends Interactible {
   constructor(id, position, prerequisites, height = 4) {
     super(id, position, mockTrigger, prerequisites);
 
-    // 1 = fully closed, 0 = fully open
-    this.closedness = prerequisites.length === 0 ? 0 : 1;
-
     this.connectionPoint = Vector.add(position, new Vector(0, -1.8));
 
     this.headCollider = Rectangle.centerForm(
@@ -42,12 +39,14 @@ export class DoorInteractible extends Interactible {
   onStart(level) {
     super.onStart(level);
 
-    if (!level.objects.find(({ rect }) => rect === this.headCollider)) {
-      level.objects.push({ type: BlockType.SOLID, rect: this.headCollider });
-    }
-    if (!level.objects.find(({ rect }) => rect === this.doorCollider)) {
-      level.objects.push({ type: BlockType.SOLID, rect: this.doorCollider });
-    }
+    level.addWithoutDuplicate({
+      type: BlockType.SOLID,
+      rect: this.headCollider,
+    });
+    level.addWithoutDuplicate({
+      type: BlockType.SOLID,
+      rect: this.doorCollider,
+    });
   }
 
   update(player, deltaTime, level) {
@@ -70,24 +69,17 @@ export class DoorInteractible extends Interactible {
     if (h > 0) {
       canvas.setColor("black");
       canvas.fillRect(this.position.x - 0.5, this.position.y - 2, 1, h);
-      canvas.setColor("white");
-      canvas.fillRect(
-        this.position.x - 0.5,
-        this.position.y - 2 + Math.max(0, h - 1 / PIXELS_PER_TILE),
-        1,
-        1 / PIXELS_PER_TILE
-      );
 
       canvas.drawImage(
         EntityImage,
         120,
-        Math.max(40 - 10 * h, 20),
+        Math.max(40 - 10 * h, 20) - 10,
         40,
-        Math.min(10 * h, 20) - 0.1,
+        Math.min(10 * h, 20),
         this.position.x - 2,
         this.position.y - 2 + Math.max(h - 2, 0),
         4,
-        Math.min(h, 2) - 0.01
+        Math.min(h, 2)
       );
     }
 

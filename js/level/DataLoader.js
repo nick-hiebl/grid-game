@@ -7,6 +7,7 @@ import { Vector } from "../math/Vector.js";
 import { ExitTrigger } from "./ExitTrigger.js";
 import { LevelFactory } from "./LevelFactory.js";
 import { DoorInteractible } from "./interactibles/DoorInteractible.js";
+import { TrapdoorInteractible } from "./interactibles/TrapdoorInteractible.js";
 
 const LEVEL_DATA_URL = "./data/world.json";
 
@@ -78,6 +79,25 @@ function createDoor(entity) {
   return new DoorInteractible(id, door, getPrereqs(entity), entity.height / 10);
 }
 
+function createTrapdoor(entity) {
+  const id = entity.iid;
+  if (!id) {
+    console.warn("Trapdoor with no key in:", level.identifier);
+  }
+  const pos = new Vector(...entity.__grid);
+  const config = {
+    isFlipped: find(entity.fieldInstances, "isFlipped").__value,
+    hasLedge: find(entity.fieldInstances, "hasLedge").__value,
+  };
+  return new TrapdoorInteractible(
+    id,
+    pos,
+    getPrereqs(entity),
+    entity.width / 10,
+    config
+  );
+}
+
 function firstPass(level) {
   const factory = new LevelFactory(
     level.identifier,
@@ -113,6 +133,9 @@ function firstPass(level) {
         break;
       case "Door":
         factory.addInteractibles([createDoor(entity)]);
+        break;
+      case "Trapdoor":
+        factory.addInteractibles([createTrapdoor(entity)]);
         break;
       default:
         console.warn("Processing unknown entity type:", entity.__identifier);

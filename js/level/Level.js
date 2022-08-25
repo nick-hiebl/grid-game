@@ -50,6 +50,12 @@ export class Level {
     this.interactibles.forEach((i) => i.onStart(this));
   }
 
+  addWithoutDuplicate(object) {
+    if (!this.objects.find(({ rect }) => rect === object.rect)) {
+      this.objects.push(object);
+    }
+  }
+
   emitEvent(event) {
     // TODO: Either guarantee that this is available or create a queue to send
     // these events once it does become available.
