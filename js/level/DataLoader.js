@@ -75,7 +75,7 @@ function createDoor(entity) {
     console.warn("Door with no key in:", level.identifier);
   }
   const door = new Vector(entity.__grid[0] + 2, entity.__grid[1] + 2);
-  return new DoorInteractible(id, door, getPrereqs(entity));
+  return new DoorInteractible(id, door, getPrereqs(entity), entity.height / 10);
 }
 
 function firstPass(level) {

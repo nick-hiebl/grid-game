@@ -10,7 +10,7 @@
   "devDependencies": {},
   "scripts": {
     "build": "esbuild js/App.js --bundle --minify --sourcemap --outfile=build/index.js",
-    "watch": "nodemon --exec \"npm run build && http-server\" -e js --ignore build/",
+    "watch": "nodemon --exec \"npm run build && http-server -c10\" -e js --ignore build/",
     "lint:fix": "prettier --write \"js/**/*.js\""
   },
   "repository": {

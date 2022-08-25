@@ -12,10 +12,10 @@ const mockTrigger = {
   stroke: () => null,
 };
 
-const OPEN_CLOSE_SPEED = 0.4;
+const OPEN_CLOSE_SPEED = 0.2;
 
 export class DoorInteractible extends Interactible {
-  constructor(id, position, prerequisites) {
+  constructor(id, position, prerequisites, height = 4) {
     super(id, position, mockTrigger, prerequisites);
 
     // 1 = fully closed, 0 = fully open
@@ -33,8 +33,10 @@ export class DoorInteractible extends Interactible {
       this.position.x - 0.5,
       this.position.y - 2,
       1,
-      4
+      height
     );
+
+    this.fullHeight = height;
   }
 
   update(player, deltaTime, level) {
@@ -46,11 +48,13 @@ export class DoorInteractible extends Interactible {
     this.doorCollider.y2 = clamp(
       this.doorCollider.y2 + motion,
       this.doorCollider.y1,
-      this.doorCollider.y1 + 4
+      this.doorCollider.y1 + this.fullHeight
     );
 
     player.collideWithBlock(BlockType.SOLID, this.headCollider, deltaTime);
-    player.collideWithBlock(BlockType.SOLID, this.doorCollider, deltaTime);
+    if (this.doorCollider.y2 > this.headCollider.y2) {
+      player.collideWithBlock(BlockType.SOLID, this.doorCollider, deltaTime);
+    }
   }
 
   draw(canvas, screenManager) {
@@ -58,32 +62,44 @@ export class DoorInteractible extends Interactible {
 
     const h = this.doorCollider.height;
     if (h > 0) {
-      const pixH = Math.floor(PIXELS_PER_TILE * h);
-      const intH = +(pixH / PIXELS_PER_TILE).toFixed(1);
-      const rem = h - intH;
+      canvas.setColor("black");
+      canvas.fillRect(
+        this.position.x - 0.5,
+        this.position.y - 2,
+        1,
+        h
+      );
+      canvas.setColor("white");
+      canvas.fillRect(
+        this.position.x - 0.5,
+        this.position.y - 2 + Math.max(0, h - 1 / PIXELS_PER_TILE),
+        1,
+        1 / PIXELS_PER_TILE
+      );
+
       canvas.drawImage(
         EntityImage,
-        0,
-        40 + (40 - pixH),
-        PIXELS_PER_TILE * 4,
-        pixH,
+        120,
+        Math.max(40 - 10 * h, 20),
+        40,
+        Math.min(10 * h, 20) - 0.1,
         this.position.x - 2,
-        this.position.y - 2 + rem,
+        this.position.y - 2 + Math.max(h - 2, 0),
         4,
-        intH
+        Math.min(h, 2) - 0.01
       );
     }
 
     canvas.drawImage(
       EntityImage,
-      this.isEnabled ? 160 : 120,
+      this.prereqsActive ? 140 : 128,
       0,
-      PIXELS_PER_TILE * 4,
-      PIXELS_PER_TILE * 4,
-      this.position.x - 2,
+      12,
+      6,
+      this.position.x - 6 / PIXELS_PER_TILE,
       this.position.y - 2,
-      4,
-      4
+      12 / PIXELS_PER_TILE,
+      6 / PIXELS_PER_TILE
     );
   }
 }
