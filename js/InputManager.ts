@@ -152,21 +152,18 @@ export class InputManager {
       this.mousePosition = this.toCanvasPosition(event);
     });
 
-    document.addEventListener("click", (event) => {
+    document.addEventListener("mousedown", (event) => {
       this.mousePosition = this.toCanvasPosition(event);
 
-      if (this.listener) {
-        this.listener(new ClickEvent(this.mousePosition, false));
+      if (event.button === 0) {
+        this.listener?.(new ClickEvent(this.mousePosition, false));
+      } else if (event.button === 2) {
+        this.listener?.(new ClickEvent(this.mousePosition, true));
       }
     });
 
     document.addEventListener("contextmenu", (event) => {
       event.preventDefault();
-      this.mousePosition = this.toCanvasPosition(event);
-
-      if (this.listener) {
-        this.listener(new ClickEvent(this.mousePosition, true));
-      }
     });
 
     const wireButton = (id: string, input: Key) => {
