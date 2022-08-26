@@ -8,6 +8,7 @@ import { ExitTrigger } from "./ExitTrigger.js";
 import { LevelFactory } from "./LevelFactory.js";
 import { DoorInteractible } from "./interactibles/DoorInteractible.js";
 import { TrapdoorInteractible } from "./interactibles/TrapdoorInteractible.js";
+import { CoverEntity } from "./entity/CoverEntity.js";
 
 const LEVEL_DATA_URL = "./data/world.json";
 
@@ -98,6 +99,20 @@ function createTrapdoor(entity) {
   );
 }
 
+function createCoverEntity(entity, entities) {
+  const id = entity.iid;
+  if (!id) {
+    console.warn("CoverEntity with no key in:", level.identifier);
+  }
+  const triggerId = find(entity.fieldInstances, "triggerArea").__value.entityIid;
+  const trigger = find(entities, triggerId, "iid");
+  return new CoverEntity(
+    id,
+    Rectangle.widthForm(...entity.__grid, entity.width / 10, entity.height / 10),
+    Rectangle.widthForm(...trigger.__grid, trigger.width / 10, trigger.height / 10)
+  );
+}
+
 function firstPass(level) {
   const factory = new LevelFactory(
     level.identifier,
@@ -121,6 +136,8 @@ function firstPass(level) {
   const entities = entityLayer.entityInstances;
   entities.forEach((entity) => {
     switch (entity.__identifier) {
+      case "Util":
+        break;
       case "PlayerStart":
         factory.setPlayerPos(new Vector(entity.__grid[0], entity.__grid[1]));
         setStartPos = true;
@@ -136,6 +153,9 @@ function firstPass(level) {
         break;
       case "Trapdoor":
         factory.addInteractibles([createTrapdoor(entity)]);
+        break;
+      case "CoverEntity":
+        factory.addEntities([createCoverEntity(entity, entities)]);
         break;
       default:
         console.warn("Processing unknown entity type:", entity.__identifier);

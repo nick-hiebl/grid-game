@@ -14,6 +14,7 @@ export class LevelFactory {
     this.playerPosition = new Vector(16, 9);
     this.exitTriggers = [];
     this.interactibles = [];
+    this.entities = [];
 
     this.worldPosition = new Vector(0, 0);
   }
@@ -30,6 +31,11 @@ export class LevelFactory {
 
   addInteractibles(is) {
     this.interactibles = this.interactibles.concat(is);
+    return this;
+  }
+
+  addEntities(es) {
+    this.entities = this.entities.concat(es);
     return this;
   }
 
@@ -67,7 +73,8 @@ export class LevelFactory {
       this.objects,
       new Player(this.playerPosition),
       this.exitTriggers,
-      this.interactibles
+      this.interactibles,
+      this.entities
     );
   }
 }

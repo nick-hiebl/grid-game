@@ -23,7 +23,8 @@ export class Level {
     objects,
     player,
     exitTriggers,
-    interactibles
+    interactibles,
+    entities
   ) {
     this.key = key;
     this.levelGrid = levelGrid;
@@ -31,6 +32,7 @@ export class Level {
     this.player = player;
     this.exitTriggers = exitTriggers;
     this.interactibles = interactibles;
+    this.entities = entities;
 
     this.width = width;
     this.height = height;
@@ -48,6 +50,7 @@ export class Level {
     this.interactingWith = undefined;
     this.playModeManager = playModeManager;
     this.interactibles.forEach((i) => i.onStart(this));
+    this.entities.forEach((e) => e.onStart(this));
   }
 
   addWithoutDuplicate(object) {
@@ -99,6 +102,11 @@ export class Level {
       this.closeCurrentPuzzle();
       this.interactingWith = undefined;
     }
+
+    // Update entities
+    this.entities.forEach((entity) => {
+      entity.update(this.player, deltaTime, this);
+    });
 
     this.updateCamera(deltaTime);
 
@@ -248,6 +256,11 @@ export class Level {
         // Draw interactibles
         this.interactibles.forEach((interactible) => {
           interactible.draw(canvas, screenManager);
+        });
+
+        // Draw entities
+        this.entities.forEach((entity) => {
+          entity.draw(screenManager, screenManager.dynamicWorldCanvas);
         });
       });
 

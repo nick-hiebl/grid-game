@@ -1,10 +1,12 @@
-import { Vector } from "../../math/Vector";
+import { Vector } from "../../math/Vector.js";
+import { Entity } from "../entity/Entity.js";
 
 const AREA_DEBUG = false;
 
-export class Interactible {
+export class Interactible extends Entity {
   constructor(id, position, triggerArea, prerequisites = []) {
-    this.id = id;
+    super(id);
+
     this.position = position;
     this.triggerArea = triggerArea;
 
