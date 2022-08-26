@@ -165,10 +165,24 @@ export class Level {
   }
 
   clampCamera(camera) {
-    return new Vector(
-      clamp(camera.x, 0, this.width - HORIZONTAL_TILES),
-      clamp(camera.y, 0, this.height - VERTICAL_TILES)
+    const clampedToPlayer = new Vector(
+      clamp(
+        camera.x,
+        this.player.position.x - HORIZONTAL_TILES + 1,
+        this.player.position.x - 1
+      ),
+      clamp(
+        camera.y,
+        this.player.position.y - VERTICAL_TILES + 1,
+        this.player.position.y - 1
+      )
     );
+    const clampedToLevel = new Vector(
+      clamp(clampedToPlayer.x, 0, this.width - HORIZONTAL_TILES),
+      clamp(clampedToPlayer.y, 0, this.height - VERTICAL_TILES)
+    );
+
+    return clampedToLevel;
   }
 
   getNaiveCamera(position = this.player.position) {

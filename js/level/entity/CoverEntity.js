@@ -19,8 +19,10 @@ export class CoverEntity extends Entity {
   }
 
   isPlayerTriggering(player) {
-    return this.triggerArea.intersectsPoint(player.position)
-      || (this.coverIsTrigger && this.coverArea.intersectsPoint(player.position));
+    return (
+      this.triggerArea.intersectsPoint(player.position) ||
+      (this.coverIsTrigger && this.coverArea.intersectsPoint(player.position))
+    );
   }
 
   isOpen(player) {
@@ -46,7 +48,7 @@ export class CoverEntity extends Entity {
     const isOpen = this.isOpen(player);
 
     this.revealState = clamp(
-      this.revealState + (isOpen ? 1 : -1) * deltaTime / UNCOVER_DURATION,
+      this.revealState + (isOpen ? 1 : -1) * (deltaTime / UNCOVER_DURATION),
       0,
       1
     );
@@ -55,11 +57,15 @@ export class CoverEntity extends Entity {
   draw(screenManager, c2) {
     super.draw(screenManager);
 
-    
     if (this.revealState < 1) {
       const canvas = screenManager.dynamicWorldCanvas;
 
-      canvas.setColorRGB(0, 0, 0, Math.floor(255 * (1 - Math.pow(this.revealState, 2))));
+      canvas.setColorRGB(
+        0,
+        0,
+        0,
+        Math.floor(255 * (1 - this.revealState * this.revealState))
+      );
       this.coverArea.draw(canvas);
     }
   }

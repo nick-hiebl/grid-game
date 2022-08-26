@@ -104,12 +104,21 @@ function createCoverEntity(entity, entities) {
   if (!id) {
     console.warn("CoverEntity with no key in:", level.identifier);
   }
-  const triggerId = find(entity.fieldInstances, "triggerArea").__value.entityIid;
+  const triggerId = find(entity.fieldInstances, "triggerArea").__value
+    .entityIid;
   const trigger = find(entities, triggerId, "iid");
   return new CoverEntity(
     id,
-    Rectangle.widthForm(...entity.__grid, entity.width / 10, entity.height / 10),
-    Rectangle.widthForm(...trigger.__grid, trigger.width / 10, trigger.height / 10)
+    Rectangle.widthForm(
+      ...entity.__grid,
+      entity.width / 10,
+      entity.height / 10
+    ),
+    Rectangle.widthForm(
+      ...trigger.__grid,
+      trigger.width / 10,
+      trigger.height / 10
+    )
   );
 }
 
