@@ -19,6 +19,7 @@ import { BlockEnum } from "./BlockTypes";
 import { ExitTrigger } from "./ExitTrigger.js";
 import { ClosePuzzleEvent, ExitEvent, LevelEvent, OpenPuzzleEvent } from "./LevelEvent";
 import { Interactible } from "./interactibles/Interactible";
+import { Player } from "./Player.js";
 
 
 const SCALE_FACTOR = CANVAS_WIDTH / HORIZONTAL_TILES;
@@ -34,7 +35,7 @@ export class Level {
   width: number;
   height: number;
 
-  player: unknown;
+  player: Player;
 
   objects: Object[];
   exitTriggers: ExitTrigger[];
@@ -53,7 +54,7 @@ export class Level {
     height: number,
     levelGrid: BlockEnum[][],
     objects: Object[],
-    player: unknown,
+    player: Player,
     exitTriggers: ExitTrigger[],
     interactibles: Interactible[],
     entities: Entity[]
@@ -99,7 +100,7 @@ export class Level {
     }
   }
 
-  feedPlayerInfo(previousPlayer: unknown, previousExit: ExitTrigger) {
+  feedPlayerInfo(previousPlayer: Player, previousExit: ExitTrigger) {
     if (previousExit.key !== this.key) {
       console.error("Exit key mis-match");
     }
@@ -118,7 +119,7 @@ export class Level {
    * @param {number} deltaTime The time elapsed since the last update.
    * @param {InputState} inputState The current state of inputs.
    */
-  update(deltaTime: number, inputState: unknown) {
+  update(deltaTime: number, inputState: InputState) {
     // Update player
     this.player.update(
       deltaTime,

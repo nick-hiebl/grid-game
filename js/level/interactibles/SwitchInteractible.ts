@@ -4,6 +4,7 @@ import { Rectangle } from "../../math/Shapes";
 import { Vector } from "../../math/Vector";
 import { ScreenManager } from "../../ScreenManager";
 import { Level } from "../Level";
+import { Player } from "../Player";
 
 import { Interactible } from "./Interactible";
 
@@ -12,7 +13,7 @@ export class SwitchInteractible extends Interactible {
     super(id, position, area, prerequisites);
   }
 
-  update(player: unknown, deltaTime: number, level: Level) {
+  update(player: Player, deltaTime: number, level: Level) {
     if (this.isEnabled) {
       this.isAreaActive = false;
     } else {

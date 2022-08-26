@@ -1,7 +1,7 @@
 import { Vector } from "../math/Vector";
 
 import { Level } from "./Level";
-import { Player } from "./Player.js";
+import { Player } from "./Player";
 
 export class LevelFactory {
   constructor(key, iid, width, height) {

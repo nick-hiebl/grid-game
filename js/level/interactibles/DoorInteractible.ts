@@ -6,6 +6,7 @@ import { Vector } from "../../math/Vector";
 import { ScreenManager } from "../../ScreenManager";
 import { BlockEnum } from "../BlockTypes";
 import { Level } from "../Level";
+import { Player } from "../Player";
 
 import { Interactible } from "./Interactible";
 
@@ -51,7 +52,7 @@ export class DoorInteractible extends Interactible {
     });
   }
 
-  update(player: unknown, deltaTime: number, level: Level) {
+  update(player: Player, deltaTime: number, level: Level) {
     super.update(player, deltaTime, level);
 
     const motion =

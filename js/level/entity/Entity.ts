@@ -1,5 +1,6 @@
-import { Level } from "../Level";
 import { ScreenManager } from "../../ScreenManager";
+import { Level } from "../Level";
+import { Player } from "../Player";
 
 export class Entity {
   id: string;
@@ -12,7 +13,7 @@ export class Entity {
     // Do nothing
   }
 
-  update(_player: unknown, _deltaTime: number, _level: Level) {
+  update(_player: Player, _deltaTime: number, _level: Level) {
     // Do nothing
   }
 

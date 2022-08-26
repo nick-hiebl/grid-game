@@ -2,6 +2,7 @@ import { clamp } from "../../math/Common";
 import { Rectangle } from "../../math/Shapes";
 import { ScreenManager } from "../../ScreenManager";
 import { Level } from "../Level";
+import { Player } from "../Player";
 
 import { Entity } from "./Entity";
 
@@ -35,14 +36,14 @@ export class CoverEntity extends Entity {
     this.revealState = 0;
   }
 
-  isPlayerTriggering(player: unknown) {
+  isPlayerTriggering(player: Player) {
     return (
       this.triggerArea.intersectsPoint(player.position) ||
       (this.coverIsTrigger && this.coverArea.intersectsPoint(player.position))
     );
   }
 
-  isOpen(player: unknown) {
+  isOpen(player: Player) {
     if (!this.canReCover) {
       if (this.isUncovered) {
         return true;
@@ -59,7 +60,7 @@ export class CoverEntity extends Entity {
     super.onStart(level);
   }
 
-  update(player: unknown, deltaTime: number, level: Level) {
+  update(player: Player, deltaTime: number, level: Level) {
     super.update(player, deltaTime, level);
 
     const isOpen = this.isOpen(player);

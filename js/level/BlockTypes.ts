@@ -10,6 +10,6 @@ export const BlockType = {
     return blockType === BlockEnum.SOLID;
   },
   isGrounding: (blockType: BlockEnum) => {
-    return blockType === BlockEnum.LEDGE;
+    return blockType === BlockEnum.LEDGE || BlockType.isSolid(blockType);
   },
 };

@@ -1,8 +1,11 @@
+import { Canvas } from "../Canvas";
 import { Input } from "../constants/Keys";
+import { InputEvent, InputState } from "../InputManager";
 import { clamp, sign } from "../math/Common";
-import { Circle } from "../math/Shapes";
+import { Circle, Rectangle } from "../math/Shapes";
 import { Vector } from "../math/Vector";
-import { BlockType } from "./BlockTypes.js";
+import { BlockEnum, BlockType } from "./BlockTypes";
+import { Level } from "./Level";
 
 import { RectPool } from "./RectPool.js";
 
@@ -24,8 +27,24 @@ const GRAVITY = (2 * PARAM_A) / JUMP_DURATION;
 // Jump assist parameters
 const COYOTE_TIME = 0.1;
 
+function isDefined<T>(value: T | undefined): value is T {
+  return !!value;
+}
+
 export class Player {
-  constructor(position) {
+  position: Vector;
+  velocity: Vector;
+  collider: Circle;
+
+  isColliding: boolean;
+  isGrounded: boolean;
+  isDropping: boolean;
+
+  wantsToJump: boolean;
+  contactingAnyLedge: boolean;
+  inAirFor: number;
+
+  constructor(position: Vector) {
     this.position = position;
     this.collider = new Circle(position, PLAYER_RADIUS);
 
@@ -36,6 +55,7 @@ export class Player {
     this.isDropping = false;
 
     this.wantsToJump = false;
+    this.contactingAnyLedge = false;
     this.inAirFor = 1;
   }
 
@@ -43,22 +63,22 @@ export class Player {
    * Function for when an interaction input occurs from the InputManager
    * @param {InputEvent} input The input event to be processed
    */
-  onInput(input) {
+  onInput(input: InputEvent) {
     if (input.isForKey(Input.Jump)) {
       this.wantsToJump = true;
     }
   }
 
-  collideWithBlock(type, rect, deltaTime) {
+  collideWithBlock(type: BlockEnum, rect: Rectangle, deltaTime: number) {
     const isActiveLedge =
       !this.isDropping &&
-      type === BlockType.LEDGE &&
+      type === BlockEnum.LEDGE &&
       this.velocity.y >= 0 &&
       this.position.y < rect.y1;
 
     const intersects = this.collider.intersectsRectangle(rect);
 
-    if (intersects && type === BlockType.LEDGE) {
+    if (intersects && type === BlockEnum.LEDGE) {
       this.contactingAnyLedge = true;
       if (this.velocity.y < 0 && this.position.y >= rect.y1) {
         this.isDropping = true;
@@ -95,11 +115,11 @@ export class Player {
    * @param {InputState} inputState The current state of inputs.
    * @param {Level} level The level that the player is in.
    */
-  update(deltaTime, inputState, level) {
-    const getCellAt = (x, y) => {
+  update(deltaTime: number, inputState: InputState, level: Level) {
+    const getCellAt = (x: number, y: number) => {
       return level.levelGrid[Math.floor(y)]?.[Math.floor(x)];
     };
-    const getRectAt = (x, y) => {
+    const getRectAt = (x: number, y: number) => {
       const type = getCellAt(x, y);
       if (type) {
         return {
@@ -107,7 +127,7 @@ export class Player {
           rect: RectPool.get(
             Math.floor(y),
             Math.floor(x),
-            type === BlockType.LEDGE
+            type === BlockEnum.LEDGE
           ),
         };
       }
@@ -159,7 +179,7 @@ export class Player {
     } else {
       // Gravity
       this.inAirFor += deltaTime;
-      if (gridCellWithin === BlockType.VENT) {
+      if (gridCellWithin === BlockEnum.VENT) {
         const ventMultiplier = this.velocity.y > 0 ? 0 : 1.1;
         acceleration.y -= GRAVITY * ventMultiplier;
       } else {
@@ -201,7 +221,7 @@ export class Player {
       getRectAt(x + 1, y - 1),
       getRectAt(x - 1, y + 1),
       getRectAt(x + 1, y + 1),
-    ].filter((rect) => !!rect);
+    ].filter(isDefined);
 
     this.contactingAnyLedge = false;
 
@@ -217,7 +237,7 @@ export class Player {
    * Draw the player on the canvas
    * @param {Canvas} canvas The canvas to draw on
    */
-  draw(canvas) {
+  draw(canvas: Canvas) {
     canvas.setColor("yellow");
 
     this.collider.draw(canvas);

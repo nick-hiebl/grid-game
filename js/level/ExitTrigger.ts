@@ -1,6 +1,8 @@
 import { Rectangle } from "../math/Shapes";
 import { Vector } from "../math/Vector";
 
+import { Player } from "./Player";
+
 export class ExitTrigger {
   collider: Rectangle;
   key: string;
@@ -12,11 +14,11 @@ export class ExitTrigger {
     this.nextLevelCollider = nextLevelCollider || collider;
   }
 
-  hasEntered(player: unknown) {
+  hasEntered(player: Player) {
     return this.collider.intersectsPoint(player.position);
   }
 
-  translatePlayerToNext(player: unknown) {
+  translatePlayerToNext(player: Player) {
     return Vector.diff(
       player.position,
       new Vector(this.nextLevelCollider.x1, this.nextLevelCollider.y1)

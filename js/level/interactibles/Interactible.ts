@@ -1,9 +1,9 @@
-import { Canvas } from "../../Canvas";
 import { Rectangle } from "../../math/Shapes";
 import { Vector } from "../../math/Vector";
 import { ScreenManager } from "../../ScreenManager";
 import { Entity } from "../entity/Entity";
 import { Level } from "../Level";
+import { Player } from "../Player";
 import { LevelEvent } from "../LevelEvent";
 
 const AREA_DEBUG = false;
@@ -56,10 +56,10 @@ export class Interactible extends Entity {
     return this.prereqEntities;
   }
 
-  update(player: unknown, _deltaTime: number, level: Level) {
+  update(player: Player, _deltaTime: number, level: Level) {
     this.prereqsActive = this.findPrerequisites().every((i) => i.isEnabled);
     this.isAreaActive =
-      this.prereqsActive && this.triggerArea?.intersectsPoint(player.position);
+      !!(this.prereqsActive && this.triggerArea?.intersectsPoint(player.position));
   }
 
   /**
