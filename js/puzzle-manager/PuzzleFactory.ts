@@ -1,7 +1,27 @@
 import { Puzzle } from "./Puzzle.js";
 import { PuzzleValidatorFactory } from "./PuzzleValidatorFactory.js";
 
-export const initPuzzle = (id, options) => {
+export interface PuzzleRules {
+  rows: number;
+  cols: number;
+
+  columnCounts?: (number | null)[];
+  rowCounts?: (number | null)[];
+
+  columnGroups?: (number | null)[];
+  rowGroups?: (number | null)[];
+
+  columnBlankGroups?: (number | null)[];
+  rowBlankGroups?: (number | null)[];
+
+  columnNoTriple?: boolean[];
+  rowNoTriple?: boolean[];
+
+  forcedCells?: { row: number; col: number; on: boolean }[];
+  countAreas?: { row: number; col: number; count: number }[];
+}
+
+export const initPuzzle = (id: string, options: PuzzleRules) => {
   const { rows, cols } = options;
 
   const rules = new PuzzleValidatorFactory();
@@ -36,7 +56,7 @@ export const initPuzzle = (id, options) => {
     });
   }
   if (options.countAreas) {
-    options.forcedCells.forEach((cell) => {
+    options.countAreas.forEach((cell) => {
       rules.addCountAreaValidator(cell.row, cell.col, cell.count);
     });
   }

@@ -3,7 +3,9 @@ import {
   UI_CANVAS_HEIGHT,
   UI_CANVAS_WIDTH,
 } from "../constants/ScreenConstants";
+import { ClickEvent, InputEvent, InputState } from "../InputManager";
 import { clamp } from "../math/Common";
+import { Rectangle } from "../math/Shapes";
 import { Vector } from "../math/Vector";
 import { ScreenManager } from "../ScreenManager";
 
@@ -13,13 +15,29 @@ import {
   OPEN_DURATION,
   PUZZLE_WINDOW_WIDTH,
   SOLVED_BACKGROUND,
-} from "./constants.js";
-import { positionGetter } from "./PuzzleSpaceManager.js";
+} from "./constants";
+import { positionGetter } from "./PuzzleSpaceManager";
+import { PuzzleValidator } from "./PuzzleValidation";
+import { PositionGetter, PuzzleState } from "./types";
 
 const PARTIAL_RADIUS = 0.4;
 
 export class Puzzle {
-  constructor(id, rows, columns, validator) {
+  id: string;
+  openCloseStatus: number;
+  isOpen: boolean;
+  rows: number;
+  cols: number;
+
+  state: PuzzleState;
+  elements: { row: number; col: number; shape: Rectangle; isHovered: boolean }[];
+  positionGetter: PositionGetter;
+
+  validator: PuzzleValidator;
+  isSolved: boolean;
+  hasBeenSolvedEver: boolean;
+
+  constructor(id: string, rows: number, columns: number, validator: PuzzleValidator) {
     this.id = id;
     this.openCloseStatus = 0;
     this.isOpen = false;
@@ -83,7 +101,7 @@ export class Puzzle {
    * Draw.
    * @param {ScreenManager} screenManager The screenManager to draw upon.
    */
-  draw(screenManager) {
+  draw(screenManager: ScreenManager) {
     const canvas = screenManager.uiCanvas;
 
     canvas.clear();
@@ -170,7 +188,7 @@ export class Puzzle {
     canvas.translate(-offset.x, -offset.y);
   }
 
-  update(deltaTime, inputState) {
+  update(deltaTime: number, inputState: InputState) {
     if (this.isOpen && this.openCloseStatus < 1) {
       this.openCloseStatus += deltaTime / OPEN_DURATION;
     } else if (!this.isOpen && this.openCloseStatus > 0) {
@@ -195,10 +213,11 @@ export class Puzzle {
     }
   }
 
-  onInput(input) {
+  onInput(input: InputEvent) {
     let anyChange = false;
     if (input.isClick()) {
-      const clickPosition = Vector.diff(input.position, this.uiPosition());
+      const click = input as ClickEvent;
+      const clickPosition = Vector.diff(click.position, this.uiPosition());
       for (const element of this.elements) {
         element.isHovered = element.shape.intersectsPoint(clickPosition);
 
@@ -208,7 +227,7 @@ export class Puzzle {
           anyChange = true;
 
           let nextState = null;
-          if (input.isRightClick()) {
+          if (click.isRightClick()) {
             // Right click
             // Exact checking bool as currentState is bool or null
             if (currentState === false) {

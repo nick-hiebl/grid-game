@@ -1,11 +1,12 @@
 import { Rectangle } from "../math/Shapes";
-import { PUZZLE_WINDOW_WIDTH } from "./constants.js";
+import { PUZZLE_WINDOW_WIDTH } from "./constants";
+import { PositionGetter } from "./types";
 
-const CACHE = {};
+const CACHE: Record<string, Rectangle[][]> = {};
 
-const cacheKey = (rows, cols) => `${rows}-${cols}`;
+const cacheKey = (rows: number, cols: number) => `${rows}-${cols}`;
 
-const produceObject = (rows, cols) => {
+const produceObject = (rows: number, cols: number): Rectangle[][] => {
   const LARGER_DIR = Math.max(rows, cols);
   const WIDE_EDGE = 0.7;
   const NARROW_EDGE = 0.5;
@@ -55,7 +56,7 @@ const produceObject = (rows, cols) => {
   return matrix;
 };
 
-const getObject = (rows, cols) => {
+const getObject = (rows: number, cols: number) => {
   const key = cacheKey(rows, cols);
   if (!(key in CACHE)) {
     CACHE[key] = produceObject(rows, cols);
@@ -64,11 +65,11 @@ const getObject = (rows, cols) => {
   return CACHE[key];
 };
 
-export const positionGetter = (rows, cols) => {
+export const positionGetter = (rows: number, cols: number): PositionGetter => {
   const matrix = getObject(rows, cols);
 
   // Indexed from [-1 to ROWS][-1 to COLS]
-  return (row, col) => {
+  return (row: number | "end", col: number | "end") => {
     return matrix[row === "end" ? rows + 1 : row + 1][
       col === "end" ? cols + 1 : col + 1
     ];

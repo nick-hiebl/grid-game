@@ -26,9 +26,9 @@ type KeyMap = Record<Key, boolean>;
 
 export class InputState {
   keyMap: KeyMap;
-  mousePosition: Vector | undefined;
+  mousePosition: Vector;
 
-  constructor(keyMap: KeyMap, mousePosition?: Vector) {
+  constructor(keyMap: KeyMap, mousePosition: Vector) {
     this.keyMap = keyMap;
     this.mousePosition = mousePosition;
   }
@@ -50,16 +50,11 @@ export class InputState {
   }
 
   static empty() {
-    return new InputState({});
+    return new InputState({}, new Vector(0, 0));
   }
 }
 
 export class InputEvent {
-  /**
-   * Create an input event.
-   * @param {Input} input This identifies the kind of input received
-   * @param {Vector?} position The position (for mouse events only)
-   */
   constructor() {}
 
   isForKey(_key: Key) {

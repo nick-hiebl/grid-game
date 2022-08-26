@@ -27,7 +27,7 @@ export class PuzzleValidatorFactory {
     return this;
   }
 
-  addEdgeValidators(nums: number[], isRow: boolean, ValidationItemType = EdgeCountValidationItem) {
+  addEdgeValidators(nums: (number | null)[], isRow: boolean, ValidationItemType = EdgeCountValidationItem) {
     nums.forEach((num, index) => {
       if (typeof num !== "number") {
         return;
@@ -37,32 +37,32 @@ export class PuzzleValidatorFactory {
     });
   }
 
-  addColumnCounts(nums: number[]) {
+  addColumnCounts(nums: (number | null)[]) {
     this.addEdgeValidators(nums, false);
     return this;
   }
 
-  addRowCounts(nums: number[]) {
+  addRowCounts(nums: (number | null)[]) {
     this.addEdgeValidators(nums, true);
     return this;
   }
 
-  addColumnGroups(nums: number[]) {
+  addColumnGroups(nums: (number | null)[]) {
     this.addEdgeValidators(nums, false, EdgeGroupsValidationItem);
     return this;
   }
 
-  addRowGroups(nums: number[]) {
+  addRowGroups(nums: (number | null)[]) {
     this.addEdgeValidators(nums, true, EdgeGroupsValidationItem);
     return this;
   }
 
-  addColumnBlankGroups(nums: number[]) {
+  addColumnBlankGroups(nums: (number | null)[]) {
     this.addEdgeValidators(nums, false, EdgeBlankGroupsValidationItem);
     return this;
   }
 
-  addRowBlankGroups(nums: number[]) {
+  addRowBlankGroups(nums: (number | null)[]) {
     this.addEdgeValidators(nums, true, EdgeBlankGroupsValidationItem);
     return this;
   }
