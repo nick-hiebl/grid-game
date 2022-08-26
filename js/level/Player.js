@@ -162,7 +162,7 @@ export class Player {
       // Gravity
       this.inAirFor += deltaTime;
       if (gridCellWithin === BlockType.VENT) {
-        const ventMultiplier = this.velocity.y > 0 ? 0.75 : 1.1;
+        const ventMultiplier = this.velocity.y > 0 ? 0 : 1.1;
         acceleration.y -= GRAVITY * ventMultiplier;
       } else {
         acceleration.y += GRAVITY;
