@@ -3,15 +3,15 @@
   "version": "1.0.0",
   "description": "",
   "main": "js/App.js",
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
     "esbuild": "^0.15.5",
     "nodemon": "^2.0.19"
   },
-  "devDependencies": {},
   "scripts": {
     "build": "esbuild js/App.js --bundle --minify --sourcemap --outfile=build/index.js",
     "watch": "nodemon --exec \"npm run build && http-server -c10\" -e js --ignore build/",
-    "lint:fix": "prettier --write \"js/**/*.js\""
+    "lint:fix": "prettier --write \"js/**/*.{js,ts}\""
   },
   "repository": {
     "type": "git",
