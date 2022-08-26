@@ -7,12 +7,15 @@ import { Rectangle } from "../math/Shapes";
  */
 
 class RectPoolClass {
+  grid: Rectangle[][];
+  shortGrid: Rectangle[][];
+
   constructor() {
     this.grid = [];
     this.shortGrid = [];
   }
 
-  innerGet(row, col, isShort, grid) {
+  innerGet(row: number, col: number, isShort: boolean, grid: Rectangle[][]) {
     if (!(row in grid)) {
       grid[row] = [];
     }
@@ -23,7 +26,7 @@ class RectPoolClass {
     return grid[row][col];
   }
 
-  get(row, col, isShort = false) {
+  get(row: number, col: number, isShort = false) {
     return this.innerGet(
       row,
       col,

@@ -1,7 +1,7 @@
 import { DataLoader } from "./level/DataLoader.js";
 
 import { GameModeManager } from "./GameModeManager.js";
-import { InputManager } from "./InputManager.js";
+import { InputManager } from "./InputManager";
 import { ScreenManager } from "./ScreenManager";
 import { IS_MOBILE } from "./constants/ScreenConstants";
 

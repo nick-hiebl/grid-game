@@ -1,4 +1,4 @@
-import { EntityImage } from "../../constants/Image.js";
+import { EntityImage } from "../../constants/Image";
 import { PIXELS_PER_TILE } from "../../constants/ScreenConstants";
 import { clamp } from "../../math/Common";
 import { Rectangle } from "../../math/Shapes";

@@ -6,6 +6,7 @@ const Jump = Symbol("Jump");
 const Interact = Symbol("Interact");
 const Escape = Symbol("Escape");
 
+// TODO Convert this to an enum
 export const Input = {
   Down,
   Escape,

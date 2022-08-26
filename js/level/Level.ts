@@ -1,13 +1,13 @@
 import { Canvas } from "../Canvas.js";
-import { TileImage } from "../constants/Image.js";
-import { Input } from "../constants/Keys.js";
+import { TileImage } from "../constants/Image";
+import { Input } from "../constants/Keys";
 import {
   CANVAS_WIDTH,
   HORIZONTAL_TILES,
   PIXELS_PER_TILE,
   VERTICAL_TILES,
 } from "../constants/ScreenConstants";
-import { InputState } from "../InputManager.js";
+import { InputState } from "../InputManager";
 import { clamp } from "../math/Common";
 import { Rectangle } from "../math/Shapes";
 import { Vector } from "../math/Vector";
@@ -158,7 +158,7 @@ export class Level {
    * Function for when an interaction input occurs from the InputManager
    * @param {InputEvent} input The input event to be processed
    */
-  onInput(input: unknown) {
+  onInput(input: InputEvent) {
     if (this.isPlayerActive()) {
       this.player.onInput(input);
     }

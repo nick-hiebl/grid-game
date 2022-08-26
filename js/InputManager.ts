@@ -1,11 +1,11 @@
-import { Input } from "./constants/Keys.js";
+import { Input } from "./constants/Keys";
 import {
   UI_CANVAS_WIDTH,
   ON_SCREEN_CANVAS_WIDTH,
 } from "./constants/ScreenConstants";
 import { Vector } from "./math/Vector";
 
-const KEY_MAP = {
+const KEY_MAP: Record<string, Key> = {
   " ": Input.Jump,
   escape: Input.Escape,
   esc: Input.Escape,
@@ -18,8 +18,17 @@ const KEY_MAP = {
   e: Input.Interact,
 };
 
+type ValueOf<T> = T[keyof T];
+
+type Key = ValueOf<typeof Input>;
+
+type KeyMap = Record<Key, boolean>;
+
 export class InputState {
-  constructor(keyMap, mousePosition) {
+  keyMap: KeyMap;
+  mousePosition: Vector | undefined;
+
+  constructor(keyMap: KeyMap, mousePosition?: Vector) {
     this.keyMap = keyMap;
     this.mousePosition = mousePosition;
   }
@@ -36,7 +45,7 @@ export class InputState {
    * Checks whether an input is currently pressed.
    * @param {Input} input
    */
-  isPressed(input) {
+  isPressed(input: Key) {
     return !!this.keyMap[input];
   }
 
@@ -53,7 +62,7 @@ export class InputEvent {
    */
   constructor() {}
 
-  isForKey() {
+  isForKey(_key: Key) {
     return false;
   }
 
@@ -63,18 +72,23 @@ export class InputEvent {
 }
 
 export class KeyPressEvent extends InputEvent {
-  constructor(input) {
+  input: Key;
+
+  constructor(input: Key) {
     super();
     this.input = input;
   }
 
-  isForKey(key) {
+  isForKey(key: Key) {
     return key === this.input;
   }
 }
 
 export class ClickEvent extends InputEvent {
-  constructor(position, isRightClick) {
+  position: Vector;
+  isRight: boolean;
+
+  constructor(position: Vector, isRightClick: boolean) {
     super();
     this.position = position;
     this.isRight = isRightClick;
@@ -90,20 +104,28 @@ export class ClickEvent extends InputEvent {
 }
 
 export class InputManager {
-  constructor(listener) {
+  listener: (inputEvent: InputEvent) => void;
+
+  isMouseDown: boolean;
+  isButtonDown: KeyMap;
+  mousePosition: Vector;
+
+  canvas: HTMLCanvasElement;
+
+  constructor(listener: (inputEvent: InputEvent) => void) {
     this.isMouseDown = false;
     this.isButtonDown = {};
     this.listener = listener;
     this.mousePosition = new Vector(0, 0);
 
-    this.canvas = document.getElementById("canvas");
+    this.canvas = document.getElementById("canvas") as HTMLCanvasElement;
   }
 
   /**
    * Set up event listeners.
    */
   init() {
-    const onKeyEvent = (symbol) => {
+    const onKeyEvent = (symbol: Key) => {
       if (this.listener) {
         this.listener(new KeyPressEvent(symbol));
       }
@@ -152,7 +174,7 @@ export class InputManager {
       }
     });
 
-    const wireButton = (id, input) => {
+    const wireButton = (id: string, input: Key) => {
       const btn = document.getElementById(id);
 
       if (!btn) {
@@ -185,7 +207,7 @@ export class InputManager {
     wireButton("interact", Input.Interact);
   }
 
-  toCanvasPosition(event) {
+  toCanvasPosition(event: MouseEvent) {
     return Vector.scale(
       new Vector(
         event.clientX - this.canvas.offsetLeft,

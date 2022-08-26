@@ -1,4 +1,4 @@
-import { Input } from "../constants/Keys.js";
+import { Input } from "../constants/Keys";
 import { clamp, sign } from "../math/Common";
 import { Circle } from "../math/Shapes";
 import { Vector } from "../math/Vector";
