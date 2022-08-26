@@ -1,4 +1,4 @@
-import { Vector } from "../math/Vector.js";
+import { Vector } from "../math/Vector";
 
 import { N_CIRCLE_LAYOUT, SOLVED_BACKGROUND } from "./constants.js";
 import { ValidationItem } from "./PuzzleValidation.js";

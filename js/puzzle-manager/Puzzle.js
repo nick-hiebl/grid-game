@@ -4,7 +4,7 @@ import {
   UI_CANVAS_WIDTH,
 } from "../constants/ScreenConstants.js";
 import { clamp } from "../math/Common.js";
-import { Vector } from "../math/Vector.js";
+import { Vector } from "../math/Vector";
 import { ScreenManager } from "../ScreenManager.js";
 
 import {

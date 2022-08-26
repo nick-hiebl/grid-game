@@ -2,7 +2,7 @@ import { EntityImage } from "../../constants/Image.js";
 import { PIXELS_PER_TILE } from "../../constants/ScreenConstants.js";
 import { clamp } from "../../math/Common.js";
 import { Rectangle } from "../../math/Shapes.js";
-import { Vector } from "../../math/Vector.js";
+import { Vector } from "../../math/Vector";
 import { BlockType } from "../BlockTypes.js";
 
 import { Interactible } from "./Interactible.js";

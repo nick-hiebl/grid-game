@@ -1,5 +1,5 @@
 import { PIXELS_PER_TILE } from "../../constants/ScreenConstants.js";
-import { Vector } from "../../math/Vector.js";
+import { Vector } from "../../math/Vector";
 import {
   DEFAULT_BACKGROUND,
   SOLVED_BACKGROUND,

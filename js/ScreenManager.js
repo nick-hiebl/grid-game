@@ -6,7 +6,7 @@ import {
   UI_CANVAS_HEIGHT,
   UI_CANVAS_WIDTH,
 } from "./constants/ScreenConstants.js";
-import { Vector } from "./math/Vector.js";
+import { Vector } from "./math/Vector";
 
 import { Canvas } from "./Canvas.js";
 

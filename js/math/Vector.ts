@@ -1,17 +1,20 @@
 export class Vector {
-  constructor(x, y) {
+  x: number;
+  y: number;
+
+  constructor(x: number, y: number) {
     this.x = x;
     this.y = y;
   }
 
-  add(vector) {
+  add(vector: Vector) {
     this.x += vector.x;
     this.y += vector.y;
 
     return this;
   }
 
-  multiply(factor) {
+  multiply(factor: number) {
     this.x *= factor;
     this.y *= factor;
 
@@ -22,37 +25,40 @@ export class Vector {
     return new Vector(this.x, this.y);
   }
 
-  get magnitude() {
+  get magnitude(): number {
     return Math.hypot(this.x, this.y);
   }
 
-  static add(a, b) {
+  static add(a: Vector, b: Vector) {
     return new Vector(a.x + b.x, a.y + b.y);
   }
 
-  static diff(a, b) {
+  static diff(a: Vector, b: Vector) {
     return new Vector(a.x - b.x, a.y - b.y);
   }
 
-  static scale(vector, factor) {
+  static scale(vector: Vector, factor: number) {
     return new Vector(vector.x * factor, vector.y * factor);
   }
 
-  static sqrDist(a, b) {
+  static sqrDist(a: Vector, b: Vector): number {
     const xDiff = a.x - b.x;
     const yDiff = a.y - b.y;
     return xDiff * xDiff + yDiff * yDiff;
   }
 
-  static manhattanDist(a, b) {
+  /**
+   * This is not actually manhattan distance. Consider refactoring.
+   */
+  static manhattanDist(a: Vector, b: Vector) {
     return Math.max(Math.abs(a.x - b.x), Math.abs(a.y - b.y));
   }
 
-  static dist(a, b) {
+  static dist(a: Vector, b: Vector) {
     return Math.hypot(a.x - b.x, a.y - b.y);
   }
 
-  static lerp(v1, v2, t) {
+  static lerp(v1: Vector, v2: Vector, t: number) {
     return new Vector(v1.x * (1 - t) + v2.x * t, v1.y * (1 - t) + v2.y * t);
   }
 }

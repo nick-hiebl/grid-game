@@ -1,4 +1,4 @@
-import { Vector } from "../math/Vector.js";
+import { Vector } from "../math/Vector";
 
 export class ExitTrigger {
   constructor(collider, key, nextLevelCollider) {

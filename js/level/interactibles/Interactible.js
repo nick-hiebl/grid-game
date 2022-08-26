@@ -1,4 +1,4 @@
-import { Vector } from "../../math/Vector.js";
+import { Vector } from "../../math/Vector";
 import { Entity } from "../entity/Entity.js";
 
 const AREA_DEBUG = false;

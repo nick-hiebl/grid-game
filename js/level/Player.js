@@ -3,7 +3,7 @@
 import { Input } from "../constants/Keys.js";
 import { clamp, sign } from "../math/Common.js";
 import { Circle } from "../math/Shapes.js";
-import { Vector } from "../math/Vector.js";
+import { Vector } from "../math/Vector";
 import { BlockType } from "./BlockTypes.js";
 
 import { RectPool } from "./RectPool.js";

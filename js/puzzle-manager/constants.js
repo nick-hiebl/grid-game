@@ -1,6 +1,6 @@
 import { UI_CANVAS_HEIGHT } from "../constants/ScreenConstants.js";
 import { Circle, Rectangle } from "../math/Shapes.js";
-import { Vector } from "../math/Vector.js";
+import { Vector } from "../math/Vector";
 
 export const OPEN_DURATION = 0.4;
 export const CLOSE_DURATION = 0.25;

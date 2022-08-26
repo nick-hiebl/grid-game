@@ -3,7 +3,7 @@ import {
   UI_CANVAS_WIDTH,
   ON_SCREEN_CANVAS_WIDTH,
 } from "./constants/ScreenConstants.js";
-import { Vector } from "./math/Vector.js";
+import { Vector } from "./math/Vector";
 
 const KEY_MAP = {
   " ": Input.Jump,

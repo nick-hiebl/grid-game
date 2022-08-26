@@ -8,7 +8,7 @@ import {
 } from "../constants/ScreenConstants.js";
 import { InputState } from "../InputManager.js";
 import { clamp } from "../math/Common.js";
-import { Vector } from "../math/Vector.js";
+import { Vector } from "../math/Vector";
 
 import { ClosePuzzleEvent, ExitEvent, OpenPuzzleEvent } from "./LevelEvent.js";
 

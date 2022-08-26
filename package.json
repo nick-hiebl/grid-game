@@ -12,8 +12,7 @@
   "scripts": {
     "build": "esbuild js/App.js --bundle --minify --sourcemap --outfile=build/index.js",
     "serve": "http-server -c10",
-    "init23": "tsc --init",
-    "typecheck": "tsc -noEmit js/**/*.ts",
+    "typecheck": "tsc",
     "watch": "nodemon --exec \"yarn build && yarn serve\" -e js --ignore build/",
     "lint:fix": "prettier --write \"js/**/*.{js,ts}\""
   },

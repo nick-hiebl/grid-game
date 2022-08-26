@@ -1,4 +1,4 @@
-import { Vector } from "../math/Vector.js";
+import { Vector } from "../math/Vector";
 
 import { Level } from "./Level.js";
 import { Player } from "./Player.js";

@@ -2,7 +2,7 @@ import { PIXELS_PER_TILE } from "../constants/ScreenConstants.js";
 import { PuzzleInteractible } from "./interactibles/PuzzleInteractible.js";
 import { SwitchInteractible } from "./interactibles/SwitchInteractible.js";
 import { Rectangle } from "../math/Shapes.js";
-import { Vector } from "../math/Vector.js";
+import { Vector } from "../math/Vector";
 
 import { ExitTrigger } from "./ExitTrigger.js";
 import { LevelFactory } from "./LevelFactory.js";

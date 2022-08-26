@@ -1,5 +1,5 @@
 import { Circle } from "../math/Shapes.js";
-import { Vector } from "../math/Vector.js";
+import { Vector } from "../math/Vector";
 
 import { N_CIRCLE_LAYOUT, N_SQUARE_LAYOUT } from "./constants.js";
 import { ValidationItem } from "./PuzzleValidation.js";

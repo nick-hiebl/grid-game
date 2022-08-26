@@ -1,5 +1,5 @@
 import { clamp, sign } from "./Common.js";
-import { Vector } from "./Vector.js";
+import { Vector } from "./Vector";
 
 export class Circle {
   constructor(position, radius) {
