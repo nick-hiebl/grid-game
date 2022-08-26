@@ -1,11 +1,28 @@
 import { clamp } from "../../math/Common";
+import { Rectangle } from "../../math/Shapes";
+import { ScreenManager } from "../../ScreenManager";
+import { Level } from "../Level";
 
 import { Entity } from "./Entity";
 
 const UNCOVER_DURATION = 0.5;
 
+interface Config {
+  coverIsTrigger?: boolean;
+  canReCover?: boolean;
+}
+
 export class CoverEntity extends Entity {
-  constructor(id, coverArea, triggerArea, config = {}) {
+  coverArea: Rectangle;
+  triggerArea: Rectangle;
+
+  coverIsTrigger: boolean;
+  canReCover: boolean;
+  isUncovered: boolean;
+
+  revealState: number;
+
+  constructor(id: string, coverArea: Rectangle, triggerArea: Rectangle, config: Config = {}) {
     super(id);
 
     this.coverArea = coverArea;
@@ -18,14 +35,14 @@ export class CoverEntity extends Entity {
     this.revealState = 0;
   }
 
-  isPlayerTriggering(player) {
+  isPlayerTriggering(player: unknown) {
     return (
       this.triggerArea.intersectsPoint(player.position) ||
       (this.coverIsTrigger && this.coverArea.intersectsPoint(player.position))
     );
   }
 
-  isOpen(player) {
+  isOpen(player: unknown) {
     if (!this.canReCover) {
       if (this.isUncovered) {
         return true;
@@ -38,11 +55,11 @@ export class CoverEntity extends Entity {
     }
   }
 
-  onStart(level) {
+  onStart(level: Level) {
     super.onStart(level);
   }
 
-  update(player, deltaTime, level) {
+  update(player: unknown, deltaTime: number, level: Level) {
     super.update(player, deltaTime, level);
 
     const isOpen = this.isOpen(player);
@@ -54,7 +71,7 @@ export class CoverEntity extends Entity {
     );
   }
 
-  draw(screenManager, c2) {
+  draw(screenManager: ScreenManager) {
     super.draw(screenManager);
 
     if (this.revealState < 1) {

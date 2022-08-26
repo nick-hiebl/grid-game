@@ -8,7 +8,7 @@ import { ExitTrigger } from "./ExitTrigger.js";
 import { LevelFactory } from "./LevelFactory.js";
 import { DoorInteractible } from "./interactibles/DoorInteractible.js";
 import { TrapdoorInteractible } from "./interactibles/TrapdoorInteractible.js";
-import { CoverEntity } from "./entity/CoverEntity.js";
+import { CoverEntity } from "./entity/CoverEntity";
 
 const LEVEL_DATA_URL = "./data/world.json";
 
