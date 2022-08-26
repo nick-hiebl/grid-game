@@ -1,22 +1,27 @@
 import { PIXELS_PER_TILE } from "../../constants/ScreenConstants";
+import { Rectangle } from "../../math/Shapes";
 import { Vector } from "../../math/Vector";
 import {
   DEFAULT_BACKGROUND,
   SOLVED_BACKGROUND,
-} from "../../puzzle-manager/constants.js";
+} from "../../puzzle-manager/constants";
 import { PuzzleManager } from "../../puzzle-manager/PuzzleManager.js";
+import { ScreenManager } from "../../ScreenManager";
 
 import { OpenPuzzleEvent } from "../LevelEvent";
 
-import { Interactible } from "./Interactible.js";
+import { Interactible } from "./Interactible";
+
+interface Config {
+  isFlipped?: boolean;
+}
 
 export class PuzzleInteractible extends Interactible {
-  /**
-   * Construct a puzzle interactible entity for the level.
-   * @param {Vector} position The position of the visual element
-   * @param {Shape} area The area in which the puzzle is active
-   */
-  constructor(id, position, area, prereqs, puzzleId, config) {
+  puzzleId: string;
+  puzzle: unknown;
+  config: Config;
+
+  constructor(id: string, position: Vector, area: Rectangle, prereqs: string[], puzzleId: string, config: Config) {
     super(id, position, area, prereqs);
 
     this.puzzleId = puzzleId;
@@ -29,13 +34,10 @@ export class PuzzleInteractible extends Interactible {
     this.config = config;
   }
 
-  /**
-   * Draw the element on the canvas.
-   * @param {Canvas} canvas The canvas to draw on.
-   */
-  draw(canvas, screenManager) {
-    // Draw area boundary
-    super.draw(canvas, screenManager);
+  draw(screenManager: ScreenManager) {
+    super.draw(screenManager);
+
+    const canvas = screenManager.dynamicWorldCanvas;
 
     const SCREEN_W = 1;
     const PIXEL_SCALE = 1 / PIXELS_PER_TILE;

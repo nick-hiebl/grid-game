@@ -214,7 +214,7 @@ export class Canvas {
    * @param {nubmer} destinationHeight
    */
   drawImage(
-    imageSource: Canvas | typeof Image,
+    imageSource: Canvas | HTMLImageElement,
     sourceX: number,
     sourceY: number,
     sourceWidth: number,

@@ -1,10 +1,28 @@
+import { Canvas } from "../../Canvas";
+import { Rectangle } from "../../math/Shapes";
 import { Vector } from "../../math/Vector";
-import { Entity } from "../entity/Entity.js";
+import { ScreenManager } from "../../ScreenManager";
+import { Entity } from "../entity/Entity";
+import { Level } from "../Level";
+import { LevelEvent } from "../LevelEvent";
 
 const AREA_DEBUG = false;
 
 export class Interactible extends Entity {
-  constructor(id, position, triggerArea, prerequisites = []) {
+  position: Vector;
+  triggerArea: Rectangle | undefined;
+
+  prerequisites: string[];
+  prereqsActive: boolean;
+  prereqEntities: Interactible[];
+
+  isEnabled: boolean;
+  isAreaActive: boolean;
+  
+  connectionPoint: Vector;
+  outputPoint: Vector;
+
+  constructor(id: string, position: Vector, triggerArea: Rectangle | undefined, prerequisites: string[] = []) {
     super(id);
 
     this.position = position;
@@ -22,11 +40,11 @@ export class Interactible extends Entity {
     this.outputPoint = this.position;
   }
 
-  onStart(level) {
+  onStart(level: Level) {
     this.findPrerequisites(level);
   }
 
-  findPrerequisites(level) {
+  findPrerequisites(level?: Level): Interactible[] {
     if (this.prereqEntities.length === this.prerequisites.length) {
       return this.prereqEntities;
     }
@@ -38,26 +56,24 @@ export class Interactible extends Entity {
     return this.prereqEntities;
   }
 
-  /**
-   * Update the state of the entity.
-   * @param {Vector} playerPosition The position of the player in this update
-   */
-  update(player, deltaTime, level) {
+  update(player: unknown, _deltaTime: number, level: Level) {
     this.prereqsActive = this.findPrerequisites().every((i) => i.isEnabled);
     this.isAreaActive =
-      this.prereqsActive && this.triggerArea.intersectsPoint(player.position);
+      this.prereqsActive && this.triggerArea?.intersectsPoint(player.position);
   }
 
   /**
    * Draw the element on the canvas.
    * @param {Canvas} canvas The canvas to draw on.
    */
-  draw(canvas, screenManager) {
+  draw(screenManager: ScreenManager) {
+    const canvas = screenManager.dynamicWorldCanvas;
+
     if (AREA_DEBUG) {
       canvas.setColorRGB(255, 255, 255);
       canvas.setLineWidth(0.1);
       canvas.setLineDash([0.2, 0.2]);
-      this.triggerArea.stroke(canvas);
+      this.triggerArea?.stroke(canvas);
     }
 
     screenManager.behindGroundCanvas.setLineWidth(0.2);
@@ -82,7 +98,7 @@ export class Interactible extends Entity {
     }
   }
 
-  onInteract() {
+  onInteract(): LevelEvent | undefined | void {
     // Maybe return an event
   }
 }

@@ -7,7 +7,7 @@ import {
   PIXELS_PER_TILE,
   VERTICAL_TILES,
 } from "../constants/ScreenConstants";
-import { InputState } from "../InputManager";
+import { InputEvent, InputState } from "../InputManager";
 import { clamp } from "../math/Common";
 import { Rectangle } from "../math/Shapes";
 import { Vector } from "../math/Vector";
@@ -18,6 +18,7 @@ import { Entity } from "./entity/Entity";
 import { BlockEnum } from "./BlockTypes";
 import { ExitTrigger } from "./ExitTrigger.js";
 import { ClosePuzzleEvent, ExitEvent, LevelEvent, OpenPuzzleEvent } from "./LevelEvent";
+import { Interactible } from "./interactibles/Interactible";
 
 
 const SCALE_FACTOR = CANVAS_WIDTH / HORIZONTAL_TILES;
@@ -37,11 +38,11 @@ export class Level {
 
   objects: Object[];
   exitTriggers: ExitTrigger[];
-  interactibles: unknown[];
+  interactibles: Interactible[];
   entities: Entity[];
 
   camera: Vector;
-  interactingWith: unknown | undefined | null;
+  interactingWith: Interactible | undefined;
 
   drawnStatic: boolean;
   playModeManager: unknown;
@@ -54,7 +55,7 @@ export class Level {
     objects: Object[],
     player: unknown,
     exitTriggers: ExitTrigger[],
-    interactibles: unknown[],
+    interactibles: Interactible[],
     entities: Entity[]
   ) {
     this.key = key;
@@ -98,7 +99,7 @@ export class Level {
     }
   }
 
-  feedPlayerInfo(previousPlayer: unknown, previousExit: unknown) {
+  feedPlayerInfo(previousPlayer: unknown, previousExit: ExitTrigger) {
     if (previousExit.key !== this.key) {
       console.error("Exit key mis-match");
     }
@@ -164,7 +165,7 @@ export class Level {
       this.player.onInput(input);
     }
 
-    if (input.input === Input.Interact) {
+    if (input.isForKey(Input.Interact)) {
       const relevant = this.interactibles.find((i) => i.isAreaActive);
       if (relevant) {
         const event = relevant.onInteract();
@@ -174,7 +175,7 @@ export class Level {
           this.emitEvent(event);
         }
       }
-    } else if (input.input === Input.Escape) {
+    } else if (input.isForKey(Input.Escape)) {
       this.closeCurrentPuzzle();
 
       this.interactingWith = undefined;
@@ -300,7 +301,7 @@ export class Level {
 
         // Draw interactibles
         this.interactibles.forEach((interactible) => {
-          interactible.draw(canvas, screenManager);
+          interactible.draw(screenManager);
         });
 
         // Draw entities

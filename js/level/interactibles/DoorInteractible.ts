@@ -3,20 +3,22 @@ import { PIXELS_PER_TILE } from "../../constants/ScreenConstants";
 import { clamp } from "../../math/Common";
 import { Rectangle } from "../../math/Shapes";
 import { Vector } from "../../math/Vector";
-import { BlockType } from "../BlockTypes.js";
+import { ScreenManager } from "../../ScreenManager";
+import { BlockEnum } from "../BlockTypes";
+import { Level } from "../Level";
 
-import { Interactible } from "./Interactible.js";
-
-const mockTrigger = {
-  intersectsPoint: () => false,
-  stroke: () => null,
-};
+import { Interactible } from "./Interactible";
 
 const OPEN_CLOSE_SPEED = 0.2;
 
 export class DoorInteractible extends Interactible {
-  constructor(id, position, prerequisites, height = 4) {
-    super(id, position, mockTrigger, prerequisites);
+  headCollider: Rectangle;
+  doorCollider: Rectangle;
+
+  fullHeight: number;
+
+  constructor(id: string, position: Vector, prerequisites: string[], height = 4) {
+    super(id, position, undefined, prerequisites);
 
     this.connectionPoint = Vector.add(position, new Vector(0, -1.8));
 
@@ -36,21 +38,21 @@ export class DoorInteractible extends Interactible {
     this.fullHeight = height;
   }
 
-  onStart(level) {
+  onStart(level: Level) {
     super.onStart(level);
 
     level.addWithoutDuplicate({
-      type: BlockType.SOLID,
+      type: BlockEnum.SOLID,
       rect: this.headCollider,
     });
     level.addWithoutDuplicate({
-      type: BlockType.SOLID,
+      type: BlockEnum.SOLID,
       rect: this.doorCollider,
     });
   }
 
-  update(player, deltaTime, level) {
-    super.update(...arguments);
+  update(player: unknown, deltaTime: number, level: Level) {
+    super.update(player, deltaTime, level);
 
     const motion =
       (deltaTime / OPEN_CLOSE_SPEED) * (this.prereqsActive ? -1 : 1);
@@ -62,8 +64,10 @@ export class DoorInteractible extends Interactible {
     );
   }
 
-  draw(canvas, screenManager) {
-    super.draw(canvas, screenManager);
+  draw(screenManager: ScreenManager) {
+    super.draw(screenManager);
+
+    const canvas = screenManager.dynamicWorldCanvas;
 
     const h = this.doorCollider.height;
     if (h > 0) {

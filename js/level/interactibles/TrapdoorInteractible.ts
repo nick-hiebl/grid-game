@@ -3,9 +3,11 @@ import { PIXELS_PER_TILE } from "../../constants/ScreenConstants";
 import { clamp } from "../../math/Common";
 import { Rectangle } from "../../math/Shapes";
 import { Vector } from "../../math/Vector";
-import { BlockType } from "../BlockTypes.js";
+import { ScreenManager } from "../../ScreenManager";
+import { BlockEnum } from "../BlockTypes";
+import { Level } from "../Level";
 
-import { Interactible } from "./Interactible.js";
+import { Interactible } from "./Interactible";
 
 const mockTrigger = {
   intersectsPoint: () => false,
@@ -14,9 +16,28 @@ const mockTrigger = {
 
 const OPEN_CLOSE_DUR = 0.3;
 
+interface Config {
+  isFlipped?: boolean;
+  hasLedge?: boolean;
+}
+
 export class TrapdoorInteractible extends Interactible {
-  constructor(id, position, prerequisites, width = 4, config = {}) {
-    super(id, position, mockTrigger, prerequisites);
+  hasLeft: boolean;
+  hasRight: boolean;
+  hasLedge: boolean;
+
+  leftHead: Rectangle;
+  rightHead: Rectangle;
+  leftDoor: Rectangle;
+  rightDoor: Rectangle;
+
+  ledge: Rectangle;
+
+  fullWidth: number;
+  doorWidth: number;
+
+  constructor(id: string, position: Vector, prerequisites: string[], width = 4, config: Config = {}) {
+    super(id, position, undefined, prerequisites);
 
     this.connectionPoint = Vector.add(
       position,
@@ -24,9 +45,9 @@ export class TrapdoorInteractible extends Interactible {
     );
 
     this.hasLeft = width > 4 || !config.isFlipped;
-    this.hasRight = width > 4 || config.isFlipped;
+    this.hasRight = width > 4 || !!config.isFlipped;
 
-    this.hasLedge = config.hasLedge;
+    this.hasLedge = !!config.hasLedge;
 
     this.leftHead = Rectangle.widthForm(
       this.position.x - width / 2,
@@ -64,40 +85,40 @@ export class TrapdoorInteractible extends Interactible {
     this.doorWidth = this.hasLeft && this.hasRight ? width / 2 : width;
   }
 
-  onStart(level) {
+  onStart(level: Level) {
     super.onStart(level);
 
     if (this.hasLeft) {
       level.addWithoutDuplicate({
-        type: BlockType.SOLID,
+        type: BlockEnum.SOLID,
         rect: this.leftHead,
       });
       level.addWithoutDuplicate({
-        type: BlockType.SOLID,
+        type: BlockEnum.SOLID,
         rect: this.leftDoor,
       });
     }
     if (this.hasRight) {
       level.addWithoutDuplicate({
-        type: BlockType.SOLID,
+        type: BlockEnum.SOLID,
         rect: this.rightHead,
       });
       level.addWithoutDuplicate({
-        type: BlockType.SOLID,
+        type: BlockEnum.SOLID,
         rect: this.rightDoor,
       });
     }
 
     if (this.hasLedge) {
       level.addWithoutDuplicate({
-        type: BlockType.LEDGE,
+        type: BlockEnum.LEDGE,
         rect: this.ledge,
       });
     }
   }
 
-  update(player, deltaTime, level) {
-    super.update(...arguments);
+  update(player: unknown, deltaTime: number, level: Level) {
+    super.update(player, deltaTime, level);
 
     const motion = (deltaTime / OPEN_CLOSE_DUR) * (this.prereqsActive ? -1 : 1);
 
@@ -114,8 +135,10 @@ export class TrapdoorInteractible extends Interactible {
     );
   }
 
-  draw(canvas, screenManager) {
-    super.draw(canvas, screenManager);
+  draw(screenManager: ScreenManager) {
+    super.draw(screenManager);
+
+    const canvas = screenManager.dynamicWorldCanvas;
 
     if (this.hasLedge) {
       for (let x = -this.ledge.x1; x < this.ledge.x2; x++) {

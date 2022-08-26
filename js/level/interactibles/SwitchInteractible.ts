@@ -1,23 +1,29 @@
 import { EntityImage } from "../../constants/Image";
 import { PIXELS_PER_TILE } from "../../constants/ScreenConstants";
+import { Rectangle } from "../../math/Shapes";
+import { Vector } from "../../math/Vector";
+import { ScreenManager } from "../../ScreenManager";
+import { Level } from "../Level";
 
-import { Interactible } from "./Interactible.js";
+import { Interactible } from "./Interactible";
 
 export class SwitchInteractible extends Interactible {
-  constructor(id, position, area, prerequisites) {
+  constructor(id: string, position: Vector, area: Rectangle, prerequisites: string[]) {
     super(id, position, area, prerequisites);
   }
 
-  update(...args) {
+  update(player: unknown, deltaTime: number, level: Level) {
     if (this.isEnabled) {
       this.isAreaActive = false;
     } else {
-      super.update(...args);
+      super.update(player, deltaTime, level);
     }
   }
 
-  draw(canvas, screenManager) {
-    super.draw(canvas, screenManager);
+  draw(screenManager: ScreenManager) {
+    super.draw(screenManager);
+
+    const canvas = screenManager.dynamicWorldCanvas;
 
     const PIXEL_SCALE = 1 / PIXELS_PER_TILE;
 
