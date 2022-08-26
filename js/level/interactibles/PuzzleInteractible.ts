@@ -5,7 +5,8 @@ import {
   DEFAULT_BACKGROUND,
   SOLVED_BACKGROUND,
 } from "../../puzzle-manager/constants";
-import { PuzzleManager } from "../../puzzle-manager/PuzzleManager.js";
+import { Puzzle } from "../../puzzle-manager/Puzzle";
+import { PuzzleManager } from "../../puzzle-manager/PuzzleManager";
 import { ScreenManager } from "../../ScreenManager";
 
 import { OpenPuzzleEvent } from "../LevelEvent";
@@ -18,7 +19,7 @@ interface Config {
 
 export class PuzzleInteractible extends Interactible {
   puzzleId: string;
-  puzzle: unknown;
+  puzzle: Puzzle;
   config: Config;
 
   constructor(id: string, position: Vector, area: Rectangle, prereqs: string[], puzzleId: string, config: Config) {

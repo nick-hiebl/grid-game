@@ -1,6 +1,6 @@
 import { LevelManager } from "../level/LevelManager";
-import { PuzzleManager } from "../puzzle-manager/PuzzleManager.js";
-import { Puzzle } from "../puzzle-manager/Puzzle.js";
+import { PuzzleManager } from "../puzzle-manager/PuzzleManager";
+import { Puzzle } from "../puzzle-manager/Puzzle";
 import { Level } from "../level/Level";
 import { ExitEvent, LevelEvent, OpenPuzzleEvent } from "../level/LevelEvent";
 import { InputEvent, InputState } from "../InputManager";
@@ -8,9 +8,9 @@ import { ScreenManager } from "../ScreenManager";
 
 export class PlayMode {
   levelManager: LevelManager;
-  puzzleManager: PuzzleManager;
+  puzzleManager: typeof PuzzleManager;
 
-  currentPuzzle: Puzzle;
+  currentPuzzle: Puzzle | undefined;
   currentLevel?: Level;
 
   constructor() {

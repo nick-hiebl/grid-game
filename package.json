@@ -2,7 +2,7 @@
   "name": "grid-game",
   "version": "1.0.0",
   "description": "",
-  "main": "js/App.js",
+  "main": "js/App.ts",
   "dependencies": {},
   "devDependencies": {
     "esbuild": "^0.15.5",
@@ -10,7 +10,7 @@
     "typescript": "^4.8.2"
   },
   "scripts": {
-    "build": "esbuild js/App.js --bundle --minify --sourcemap --outfile=build/index.js",
+    "build": "esbuild js/App.ts --bundle --minify --sourcemap --outfile=build/index.js",
     "serve": "http-server -c10",
     "typecheck": "tsc",
     "watch": "nodemon --exec \"yarn build && yarn serve\" -e js,ts --ignore build/",

@@ -1,4 +1,4 @@
-import { Canvas } from "../Canvas.js";
+import { Canvas } from "../Canvas";
 import { TileImage } from "../constants/Image";
 import { Input } from "../constants/Keys";
 import {
@@ -11,15 +11,16 @@ import { InputEvent, InputState } from "../InputManager";
 import { clamp } from "../math/Common";
 import { Rectangle } from "../math/Shapes";
 import { Vector } from "../math/Vector";
-import { ScreenManager } from "../ScreenManager.js";
+import { ScreenManager } from "../ScreenManager";
 
 import { Entity } from "./entity/Entity";
 
 import { BlockEnum } from "./BlockTypes";
-import { ExitTrigger } from "./ExitTrigger.js";
+import { ExitTrigger } from "./ExitTrigger";
 import { ClosePuzzleEvent, ExitEvent, LevelEvent, OpenPuzzleEvent } from "./LevelEvent";
 import { Interactible } from "./interactibles/Interactible";
-import { Player } from "./Player.js";
+import { Player } from "./Player";
+import { PlayMode } from "../game-modes/PlayMode";
 
 const SCALE_FACTOR = CANVAS_WIDTH / HORIZONTAL_TILES;
 
@@ -45,7 +46,7 @@ export class Level {
   interactingWith: Interactible | undefined;
 
   drawnStatic: boolean;
-  playModeManager: unknown;
+  playModeManager: PlayMode | undefined;
 
   constructor(
     key: string,
@@ -77,7 +78,7 @@ export class Level {
     this.playModeManager = undefined;
   }
 
-  start(playModeManager: unknown) {
+  start(playModeManager: PlayMode) {
     this.drawnStatic = false;
     this.interactingWith = undefined;
     this.playModeManager = playModeManager;
@@ -304,14 +305,14 @@ export class Level {
           interactible.draw(screenManager);
         });
 
+        // Draw player
+        this.player.draw(canvas);
+
         // Draw entities
         this.entities.forEach((entity) => {
           entity.draw(screenManager);
         });
       });
-
-      // Draw player
-      this.player.draw(canvas);
     });
 
     screenManager.setCamera(

@@ -1,14 +1,14 @@
 import {
   CountInAreaValidation,
   ForcedCellValidation,
-} from "./CellValidation.js";
+} from "./CellValidation";
 import {
   EdgeBlankGroupsValidationItem,
   EdgeCountValidationItem,
   EdgeGroupsValidationItem,
   EdgeNoTripleValidationItem,
-} from "./EdgeValidation.js";
-import { PuzzleValidator, ValidationItem } from "./PuzzleValidation.js";
+} from "./EdgeValidation";
+import { PuzzleValidator, ValidationItem } from "./PuzzleValidation";
 
 export class PuzzleValidatorFactory {
   validationItems: ValidationItem[];

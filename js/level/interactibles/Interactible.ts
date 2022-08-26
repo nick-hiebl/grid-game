@@ -44,7 +44,7 @@ export class Interactible extends Entity {
     this.findPrerequisites(level);
   }
 
-  findPrerequisites(level?: Level): Interactible[] {
+  findPrerequisites(level: Level): Interactible[] {
     if (this.prereqEntities.length === this.prerequisites.length) {
       return this.prereqEntities;
     }
@@ -56,8 +56,8 @@ export class Interactible extends Entity {
     return this.prereqEntities;
   }
 
-  update(player: Player, _deltaTime: number, level: Level) {
-    this.prereqsActive = this.findPrerequisites().every((i) => i.isEnabled);
+  update(player: Player, _deltaTime: number, _level: Level) {
+    this.prereqsActive = this.prereqEntities.every((i) => i.isEnabled);
     this.isAreaActive =
       !!(this.prereqsActive && this.triggerArea?.intersectsPoint(player.position));
   }

@@ -7,7 +7,7 @@ import { Vector } from "../math/Vector";
 import { BlockEnum, BlockType } from "./BlockTypes";
 import { Level } from "./Level";
 
-import { RectPool } from "./RectPool.js";
+import { RectPool } from "./RectPool";
 
 const PLAYER_RADIUS = 0.8;
 

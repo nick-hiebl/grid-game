@@ -1,5 +1,5 @@
-import { Puzzle } from "./Puzzle.js";
-import { initPuzzle, PuzzleRules } from "./PuzzleFactory.js";
+import { Puzzle } from "./Puzzle";
+import { initPuzzle, PuzzleRules } from "./PuzzleFactory";
 
 const RULES: Record<string, PuzzleRules> = {
   1: { rows: 1, cols: 1, columnCounts: [1], rowCounts: [1] },

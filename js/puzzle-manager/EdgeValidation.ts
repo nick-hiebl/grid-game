@@ -2,7 +2,7 @@ import { Canvas } from "../Canvas";
 import { Circle, Rectangle } from "../math/Shapes";
 import { Vector } from "../math/Vector";
 
-import { N_CIRCLE_LAYOUT, N_SQUARE_LAYOUT } from "./constants.js";
+import { N_CIRCLE_LAYOUT, N_SQUARE_LAYOUT } from "./constants";
 import { ValidationItem } from "./PuzzleValidation";
 import { CellValue, PositionGetter, PuzzleState } from "./types";
 

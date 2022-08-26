@@ -1,3 +1,4 @@
+import { Canvas } from "../Canvas";
 import { clamp, sign } from "./Common";
 import { Vector } from "./Vector";
 
@@ -59,7 +60,7 @@ export class Circle {
    * Draw this circle onto a canvas.
    * @param {Canvas} canvas The canvas to draw on.
    */
-  draw(canvas) {
+  draw(canvas: Canvas) {
     canvas.fillEllipse(
       this.position.x,
       this.position.y,
@@ -165,11 +166,11 @@ export class Rectangle {
    * Draw this rectangle onto a canvas.
    * @param {Canvas} canvas The canvas to draw on.
    */
-  draw(canvas) {
+  draw(canvas: Canvas) {
     canvas.fillRect(this.x1, this.y1, this.width, this.height);
   }
 
-  stroke(canvas, inset = 0) {
+  stroke(canvas: Canvas, inset = 0) {
     canvas.strokeRectInset(this.x1, this.y1, this.width, this.height, inset);
   }
 

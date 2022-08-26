@@ -1,5 +1,5 @@
-import { Puzzle } from "./Puzzle.js";
-import { PuzzleValidatorFactory } from "./PuzzleValidatorFactory.js";
+import { Puzzle } from "./Puzzle";
+import { PuzzleValidatorFactory } from "./PuzzleValidatorFactory";
 
 export interface PuzzleRules {
   rows: number;
