@@ -1,4 +1,4 @@
-import { PIXELS_PER_TILE } from "../../constants/ScreenConstants.js";
+import { PIXELS_PER_TILE } from "../../constants/ScreenConstants";
 import { Vector } from "../../math/Vector";
 import {
   DEFAULT_BACKGROUND,

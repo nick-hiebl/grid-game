@@ -2,10 +2,10 @@ import {
   UI_PIXEL_WIDTH,
   UI_CANVAS_HEIGHT,
   UI_CANVAS_WIDTH,
-} from "../constants/ScreenConstants.js";
+} from "../constants/ScreenConstants";
 import { clamp } from "../math/Common";
 import { Vector } from "../math/Vector";
-import { ScreenManager } from "../ScreenManager.js";
+import { ScreenManager } from "../ScreenManager";
 
 import {
   CLOSE_DURATION,

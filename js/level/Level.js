@@ -5,7 +5,7 @@ import {
   HORIZONTAL_TILES,
   PIXELS_PER_TILE,
   VERTICAL_TILES,
-} from "../constants/ScreenConstants.js";
+} from "../constants/ScreenConstants";
 import { InputState } from "../InputManager.js";
 import { clamp } from "../math/Common";
 import { Vector } from "../math/Vector";

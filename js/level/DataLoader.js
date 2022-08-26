@@ -1,4 +1,4 @@
-import { PIXELS_PER_TILE } from "../constants/ScreenConstants.js";
+import { PIXELS_PER_TILE } from "../constants/ScreenConstants";
 import { PuzzleInteractible } from "./interactibles/PuzzleInteractible.js";
 import { SwitchInteractible } from "./interactibles/SwitchInteractible.js";
 import { Rectangle } from "../math/Shapes";

@@ -1,5 +1,5 @@
 import { EntityImage } from "../../constants/Image.js";
-import { PIXELS_PER_TILE } from "../../constants/ScreenConstants.js";
+import { PIXELS_PER_TILE } from "../../constants/ScreenConstants";
 import { clamp } from "../../math/Common";
 import { Rectangle } from "../../math/Shapes";
 import { Vector } from "../../math/Vector";

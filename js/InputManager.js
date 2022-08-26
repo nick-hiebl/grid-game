@@ -2,7 +2,7 @@ import { Input } from "./constants/Keys.js";
 import {
   UI_CANVAS_WIDTH,
   ON_SCREEN_CANVAS_WIDTH,
-} from "./constants/ScreenConstants.js";
+} from "./constants/ScreenConstants";
 import { Vector } from "./math/Vector";
 
 const KEY_MAP = {

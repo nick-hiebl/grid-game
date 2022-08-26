@@ -1,4 +1,4 @@
-import { UI_CANVAS_HEIGHT } from "../constants/ScreenConstants.js";
+import { UI_CANVAS_HEIGHT } from "../constants/ScreenConstants";
 import { Circle, Rectangle } from "../math/Shapes";
 import { Vector } from "../math/Vector";
 

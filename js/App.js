@@ -2,8 +2,8 @@ import { DataLoader } from "./level/DataLoader.js";
 
 import { GameModeManager } from "./GameModeManager.js";
 import { InputManager } from "./InputManager.js";
-import { ScreenManager } from "./ScreenManager.js";
-import { IS_MOBILE } from "./constants/ScreenConstants.js";
+import { ScreenManager } from "./ScreenManager";
+import { IS_MOBILE } from "./constants/ScreenConstants";
 
 const MAX_FRAME_TIME = 1 / 20;
 

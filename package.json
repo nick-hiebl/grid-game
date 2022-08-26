@@ -13,7 +13,7 @@
     "build": "esbuild js/App.js --bundle --minify --sourcemap --outfile=build/index.js",
     "serve": "http-server -c10",
     "typecheck": "tsc",
-    "watch": "nodemon --exec \"yarn build && yarn serve\" -e js --ignore build/",
+    "watch": "nodemon --exec \"yarn build && yarn serve\" -e js,ts --ignore build/",
     "lint:fix": "prettier --write \"js/**/*.{js,ts}\""
   },
   "repository": {

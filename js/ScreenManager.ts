@@ -5,21 +5,35 @@ import {
   ON_SCREEN_CANVAS_WIDTH,
   UI_CANVAS_HEIGHT,
   UI_CANVAS_WIDTH,
-} from "./constants/ScreenConstants.js";
+} from "./constants/ScreenConstants";
 import { Vector } from "./math/Vector";
 
 import { Canvas } from "./Canvas";
 
 const REAL_CANVAS = Symbol("real-canvas");
 
-function getRawCanvas() {
+function getRawCanvas(): HTMLCanvasElement {
   const rawCanvas = document.getElementById("canvas");
-  rawCanvas.setAttribute("width", ON_SCREEN_CANVAS_WIDTH);
-  rawCanvas.setAttribute("height", ON_SCREEN_CANVAS_HEIGHT);
+
+  if (!(rawCanvas instanceof HTMLCanvasElement)) {
+    throw new Error("Could not find canvas");
+  }
+
+  rawCanvas.width = ON_SCREEN_CANVAS_WIDTH;
+  rawCanvas.height = ON_SCREEN_CANVAS_HEIGHT;
+
   return rawCanvas;
 }
 
 export class ScreenManager {
+  [REAL_CANVAS]: Canvas;
+  background: Canvas;
+  behindGroundCanvas: Canvas;
+  staticWorldCanvas: Canvas;
+  dynamicWorldCanvas: Canvas;
+  uiCanvas: Canvas;
+  camera: Vector;
+
   constructor() {
     const screenCanvas = new Canvas(getRawCanvas());
 
@@ -51,7 +65,7 @@ export class ScreenManager {
     this.camera = new Vector(0, 0);
   }
 
-  setCamera(cameraPosition) {
+  setCamera(cameraPosition: Vector) {
     this.camera = cameraPosition;
   }
 
