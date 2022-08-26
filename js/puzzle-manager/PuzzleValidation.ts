@@ -1,9 +1,14 @@
+import { Canvas } from "../Canvas";
+import { PuzzleState } from "./types";
+
 export class PuzzleValidator {
-  constructor(validationItems) {
+  validationItems: ValidationItem[];
+
+  constructor(validationItems: ValidationItem[]) {
     this.validationItems = validationItems;
   }
 
-  isValid(state) {
+  isValid(state: PuzzleState) {
     this.validationItems.forEach((item) => {
       item.validate(state);
     });
@@ -11,7 +16,7 @@ export class PuzzleValidator {
     return this.validationItems.every((item) => item.isValid);
   }
 
-  draw(canvas, ...args) {
+  draw(canvas: Canvas, ...args: unknown[]) {
     this.validationItems.forEach((item) => {
       item.draw(canvas, ...args);
     });
@@ -19,15 +24,17 @@ export class PuzzleValidator {
 }
 
 export class ValidationItem {
+  isValid: boolean;
+
   constructor() {
     this.isValid = false;
   }
 
-  validate(state) {
+  validate(_state: PuzzleState) {
     // Do nothing...
   }
 
-  draw(canvas) {
+  draw(_canvas: Canvas, ..._args: unknown[]) {
     // Do nothing...
   }
 }

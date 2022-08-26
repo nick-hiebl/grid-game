@@ -8,24 +8,26 @@ import {
   EdgeGroupsValidationItem,
   EdgeNoTripleValidationItem,
 } from "./EdgeValidation.js";
-import { PuzzleValidator } from "./PuzzleValidation.js";
+import { PuzzleValidator, ValidationItem } from "./PuzzleValidation.js";
 
 export class PuzzleValidatorFactory {
+  validationItems: ValidationItem[];
+
   constructor() {
     this.validationItems = [];
   }
 
-  addForcedCellValidator(row, column, mustBeOn) {
+  addForcedCellValidator(row: number, column: number, mustBeOn: boolean) {
     this.validationItems.push(new ForcedCellValidation(row, column, mustBeOn));
     return this;
   }
 
-  addCountAreaValidator(row, column, count) {
+  addCountAreaValidator(row: number, column: number, count: number) {
     this.validationItems.push(new CountInAreaValidation(row, column, count));
     return this;
   }
 
-  addEdgeValidators(nums, isRow, ValidationItemType = EdgeCountValidationItem) {
+  addEdgeValidators(nums: number[], isRow: boolean, ValidationItemType = EdgeCountValidationItem) {
     nums.forEach((num, index) => {
       if (typeof num !== "number") {
         return;
@@ -35,37 +37,37 @@ export class PuzzleValidatorFactory {
     });
   }
 
-  addColumnCounts(nums) {
+  addColumnCounts(nums: number[]) {
     this.addEdgeValidators(nums, false);
     return this;
   }
 
-  addRowCounts(nums) {
+  addRowCounts(nums: number[]) {
     this.addEdgeValidators(nums, true);
     return this;
   }
 
-  addColumnGroups(nums) {
+  addColumnGroups(nums: number[]) {
     this.addEdgeValidators(nums, false, EdgeGroupsValidationItem);
     return this;
   }
 
-  addRowGroups(nums) {
+  addRowGroups(nums: number[]) {
     this.addEdgeValidators(nums, true, EdgeGroupsValidationItem);
     return this;
   }
 
-  addColumnBlankGroups(nums) {
+  addColumnBlankGroups(nums: number[]) {
     this.addEdgeValidators(nums, false, EdgeBlankGroupsValidationItem);
     return this;
   }
 
-  addRowBlankGroups(nums) {
+  addRowBlankGroups(nums: number[]) {
     this.addEdgeValidators(nums, true, EdgeBlankGroupsValidationItem);
     return this;
   }
 
-  addColumnNoTriple(yeses) {
+  addColumnNoTriple(yeses: boolean[]) {
     yeses.forEach((bool, index) => {
       if (!bool) {
         return;
@@ -75,7 +77,7 @@ export class PuzzleValidatorFactory {
     });
   }
 
-  addRowNoTriple(yeses) {
+  addRowNoTriple(yeses: boolean[]) {
     yeses.forEach((bool, index) => {
       if (!bool) {
         return;

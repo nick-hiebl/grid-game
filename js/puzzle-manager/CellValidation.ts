@@ -1,10 +1,16 @@
+import { Canvas } from "../Canvas";
+import { Rectangle } from "../math/Shapes";
 import { Vector } from "../math/Vector";
 
 import { N_CIRCLE_LAYOUT, SOLVED_BACKGROUND } from "./constants.js";
-import { ValidationItem } from "./PuzzleValidation.js";
+import { ValidationItem } from "./PuzzleValidation";
+import { PositionGetter, PuzzleState } from "./types";
 
 export class CellValidation extends ValidationItem {
-  constructor(row, column) {
+  row: number;
+  column: number;
+
+  constructor(row: number, column: number) {
     super();
     this.row = row;
     this.column = column;
@@ -12,20 +18,22 @@ export class CellValidation extends ValidationItem {
 }
 
 export class ForcedCellValidation extends CellValidation {
-  constructor(row, column, mustBeOn) {
+  mustBeOn: boolean;
+
+  constructor(row: number, column: number, mustBeOn: boolean) {
     super(row, column);
     this.mustBeOn = mustBeOn;
 
     this.isValid = !mustBeOn;
   }
 
-  validate(state) {
+  validate(state: PuzzleState) {
     const cell = state[this.row][this.column];
 
     this.isValid = !!cell === !!this.mustBeOn;
   }
 
-  draw(canvas, positionGetter) {
+  draw(canvas: Canvas, positionGetter: PositionGetter) {
     if (this.isValid) {
       canvas.setColor("white");
     } else {
@@ -48,7 +56,10 @@ export class ForcedCellValidation extends CellValidation {
 }
 
 export class CountInAreaValidation extends CellValidation {
-  constructor(row, column, desiredCount) {
+  desiredCount: number;
+  isCellColoured: boolean;
+
+  constructor(row: number, column: number, desiredCount: number) {
     super(row, column);
 
     this.desiredCount = desiredCount;
@@ -56,7 +67,7 @@ export class CountInAreaValidation extends CellValidation {
     this.isCellColoured = false;
   }
 
-  *iterateArea(state) {
+  *iterateArea(state: PuzzleState) {
     for (
       let row = Math.max(this.row - 1, 0);
       row <= Math.min(this.row + 1, state.length - 1);
@@ -72,7 +83,7 @@ export class CountInAreaValidation extends CellValidation {
     }
   }
 
-  validate(state) {
+  validate(state: PuzzleState) {
     let count = 0;
 
     for (let [row, col] of this.iterateArea(state)) {
@@ -85,7 +96,7 @@ export class CountInAreaValidation extends CellValidation {
     this.isCellColoured = !!state[this.row][this.column];
   }
 
-  draw(canvas, positionGetter) {
+  draw(canvas: Canvas, positionGetter: (row: number, column: number) => Rectangle) {
     if (this.isValid) {
       canvas.setColor(this.isCellColoured ? SOLVED_BACKGROUND : "white");
     } else {

@@ -1,13 +1,18 @@
-import { Circle } from "../math/Shapes";
+import { Canvas } from "../Canvas";
+import { Circle, Rectangle } from "../math/Shapes";
 import { Vector } from "../math/Vector";
 
 import { N_CIRCLE_LAYOUT, N_SQUARE_LAYOUT } from "./constants.js";
-import { ValidationItem } from "./PuzzleValidation.js";
+import { ValidationItem } from "./PuzzleValidation";
+import { CellValue, PositionGetter, PuzzleState } from "./types";
 
-const rotRight = (vector) => new Vector(-vector.y, vector.x);
+const rotRight = (vector: Vector) => new Vector(-vector.y, vector.x);
 
 class EdgeValidationItem extends ValidationItem {
-  constructor(isRow, index) {
+  isRow: boolean;
+  index: number;
+
+  constructor(isRow: boolean, index: number) {
     super();
     this.isRow = isRow;
     this.index = index;
@@ -15,7 +20,7 @@ class EdgeValidationItem extends ValidationItem {
     this.isValid = false;
   }
 
-  getRelevantRow(state) {
+  getRelevantRow(state: PuzzleState) {
     if (this.isRow) {
       return state[this.index];
     } else {
@@ -23,21 +28,21 @@ class EdgeValidationItem extends ValidationItem {
     }
   }
 
-  validateRow(row) {
+  validateRow(row: CellValue[]): boolean {
     throw new TypeError("Cannot validate as a generic EdgeValidationItem");
   }
 
-  validate(state) {
+  validate(state: PuzzleState) {
     const row = this.getRelevantRow(state);
 
     this.isValid = this.validateRow(row);
   }
 
-  drawInCell() {
+  drawInCell(_canvas: Canvas, _center: Vector, _scaleBy: number, _isSideways: boolean) {
     throw new TypeError("Cannot draw a generic EdgeValidationItem");
   }
 
-  draw(canvas, positionGetter) {
+  draw(canvas: Canvas, positionGetter: PositionGetter) {
     if (this.isValid) {
       canvas.setColor("white");
     } else {
@@ -57,23 +62,25 @@ class EdgeValidationItem extends ValidationItem {
 }
 
 export class EdgeCountValidationItem extends EdgeValidationItem {
-  constructor(isRow, index, count) {
+  count: number;
+
+  constructor(isRow: boolean, index: number, count: number) {
     super(isRow, index);
     this.count = count;
 
     this.isValid = count === 0;
   }
 
-  validateRow(row) {
+  validateRow(row: CellValue[]) {
     const count = row.reduce((soFar, item) => (item ? soFar + 1 : soFar), 0);
 
     return count === this.count;
   }
 
-  drawInCell(canvas, center, scaleBy, isSideways) {
+  drawInCell(canvas: Canvas, center: Vector, scaleBy: number, isSideways: boolean) {
     const transformCircle = isSideways
-      ? (circle) => new Circle(rotRight(circle.position), circle.radius)
-      : (v) => v;
+      ? (circle: Circle) => new Circle(rotRight(circle.position), circle.radius)
+      : (v: Circle) => v;
 
     for (let circle of N_CIRCLE_LAYOUT[this.count]) {
       circle = transformCircle(circle);
@@ -103,7 +110,7 @@ export class EdgeCountValidationItem extends EdgeValidationItem {
 }
 
 export class EdgeGroupsValidationItem extends EdgeCountValidationItem {
-  validateRow(row) {
+  validateRow(row: CellValue[]) {
     const [numGroups] = row.reduce(
       ([soFar, inGroup], item) =>
         item && !inGroup
@@ -117,7 +124,7 @@ export class EdgeGroupsValidationItem extends EdgeCountValidationItem {
     return numGroups === this.count;
   }
 
-  drawSquare(canvas, position, width) {
+  drawSquare(canvas: Canvas, position: Vector, width: number) {
     canvas.fillRect(
       position.x - width / 2,
       position.y - width / 2,
@@ -126,8 +133,8 @@ export class EdgeGroupsValidationItem extends EdgeCountValidationItem {
     );
   }
 
-  drawInCell(canvas, center, scaleBy, isSideways) {
-    const moveCenter = (pos) => (isSideways ? rotRight(pos) : pos);
+  drawInCell(canvas: Canvas, center: Vector, scaleBy: number, isSideways: boolean) {
+    const moveCenter = (pos: Vector) => (isSideways ? rotRight(pos) : pos);
 
     for (const square of N_SQUARE_LAYOUT[this.count]) {
       const position = Vector.add(
@@ -142,13 +149,13 @@ export class EdgeGroupsValidationItem extends EdgeCountValidationItem {
 }
 
 export class EdgeBlankGroupsValidationItem extends EdgeGroupsValidationItem {
-  constructor(isRow, index, count) {
+  constructor(isRow: boolean, index: number, count: number) {
     super(isRow, index, count);
 
     this.isValid = count === 1;
   }
 
-  validateRow(row) {
+  validateRow(row: CellValue[]) {
     const [numGroups] = row.reduce(
       ([soFar, inGroup], item) =>
         !item && inGroup
@@ -162,7 +169,7 @@ export class EdgeBlankGroupsValidationItem extends EdgeGroupsValidationItem {
     return numGroups === this.count;
   }
 
-  drawSquare(canvas, position, width) {
+  drawSquare(canvas: Canvas, position: Vector, width: number) {
     canvas.setLineDash([]);
     canvas.setLineWidth(width * 0.25);
     canvas.strokeRectInset(position.x, position.y, 0, 0, -width * 0.4);
@@ -170,14 +177,14 @@ export class EdgeBlankGroupsValidationItem extends EdgeGroupsValidationItem {
 }
 
 export class EdgeNoTripleValidationItem extends EdgeValidationItem {
-  constructor(isRow, index) {
+  constructor(isRow: boolean, index: number) {
     super(isRow, index);
 
     // Valid by default if no triple
     this.isValid = true;
   }
 
-  validateRow(row) {
+  validateRow(row: CellValue[]) {
     let count = 0;
     for (const value of row) {
       if (value) {
@@ -193,7 +200,7 @@ export class EdgeNoTripleValidationItem extends EdgeValidationItem {
     return true;
   }
 
-  drawInCell(canvas, center, scaleBy, isSideways) {
+  drawInCell(canvas: Canvas, center: Vector, scaleBy: number, isSideways: boolean) {
     canvas.setLineWidth(scaleBy * 0.1);
     canvas.setLineDash([]);
 
