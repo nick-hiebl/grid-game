@@ -16,6 +16,7 @@ import { ScreenManager } from "../ScreenManager.js";
 import { Entity } from "./entity/Entity";
 
 import { BlockEnum } from "./BlockTypes";
+import { ExitTrigger } from "./ExitTrigger.js";
 import { ClosePuzzleEvent, ExitEvent, LevelEvent, OpenPuzzleEvent } from "./LevelEvent";
 
 
@@ -35,7 +36,7 @@ export class Level {
   player: unknown;
 
   objects: Object[];
-  exitTriggers: unknown[];
+  exitTriggers: ExitTrigger[];
   interactibles: unknown[];
   entities: Entity[];
 
@@ -52,7 +53,7 @@ export class Level {
     levelGrid: BlockEnum[][],
     objects: Object[],
     player: unknown,
-    exitTriggers: unknown[],
+    exitTriggers: ExitTrigger[],
     interactibles: unknown[],
     entities: Entity[]
   ) {

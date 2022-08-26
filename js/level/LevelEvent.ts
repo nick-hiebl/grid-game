@@ -1,3 +1,5 @@
+import { ExitTrigger } from "./ExitTrigger";
+
 export class LevelEvent {
   constructor() {}
 
@@ -15,9 +17,9 @@ export class LevelEvent {
 }
 
 export class ExitEvent extends LevelEvent {
-  exitTrigger: unknown;
+  exitTrigger: ExitTrigger;
 
-  constructor(exitTrigger: unknown) {
+  constructor(exitTrigger: ExitTrigger) {
     super();
     this.exitTrigger = exitTrigger;
   }

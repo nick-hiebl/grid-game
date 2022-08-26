@@ -4,7 +4,7 @@ import { SwitchInteractible } from "./interactibles/SwitchInteractible.js";
 import { Rectangle } from "../math/Shapes";
 import { Vector } from "../math/Vector";
 
-import { ExitTrigger } from "./ExitTrigger.js";
+import { ExitTrigger } from "./ExitTrigger";
 import { LevelFactory } from "./LevelFactory.js";
 import { DoorInteractible } from "./interactibles/DoorInteractible.js";
 import { TrapdoorInteractible } from "./interactibles/TrapdoorInteractible.js";

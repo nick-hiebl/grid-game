@@ -1,17 +1,22 @@
+import { Rectangle } from "../math/Shapes";
 import { Vector } from "../math/Vector";
 
 export class ExitTrigger {
-  constructor(collider, key, nextLevelCollider) {
+  collider: Rectangle;
+  key: string;
+  nextLevelCollider: Rectangle;
+
+  constructor(collider: Rectangle, key: string, nextLevelCollider: Rectangle) {
     this.collider = collider;
     this.key = key;
     this.nextLevelCollider = nextLevelCollider || collider;
   }
 
-  hasEntered(player) {
+  hasEntered(player: unknown) {
     return this.collider.intersectsPoint(player.position);
   }
 
-  translatePlayerToNext(player) {
+  translatePlayerToNext(player: unknown) {
     return Vector.diff(
       player.position,
       new Vector(this.nextLevelCollider.x1, this.nextLevelCollider.y1)
