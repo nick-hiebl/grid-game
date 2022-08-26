@@ -162,7 +162,7 @@
 					"useForSmartColor": false,
 					"min": null,
 					"max": null,
-					"regex": null,
+					"regex": "/.+/gi",
 					"acceptFileTypes": null,
 					"defaultOverride": null,
 					"textLanguageMode": null,
@@ -296,7 +296,7 @@
 			"uid": 18,
 			"tags": ["reader"],
 			"width": 40,
-			"height": 40,
+			"height": 30,
 			"resizableX": false,
 			"resizableY": true,
 			"keepAspectRatio": false,
@@ -498,7 +498,7 @@
 					"uid": 32,
 					"type": "F_EntityRef",
 					"isArray": false,
-					"canBeNull": false,
+					"canBeNull": true,
 					"arrayMinLength": null,
 					"arrayMaxLength": null,
 					"editorDisplayMode": "RefLinkBetweenCenters",
@@ -796,16 +796,16 @@
 						},
 						{
 							"__identifier": "Door",
-							"__grid": [39,1],
+							"__grid": [39,6],
 							"__pivot": [0,0],
 							"__tags": ["reader"],
 							"__tile": { "tilesetUid": 11, "x": 180, "y": 160, "w": 20, "h": 30 },
 							"__smartColor": "#94D9B3",
 							"iid": "ecae64e0-02f0-11ed-9b60-a1738ba60039",
 							"width": 40,
-							"height": 90,
+							"height": 40,
 							"defUid": 18,
-							"px": [390,10],
+							"px": [390,60],
 							"fieldInstances": [{ "__identifier": "prerequisites", "__value": [{
 								"entityIid": "e5b851f0-02f0-11ed-9b60-a3f9aece135f",
 								"layerIid": "677ec570-02f0-11ed-babb-19545103a3fc",
@@ -818,7 +818,7 @@
 						},
 						{
 							"__identifier": "PuzzleScreen",
-							"__grid": [46,2],
+							"__grid": [43,6],
 							"__pivot": [0,0],
 							"__tags": [ "reader", "outputter" ],
 							"__tile": { "tilesetUid": 11, "x": 0, "y": 0, "w": 40, "h": 40 },
@@ -827,7 +827,7 @@
 							"width": 40,
 							"height": 40,
 							"defUid": 10,
-							"px": [460,20],
+							"px": [430,60],
 							"fieldInstances": [
 								{ "__identifier": "key", "__value": "2", "__type": "String", "__tile": null, "defUid": 12, "realEditorValues": [{
 									"id": "V_String",
@@ -839,16 +839,16 @@
 						},
 						{
 							"__identifier": "Door",
-							"__grid": [51,1],
+							"__grid": [47,7],
 							"__pivot": [0,0],
 							"__tags": ["reader"],
 							"__tile": { "tilesetUid": 11, "x": 180, "y": 160, "w": 20, "h": 30 },
 							"__smartColor": "#94D9B3",
 							"iid": "81d99470-02f0-11ed-9b60-b9314f51e46c",
 							"width": 40,
-							"height": 50,
+							"height": 30,
 							"defUid": 18,
-							"px": [510,10],
+							"px": [470,70],
 							"fieldInstances": [{ "__identifier": "prerequisites", "__value": [{
 								"entityIid": "7a8caef0-02f0-11ed-9b60-5783289056ec",
 								"layerIid": "677ec570-02f0-11ed-babb-19545103a3fc",
@@ -861,16 +861,16 @@
 						},
 						{
 							"__identifier": "Door",
-							"__grid": [52,7],
+							"__grid": [54,7],
 							"__pivot": [0,0],
 							"__tags": ["reader"],
 							"__tile": { "tilesetUid": 11, "x": 180, "y": 160, "w": 20, "h": 30 },
 							"__smartColor": "#94D9B3",
 							"iid": "98b664c0-02f0-11ed-9b60-cbbcaf84557d",
 							"width": 40,
-							"height": 40,
+							"height": 30,
 							"defUid": 18,
-							"px": [520,70],
+							"px": [540,70],
 							"fieldInstances": [{ "__identifier": "prerequisites", "__value": [{
 								"entityIid": "9ad85a60-02f0-11ed-9b60-1f743773f6c5",
 								"layerIid": "677ec570-02f0-11ed-babb-19545103a3fc",
@@ -883,7 +883,7 @@
 						},
 						{
 							"__identifier": "PuzzleScreen",
-							"__grid": [57,7],
+							"__grid": [58,6],
 							"__pivot": [0,0],
 							"__tags": [ "reader", "outputter" ],
 							"__tile": { "tilesetUid": 11, "x": 0, "y": 0, "w": 40, "h": 40 },
@@ -892,7 +892,7 @@
 							"width": 40,
 							"height": 40,
 							"defUid": 10,
-							"px": [570,70],
+							"px": [580,60],
 							"fieldInstances": [
 								{ "__identifier": "key", "__value": "3", "__type": "String", "__tile": null, "defUid": 12, "realEditorValues": [{
 									"id": "V_String",
@@ -928,7 +928,7 @@
 						},
 						{
 							"__identifier": "PuzzleScreen",
-							"__grid": [37,12],
+							"__grid": [39,12],
 							"__pivot": [0,0],
 							"__tags": [ "reader", "outputter" ],
 							"__tile": { "tilesetUid": 11, "x": 0, "y": 0, "w": 40, "h": 40 },
@@ -937,11 +937,11 @@
 							"width": 40,
 							"height": 40,
 							"defUid": 10,
-							"px": [370,120],
+							"px": [390,120],
 							"fieldInstances": [
-								{ "__identifier": "key", "__value": "5", "__type": "String", "__tile": null, "defUid": 12, "realEditorValues": [{
+								{ "__identifier": "key", "__value": "hall-1", "__type": "String", "__tile": null, "defUid": 12, "realEditorValues": [{
 									"id": "V_String",
-									"params": ["5"]
+									"params": ["hall-1"]
 								}] },
 								{ "__identifier": "prerequisites", "__value": [], "__type": "Array<EntityRef>", "__tile": null, "defUid": 22, "realEditorValues": [] },
 								{ "__identifier": "isFlipped", "__value": true, "__type": "Bool", "__tile": null, "defUid": 24, "realEditorValues": [{
@@ -952,7 +952,7 @@
 						},
 						{
 							"__identifier": "PuzzleScreen",
-							"__grid": [31,12],
+							"__grid": [35,12],
 							"__pivot": [0,0],
 							"__tags": [ "reader", "outputter" ],
 							"__tile": { "tilesetUid": 11, "x": 0, "y": 0, "w": 40, "h": 40 },
@@ -961,11 +961,11 @@
 							"width": 40,
 							"height": 40,
 							"defUid": 10,
-							"px": [310,120],
+							"px": [350,120],
 							"fieldInstances": [
-								{ "__identifier": "key", "__value": "6", "__type": "String", "__tile": null, "defUid": 12, "realEditorValues": [{
+								{ "__identifier": "key", "__value": "hall-2", "__type": "String", "__tile": null, "defUid": 12, "realEditorValues": [{
 									"id": "V_String",
-									"params": ["6"]
+									"params": ["hall-2"]
 								}] },
 								{ "__identifier": "prerequisites", "__value": [{
 									"entityIid": "e0fa3100-02f0-11ed-9b60-5f6ee2512ac4",
@@ -984,7 +984,7 @@
 						},
 						{
 							"__identifier": "PuzzleScreen",
-							"__grid": [25,12],
+							"__grid": [31,12],
 							"__pivot": [0,0],
 							"__tags": [ "reader", "outputter" ],
 							"__tile": { "tilesetUid": 11, "x": 0, "y": 0, "w": 40, "h": 40 },
@@ -993,11 +993,11 @@
 							"width": 40,
 							"height": 40,
 							"defUid": 10,
-							"px": [250,120],
+							"px": [310,120],
 							"fieldInstances": [
-								{ "__identifier": "key", "__value": "7", "__type": "String", "__tile": null, "defUid": 12, "realEditorValues": [{
+								{ "__identifier": "key", "__value": "hall-3", "__type": "String", "__tile": null, "defUid": 12, "realEditorValues": [{
 									"id": "V_String",
-									"params": ["7"]
+									"params": ["hall-3"]
 								}] },
 								{ "__identifier": "prerequisites", "__value": [{
 									"entityIid": "e1ee2df0-02f0-11ed-9b60-f34a58d52dc5",
@@ -1016,7 +1016,7 @@
 						},
 						{
 							"__identifier": "PuzzleScreen",
-							"__grid": [19,12],
+							"__grid": [27,12],
 							"__pivot": [0,0],
 							"__tags": [ "reader", "outputter" ],
 							"__tile": { "tilesetUid": 11, "x": 0, "y": 0, "w": 40, "h": 40 },
@@ -1025,11 +1025,11 @@
 							"width": 40,
 							"height": 40,
 							"defUid": 10,
-							"px": [190,120],
+							"px": [270,120],
 							"fieldInstances": [
-								{ "__identifier": "key", "__value": "8", "__type": "String", "__tile": null, "defUid": 12, "realEditorValues": [{
+								{ "__identifier": "key", "__value": "hall-4", "__type": "String", "__tile": null, "defUid": 12, "realEditorValues": [{
 									"id": "V_String",
-									"params": ["8"]
+									"params": ["hall-4"]
 								}] },
 								{ "__identifier": "prerequisites", "__value": [{
 									"entityIid": "e29395b0-02f0-11ed-9b60-955dcdcaec5d",
@@ -1137,6 +1137,115 @@
 							"defUid": 31,
 							"px": [100,110],
 							"fieldInstances": []
+						},
+						{
+							"__identifier": "PuzzleScreen",
+							"__grid": [23,12],
+							"__pivot": [0,0],
+							"__tags": [ "reader", "outputter" ],
+							"__tile": { "tilesetUid": 11, "x": 0, "y": 0, "w": 40, "h": 40 },
+							"__smartColor": "#94D9B3",
+							"iid": "c1ec8320-02f0-11ed-9b60-ed26127938f6",
+							"width": 40,
+							"height": 40,
+							"defUid": 10,
+							"px": [230,120],
+							"fieldInstances": [
+								{ "__identifier": "key", "__value": "hall-5", "__type": "String", "__tile": null, "defUid": 12, "realEditorValues": [{
+									"id": "V_String",
+									"params": ["hall-5"]
+								}] },
+								{ "__identifier": "prerequisites", "__value": [{
+									"entityIid": "e34fe0d0-02f0-11ed-9b60-93ceefb141b8",
+									"layerIid": "677ec570-02f0-11ed-babb-19545103a3fc",
+									"levelIid": "2e2576b0-02f0-11ed-babb-236311c5927d",
+									"worldIid": "02f45360-02f0-11ed-9b60-3f59a809aa82"
+								}], "__type": "Array<EntityRef>", "__tile": null, "defUid": 22, "realEditorValues": [{
+									"id": "V_String",
+									"params": ["e34fe0d0-02f0-11ed-9b60-93ceefb141b8"]
+								}] },
+								{ "__identifier": "isFlipped", "__value": true, "__type": "Bool", "__tile": null, "defUid": 24, "realEditorValues": [{
+									"id": "V_Bool",
+									"params": [ true ]
+								}] }
+							]
+						},
+						{
+							"__identifier": "PuzzleScreen",
+							"__grid": [19,12],
+							"__pivot": [0,0],
+							"__tags": [ "reader", "outputter" ],
+							"__tile": { "tilesetUid": 11, "x": 0, "y": 0, "w": 40, "h": 40 },
+							"__smartColor": "#94D9B3",
+							"iid": "c3012770-02f0-11ed-9b60-6fc0ead1186b",
+							"width": 40,
+							"height": 40,
+							"defUid": 10,
+							"px": [190,120],
+							"fieldInstances": [
+								{ "__identifier": "key", "__value": "hall-6", "__type": "String", "__tile": null, "defUid": 12, "realEditorValues": [{
+									"id": "V_String",
+									"params": ["hall-6"]
+								}] },
+								{ "__identifier": "prerequisites", "__value": [{
+									"entityIid": "c1ec8320-02f0-11ed-9b60-ed26127938f6",
+									"layerIid": "677ec570-02f0-11ed-babb-19545103a3fc",
+									"levelIid": "2e2576b0-02f0-11ed-babb-236311c5927d",
+									"worldIid": "02f45360-02f0-11ed-9b60-3f59a809aa82"
+								}], "__type": "Array<EntityRef>", "__tile": null, "defUid": 22, "realEditorValues": [{
+									"id": "V_String",
+									"params": ["c1ec8320-02f0-11ed-9b60-ed26127938f6"]
+								}] },
+								{ "__identifier": "isFlipped", "__value": true, "__type": "Bool", "__tile": null, "defUid": 24, "realEditorValues": [{
+									"id": "V_Bool",
+									"params": [ true ]
+								}] }
+							]
+						},
+						{
+							"__identifier": "CoverEntity",
+							"__grid": [32,1],
+							"__pivot": [0,0],
+							"__tags": [],
+							"__tile": null,
+							"__smartColor": "#FF76FF",
+							"iid": "25006f30-02f0-11ed-9b60-7b6aa4bb7108",
+							"width": 100,
+							"height": 40,
+							"defUid": 29,
+							"px": [320,10],
+							"fieldInstances": [
+								{ "__identifier": "triggerArea", "__value": null, "__type": "EntityRef", "__tile": null, "defUid": 32, "realEditorValues": [] },
+								{ "__identifier": "coverIsTrigger", "__value": true, "__type": "Bool", "__tile": null, "defUid": 34, "realEditorValues": [{
+									"id": "V_Bool",
+									"params": [ true ]
+								}] },
+								{ "__identifier": "canReCover", "__value": true, "__type": "Bool", "__tile": null, "defUid": 35, "realEditorValues": [{
+									"id": "V_Bool",
+									"params": [ true ]
+								}] }
+							]
+						},
+						{
+							"__identifier": "PuzzleScreen",
+							"__grid": [34,1],
+							"__pivot": [0,0],
+							"__tags": [ "reader", "outputter" ],
+							"__tile": { "tilesetUid": 11, "x": 0, "y": 0, "w": 40, "h": 40 },
+							"__smartColor": "#94D9B3",
+							"iid": "808cddc0-02f0-11ed-9b60-0b6a65cf01a4",
+							"width": 40,
+							"height": 40,
+							"defUid": 10,
+							"px": [340,10],
+							"fieldInstances": [
+								{ "__identifier": "key", "__value": "first-tunnel-secret", "__type": "String", "__tile": null, "defUid": 12, "realEditorValues": [{
+									"id": "V_String",
+									"params": ["first-tunnel-secret"]
+								}] },
+								{ "__identifier": "prerequisites", "__value": [], "__type": "Array<EntityRef>", "__tile": null, "defUid": 22, "realEditorValues": [] },
+								{ "__identifier": "isFlipped", "__value": false, "__type": "Bool", "__tile": null, "defUid": 24, "realEditorValues": [] }
+							]
 						}
 					]
 				},
@@ -1241,6 +1350,16 @@
 						{ "px": [630,40], "src": [0,0], "f": 0, "t": 0, "d": [319] },
 						{ "px": [0,50], "src": [0,0], "f": 0, "t": 0, "d": [320] },
 						{ "px": [310,50], "src": [0,0], "f": 0, "t": 0, "d": [351] },
+						{ "px": [320,50], "src": [0,0], "f": 0, "t": 0, "d": [352] },
+						{ "px": [330,50], "src": [0,0], "f": 0, "t": 0, "d": [353] },
+						{ "px": [340,50], "src": [0,0], "f": 0, "t": 0, "d": [354] },
+						{ "px": [350,50], "src": [0,0], "f": 0, "t": 0, "d": [355] },
+						{ "px": [360,50], "src": [0,0], "f": 0, "t": 0, "d": [356] },
+						{ "px": [370,50], "src": [0,0], "f": 0, "t": 0, "d": [357] },
+						{ "px": [380,50], "src": [0,0], "f": 0, "t": 0, "d": [358] },
+						{ "px": [390,50], "src": [0,0], "f": 0, "t": 0, "d": [359] },
+						{ "px": [400,50], "src": [0,0], "f": 0, "t": 0, "d": [360] },
+						{ "px": [410,50], "src": [0,0], "f": 0, "t": 0, "d": [361] },
 						{ "px": [630,50], "src": [0,0], "f": 0, "t": 0, "d": [383] },
 						{ "px": [0,60], "src": [0,0], "f": 0, "t": 0, "d": [384] },
 						{ "px": [240,60], "src": [0,0], "f": 0, "t": 0, "d": [408] },
@@ -1250,10 +1369,8 @@
 						{ "px": [280,60], "src": [10,0], "f": 0, "t": 1, "d": [412] },
 						{ "px": [290,60], "src": [10,0], "f": 0, "t": 1, "d": [413] },
 						{ "px": [300,60], "src": [10,0], "f": 0, "t": 1, "d": [414] },
-						{ "px": [310,60], "src": [0,0], "f": 0, "t": 0, "d": [415] },
-						{ "px": [460,60], "src": [10,0], "f": 0, "t": 1, "d": [430] },
-						{ "px": [470,60], "src": [10,0], "f": 0, "t": 1, "d": [431] },
-						{ "px": [480,60], "src": [10,0], "f": 0, "t": 1, "d": [432] },
+						{ "px": [310,60], "src": [10,0], "f": 0, "t": 1, "d": [415] },
+						{ "px": [480,60], "src": [0,0], "f": 0, "t": 0, "d": [432] },
 						{ "px": [490,60], "src": [0,0], "f": 0, "t": 0, "d": [433] },
 						{ "px": [500,60], "src": [0,0], "f": 0, "t": 0, "d": [434] },
 						{ "px": [510,60], "src": [0,0], "f": 0, "t": 0, "d": [435] },
@@ -1261,27 +1378,16 @@
 						{ "px": [530,60], "src": [0,0], "f": 0, "t": 0, "d": [437] },
 						{ "px": [540,60], "src": [0,0], "f": 0, "t": 0, "d": [438] },
 						{ "px": [550,60], "src": [0,0], "f": 0, "t": 0, "d": [439] },
-						{ "px": [560,60], "src": [10,0], "f": 0, "t": 1, "d": [440] },
-						{ "px": [570,60], "src": [10,0], "f": 0, "t": 1, "d": [441] },
-						{ "px": [580,60], "src": [10,0], "f": 0, "t": 1, "d": [442] },
-						{ "px": [590,60], "src": [10,0], "f": 0, "t": 1, "d": [443] },
-						{ "px": [600,60], "src": [10,0], "f": 0, "t": 1, "d": [444] },
-						{ "px": [610,60], "src": [10,0], "f": 0, "t": 1, "d": [445] },
-						{ "px": [620,60], "src": [10,0], "f": 0, "t": 1, "d": [446] },
+						{ "px": [560,60], "src": [0,0], "f": 0, "t": 0, "d": [440] },
 						{ "px": [630,60], "src": [0,0], "f": 0, "t": 0, "d": [447] },
 						{ "px": [0,70], "src": [0,0], "f": 0, "t": 0, "d": [448] },
 						{ "px": [240,70], "src": [0,0], "f": 0, "t": 0, "d": [472] },
-						{ "px": [490,70], "src": [0,0], "f": 0, "t": 0, "d": [497] },
 						{ "px": [630,70], "src": [0,0], "f": 0, "t": 0, "d": [511] },
 						{ "px": [0,80], "src": [0,0], "f": 0, "t": 0, "d": [512] },
 						{ "px": [240,80], "src": [0,0], "f": 0, "t": 0, "d": [536] },
-						{ "px": [490,80], "src": [0,0], "f": 0, "t": 0, "d": [561] },
-						{ "px": [610,80], "src": [10,0], "f": 0, "t": 1, "d": [573] },
-						{ "px": [620,80], "src": [10,0], "f": 0, "t": 1, "d": [574] },
 						{ "px": [630,80], "src": [0,0], "f": 0, "t": 0, "d": [575] },
 						{ "px": [0,90], "src": [0,0], "f": 0, "t": 0, "d": [576] },
 						{ "px": [240,90], "src": [0,0], "f": 0, "t": 0, "d": [600] },
-						{ "px": [490,90], "src": [0,0], "f": 0, "t": 0, "d": [625] },
 						{ "px": [630,90], "src": [0,0], "f": 0, "t": 0, "d": [639] },
 						{ "px": [0,100], "src": [0,0], "f": 0, "t": 0, "d": [640] },
 						{ "px": [70,100], "src": [0,0], "f": 0, "t": 0, "d": [647] },
@@ -1327,42 +1433,41 @@
 						{ "px": [470,100], "src": [0,0], "f": 0, "t": 0, "d": [687] },
 						{ "px": [480,100], "src": [0,0], "f": 0, "t": 0, "d": [688] },
 						{ "px": [490,100], "src": [0,0], "f": 0, "t": 0, "d": [689] },
+						{ "px": [500,100], "src": [0,0], "f": 0, "t": 0, "d": [690] },
+						{ "px": [540,100], "src": [0,0], "f": 0, "t": 0, "d": [694] },
+						{ "px": [550,100], "src": [0,0], "f": 0, "t": 0, "d": [695] },
+						{ "px": [560,100], "src": [0,0], "f": 0, "t": 0, "d": [696] },
+						{ "px": [570,100], "src": [0,0], "f": 0, "t": 0, "d": [697] },
+						{ "px": [580,100], "src": [0,0], "f": 0, "t": 0, "d": [698] },
+						{ "px": [590,100], "src": [0,0], "f": 0, "t": 0, "d": [699] },
+						{ "px": [600,100], "src": [0,0], "f": 0, "t": 0, "d": [700] },
+						{ "px": [610,100], "src": [0,0], "f": 0, "t": 0, "d": [701] },
+						{ "px": [620,100], "src": [0,0], "f": 0, "t": 0, "d": [702] },
 						{ "px": [630,100], "src": [0,0], "f": 0, "t": 0, "d": [703] },
 						{ "px": [0,110], "src": [0,0], "f": 0, "t": 0, "d": [704] },
-						{ "px": [490,110], "src": [0,0], "f": 0, "t": 0, "d": [753] },
-						{ "px": [530,110], "src": [0,0], "f": 0, "t": 0, "d": [757] },
-						{ "px": [540,110], "src": [0,0], "f": 0, "t": 0, "d": [758] },
-						{ "px": [550,110], "src": [0,0], "f": 0, "t": 0, "d": [759] },
-						{ "px": [560,110], "src": [0,0], "f": 0, "t": 0, "d": [760] },
-						{ "px": [570,110], "src": [0,0], "f": 0, "t": 0, "d": [761] },
-						{ "px": [580,110], "src": [0,0], "f": 0, "t": 0, "d": [762] },
-						{ "px": [590,110], "src": [0,0], "f": 0, "t": 0, "d": [763] },
-						{ "px": [600,110], "src": [0,0], "f": 0, "t": 0, "d": [764] },
-						{ "px": [610,110], "src": [0,0], "f": 0, "t": 0, "d": [765] },
-						{ "px": [620,110], "src": [0,0], "f": 0, "t": 0, "d": [766] },
 						{ "px": [630,110], "src": [0,0], "f": 0, "t": 0, "d": [767] },
 						{ "px": [0,120], "src": [0,0], "f": 0, "t": 0, "d": [768] },
 						{ "px": [630,120], "src": [0,0], "f": 0, "t": 0, "d": [831] },
 						{ "px": [0,130], "src": [0,0], "f": 0, "t": 0, "d": [832] },
 						{ "px": [30,130], "src": [20,0], "f": 0, "t": 2, "d": [835] },
 						{ "px": [40,130], "src": [20,0], "f": 0, "t": 2, "d": [836] },
-						{ "px": [500,130], "src": [20,0], "f": 0, "t": 2, "d": [882] },
 						{ "px": [510,130], "src": [20,0], "f": 0, "t": 2, "d": [883] },
 						{ "px": [520,130], "src": [20,0], "f": 0, "t": 2, "d": [884] },
+						{ "px": [530,130], "src": [20,0], "f": 0, "t": 2, "d": [885] },
 						{ "px": [630,130], "src": [0,0], "f": 0, "t": 0, "d": [895] },
 						{ "px": [0,140], "src": [0,0], "f": 0, "t": 0, "d": [896] },
 						{ "px": [30,140], "src": [20,0], "f": 0, "t": 2, "d": [899] },
 						{ "px": [40,140], "src": [20,0], "f": 0, "t": 2, "d": [900] },
-						{ "px": [500,140], "src": [20,0], "f": 0, "t": 2, "d": [946] },
 						{ "px": [510,140], "src": [20,0], "f": 0, "t": 2, "d": [947] },
 						{ "px": [520,140], "src": [20,0], "f": 0, "t": 2, "d": [948] },
+						{ "px": [530,140], "src": [20,0], "f": 0, "t": 2, "d": [949] },
 						{ "px": [630,140], "src": [0,0], "f": 0, "t": 0, "d": [959] },
 						{ "px": [0,150], "src": [0,0], "f": 0, "t": 0, "d": [960] },
 						{ "px": [30,150], "src": [20,0], "f": 0, "t": 2, "d": [963] },
 						{ "px": [40,150], "src": [20,0], "f": 0, "t": 2, "d": [964] },
-						{ "px": [500,150], "src": [20,0], "f": 0, "t": 2, "d": [1010] },
 						{ "px": [510,150], "src": [20,0], "f": 0, "t": 2, "d": [1011] },
 						{ "px": [520,150], "src": [20,0], "f": 0, "t": 2, "d": [1012] },
+						{ "px": [530,150], "src": [20,0], "f": 0, "t": 2, "d": [1013] },
 						{ "px": [630,150], "src": [0,0], "f": 0, "t": 0, "d": [1023] },
 						{ "px": [0,160], "src": [0,0], "f": 0, "t": 0, "d": [1024] },
 						{ "px": [30,160], "src": [20,0], "f": 0, "t": 2, "d": [1027] },

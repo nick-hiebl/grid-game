@@ -6,11 +6,18 @@ const RULES: Record<string, PuzzleRules> = {
   2: { rows: 2, cols: 1, columnCounts: [2], rowCounts: [1, 1] },
   3: { rows: 2, cols: 2, columnCounts: [2, 1], rowCounts: [1, 2] },
   4: { rows: 3, cols: 3, columnCounts: [1, 3, 2], rowCounts: [1, 2, 3] },
-  5: { rows: 3, cols: 3, columnCounts: [2, 3, 1], rowCounts: [2, 3, 1] },
-  6: { rows: 3, cols: 4, columnCounts: [2, 1, 3, 2], rowCounts: [3, 4, 1] },
-  7: { rows: 4, cols: 4, columnCounts: [2, 4, 2, 1], rowCounts: [4, 1, 1, 3] },
-  8: { rows: 4, cols: 4, columnCounts: [3, 2, 4, 1], rowCounts: [2, 4, 1, 3] },
-  9: {
+  "first-tunnel-secret": {
+    rows: 7,
+    cols: 7,
+    columnCounts: [5, 4, 7, 6, 2, 3, 1],
+    rowCounts: [1, 5, 6, 3, 7, 4, 2],
+  },
+  "hall-1": { rows: 3, cols: 3, columnCounts: [2, 3, 1], rowCounts: [2, 3, 1] },
+  "hall-2": { rows: 3, cols: 3, columnCounts: [3, 2, 3], rowCounts: [3, 2, 3] },
+  "hall-3": { rows: 3, cols: 4, columnCounts: [2, 1, 3, 2], rowCounts: [3, 4, 1] },
+  "hall-4": { rows: 4, cols: 4, columnCounts: [2, 4, 2, 1], rowCounts: [4, 1, 1, 3] },
+  "hall-5": { rows: 4, cols: 4, columnCounts: [3, 2, 4, 1], rowCounts: [2, 4, 1, 3] },
+  "hall-6": {
     rows: 5,
     cols: 5,
     columnCounts: [2, 4, 2, 3, 5],

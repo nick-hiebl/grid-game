@@ -159,8 +159,8 @@ function createCoverEntity(entity: EntityData, entities: EntityData[]) {
   }
   const triggerId = (
     find(entity.fieldInstances, "triggerArea")?.__value as EntityRef
-  ).entityIid;
-  const trigger = findIid(entities, triggerId)!;
+  )?.entityIid;
+  const trigger = findIid(entities, triggerId) || entity;
   const config = {
     coverIsTrigger: find(entity.fieldInstances, "coverIsTrigger")
       ?.__value as boolean,
