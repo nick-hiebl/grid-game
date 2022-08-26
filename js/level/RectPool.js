@@ -1,4 +1,4 @@
-import { Rectangle } from "../math/Shapes.js";
+import { Rectangle } from "../math/Shapes";
 
 /**
  * They say premature optimization is the root of all evil.

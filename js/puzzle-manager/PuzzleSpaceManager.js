@@ -1,5 +1,5 @@
 import { PIXEL_WIDTH } from "../constants/ScreenConstants.js";
-import { Rectangle } from "../math/Shapes.js";
+import { Rectangle } from "../math/Shapes";
 import { PUZZLE_WINDOW_WIDTH } from "./constants.js";
 
 const CACHE = {};

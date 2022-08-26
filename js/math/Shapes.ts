@@ -2,7 +2,10 @@ import { clamp, sign } from "./Common";
 import { Vector } from "./Vector";
 
 export class Circle {
-  constructor(position, radius) {
+  position: Vector;
+  radius: number;
+
+  constructor(position: Vector, radius: number) {
     this.position = position;
     this.radius = radius;
   }
@@ -11,7 +14,7 @@ export class Circle {
    * Check if another circle intersects with this circle
    * @param {Circle} otherCircle The circle to check intersection with
    */
-  intersectsCircle(otherCircle) {
+  intersectsCircle(otherCircle: Circle) {
     const radiusSum = this.radius + otherCircle.radius;
     return (
       Vector.sqrDist(this.position, otherCircle.position) <
@@ -23,7 +26,7 @@ export class Circle {
    * Check if a point intersects with this circle.
    * @param {Vector} point The point to check intersection with
    */
-  intersectsVector(point) {
+  intersectsVector(point: Vector) {
     return Vector.sqrDist(this.position, point) < this.radius * this.radius;
   }
 
@@ -31,7 +34,7 @@ export class Circle {
    * Check if a rectangle intersects with this circle.
    * @param {Rectangle} rectangle The rectangle to check intersection with
    */
-  intersectsRectangle(rectangle) {
+  intersectsRectangle(rectangle: Rectangle) {
     // Find the co-ordinates of the closest point in the rectangle to the circle center.
     const closestX = clamp(this.position.x, rectangle.x1, rectangle.x2);
     const closestY = clamp(this.position.y, rectangle.y1, rectangle.y2);
@@ -44,7 +47,7 @@ export class Circle {
    * Determine if this circle is exactly kissing a rectangle below.
    * @param {Rectangle} rectangle The rectangle to check for a kiss with
    */
-  isKissingBelow(rectangle) {
+  isKissingBelow(rectangle: Rectangle) {
     return (
       this.position.y + this.radius === rectangle.y1 &&
       rectangle.x1 <= this.position.x &&
@@ -67,7 +70,12 @@ export class Circle {
 }
 
 export class Rectangle {
-  constructor(x1, y1, x2, y2) {
+  x1: number
+  y1: number;
+  x2: number;
+  y2: number;
+
+  constructor(x1: number, y1: number, x2: number, y2: number) {
     this.x1 = x1;
     this.y1 = y1;
     this.x2 = x2;
@@ -78,7 +86,7 @@ export class Rectangle {
    * Check if a point intersects with this rectangle.
    * @param {Vector} point The point to check intersection with
    */
-  intersectsPoint(point) {
+  intersectsPoint(point: Vector) {
     return (
       this.x1 <= point.x &&
       point.x <= this.x2 &&
@@ -103,7 +111,7 @@ export class Rectangle {
    * Check if another rectangle intersects with this rectangle.
    * @param {Rectangle} otherRectangle The rectangle to check intersection with
    */
-  intersectsRectangle(otherRectangle) {
+  intersectsRectangle(otherRectangle: Rectangle) {
     return (
       otherRectangle.x1 <= this.x2 &&
       this.x1 <= otherRectangle.x2 &&
@@ -115,13 +123,9 @@ export class Rectangle {
   /**
    * Compute the smallest vector in the reverse direction to movement to
    * uncollide with a given rectangle.
-   *
-   * This ASSUMES that they do intersect, but only works correctly when the
-   * circle's center does not overlap the rectangle.
-   *
    * @param {Circle} circle
    */
-  uncollideCircle(circle) {
+  uncollideCircle(circle: Circle) {
     const closestX = clamp(circle.position.x, this.x1, this.x2);
     const closestY = clamp(circle.position.y, this.y1, this.y2);
 
@@ -169,7 +173,7 @@ export class Rectangle {
     canvas.strokeRectInset(this.x1, this.y1, this.width, this.height, inset);
   }
 
-  inset(insetBy) {
+  inset(insetBy: number) {
     return new Rectangle(
       this.x1 + insetBy,
       this.y1 + insetBy,
@@ -178,15 +182,15 @@ export class Rectangle {
     );
   }
 
-  static widthForm(x, y, width, height) {
+  static widthForm(x: number, y: number, width: number, height: number) {
     return new Rectangle(x, y, x + width, y + height);
   }
 
-  static centerForm(x, y, width, height) {
+  static centerForm(x: number, y: number, width: number, height: number) {
     return new Rectangle(x - width, y - height, x + width, y + height);
   }
 
-  static aroundPoint(point, halfWidth, halfHeight) {
+  static aroundPoint(point: Vector, halfWidth: number, halfHeight: number) {
     return new Rectangle(
       point.x - halfWidth,
       point.y - halfHeight,

@@ -1,6 +1,6 @@
 import { Input } from "../constants/Keys.js";
 import { clamp, sign } from "../math/Common";
-import { Circle } from "../math/Shapes.js";
+import { Circle } from "../math/Shapes";
 import { Vector } from "../math/Vector";
 import { BlockType } from "./BlockTypes.js";
 

@@ -1,4 +1,4 @@
-import { Circle } from "../math/Shapes.js";
+import { Circle } from "../math/Shapes";
 import { Vector } from "../math/Vector";
 
 import { N_CIRCLE_LAYOUT, N_SQUARE_LAYOUT } from "./constants.js";
