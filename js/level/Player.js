@@ -1,7 +1,5 @@
-"use strict";
-
 import { Input } from "../constants/Keys.js";
-import { clamp, sign } from "../math/Common.js";
+import { clamp, sign } from "../math/Common";
 import { Circle } from "../math/Shapes.js";
 import { Vector } from "../math/Vector";
 import { BlockType } from "./BlockTypes.js";

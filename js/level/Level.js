@@ -7,7 +7,7 @@ import {
   VERTICAL_TILES,
 } from "../constants/ScreenConstants.js";
 import { InputState } from "../InputManager.js";
-import { clamp } from "../math/Common.js";
+import { clamp } from "../math/Common";
 import { Vector } from "../math/Vector";
 
 import { ClosePuzzleEvent, ExitEvent, OpenPuzzleEvent } from "./LevelEvent.js";

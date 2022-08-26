@@ -1,4 +1,4 @@
-import { clamp, sign } from "./Common.js";
+import { clamp, sign } from "./Common";
 import { Vector } from "./Vector";
 
 export class Circle {
