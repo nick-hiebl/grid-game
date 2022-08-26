@@ -13,6 +13,8 @@ import { Rectangle } from "../math/Shapes";
 import { Vector } from "../math/Vector";
 import { ScreenManager } from "../ScreenManager.js";
 
+import { Entity } from "./entity/Entity";
+
 import { BlockEnum } from "./BlockTypes";
 import { ClosePuzzleEvent, ExitEvent, LevelEvent, OpenPuzzleEvent } from "./LevelEvent";
 
@@ -35,7 +37,7 @@ export class Level {
   objects: Object[];
   exitTriggers: unknown[];
   interactibles: unknown[];
-  entities: unknown[];
+  entities: Entity[];
 
   camera: Vector;
   interactingWith: unknown | undefined | null;
@@ -52,7 +54,7 @@ export class Level {
     player: unknown,
     exitTriggers: unknown[],
     interactibles: unknown[],
-    entities: unknown[]
+    entities: Entity[]
   ) {
     this.key = key;
     this.levelGrid = levelGrid;
@@ -302,7 +304,7 @@ export class Level {
 
         // Draw entities
         this.entities.forEach((entity) => {
-          entity.draw(screenManager, screenManager.dynamicWorldCanvas);
+          entity.draw(screenManager);
         });
       });
 

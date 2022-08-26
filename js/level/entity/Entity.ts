@@ -1,3 +1,6 @@
+import { Level } from "../Level";
+import { ScreenManager } from "../../ScreenManager";
+
 export class Entity {
   id: string;
 
@@ -5,15 +8,15 @@ export class Entity {
     this.id = id;
   }
 
-  onStart(_level) {
+  onStart(_level: Level) {
     // Do nothing
   }
 
-  update(_player, _deltaTime, _level) {
+  update(_player: unknown, _deltaTime: number, _level: Level) {
     // Do nothing
   }
 
-  draw(_screenManager) {
+  draw(_screenManager: ScreenManager) {
     // Do nothing
   }
 }
