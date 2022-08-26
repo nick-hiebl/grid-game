@@ -21,10 +21,9 @@ import { ClosePuzzleEvent, ExitEvent, LevelEvent, OpenPuzzleEvent } from "./Leve
 import { Interactible } from "./interactibles/Interactible";
 import { Player } from "./Player.js";
 
-
 const SCALE_FACTOR = CANVAS_WIDTH / HORIZONTAL_TILES;
 
-interface Object {
+export interface Object {
   type: BlockEnum;
   rect: Rectangle;
 }

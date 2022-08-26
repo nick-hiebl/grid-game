@@ -1,10 +1,15 @@
-import { DataLoader } from "./DataLoader.js";
+import { DataLoader } from "./DataLoader";
+import { ExitTrigger } from "./ExitTrigger";
+import { Level } from "./Level";
 
 /**
  * Responsible for finding and loading levels, not managing what level is
  * currently active.
  */
 export class LevelManager {
+  levelMap: Record<string, Level>;
+  currentLevel: Level;
+
   constructor() {
     const key = "Level_0";
     this.levelMap = {};
@@ -16,7 +21,7 @@ export class LevelManager {
     return this.currentLevel;
   }
 
-  getLevel(key, previousExit) {
+  getLevel(key: string, previousExit: ExitTrigger) {
     const nextLevel = this.levelMap[key] || DataLoader.getLevel(key);
     nextLevel.feedPlayerInfo(this.currentLevel.player, previousExit);
 

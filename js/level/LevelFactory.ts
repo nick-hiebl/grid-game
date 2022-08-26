@@ -1,10 +1,26 @@
 import { Vector } from "../math/Vector";
+import { BlockEnum } from "./BlockTypes";
+import { Entity } from "./entity/Entity";
+import { ExitTrigger } from "./ExitTrigger";
+import { Interactible } from "./interactibles/Interactible";
 
-import { Level } from "./Level";
+import { Level, Object } from "./Level";
 import { Player } from "./Player";
 
 export class LevelFactory {
-  constructor(key, iid, width, height) {
+  key: string;
+  iid: string;
+  width: number;
+  height: number;
+  levelGrid: BlockEnum[][];
+  objects: Object[];
+  playerPosition: Vector;
+  exitTriggers: ExitTrigger[];
+  interactibles: Interactible[];
+  entities: Entity[];
+  worldPosition: Vector;
+
+  constructor(key: string, iid: string, width: number, height: number) {
     this.key = key;
     this.iid = iid;
     this.width = width;
@@ -19,32 +35,32 @@ export class LevelFactory {
     this.worldPosition = new Vector(0, 0);
   }
 
-  addObjects(objects) {
+  addObjects(objects: Object[]) {
     this.objects = this.objects.concat(objects);
     return this;
   }
 
-  addExits(exits) {
+  addExits(exits: ExitTrigger[]) {
     this.exitTriggers = this.exitTriggers.concat(exits);
     return this;
   }
 
-  addInteractibles(is) {
+  addInteractibles(is: Interactible[]) {
     this.interactibles = this.interactibles.concat(is);
     return this;
   }
 
-  addEntities(es) {
+  addEntities(es: Entity[]) {
     this.entities = this.entities.concat(es);
     return this;
   }
 
-  setPlayerPos(pos) {
+  setPlayerPos(pos: Vector) {
     this.playerPosition = pos;
     return this;
   }
 
-  setLevelGrid(grid) {
+  setLevelGrid(grid: BlockEnum[][]) {
     this.levelGrid = grid;
   }
 
@@ -56,11 +72,11 @@ export class LevelFactory {
     }
   }
 
-  setWorldPosition(vec) {
+  setWorldPosition(vec: Vector) {
     this.worldPosition = vec;
   }
 
-  setCell(row, col, blockType) {
+  setCell(row: number, col: number, blockType: BlockEnum) {
     this.levelGrid[row][col] = blockType;
   }
 
