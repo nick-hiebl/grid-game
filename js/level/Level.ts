@@ -1,3 +1,4 @@
+import { Canvas } from "../Canvas.js";
 import { TileImage } from "../constants/Image.js";
 import { Input } from "../constants/Keys.js";
 import {
@@ -8,23 +9,50 @@ import {
 } from "../constants/ScreenConstants";
 import { InputState } from "../InputManager.js";
 import { clamp } from "../math/Common";
+import { Rectangle } from "../math/Shapes";
 import { Vector } from "../math/Vector";
+import { ScreenManager } from "../ScreenManager.js";
 
-import { ClosePuzzleEvent, ExitEvent, OpenPuzzleEvent } from "./LevelEvent.js";
+import { BlockEnum } from "./BlockTypes";
+import { ClosePuzzleEvent, ExitEvent, LevelEvent, OpenPuzzleEvent } from "./LevelEvent";
+
 
 const SCALE_FACTOR = CANVAS_WIDTH / HORIZONTAL_TILES;
 
+interface Object {
+  type: BlockEnum;
+  rect: Rectangle;
+}
+
 export class Level {
+  key: string;
+  levelGrid: BlockEnum[][];
+  width: number;
+  height: number;
+
+  player: unknown;
+
+  objects: Object[];
+  exitTriggers: unknown[];
+  interactibles: unknown[];
+  entities: unknown[];
+
+  camera: Vector;
+  interactingWith: unknown | undefined | null;
+
+  drawnStatic: boolean;
+  playModeManager: unknown;
+
   constructor(
-    key,
-    width,
-    height,
-    levelGrid,
-    objects,
-    player,
-    exitTriggers,
-    interactibles,
-    entities
+    key: string,
+    width: number,
+    height: number,
+    levelGrid: BlockEnum[][],
+    objects: Object[],
+    player: unknown,
+    exitTriggers: unknown[],
+    interactibles: unknown[],
+    entities: unknown[]
   ) {
     this.key = key;
     this.levelGrid = levelGrid;
@@ -45,7 +73,7 @@ export class Level {
     this.playModeManager = undefined;
   }
 
-  start(playModeManager) {
+  start(playModeManager: unknown) {
     this.drawnStatic = false;
     this.interactingWith = undefined;
     this.playModeManager = playModeManager;
@@ -53,13 +81,13 @@ export class Level {
     this.entities.forEach((e) => e.onStart(this));
   }
 
-  addWithoutDuplicate(object) {
+  addWithoutDuplicate(object: Object) {
     if (!this.objects.find(({ rect }) => rect === object.rect)) {
       this.objects.push(object);
     }
   }
 
-  emitEvent(event) {
+  emitEvent(event: LevelEvent) {
     // TODO: Either guarantee that this is available or create a queue to send
     // these events once it does become available.
     if (this.playModeManager) {
@@ -67,7 +95,7 @@ export class Level {
     }
   }
 
-  feedPlayerInfo(previousPlayer, previousExit) {
+  feedPlayerInfo(previousPlayer: unknown, previousExit: unknown) {
     if (previousExit.key !== this.key) {
       console.error("Exit key mis-match");
     }
@@ -86,7 +114,7 @@ export class Level {
    * @param {number} deltaTime The time elapsed since the last update.
    * @param {InputState} inputState The current state of inputs.
    */
-  update(deltaTime, inputState) {
+  update(deltaTime: number, inputState: unknown) {
     // Update player
     this.player.update(
       deltaTime,
@@ -128,7 +156,7 @@ export class Level {
    * Function for when an interaction input occurs from the InputManager
    * @param {InputEvent} input The input event to be processed
    */
-  onInput(input) {
+  onInput(input: unknown) {
     if (this.isPlayerActive()) {
       this.player.onInput(input);
     }
@@ -164,7 +192,7 @@ export class Level {
     }
   }
 
-  clampCamera(camera) {
+  clampCamera(camera: Vector) {
     const clampedToPlayer = new Vector(
       clamp(
         camera.x,
@@ -196,7 +224,7 @@ export class Level {
     return this.clampCamera(this.getNaiveCamera(position));
   }
 
-  updateCamera(deltaTime) {
+  updateCamera(deltaTime: number) {
     this.camera = this.clampCamera(
       Vector.lerp(
         this.camera,
@@ -211,7 +239,7 @@ export class Level {
     );
   }
 
-  withSetupCanvas(canvas, action) {
+  withSetupCanvas(canvas: Canvas, action: (canvas: Canvas) => void) {
     canvas.saveTransform();
     canvas.scale(SCALE_FACTOR, SCALE_FACTOR);
     action(canvas);
@@ -222,7 +250,7 @@ export class Level {
    * Draw the current level.
    * @param {ScreenManager} screenManager The screen to draw on
    */
-  draw(screenManager) {
+  draw(screenManager: ScreenManager) {
     if (!this.drawnStatic) {
       // Draw background
       screenManager.background.setColor("#6400c8");

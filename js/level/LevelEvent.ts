@@ -1,4 +1,4 @@
-class LevelEvent {
+export class LevelEvent {
   constructor() {}
 
   isExitEvent() {
@@ -15,7 +15,9 @@ class LevelEvent {
 }
 
 export class ExitEvent extends LevelEvent {
-  constructor(exitTrigger) {
+  exitTrigger: unknown;
+
+  constructor(exitTrigger: unknown) {
     super();
     this.exitTrigger = exitTrigger;
   }
@@ -26,7 +28,9 @@ export class ExitEvent extends LevelEvent {
 }
 
 export class OpenPuzzleEvent extends LevelEvent {
-  constructor(puzzleId) {
+  puzzleId: string;
+
+  constructor(puzzleId: string) {
     super();
     this.puzzleId = puzzleId;
   }
@@ -37,7 +41,9 @@ export class OpenPuzzleEvent extends LevelEvent {
 }
 
 export class ClosePuzzleEvent extends LevelEvent {
-  constructor(puzzleId) {
+  puzzleId: string;
+
+  constructor(puzzleId: string) {
     super();
     this.puzzleId = puzzleId;
   }

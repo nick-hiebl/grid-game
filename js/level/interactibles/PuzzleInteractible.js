@@ -6,7 +6,7 @@ import {
 } from "../../puzzle-manager/constants.js";
 import { PuzzleManager } from "../../puzzle-manager/PuzzleManager.js";
 
-import { OpenPuzzleEvent } from "../LevelEvent.js";
+import { OpenPuzzleEvent } from "../LevelEvent";
 
 import { Interactible } from "./Interactible.js";
 

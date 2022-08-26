@@ -1,6 +1,6 @@
 import { Vector } from "../math/Vector";
 
-import { Level } from "./Level.js";
+import { Level } from "./Level";
 import { Player } from "./Player.js";
 
 export class LevelFactory {
