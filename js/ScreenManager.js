@@ -8,7 +8,7 @@ import {
 } from "./constants/ScreenConstants.js";
 import { Vector } from "./math/Vector";
 
-import { Canvas } from "./Canvas.js";
+import { Canvas } from "./Canvas";
 
 const REAL_CANVAS = Symbol("real-canvas");
 

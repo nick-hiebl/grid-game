@@ -6,6 +6,6 @@ const ZERO = "0";
  * @param {number} number The number to be converted
  * @param {number} digits The expected length (for zero-padding purposes)
  */
-export const toHex = (number, digits) => {
+export const toHex = (number: number, digits: number) => {
   return number.toString(HEX).padStart(digits, ZERO);
 };

@@ -1,22 +1,23 @@
-import { toHex } from "./utils/Color.js";
+import { toHex } from "./utils/Color";
 
 const CTX = Symbol("ctx");
 const CANVAS = Symbol("canvas");
 
 export class Canvas {
-  constructor(canvas) {
-    if (!(canvas instanceof HTMLCanvasElement)) {
-      throw Error("Invalid canvas provided!");
-    }
+  [CANVAS]: HTMLCanvasElement;
+  [CTX]: CanvasRenderingContext2D;
+  width: number;
+  height: number;
 
+  constructor(canvas: HTMLCanvasElement) {
     this[CANVAS] = canvas;
     const ctx = canvas.getContext("2d");
-
-    ctx.imageSmoothingEnabled = false;
 
     if (!ctx) {
       throw Error("Unable to get 2d context");
     }
+
+    ctx.imageSmoothingEnabled = false;
 
     this[CTX] = ctx;
 
@@ -34,7 +35,7 @@ export class Canvas {
    * @param {number} width The width of the rectangle.
    * @param {number} height The height of the rectangle.
    */
-  fillRect(x, y, width, height) {
+  fillRect(x: number, y: number, width: number, height: number) {
     this[CTX].fillRect(x, y, width, height);
   }
 
@@ -49,11 +50,11 @@ export class Canvas {
    * @param {number} width The width of the rectangle.
    * @param {number} height The height of the rectangle.
    */
-  strokeRect(x, y, width, height) {
+  strokeRect(x: number, y: number, width: number, height: number) {
     this[CTX].strokeRect(x, y, width, height);
   }
 
-  strokeRectInset(x, y, width, height, inset) {
+  strokeRectInset(x: number, y: number, width: number, height: number, inset: number) {
     this.strokeRect(
       x + inset,
       y + inset,
@@ -69,7 +70,7 @@ export class Canvas {
    * @param {number} width The horizontal radius of the ellipse.
    * @param {number} height The vertical radius of the ellipse.
    */
-  fillEllipse(x, y, width, height) {
+  fillEllipse(x: number, y: number, width: number, height: number) {
     this[CTX].beginPath();
     this[CTX].ellipse(x, y, width, height, 0, 0, 2 * Math.PI);
     this[CTX].fill();
@@ -82,7 +83,7 @@ export class Canvas {
    * @param {number} width The horizontal radius of the ellipse.
    * @param {number} height The vertical radius of the ellipse.
    */
-  strokeEllipse(x, y, width, height) {
+  strokeEllipse(x: number, y: number, width: number, height: number) {
     this[CTX].beginPath();
     this[CTX].ellipse(x, y, width, height, 0, 0, 2 * Math.PI);
     this[CTX].stroke();
@@ -95,7 +96,7 @@ export class Canvas {
    * @param {number} x1 The end x position
    * @param {number} y1 The start y position
    */
-  drawLine(x0, y0, x1, y1) {
+  drawLine(x0: number, y0: number, x1: number, y1: number) {
     this[CTX].beginPath();
     this[CTX].moveTo(x0, y0);
     this[CTX].lineTo(x1, y1);
@@ -111,7 +112,7 @@ export class Canvas {
    * @param {*} xControl The control point x position
    * @param {*} yControl The control point y position
    */
-  drawQuadratic(x0, y0, x1, y1, xControl, yControl) {
+  drawQuadratic(x0: number, y0: number, x1: number, y1: number, xControl: number, yControl: number) {
     this[CTX].beginPath();
     this[CTX].moveTo(x0, y0);
     this[CTX].quadraticCurveTo(xControl, yControl, x1, y1);
@@ -123,7 +124,7 @@ export class Canvas {
    * @param {number} xScale
    * @param {number} yScale
    */
-  scale(xScale, yScale) {
+  scale(xScale: number, yScale: number) {
     this[CTX].scale(xScale, yScale);
   }
 
@@ -132,7 +133,7 @@ export class Canvas {
    * @param {number} xOffset
    * @param {number} yOffset
    */
-  translate(xOffset, yOffset) {
+  translate(xOffset: number, yOffset: number) {
     this[CTX].translate(xOffset, yOffset);
   }
 
@@ -140,7 +141,7 @@ export class Canvas {
    * Set the colour to be used for drawing on the canvas.
    * @param {string} colorString The name of the color to be used
    */
-  setColor(colorString) {
+  setColor(colorString: string) {
     if (colorString === this[CTX].fillStyle) {
       return;
     }
@@ -149,7 +150,7 @@ export class Canvas {
     this[CTX].strokeStyle = colorString;
   }
 
-  setLineWidth(width) {
+  setLineWidth(width: number) {
     this[CTX].lineWidth = width;
   }
 
@@ -157,7 +158,7 @@ export class Canvas {
     return this[CTX].lineWidth;
   }
 
-  setLineDash(pattern) {
+  setLineDash(pattern: number[]) {
     this[CTX].setLineDash(pattern);
   }
 
@@ -168,7 +169,7 @@ export class Canvas {
    * @param {number} blue Blue value from 0-255
    * @param {number | undefined} alpha Alpha value from 0-255
    */
-  setColorRGB(red, green, blue, alpha = 255) {
+  setColorRGB(red: number, green: number, blue: number, alpha = 255) {
     const colorString = `#${toHex(red, 2)}${toHex(green, 2)}${toHex(
       blue,
       2
@@ -184,7 +185,7 @@ export class Canvas {
    * @param {number} lightness Lightness value from 0-1
    * @param {number | undefined} alpha Alpha value from 0-1
    */
-  setColorHSLA(hue, saturation, lightness, alpha = 1) {
+  setColorHSLA(hue: number, saturation: number, lightness: number, alpha = 1) {
     const colorString = `hsla(${hue},${Math.floor(
       saturation * 100
     )}%,${Math.floor(lightness * 100)}%,${alpha})`;
@@ -213,17 +214,17 @@ export class Canvas {
    * @param {nubmer} destinationHeight
    */
   drawImage(
-    imageSource,
-    sourceX,
-    sourceY,
-    sourceWidth,
-    sourceHeight,
-    destinationX,
-    destinationY,
-    destinationWidth,
-    destinationHeight
+    imageSource: Canvas | typeof Image,
+    sourceX: number,
+    sourceY: number,
+    sourceWidth: number,
+    sourceHeight: number,
+    destinationX: number,
+    destinationY: number,
+    destinationWidth: number,
+    destinationHeight: number
   ) {
-    let image;
+    let image: CanvasImageSource;
     if (imageSource instanceof Canvas) {
       image = imageSource[CANVAS];
     } else if (imageSource instanceof Image) {
@@ -252,8 +253,12 @@ export class Canvas {
    * Create a Canvas from an id.
    * @param {string} id The id attribute of the HTMLCanvasElement
    */
-  static fromId(id) {
+  static fromId(id: string) {
     const canvas = document.getElementById(id);
+
+    if (!canvas || !(canvas instanceof HTMLCanvasElement)) {
+      throw new Error(`Could not find canvas with id: "${id}"`);
+    }
 
     return new Canvas(canvas);
   }
@@ -261,7 +266,7 @@ export class Canvas {
   /**
    * Create a new HTMLCanvasElement and use that as the basis for a Canvas.
    */
-  static fromScratch(width, height) {
+  static fromScratch(width: number, height: number) {
     const canvas = document.createElement("canvas");
     canvas.width = width;
     canvas.height = height;
