@@ -31,7 +31,9 @@ export class PlayMode {
       const exitTrigger = (event as ExitEvent).exitTrigger;
       this.startLevel(this.levelManager.getLevel(exitTrigger.key, exitTrigger));
     } else if (event.isOpenPuzzleEvent()) {
-      this.currentPuzzle = this.puzzleManager.getPuzzle((event as OpenPuzzleEvent).puzzleId);
+      this.currentPuzzle = this.puzzleManager.getPuzzle(
+        (event as OpenPuzzleEvent).puzzleId
+      );
       this.currentPuzzle.open();
     } else if (event.isClosePuzzleEvent()) {
       this.currentPuzzle?.close();

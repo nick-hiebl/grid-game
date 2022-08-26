@@ -4,4 +4,7 @@ export type CellValue = boolean | null;
 
 export type PuzzleState = CellValue[][];
 
-export type PositionGetter = (row: number | "end", column: number | "end") => Rectangle;
+export type PositionGetter = (
+  row: number | "end",
+  column: number | "end"
+) => Rectangle;

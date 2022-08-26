@@ -85,7 +85,8 @@ function srcToBlockType(src: [number, number]) {
 }
 
 function getPrereqs(entity: EntityData) {
-  const raw = (find(entity.fieldInstances, "prerequisites")?.__value || []) as EntityRef[];
+  const raw = (find(entity.fieldInstances, "prerequisites")?.__value ||
+    []) as EntityRef[];
   return raw.map((ref) => ref.entityIid);
 }
 
@@ -156,11 +157,13 @@ function createCoverEntity(entity: EntityData, entities: EntityData[]) {
   if (!id) {
     console.warn("CoverEntity with no key!");
   }
-  const triggerId = (find(entity.fieldInstances, "triggerArea")?.__value as EntityRef)
-    .entityIid;
+  const triggerId = (
+    find(entity.fieldInstances, "triggerArea")?.__value as EntityRef
+  ).entityIid;
   const trigger = findIid(entities, triggerId)!;
   const config = {
-    coverIsTrigger: find(entity.fieldInstances, "coverIsTrigger")?.__value as boolean,
+    coverIsTrigger: find(entity.fieldInstances, "coverIsTrigger")
+      ?.__value as boolean,
     canReCover: find(entity.fieldInstances, "canReCover")?.__value as boolean,
   };
   return new CoverEntity(

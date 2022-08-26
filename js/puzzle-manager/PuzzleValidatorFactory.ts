@@ -1,7 +1,4 @@
-import {
-  CountInAreaValidation,
-  ForcedCellValidation,
-} from "./CellValidation";
+import { CountInAreaValidation, ForcedCellValidation } from "./CellValidation";
 import {
   EdgeBlankGroupsValidationItem,
   EdgeCountValidationItem,
@@ -27,7 +24,11 @@ export class PuzzleValidatorFactory {
     return this;
   }
 
-  addEdgeValidators(nums: (number | null)[], isRow: boolean, ValidationItemType = EdgeCountValidationItem) {
+  addEdgeValidators(
+    nums: (number | null)[],
+    isRow: boolean,
+    ValidationItemType = EdgeCountValidationItem
+  ) {
     nums.forEach((num, index) => {
       if (typeof num !== "number") {
         return;

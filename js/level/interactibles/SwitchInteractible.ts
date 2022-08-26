@@ -9,7 +9,12 @@ import { Player } from "../Player";
 import { Interactible } from "./Interactible";
 
 export class SwitchInteractible extends Interactible {
-  constructor(id: string, position: Vector, area: Rectangle, prerequisites: string[]) {
+  constructor(
+    id: string,
+    position: Vector,
+    area: Rectangle,
+    prerequisites: string[]
+  ) {
     super(id, position, area, prerequisites);
   }
 

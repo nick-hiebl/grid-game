@@ -37,7 +37,13 @@ export class TrapdoorInteractible extends Interactible {
   fullWidth: number;
   doorWidth: number;
 
-  constructor(id: string, position: Vector, prerequisites: string[], width = 4, config: Config = {}) {
+  constructor(
+    id: string,
+    position: Vector,
+    prerequisites: string[],
+    width = 4,
+    config: Config = {}
+  ) {
     super(id, position, undefined, prerequisites);
 
     this.connectionPoint = Vector.add(

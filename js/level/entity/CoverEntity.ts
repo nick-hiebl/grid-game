@@ -27,7 +27,12 @@ export class CoverEntity extends Entity {
 
   lastPlayerPos: Vector | undefined;
 
-  constructor(id: string, coverArea: Rectangle, triggerArea: Rectangle, config: Config = {}) {
+  constructor(
+    id: string,
+    coverArea: Rectangle,
+    triggerArea: Rectangle,
+    config: Config = {}
+  ) {
     super(id);
 
     this.coverArea = coverArea;
@@ -95,11 +100,22 @@ export class CoverEntity extends Entity {
 
       const fadeRange = size * 0.2;
       const pos = this.lastPlayerPos
-        ? Vector.lerp(this.lastPlayerPos, this.coverArea.midpoint, this.revealState)
+        ? Vector.lerp(
+            this.lastPlayerPos,
+            this.coverArea.midpoint,
+            this.revealState
+          )
         : this.coverArea.midpoint;
 
       const rOut = (size + fadeRange) * this.revealState;
-      const gradient = canvas.createRadialGradient(pos.x, pos.y, Math.max(0, rOut - fadeRange), pos.x, pos.y, rOut);
+      const gradient = canvas.createRadialGradient(
+        pos.x,
+        pos.y,
+        Math.max(0, rOut - fadeRange),
+        pos.x,
+        pos.y,
+        rOut
+      );
       gradient.addColorStop(0, rgbaColor(0, 0, 0, 0));
       gradient.addColorStop(1, rgbaColor(0, 0, 0, 255));
 

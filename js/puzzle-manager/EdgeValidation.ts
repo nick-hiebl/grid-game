@@ -38,7 +38,12 @@ class EdgeValidationItem extends ValidationItem {
     this.isValid = this.validateRow(row);
   }
 
-  drawInCell(_canvas: Canvas, _center: Vector, _scaleBy: number, _isSideways: boolean) {
+  drawInCell(
+    _canvas: Canvas,
+    _center: Vector,
+    _scaleBy: number,
+    _isSideways: boolean
+  ) {
     throw new TypeError("Cannot draw a generic EdgeValidationItem");
   }
 
@@ -77,7 +82,12 @@ export class EdgeCountValidationItem extends EdgeValidationItem {
     return count === this.count;
   }
 
-  drawInCell(canvas: Canvas, center: Vector, scaleBy: number, isSideways: boolean) {
+  drawInCell(
+    canvas: Canvas,
+    center: Vector,
+    scaleBy: number,
+    isSideways: boolean
+  ) {
     const transformCircle = isSideways
       ? (circle: Circle) => new Circle(rotRight(circle.position), circle.radius)
       : (v: Circle) => v;
@@ -133,7 +143,12 @@ export class EdgeGroupsValidationItem extends EdgeCountValidationItem {
     );
   }
 
-  drawInCell(canvas: Canvas, center: Vector, scaleBy: number, isSideways: boolean) {
+  drawInCell(
+    canvas: Canvas,
+    center: Vector,
+    scaleBy: number,
+    isSideways: boolean
+  ) {
     const moveCenter = (pos: Vector) => (isSideways ? rotRight(pos) : pos);
 
     for (const square of N_SQUARE_LAYOUT[this.count]) {
@@ -200,7 +215,12 @@ export class EdgeNoTripleValidationItem extends EdgeValidationItem {
     return true;
   }
 
-  drawInCell(canvas: Canvas, center: Vector, scaleBy: number, isSideways: boolean) {
+  drawInCell(
+    canvas: Canvas,
+    center: Vector,
+    scaleBy: number,
+    isSideways: boolean
+  ) {
     canvas.setLineWidth(scaleBy * 0.1);
     canvas.setLineDash([]);
 

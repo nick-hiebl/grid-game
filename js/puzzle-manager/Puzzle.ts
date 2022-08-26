@@ -30,14 +30,24 @@ export class Puzzle {
   cols: number;
 
   state: PuzzleState;
-  elements: { row: number; col: number; shape: Rectangle; isHovered: boolean }[];
+  elements: {
+    row: number;
+    col: number;
+    shape: Rectangle;
+    isHovered: boolean;
+  }[];
   positionGetter: PositionGetter;
 
   validator: PuzzleValidator;
   isSolved: boolean;
   hasBeenSolvedEver: boolean;
 
-  constructor(id: string, rows: number, columns: number, validator: PuzzleValidator) {
+  constructor(
+    id: string,
+    rows: number,
+    columns: number,
+    validator: PuzzleValidator
+  ) {
     this.id = id;
     this.openCloseStatus = 0;
     this.isOpen = false;

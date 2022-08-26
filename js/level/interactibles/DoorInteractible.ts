@@ -18,7 +18,12 @@ export class DoorInteractible extends Interactible {
 
   fullHeight: number;
 
-  constructor(id: string, position: Vector, prerequisites: string[], height = 4) {
+  constructor(
+    id: string,
+    position: Vector,
+    prerequisites: string[],
+    height = 4
+  ) {
     super(id, position, undefined, prerequisites);
 
     this.connectionPoint = Vector.add(position, new Vector(0, -1.8));

@@ -22,7 +22,14 @@ export class PuzzleInteractible extends Interactible {
   puzzle: Puzzle;
   config: Config;
 
-  constructor(id: string, position: Vector, area: Rectangle, prereqs: string[], puzzleId: string, config: Config) {
+  constructor(
+    id: string,
+    position: Vector,
+    area: Rectangle,
+    prereqs: string[],
+    puzzleId: string,
+    config: Config
+  ) {
     super(id, position, area, prereqs);
 
     this.puzzleId = puzzleId;

@@ -18,11 +18,16 @@ export class Interactible extends Entity {
 
   isEnabled: boolean;
   isAreaActive: boolean;
-  
+
   connectionPoint: Vector;
   outputPoint: Vector;
 
-  constructor(id: string, position: Vector, triggerArea: Rectangle | undefined, prerequisites: string[] = []) {
+  constructor(
+    id: string,
+    position: Vector,
+    triggerArea: Rectangle | undefined,
+    prerequisites: string[] = []
+  ) {
     super(id);
 
     this.position = position;
@@ -58,8 +63,9 @@ export class Interactible extends Entity {
 
   update(player: Player, _deltaTime: number, _level: Level) {
     this.prereqsActive = this.prereqEntities.every((i) => i.isEnabled);
-    this.isAreaActive =
-      !!(this.prereqsActive && this.triggerArea?.intersectsPoint(player.position));
+    this.isAreaActive = !!(
+      this.prereqsActive && this.triggerArea?.intersectsPoint(player.position)
+    );
   }
 
   /**

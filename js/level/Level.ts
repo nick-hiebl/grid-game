@@ -17,7 +17,12 @@ import { Entity } from "./entity/Entity";
 
 import { BlockEnum } from "./BlockTypes";
 import { ExitTrigger } from "./ExitTrigger";
-import { ClosePuzzleEvent, ExitEvent, LevelEvent, OpenPuzzleEvent } from "./LevelEvent";
+import {
+  ClosePuzzleEvent,
+  ExitEvent,
+  LevelEvent,
+  OpenPuzzleEvent,
+} from "./LevelEvent";
 import { Interactible } from "./interactibles/Interactible";
 import { Player } from "./Player";
 import { PlayMode } from "../game-modes/PlayMode";

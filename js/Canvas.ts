@@ -54,7 +54,13 @@ export class Canvas {
     this[CTX].strokeRect(x, y, width, height);
   }
 
-  strokeRectInset(x: number, y: number, width: number, height: number, inset: number) {
+  strokeRectInset(
+    x: number,
+    y: number,
+    width: number,
+    height: number,
+    inset: number
+  ) {
     this.strokeRect(
       x + inset,
       y + inset,
@@ -112,7 +118,14 @@ export class Canvas {
    * @param {*} xControl The control point x position
    * @param {*} yControl The control point y position
    */
-  drawQuadratic(x0: number, y0: number, x1: number, y1: number, xControl: number, yControl: number) {
+  drawQuadratic(
+    x0: number,
+    y0: number,
+    x1: number,
+    y1: number,
+    xControl: number,
+    yControl: number
+  ) {
     this[CTX].beginPath();
     this[CTX].moveTo(x0, y0);
     this[CTX].quadraticCurveTo(xControl, yControl, x1, y1);
@@ -153,7 +166,7 @@ export class Canvas {
    * Set the colour to be used for drawing on the canvas.
    * @param {string} colorString The name of the color to be used
    */
-  setColor(colorString: CanvasRenderingContext2D['fillStyle']) {
+  setColor(colorString: CanvasRenderingContext2D["fillStyle"]) {
     if (colorString === this[CTX].fillStyle) {
       return;
     }
@@ -192,7 +205,14 @@ export class Canvas {
     return this[CTX].createLinearGradient(x0, y0, x1, y1);
   }
 
-  createRadialGradient(x0: number, y0: number, r0: number, x1: number, y1: number, r1: number) {
+  createRadialGradient(
+    x0: number,
+    y0: number,
+    r0: number,
+    x1: number,
+    y1: number,
+    r1: number
+  ) {
     return this[CTX].createRadialGradient(x0, y0, r0, x1, y1, r1);
   }
 
