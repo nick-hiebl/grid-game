@@ -1,4 +1,4 @@
-import { rgbaColor, toHex } from "./utils/Color";
+import { hslaColor, rgbaColor } from "./utils/Color";
 
 const CTX = Symbol("ctx");
 const CANVAS = Symbol("canvas");
@@ -194,11 +194,7 @@ export class Canvas {
    * @param {number | undefined} alpha Alpha value from 0-1
    */
   setColorHSLA(hue: number, saturation: number, lightness: number, alpha = 1) {
-    const colorString = `hsla(${hue},${Math.floor(
-      saturation * 100
-    )}%,${Math.floor(lightness * 100)}%,${alpha})`;
-
-    this.setColor(colorString);
+    this.setColor(hslaColor(hue, saturation, lightness, alpha));
   }
 
   createGradient(x0: number, y0: number, x1: number, y1: number) {

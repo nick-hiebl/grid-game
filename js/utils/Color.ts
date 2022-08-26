@@ -21,3 +21,14 @@ export const rgbaColor = (
     2
   )}`;
 };
+
+export const hslaColor = (
+  hue: number,
+  saturation: number,
+  lightness: number,
+  alpha = 1
+) => {
+  return `hsla(${hue},${Math.floor(
+    saturation * 100
+  )}%,${Math.floor(lightness * 100)}%,${alpha})`;
+};

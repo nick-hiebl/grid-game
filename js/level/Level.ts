@@ -26,6 +26,7 @@ import {
 import { Interactible } from "./interactibles/Interactible";
 import { Player } from "./Player";
 import { PlayMode } from "../game-modes/PlayMode";
+import { BackgroundArtist } from "./background/BackgroundArtist";
 
 const SCALE_FACTOR = CANVAS_WIDTH / HORIZONTAL_TILES;
 
@@ -50,6 +51,7 @@ export class Level {
   camera: Vector;
   interactingWith: Interactible | undefined;
 
+  backgroundArtist: BackgroundArtist;
   drawnStatic: boolean;
   playModeManager: PlayMode | undefined;
 
@@ -78,8 +80,8 @@ export class Level {
     this.camera = this.getIdealCamera();
     this.interactingWith = undefined;
 
+    this.backgroundArtist = new BackgroundArtist(width, height);
     this.drawnStatic = false;
-
     this.playModeManager = undefined;
   }
 
@@ -263,13 +265,7 @@ export class Level {
   draw(screenManager: ScreenManager) {
     if (!this.drawnStatic) {
       // Draw background
-      screenManager.background.setColor("#6400c8");
-      screenManager.background.fillRect(
-        0,
-        0,
-        screenManager.background.width,
-        screenManager.background.height
-      );
+      this.backgroundArtist.draw(screenManager);
 
       this.withSetupCanvas(screenManager.staticWorldCanvas, (canvas) => {
         canvas.clear();
@@ -326,5 +322,7 @@ export class Level {
         Math.floor(this.camera.y * SCALE_FACTOR)
       )
     );
+
+    this.backgroundArtist.updateCameras(screenManager);
   }
 }

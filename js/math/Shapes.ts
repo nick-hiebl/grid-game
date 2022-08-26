@@ -108,6 +108,14 @@ export class Rectangle {
     return new Vector((this.x1 + this.x2) / 2, (this.y1 + this.y2) / 2);
   }
 
+  xInRange(x: number): boolean {
+    return this.x1 <= x && x < this.x2;
+  }
+
+  yInRange(y: number): boolean {
+    return this.y1 <= y && y < this.y2;
+  }
+
   /**
    * Check if another rectangle intersects with this rectangle.
    * @param {Rectangle} otherRectangle The rectangle to check intersection with

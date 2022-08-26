@@ -28,6 +28,8 @@ function getRawCanvas(): HTMLCanvasElement {
 export class ScreenManager {
   [REAL_CANVAS]: Canvas;
   background: Canvas;
+  parallaxCameras: Vector[];
+  parallax: Canvas[];
   behindGroundCanvas: Canvas;
   staticWorldCanvas: Canvas;
   dynamicWorldCanvas: Canvas;
@@ -44,6 +46,15 @@ export class ScreenManager {
     this[REAL_CANVAS] = screenCanvas;
 
     this.background = Canvas.fromScratch(CANVAS_WIDTH * 3, CANVAS_HEIGHT * 3);
+    this.parallax = [
+      Canvas.fromScratch(CANVAS_WIDTH * 3, CANVAS_HEIGHT * 3),
+      Canvas.fromScratch(CANVAS_WIDTH * 3, CANVAS_HEIGHT * 3),
+      Canvas.fromScratch(CANVAS_WIDTH * 3, CANVAS_HEIGHT * 3),
+      Canvas.fromScratch(CANVAS_WIDTH * 3, CANVAS_HEIGHT * 3),
+      Canvas.fromScratch(CANVAS_WIDTH * 3, CANVAS_HEIGHT * 3)
+    ];
+    this.parallaxCameras = this.parallax.map(() => new Vector(0, 0));
+
     this.behindGroundCanvas = Canvas.fromScratch(
       CANVAS_WIDTH * 3,
       CANVAS_HEIGHT * 3
@@ -65,66 +76,37 @@ export class ScreenManager {
     this.camera = new Vector(0, 0);
   }
 
+  setParallaxCameras(cameras: Vector[]) {
+    this.parallaxCameras = cameras;
+  }
+
   setCamera(cameraPosition: Vector) {
     this.camera = cameraPosition;
   }
 
+  drawCanvas(canvas: Canvas, camera: Vector, width = CANVAS_WIDTH, height = CANVAS_HEIGHT) {
+    this[REAL_CANVAS].drawImage(
+      canvas,
+      camera.x,
+      camera.y,
+      width,
+      height,
+      0,
+      0,
+      this[REAL_CANVAS].width,
+      this[REAL_CANVAS].height
+    );
+  }
+
   drawToScreen() {
-    this[REAL_CANVAS].drawImage(
-      this.background,
-      this.camera.x,
-      this.camera.y,
-      CANVAS_WIDTH,
-      CANVAS_HEIGHT,
-      0,
-      0,
-      this[REAL_CANVAS].width,
-      this[REAL_CANVAS].height
-    );
-    this[REAL_CANVAS].drawImage(
-      this.behindGroundCanvas,
-      this.camera.x,
-      this.camera.y,
-      CANVAS_WIDTH,
-      CANVAS_HEIGHT,
-      0,
-      0,
-      this[REAL_CANVAS].width,
-      this[REAL_CANVAS].height
-    );
-    this[REAL_CANVAS].drawImage(
-      this.staticWorldCanvas,
-      this.camera.x,
-      this.camera.y,
-      CANVAS_WIDTH,
-      CANVAS_HEIGHT,
-      0,
-      0,
-      this[REAL_CANVAS].width,
-      this[REAL_CANVAS].height
-    );
-    this[REAL_CANVAS].drawImage(
-      this.dynamicWorldCanvas,
-      this.camera.x,
-      this.camera.y,
-      CANVAS_WIDTH,
-      CANVAS_HEIGHT,
-      0,
-      0,
-      this[REAL_CANVAS].width,
-      this[REAL_CANVAS].height
-    );
-    this[REAL_CANVAS].drawImage(
-      this.uiCanvas,
-      0,
-      0,
-      UI_CANVAS_WIDTH,
-      UI_CANVAS_HEIGHT,
-      0,
-      0,
-      this[REAL_CANVAS].width,
-      this[REAL_CANVAS].height
-    );
+    this.drawCanvas(this.background, this.camera);
+    this.parallax.forEach((canvas, index) => {
+      this.drawCanvas(canvas, this.parallaxCameras[index]);
+    });
+    this.drawCanvas(this.behindGroundCanvas, this.camera);
+    this.drawCanvas(this.staticWorldCanvas, this.camera);
+    this.drawCanvas(this.dynamicWorldCanvas, this.camera);
+    this.drawCanvas(this.uiCanvas, new Vector(0, 0), UI_CANVAS_WIDTH, UI_CANVAS_HEIGHT);
   }
 
   static instance = null;
