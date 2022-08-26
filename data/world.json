@@ -775,7 +775,7 @@
 						},
 						{
 							"__identifier": "PuzzleScreen",
-							"__grid": [34,6],
+							"__grid": [32,6],
 							"__pivot": [0,0],
 							"__tags": [ "reader", "outputter" ],
 							"__tile": { "tilesetUid": 11, "x": 0, "y": 0, "w": 40, "h": 40 },
@@ -784,11 +784,11 @@
 							"width": 40,
 							"height": 40,
 							"defUid": 10,
-							"px": [340,60],
+							"px": [320,60],
 							"fieldInstances": [
-								{ "__identifier": "key", "__value": "1", "__type": "String", "__tile": null, "defUid": 12, "realEditorValues": [{
+								{ "__identifier": "key", "__value": "intro-1", "__type": "String", "__tile": null, "defUid": 12, "realEditorValues": [{
 									"id": "V_String",
-									"params": ["1"]
+									"params": ["intro-1"]
 								}] },
 								{ "__identifier": "prerequisites", "__value": [], "__type": "Array<EntityRef>", "__tile": null, "defUid": 22, "realEditorValues": [] },
 								{ "__identifier": "isFlipped", "__value": false, "__type": "Bool", "__tile": null, "defUid": 24, "realEditorValues": [] }
@@ -829,9 +829,9 @@
 							"defUid": 10,
 							"px": [430,60],
 							"fieldInstances": [
-								{ "__identifier": "key", "__value": "2", "__type": "String", "__tile": null, "defUid": 12, "realEditorValues": [{
+								{ "__identifier": "key", "__value": "intro-2", "__type": "String", "__tile": null, "defUid": 12, "realEditorValues": [{
 									"id": "V_String",
-									"params": ["2"]
+									"params": ["intro-2"]
 								}] },
 								{ "__identifier": "prerequisites", "__value": [], "__type": "Array<EntityRef>", "__tile": null, "defUid": 22, "realEditorValues": [] },
 								{ "__identifier": "isFlipped", "__value": false, "__type": "Bool", "__tile": null, "defUid": 24, "realEditorValues": [] }
@@ -894,9 +894,9 @@
 							"defUid": 10,
 							"px": [580,60],
 							"fieldInstances": [
-								{ "__identifier": "key", "__value": "3", "__type": "String", "__tile": null, "defUid": 12, "realEditorValues": [{
+								{ "__identifier": "key", "__value": "intro-3", "__type": "String", "__tile": null, "defUid": 12, "realEditorValues": [{
 									"id": "V_String",
-									"params": ["3"]
+									"params": ["intro-3"]
 								}] },
 								{ "__identifier": "prerequisites", "__value": [], "__type": "Array<EntityRef>", "__tile": null, "defUid": 22, "realEditorValues": [] },
 								{ "__identifier": "isFlipped", "__value": true, "__type": "Bool", "__tile": null, "defUid": 24, "realEditorValues": [{
@@ -918,9 +918,9 @@
 							"defUid": 10,
 							"px": [580,160],
 							"fieldInstances": [
-								{ "__identifier": "key", "__value": "4", "__type": "String", "__tile": null, "defUid": 12, "realEditorValues": [{
+								{ "__identifier": "key", "__value": "intro-side", "__type": "String", "__tile": null, "defUid": 12, "realEditorValues": [{
 									"id": "V_String",
-									"params": ["4"]
+									"params": ["intro-side"]
 								}] },
 								{ "__identifier": "prerequisites", "__value": [], "__type": "Array<EntityRef>", "__tile": null, "defUid": 22, "realEditorValues": [] },
 								{ "__identifier": "isFlipped", "__value": false, "__type": "Bool", "__tile": null, "defUid": 24, "realEditorValues": [] }
@@ -1239,9 +1239,9 @@
 							"defUid": 10,
 							"px": [340,10],
 							"fieldInstances": [
-								{ "__identifier": "key", "__value": "first-tunnel-secret", "__type": "String", "__tile": null, "defUid": 12, "realEditorValues": [{
+								{ "__identifier": "key", "__value": "intro-secret", "__type": "String", "__tile": null, "defUid": 12, "realEditorValues": [{
 									"id": "V_String",
-									"params": ["first-tunnel-secret"]
+									"params": ["intro-secret"]
 								}] },
 								{ "__identifier": "prerequisites", "__value": [], "__type": "Array<EntityRef>", "__tile": null, "defUid": 22, "realEditorValues": [] },
 								{ "__identifier": "isFlipped", "__value": false, "__type": "Bool", "__tile": null, "defUid": 24, "realEditorValues": [] }
