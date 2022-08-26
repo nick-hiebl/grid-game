@@ -1,9 +1,9 @@
-import { DataLoader } from "./level/DataLoader.js";
-
-import { GameModeManager } from "./GameModeManager.js";
-import { InputManager } from "./InputManager";
-import { ScreenManager } from "./ScreenManager";
 import { IS_MOBILE } from "./constants/ScreenConstants";
+import { DataLoader } from "./level/DataLoader";
+
+import { GameModeManager } from "./GameModeManager";
+import { InputEvent, InputManager } from "./InputManager";
+import { ScreenManager } from "./ScreenManager";
 
 const MAX_FRAME_TIME = 1 / 20;
 
@@ -11,10 +11,18 @@ const MAX_FRAME_TIME = 1 / 20;
  * The head owner of everything.
  */
 class App {
+  screenManager: ScreenManager;
+  gameModeManager: GameModeManager;
+  inputManager: InputManager;
+
+  lastFrameTime: number;
+
   constructor() {
     this.screenManager = ScreenManager.getInstance();
     this.gameModeManager = new GameModeManager();
     this.inputManager = new InputManager((input) => this.onInput(input));
+
+    this.lastFrameTime = performance.now();
   }
 
   start() {
@@ -27,7 +35,7 @@ class App {
    * Function for when an interaction input occurs from the InputManager
    * @param {InputEvent} input The input event to be processed
    */
-  onInput(input) {
+  onInput(input: InputEvent) {
     this.gameModeManager.onInput(input);
   }
 
@@ -48,6 +56,16 @@ class App {
   }
 }
 
+function findById(id: string) {
+  const element = document.getElementById(id);
+
+  if (!element) {
+    console.warn(`Can't find element with id: ${id}`);
+  }
+
+  return element;
+}
+
 /**
  * The function used to kick off the whole app.
  */
@@ -59,7 +77,7 @@ const main = () => {
 
     app.start();
 
-    window.app = app;
+    (window as any).app = app;
   });
 
   if (!IS_MOBILE && !location.href.includes("localhost")) {
@@ -68,11 +86,11 @@ const main = () => {
     );
   }
   if (!IS_MOBILE) {
-    document.getElementById("mobile-controls").remove();
+    findById("mobile-controls")?.remove();
   }
   if (IS_MOBILE) {
-    document.getElementById("canvas").classList.add("fit-screen");
-    document.getElementById("mobile-controls").classList.remove("hidden");
+    findById("canvas")?.classList.add("fit-screen");
+    findById("mobile-controls")?.classList.remove("hidden");
   }
 };
 
