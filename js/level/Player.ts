@@ -189,6 +189,7 @@ export class Player {
 
     // Coyote jump
     if (this.inAirFor < COYOTE_TIME && this.wantsToJump) {
+      this.wantsToJump = false;
       this.velocity.y = -JUMP_INITIAL_SPEED;
     }
 
@@ -229,7 +230,6 @@ export class Player {
       this.collideWithBlock(type, rect, deltaTime);
     });
 
-    this.wantsToJump = false;
     this.isDropping = this.isDropping && this.contactingAnyLedge;
   }
 
