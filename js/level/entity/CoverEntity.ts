@@ -1,12 +1,14 @@
 import { clamp } from "../../math/Common";
 import { Rectangle } from "../../math/Shapes";
+import { Vector } from "../../math/Vector";
 import { ScreenManager } from "../../ScreenManager";
+import { rgbaColor } from "../../utils/Color";
 import { Level } from "../Level";
 import { Player } from "../Player";
 
 import { Entity } from "./Entity";
 
-const UNCOVER_DURATION = 0.5;
+const UNCOVER_DURATION = 1;
 
 interface Config {
   coverIsTrigger?: boolean;
@@ -22,6 +24,8 @@ export class CoverEntity extends Entity {
   isUncovered: boolean;
 
   revealState: number;
+
+  lastPlayerPos: Vector | undefined;
 
   constructor(id: string, coverArea: Rectangle, triggerArea: Rectangle, config: Config = {}) {
     super(id);
@@ -70,21 +74,38 @@ export class CoverEntity extends Entity {
       0,
       1
     );
+
+    this.lastPlayerPos = player.position;
   }
 
   draw(screenManager: ScreenManager) {
     super.draw(screenManager);
 
-    if (this.revealState < 1) {
-      const canvas = screenManager.dynamicWorldCanvas;
-
-      canvas.setColorRGB(
-        0,
-        0,
-        0,
-        Math.floor(255 * (1 - this.revealState * this.revealState))
-      );
-      this.coverArea.draw(canvas);
+    // Nothing to draw if fully revealed
+    if (this.revealState === 1) {
+      return;
     }
+
+    const canvas = screenManager.dynamicWorldCanvas;
+
+    if (this.revealState === 0) {
+      canvas.setColor("black");
+    } else {
+      const size = this.coverArea.width + this.coverArea.height;
+
+      const fadeRange = size * 0.2;
+      const pos = this.lastPlayerPos
+        ? Vector.lerp(this.lastPlayerPos, this.coverArea.midpoint, this.revealState)
+        : this.coverArea.midpoint;
+
+      const rOut = (size + fadeRange) * this.revealState;
+      const gradient = canvas.createRadialGradient(pos.x, pos.y, Math.max(0, rOut - fadeRange), pos.x, pos.y, rOut);
+      gradient.addColorStop(0, rgbaColor(0, 0, 0, 0));
+      gradient.addColorStop(1, rgbaColor(0, 0, 0, 255));
+
+      canvas.setColor(gradient);
+    }
+
+    this.coverArea.draw(canvas);
   }
 }

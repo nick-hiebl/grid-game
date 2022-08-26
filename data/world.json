@@ -1114,13 +1114,13 @@
 									"id": "V_String",
 									"params": ["36a2e290-02f0-11ed-9b60-03e80a5a236d"]
 								}] },
-								{ "__identifier": "coverIsTrigger", "__value": false, "__type": "Bool", "__tile": null, "defUid": 34, "realEditorValues": [{
+								{ "__identifier": "coverIsTrigger", "__value": true, "__type": "Bool", "__tile": null, "defUid": 34, "realEditorValues": [{
 									"id": "V_Bool",
-									"params": [ false ]
+									"params": [ true ]
 								}] },
-								{ "__identifier": "canReCover", "__value": false, "__type": "Bool", "__tile": null, "defUid": 35, "realEditorValues": [{
+								{ "__identifier": "canReCover", "__value": true, "__type": "Bool", "__tile": null, "defUid": 35, "realEditorValues": [{
 									"id": "V_Bool",
-									"params": [ false ]
+									"params": [ true ]
 								}] }
 							]
 						},

@@ -1,4 +1,4 @@
-import { toHex } from "./utils/Color";
+import { rgbaColor, toHex } from "./utils/Color";
 
 const CTX = Symbol("ctx");
 const CANVAS = Symbol("canvas");
@@ -137,19 +137,6 @@ export class Canvas {
     this[CTX].translate(xOffset, yOffset);
   }
 
-  /**
-   * Set the colour to be used for drawing on the canvas.
-   * @param {string} colorString The name of the color to be used
-   */
-  setColor(colorString: string) {
-    if (colorString === this[CTX].fillStyle) {
-      return;
-    }
-
-    this[CTX].fillStyle = colorString;
-    this[CTX].strokeStyle = colorString;
-  }
-
   setLineWidth(width: number) {
     this[CTX].lineWidth = width;
   }
@@ -163,6 +150,19 @@ export class Canvas {
   }
 
   /**
+   * Set the colour to be used for drawing on the canvas.
+   * @param {string} colorString The name of the color to be used
+   */
+  setColor(colorString: CanvasRenderingContext2D['fillStyle']) {
+    if (colorString === this[CTX].fillStyle) {
+      return;
+    }
+
+    this[CTX].fillStyle = colorString;
+    this[CTX].strokeStyle = colorString;
+  }
+
+  /**
    * Set the current color via RGB.
    * @param {number} red Red value from 0-255
    * @param {number} green Green value from 0-255
@@ -170,12 +170,7 @@ export class Canvas {
    * @param {number | undefined} alpha Alpha value from 0-255
    */
   setColorRGB(red: number, green: number, blue: number, alpha = 255) {
-    const colorString = `#${toHex(red, 2)}${toHex(green, 2)}${toHex(
-      blue,
-      2
-    )}${toHex(alpha, 2)}`;
-
-    this.setColor(colorString);
+    this.setColor(rgbaColor(red, green, blue, alpha));
   }
 
   /**
@@ -191,6 +186,14 @@ export class Canvas {
     )}%,${Math.floor(lightness * 100)}%,${alpha})`;
 
     this.setColor(colorString);
+  }
+
+  createGradient(x0: number, y0: number, x1: number, y1: number) {
+    return this[CTX].createLinearGradient(x0, y0, x1, y1);
+  }
+
+  createRadialGradient(x0: number, y0: number, r0: number, x1: number, y1: number, r1: number) {
+    return this[CTX].createRadialGradient(x0, y0, r0, x1, y1, r1);
   }
 
   saveTransform() {
