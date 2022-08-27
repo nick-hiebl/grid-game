@@ -27,10 +27,19 @@ type KeyMap = Record<Key, boolean>;
 export class InputState {
   keyMap: KeyMap;
   mousePosition: Vector;
+  leftClicking: boolean;
+  rightClicking: boolean;
 
-  constructor(keyMap: KeyMap, mousePosition: Vector) {
+  constructor(
+    keyMap: KeyMap,
+    mousePosition: Vector,
+    leftClicking: boolean = false,
+    rightClicking: boolean = false,
+  ) {
     this.keyMap = keyMap;
     this.mousePosition = mousePosition;
+    this.leftClicking = leftClicking;
+    this.rightClicking = rightClicking;
   }
 
   /**
@@ -51,6 +60,14 @@ export class InputState {
    */
   isPressed(input: Key) {
     return !!this.keyMap[input];
+  }
+
+  isLeftClicking() {
+    return this.leftClicking;
+  }
+
+  isRightClicking() {
+    return this.rightClicking;
   }
 
   static empty() {
@@ -105,14 +122,18 @@ export class ClickEvent extends InputEvent {
 export class InputManager {
   listener: (inputEvent: InputEvent) => void;
 
-  isMouseDown: boolean;
+  leftClicking: boolean;
+  rightClicking: boolean;
+
   isButtonDown: KeyMap;
   mousePosition: Vector;
 
   canvas: HTMLCanvasElement;
 
   constructor(listener: (inputEvent: InputEvent) => void) {
-    this.isMouseDown = false;
+    this.leftClicking = false;
+    this.rightClicking = false;
+
     this.isButtonDown = {};
     this.listener = listener;
     this.mousePosition = new Vector(0, 0);
@@ -161,8 +182,18 @@ export class InputManager {
 
       if (event.button === 0) {
         this.listener?.(new ClickEvent(this.mousePosition, false));
+        this.leftClicking = true;
       } else if (event.button === 2) {
         this.listener?.(new ClickEvent(this.mousePosition, true));
+        this.rightClicking = true;
+      }
+    });
+
+    document.addEventListener("mouseup", (event) => {
+      if (event.button === 0) {
+        this.leftClicking = false;
+      } else if (event.button === 2) {
+        this.rightClicking = false;
       }
     });
 
@@ -218,6 +249,11 @@ export class InputManager {
    * @return {InputState} The current state of inputs
    */
   getInputState() {
-    return new InputState(this.isButtonDown, this.mousePosition);
+    return new InputState(
+      this.isButtonDown,
+      this.mousePosition,
+      this.leftClicking,
+      this.rightClicking,
+    );
   }
 }

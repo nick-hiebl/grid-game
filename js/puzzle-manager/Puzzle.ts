@@ -18,9 +18,19 @@ import {
 } from "./constants";
 import { positionGetter } from "./PuzzleSpaceManager";
 import { PuzzleValidator } from "./PuzzleValidation";
-import { PositionGetter, PuzzleState } from "./types";
+import { CellValue, PositionGetter, PuzzleState } from "./types";
 
 const PARTIAL_RADIUS = 0.4;
+
+type DragState = 'enabling' | 'emptying' | 'disabling' | undefined;
+type DragKind = 'left' | 'right' | undefined;
+
+interface Element {
+  row: number;
+  col: number;
+  shape: Rectangle;
+  isHovered: boolean;
+}
 
 export class Puzzle {
   id: string;
@@ -30,17 +40,15 @@ export class Puzzle {
   cols: number;
 
   state: PuzzleState;
-  elements: {
-    row: number;
-    col: number;
-    shape: Rectangle;
-    isHovered: boolean;
-  }[];
+  elements: Element[];
   positionGetter: PositionGetter;
 
   validator: PuzzleValidator;
   isSolved: boolean;
   hasBeenSolvedEver: boolean;
+
+  dragState: DragState;
+  dragKind: DragKind;
 
   constructor(
     id: string,
@@ -198,6 +206,72 @@ export class Puzzle {
     canvas.translate(-offset.x, -offset.y);
   }
 
+  getElementState(element: Element): CellValue {
+    return this.state[element.row][element.col];
+  }
+
+  setElementState(element: Element, value: CellValue) {
+    if (value !== this.state[element.row][element.col]) {
+      this.state[element.row][element.col] = value;
+      this.onStateChange();
+    }
+  }
+
+  resolveClick(element: Element, left: boolean, right: boolean) {
+    if (this.dragKind === undefined) {
+      return;
+    } else if (this.dragKind === 'left' && !left) {
+      this.dragKind = undefined;
+      this.dragState = undefined;
+    } else if (this.dragKind === 'right' && !right) {
+      this.dragKind = undefined;
+      this.dragState = undefined;
+    }
+
+    if (this.dragKind === 'left') {
+      if (this.dragState === undefined) {
+        const current = this.getElementState(element);
+        if (current !== true) {
+          this.dragState = 'enabling';
+        } else {
+          this.dragState = 'emptying';
+        }
+      }
+
+      if (this.dragState === 'enabling') {
+        this.setElementState(element, true);
+      } else if (this.dragState === 'emptying') {
+        this.setElementState(element, null);
+      }
+    } else if (this.dragKind === 'right') {
+      if (this.dragState === undefined) {
+        const current = this.getElementState(element);
+        if (current !== false) {
+          this.dragState = 'disabling';
+        } else {
+          this.dragState = 'emptying';
+        }
+      }
+
+      if (this.dragState === 'disabling') {
+        this.setElementState(element, false);
+      } else if (this.dragState === 'emptying') {
+        this.setElementState(element, null);
+      }
+    }
+  }
+
+  findPositionElement(position: Vector): Element | undefined {
+    let foundElement: Element | undefined = undefined;
+    for (const element of this.elements) {
+      element.isHovered = element.shape.intersectsPoint(position);
+      if (element.isHovered) {
+        foundElement = element;
+      }
+    }
+    return foundElement;
+  }
+
   update(deltaTime: number, inputState: InputState) {
     if (this.isOpen && this.openCloseStatus < 1) {
       this.openCloseStatus += deltaTime / OPEN_DURATION;
@@ -210,9 +284,13 @@ export class Puzzle {
     if (inputState) {
       const position = Vector.diff(inputState.mousePosition, this.uiPosition());
 
-      for (const element of this.elements) {
-        element.isHovered = element.shape.intersectsPoint(position);
+      const foundElement = this.findPositionElement(position);
+
+      if (foundElement) {
+        this.resolveClick(foundElement, inputState.isLeftClicking(), inputState.isRightClicking());
       }
+    } else {
+      this.dragState = undefined;
     }
   }
 
@@ -224,43 +302,18 @@ export class Puzzle {
   }
 
   onInput(input: InputEvent) {
-    let anyChange = false;
     if (input.isClick()) {
       const click = input as ClickEvent;
       const clickPosition = Vector.diff(click.position, this.uiPosition());
-      for (const element of this.elements) {
-        element.isHovered = element.shape.intersectsPoint(clickPosition);
 
-        if (element.isHovered) {
-          const currentState = this.state[element.row][element.col];
+      this.dragKind = click.isRightClick() ? 'right' : 'left';
+      this.dragState = undefined;
 
-          anyChange = true;
+      const foundElement = this.findPositionElement(clickPosition);
 
-          let nextState = null;
-          if (click.isRightClick()) {
-            // Right click
-            // Exact checking bool as currentState is bool or null
-            if (currentState === false) {
-              nextState = null;
-            } else {
-              nextState = false;
-            }
-          } else {
-            // Left click
-            // Exact checking bool as currentState is bool or null
-            if (currentState === true) {
-              nextState = null;
-            } else {
-              nextState = true;
-            }
-          }
-          this.state[element.row][element.col] = nextState;
-        }
+      if (foundElement) {
+        this.resolveClick(foundElement, this.dragKind === 'left', this.dragKind === 'right');
       }
-    }
-
-    if (anyChange) {
-      this.onStateChange();
     }
   }
 }
