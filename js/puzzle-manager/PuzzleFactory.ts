@@ -1,4 +1,4 @@
-import { Puzzle } from "./Puzzle";
+import { Puzzle, PuzzleConfig } from "./Puzzle";
 import { PuzzleValidatorFactory } from "./PuzzleValidatorFactory";
 
 export interface PuzzleRules {
@@ -19,10 +19,12 @@ export interface PuzzleRules {
 
   forcedCells?: { row: number; col: number; on: boolean }[];
   countAreas?: { row: number; col: number; count: number }[];
+
+  config?: PuzzleConfig;
 }
 
 export const initPuzzle = (id: string, options: PuzzleRules) => {
-  const { rows, cols } = options;
+  const { rows, cols, config } = options;
 
   const rules = new PuzzleValidatorFactory();
 
@@ -61,5 +63,5 @@ export const initPuzzle = (id: string, options: PuzzleRules) => {
     });
   }
 
-  return new Puzzle(id, rows, cols, rules.create());
+  return new Puzzle(id, rows, cols, rules.create(), config);
 };

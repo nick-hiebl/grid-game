@@ -4,7 +4,7 @@ import { Vector } from "../math/Vector";
 
 import { N_CIRCLE_LAYOUT, N_SQUARE_LAYOUT } from "./constants";
 import { ValidationItem } from "./PuzzleValidation";
-import { CellValue, PositionGetter, PuzzleState } from "./types";
+import { CellValue, PositionGetter, PuzzleGrid, PuzzleValues } from "./types";
 
 const rotRight = (vector: Vector) => new Vector(-vector.y, vector.x);
 
@@ -20,20 +20,28 @@ class EdgeValidationItem extends ValidationItem {
     this.isValid = false;
   }
 
-  getRelevantRow(state: PuzzleState) {
-    if (this.isRow) {
-      return state[this.index];
-    } else {
-      return state.map((row) => row[this.index]);
-    }
+  getRelevantRow(grid: PuzzleGrid, valueMap: PuzzleValues): CellValue[] {
+    const cells = this.isRow
+      ? grid[this.index]
+      : grid.map((row) => row[this.index]);
+
+    const [values] = cells.reduce<[CellValue[], number]>(
+      ([valuesSoFar, lastId], cell) => [
+        cell.id === lastId ? valuesSoFar : valuesSoFar.concat([valueMap[cell.id]]),
+        cell.id,
+      ],
+      [[], -1]
+    );
+
+    return values;
   }
 
   validateRow(_row: CellValue[]): boolean {
     throw new TypeError("Cannot validate as a generic EdgeValidationItem");
   }
 
-  validate(state: PuzzleState) {
-    const row = this.getRelevantRow(state);
+  validate(grid: PuzzleGrid, values: PuzzleValues) {
+    const row = this.getRelevantRow(grid, values);
 
     this.isValid = this.validateRow(row);
   }

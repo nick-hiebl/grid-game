@@ -128,18 +128,18 @@ export class PuzzleInteractible extends Interactible {
     canvas.setColor("white");
 
     // Draw current selection
-    const rows = this.puzzle.state;
+    const grid = this.puzzle.grid;
     const SCREEN_PIXEL =
-      (SCREEN_W * 2) / (3 * Math.max(rows.length, rows[0].length) + 1);
-    const SCR_WIDTH = SCREEN_PIXEL * (3 * rows[0].length + 1);
-    const SCR_HEIGHT = SCREEN_PIXEL * (3 * rows.length + 1);
+      (SCREEN_W * 2) / (3 * Math.max(grid.length, grid[0].length) + 1);
+    const SCR_WIDTH = SCREEN_PIXEL * (3 * grid[0].length + 1);
+    const SCR_HEIGHT = SCREEN_PIXEL * (3 * grid.length + 1);
 
     const TOP_PAD = Math.max(0, (SCR_WIDTH - SCR_HEIGHT) / 2);
     const LEFT_PAD = Math.max(0, (SCR_HEIGHT - SCR_WIDTH) / 2);
 
-    for (let row = 0; row < rows.length; row++) {
-      for (let col = 0; col < rows[row].length; col++) {
-        if (rows[row][col]) {
+    for (let row = 0; row < grid.length; row++) {
+      for (let col = 0; col < grid[row].length; col++) {
+        if (this.puzzle.values[grid[row][col].id]) {
           canvas.fillRect(
             LEFT_PAD + SCREEN_PIXEL * (3 * col + 1),
             TOP_PAD + SCREEN_PIXEL * (3 * row + 1),

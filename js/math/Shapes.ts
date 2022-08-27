@@ -207,4 +207,18 @@ export class Rectangle {
       point.y + halfHeight
     );
   }
+
+  // Creates a rectangle that overlaps all of the provided ones
+  static merged(rectangles: Rectangle[]) {
+    const [x1, y1, x2, y2] = rectangles.reduce<
+      [number, number, number, number]
+    >(([x1, y1, x2, y2], rect) => [
+      Math.min(rect.x1, x1),
+      Math.min(rect.y1, y1),
+      Math.max(rect.x2, x2),
+      Math.max(rect.y2, y2)
+    ], [Infinity, Infinity, -Infinity, -Infinity]);
+
+    return new Rectangle(x1, y1, x2, y2);
+  }
 }

@@ -1,5 +1,5 @@
 import { Canvas } from "../Canvas";
-import { PuzzleState } from "./types";
+import { PuzzleGrid, PuzzleValues } from "./types";
 
 export class PuzzleValidator {
   validationItems: ValidationItem[];
@@ -8,9 +8,9 @@ export class PuzzleValidator {
     this.validationItems = validationItems;
   }
 
-  isValid(state: PuzzleState) {
+  isValid(grid: PuzzleGrid, values: PuzzleValues) {
     this.validationItems.forEach((item) => {
-      item.validate(state);
+      item.validate(grid, values);
     });
 
     return this.validationItems.every((item) => item.isValid);
@@ -30,7 +30,7 @@ export class ValidationItem {
     this.isValid = false;
   }
 
-  validate(_state: PuzzleState) {
+  validate(_grid: PuzzleGrid, _values: PuzzleValues) {
     // Do nothing...
   }
 

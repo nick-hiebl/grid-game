@@ -4,7 +4,7 @@ import { Vector } from "../math/Vector";
 
 import { N_CIRCLE_LAYOUT, SOLVED_BACKGROUND } from "./constants";
 import { ValidationItem } from "./PuzzleValidation";
-import { PositionGetter, PuzzleState } from "./types";
+import { PositionGetter, PuzzleGrid, PuzzleValues } from "./types";
 
 export class CellValidation extends ValidationItem {
   row: number;
@@ -27,10 +27,10 @@ export class ForcedCellValidation extends CellValidation {
     this.isValid = !mustBeOn;
   }
 
-  validate(state: PuzzleState) {
-    const cell = state[this.row][this.column];
+  validate(grid: PuzzleGrid, values: PuzzleValues) {
+    const cell = grid[this.row][this.column];
 
-    this.isValid = !!cell === !!this.mustBeOn;
+    this.isValid = !!values[cell.id] === !!this.mustBeOn;
   }
 
   draw(canvas: Canvas, positionGetter: PositionGetter) {
@@ -67,15 +67,15 @@ export class CountInAreaValidation extends CellValidation {
     this.isCellColoured = false;
   }
 
-  *iterateArea(state: PuzzleState) {
+  *iterateArea(grid: PuzzleGrid) {
     for (
       let row = Math.max(this.row - 1, 0);
-      row <= Math.min(this.row + 1, state.length - 1);
+      row <= Math.min(this.row + 1, grid.length - 1);
       row++
     ) {
       for (
         let col = Math.max(this.column - 1, 0);
-        col <= Math.min(this.column + 1, state[row].length - 1);
+        col <= Math.min(this.column + 1, grid[row].length - 1);
         col++
       ) {
         yield [row, col];
@@ -83,17 +83,21 @@ export class CountInAreaValidation extends CellValidation {
     }
   }
 
-  validate(state: PuzzleState) {
+  validate(grid: PuzzleGrid, values: PuzzleValues) {
     let count = 0;
 
-    for (let [row, col] of this.iterateArea(state)) {
-      if (!!state[row][col]) {
+    const seenIds = new Set();
+
+    for (const [row, col] of this.iterateArea(grid)) {
+      const cell = grid[row][col];
+      if (!!values[cell.id] && !seenIds.has(cell.id)) {
         count++;
+        seenIds.add(cell.id);
       }
     }
 
     this.isValid = count === this.desiredCount;
-    this.isCellColoured = !!state[this.row][this.column];
+    this.isCellColoured = !!values[grid[this.row][this.column].id];
   }
 
   draw(
