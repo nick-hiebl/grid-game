@@ -130,7 +130,12 @@ function createDoor(entity: EntityData) {
     console.warn("Door with no key!");
   }
   const door = new Vector(entity.__grid[0] + 2, entity.__grid[1] + 2);
-  return new DoorInteractible(id, door, getPrereqs(entity), pxToTile(entity.height));
+  return new DoorInteractible(
+    id,
+    door,
+    getPrereqs(entity),
+    pxToTile(entity.height)
+  );
 }
 
 function createTrapdoor(entity: EntityData) {
@@ -174,7 +179,8 @@ function createCoverEntity(entity: EntityData, entities: EntityData[]) {
   )?.entityIid;
   const trigger = findByIid(entities, triggerId) || entity;
 
-  const extraField = find(entity.fieldInstances, "extraCover")?.__value as EntityRef[] || [];
+  const extraField =
+    (find(entity.fieldInstances, "extraCover")?.__value as EntityRef[]) || [];
   const extraCovers = extraField
     .map((ref) => findByIid(entities, ref.entityIid))
     .filter(isDefined)

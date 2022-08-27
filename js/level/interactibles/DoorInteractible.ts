@@ -61,7 +61,8 @@ export class DoorInteractible extends Interactible {
     super.update(player, deltaTime, level);
 
     const motion =
-      (this.fullHeight * deltaTime / OPEN_CLOSE_DURATION) * (this.prereqsActive ? -1 : 1);
+      ((this.fullHeight * deltaTime) / OPEN_CLOSE_DURATION) *
+      (this.prereqsActive ? -1 : 1);
 
     this.doorCollider.y2 = clamp(
       this.doorCollider.y2 + motion,

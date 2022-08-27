@@ -51,7 +51,7 @@ export class ScreenManager {
       Canvas.fromScratch(CANVAS_WIDTH * 3, CANVAS_HEIGHT * 3),
       Canvas.fromScratch(CANVAS_WIDTH * 3, CANVAS_HEIGHT * 3),
       Canvas.fromScratch(CANVAS_WIDTH * 3, CANVAS_HEIGHT * 3),
-      Canvas.fromScratch(CANVAS_WIDTH * 3, CANVAS_HEIGHT * 3)
+      Canvas.fromScratch(CANVAS_WIDTH * 3, CANVAS_HEIGHT * 3),
     ];
     this.parallaxCameras = this.parallax.map(() => new Vector(0, 0));
 
@@ -84,7 +84,12 @@ export class ScreenManager {
     this.camera = cameraPosition;
   }
 
-  drawCanvas(canvas: Canvas, camera: Vector, width = CANVAS_WIDTH, height = CANVAS_HEIGHT) {
+  drawCanvas(
+    canvas: Canvas,
+    camera: Vector,
+    width = CANVAS_WIDTH,
+    height = CANVAS_HEIGHT
+  ) {
     this[REAL_CANVAS].drawImage(
       canvas,
       camera.x,
@@ -106,7 +111,12 @@ export class ScreenManager {
     this.drawCanvas(this.behindGroundCanvas, this.camera);
     this.drawCanvas(this.staticWorldCanvas, this.camera);
     this.drawCanvas(this.dynamicWorldCanvas, this.camera);
-    this.drawCanvas(this.uiCanvas, new Vector(0, 0), UI_CANVAS_WIDTH, UI_CANVAS_HEIGHT);
+    this.drawCanvas(
+      this.uiCanvas,
+      new Vector(0, 0),
+      UI_CANVAS_WIDTH,
+      UI_CANVAS_HEIGHT
+    );
   }
 
   static instance = null;

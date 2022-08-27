@@ -49,8 +49,10 @@ export class CoverEntity extends Entity {
   }
 
   playerCollidesCover(player: Player) {
-    return this.coverArea.intersectsPoint(player.position)
-      || this.extraCovers.some((cover) => cover.intersectsPoint(player.position));
+    return (
+      this.coverArea.intersectsPoint(player.position) ||
+      this.extraCovers.some((cover) => cover.intersectsPoint(player.position))
+    );
   }
 
   isPlayerTriggering(player: Player) {

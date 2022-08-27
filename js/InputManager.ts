@@ -34,7 +34,7 @@ export class InputState {
     keyMap: KeyMap,
     mousePosition: Vector,
     leftClicking: boolean = false,
-    rightClicking: boolean = false,
+    rightClicking: boolean = false
   ) {
     this.keyMap = keyMap;
     this.mousePosition = mousePosition;
@@ -253,7 +253,7 @@ export class InputManager {
       this.isButtonDown,
       this.mousePosition,
       this.leftClicking,
-      this.rightClicking,
+      this.rightClicking
     );
   }
 }

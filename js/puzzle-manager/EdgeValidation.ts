@@ -27,7 +27,9 @@ class EdgeValidationItem extends ValidationItem {
 
     const [values] = cells.reduce<[CellValue[], number]>(
       ([valuesSoFar, lastId], cell) => [
-        cell.id === lastId ? valuesSoFar : valuesSoFar.concat([valueMap[cell.id]]),
+        cell.id === lastId
+          ? valuesSoFar
+          : valuesSoFar.concat([valueMap[cell.id]]),
         cell.id,
       ],
       [[], -1]

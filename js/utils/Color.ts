@@ -28,7 +28,7 @@ export const hslaColor = (
   lightness: number,
   alpha = 1
 ) => {
-  return `hsla(${hue},${Math.floor(
-    saturation * 100
-  )}%,${Math.floor(lightness * 100)}%,${alpha})`;
+  return `hsla(${hue},${Math.floor(saturation * 100)}%,${Math.floor(
+    lightness * 100
+  )}%,${alpha})`;
 };
