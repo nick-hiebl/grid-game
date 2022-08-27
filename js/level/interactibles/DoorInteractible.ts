@@ -10,7 +10,7 @@ import { Player } from "../Player";
 
 import { Interactible } from "./Interactible";
 
-const OPEN_CLOSE_SPEED = 0.2;
+const OPEN_CLOSE_DURATION = 0.8;
 
 export class DoorInteractible extends Interactible {
   headCollider: Rectangle;
@@ -61,7 +61,7 @@ export class DoorInteractible extends Interactible {
     super.update(player, deltaTime, level);
 
     const motion =
-      (deltaTime / OPEN_CLOSE_SPEED) * (this.prereqsActive ? -1 : 1);
+      (this.fullHeight * deltaTime / OPEN_CLOSE_DURATION) * (this.prereqsActive ? -1 : 1);
 
     this.doorCollider.y2 = clamp(
       this.doorCollider.y2 + motion,
