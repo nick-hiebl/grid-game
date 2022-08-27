@@ -140,7 +140,6 @@ export class Level {
     });
     if (!this.interactingWith?.isAreaActive) {
       this.closeCurrentPuzzle();
-      this.interactingWith = undefined;
     }
 
     // Update entities
@@ -161,6 +160,8 @@ export class Level {
     // Don't close unnecessarily
     if (this.interactingWith) {
       this.emitEvent(new ClosePuzzleEvent(this.interactingWith.id));
+
+      this.interactingWith = undefined;
     }
   }
 
@@ -174,19 +175,21 @@ export class Level {
     }
 
     if (input.isForKey(Input.Interact)) {
-      const relevant = this.interactibles.find((i) => i.isAreaActive);
-      if (relevant) {
-        const event = relevant.onInteract();
+      if (this.interactingWith) {
+        this.closeCurrentPuzzle();
+      } else {
+        const relevant = this.interactibles.find((i) => i.isAreaActive);
+        if (relevant) {
+          const event = relevant.onInteract();
 
-        if (event && event instanceof OpenPuzzleEvent) {
-          this.interactingWith = relevant;
-          this.emitEvent(event);
+          if (event && event instanceof OpenPuzzleEvent) {
+            this.interactingWith = relevant;
+            this.emitEvent(event);
+          }
         }
       }
     } else if (input.isForKey(Input.Escape)) {
       this.closeCurrentPuzzle();
-
-      this.interactingWith = undefined;
     }
   }
 
