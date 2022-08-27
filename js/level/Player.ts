@@ -27,8 +27,17 @@ const GRAVITY = (2 * PARAM_A) / JUMP_DURATION;
 // Jump assist parameters
 const COYOTE_TIME = 0.1;
 
+// Climbing parameters
+const CLIMB_MAX_SPEED = PLAYER_MAX_SPEED * 0.5;
+
 function isDefined<T>(value: T | undefined): value is T {
   return !!value;
+}
+
+enum PlayerState {
+  GROUND,
+  CLIMB,
+  AIR,
 }
 
 export class Player {
@@ -36,13 +45,13 @@ export class Player {
   velocity: Vector;
   collider: Circle;
 
-  isColliding: boolean;
-  isGrounded: boolean;
   isDropping: boolean;
 
   wantsToJump: boolean;
   contactingAnyLedge: boolean;
   inAirFor: number;
+
+  state: PlayerState;
 
   constructor(position: Vector) {
     this.position = position;
@@ -50,13 +59,13 @@ export class Player {
 
     this.velocity = new Vector(0, 0);
 
-    this.isColliding = false;
-    this.isGrounded = false;
     this.isDropping = false;
 
     this.wantsToJump = false;
     this.contactingAnyLedge = false;
     this.inAirFor = 1;
+
+    this.state = PlayerState.AIR;
   }
 
   /**
@@ -87,7 +96,6 @@ export class Player {
 
     if (BlockType.isSolid(type) || isActiveLedge) {
       if (intersects) {
-        this.isColliding = true;
         const collidingBy = rect.uncollideCircle(this.collider);
 
         this.velocity.add(Vector.scale(collidingBy, 1 / deltaTime));
@@ -116,7 +124,7 @@ export class Player {
    * @param {Level} level The level that the player is in.
    */
   update(deltaTime: number, inputState: InputState, level: Level) {
-    const getCellAt = (x: number, y: number) => {
+    const getCellAt = (x: number, y: number): BlockEnum | undefined => {
       return level.levelGrid[Math.floor(y)]?.[Math.floor(x)];
     };
     const getRectAt = (x: number, y: number) => {
@@ -135,9 +143,10 @@ export class Player {
 
     // Process horizontal input
     const inputX = inputState.getHorizontalAxis();
+    const inputY = inputState.getVerticalAxis();
     const acceleration = new Vector(inputX * PLAYER_ACCEL, 0);
 
-    if (inputState.isPressed(Input.Down)) {
+    if (inputState.isPressed(Input.Down) && this.state !== PlayerState.CLIMB) {
       this.isDropping = true;
     }
 
@@ -152,7 +161,7 @@ export class Player {
     const groundedOnGridCell =
       groundingCellBelow && playerBottom === Math.floor(playerBottom);
 
-    this.isGrounded =
+    const isGrounded =
       groundedOnGridCell ||
       level.objects.some(
         ({ type, rect }) =>
@@ -161,21 +170,41 @@ export class Player {
             : BlockType.isGrounding(type)) && this.collider.isKissingBelow(rect)
       );
 
-    // General motion
-    if (this.isGrounded) {
-      this.inAirFor = 0;
-      if (sign(inputX)) {
+    // Calculate immediate overrides
+    if (gridCellWithin === BlockEnum.LADDER && inputY !== 0) {
+      this.state = PlayerState.CLIMB;
+    } else if (isGrounded) {
+      this.state = PlayerState.GROUND;
+    } else if (!gridCellWithin) {
+      this.state = PlayerState.AIR;
+    }
+
+    const updateSpeed = (input: number, vCurr: number, decel: number) => {
+      if (sign(input)) {
         // Turn speed
-        if (sign(inputX) !== sign(this.velocity.x)) {
-          acceleration.x += -TURN_SPEED * sign(this.velocity.x);
+        if (sign(input) !== sign(vCurr)) {
+          return -TURN_SPEED * sign(vCurr);
         }
       } else {
-        acceleration.x +=
-          -Math.min(Math.abs(this.velocity.x / deltaTime), PLAYER_DECEL) *
-          sign(this.velocity.x);
+        return -Math.min(Math.abs(vCurr / deltaTime), decel) * sign(vCurr);
       }
 
+      return 0;
+    };
+
+    // General motion
+    if (this.state === PlayerState.GROUND) {
+      this.inAirFor = 0;
+
+      acceleration.x += updateSpeed(inputX, this.velocity.x, PLAYER_DECEL);
+
       this.velocity.y = 0;
+    } else if (this.state === PlayerState.CLIMB) {
+      this.inAirFor = 0;
+      acceleration.y = inputState.getVerticalAxis() * PLAYER_ACCEL;
+
+      acceleration.x += updateSpeed(inputX, this.velocity.x, PLAYER_DECEL);
+      acceleration.y += updateSpeed(inputY, this.velocity.y, PLAYER_DECEL);
     } else {
       // Gravity
       this.inAirFor += deltaTime;
@@ -191,14 +220,28 @@ export class Player {
     if (this.inAirFor < COYOTE_TIME && this.wantsToJump) {
       this.wantsToJump = false;
       this.velocity.y = -JUMP_INITIAL_SPEED;
+      this.state = PlayerState.AIR;
     }
 
     this.velocity.add(Vector.scale(acceleration, deltaTime));
-    this.velocity.x = clamp(
-      this.velocity.x,
-      -PLAYER_MAX_SPEED,
-      PLAYER_MAX_SPEED
-    );
+    if (this.state === PlayerState.CLIMB) {
+      this.velocity.x = clamp(
+        this.velocity.x,
+        -CLIMB_MAX_SPEED,
+        CLIMB_MAX_SPEED
+      );
+      this.velocity.y = clamp(
+        this.velocity.y,
+        -CLIMB_MAX_SPEED,
+        CLIMB_MAX_SPEED
+      );
+    } else {
+      this.velocity.x = clamp(
+        this.velocity.x,
+        -PLAYER_MAX_SPEED,
+        PLAYER_MAX_SPEED
+      );
+    }
 
     const step = Vector.scale(this.velocity, deltaTime);
 
@@ -206,8 +249,6 @@ export class Player {
     step.y = clamp(step.y, -PLAYER_RADIUS, PLAYER_RADIUS);
 
     this.position.add(step);
-
-    this.isColliding = false;
 
     const { x, y } = this.position;
 

@@ -41,6 +41,10 @@ export class InputState {
     return +!!this.keyMap[Input.Right] - +!!this.keyMap[Input.Left];
   }
 
+  getVerticalAxis() {
+    return +!!this.keyMap[Input.Down] - +!!this.keyMap[Input.Up];
+  }
+
   /**
    * Checks whether an input is currently pressed.
    * @param {Input} input

@@ -6,10 +6,10 @@ export enum BlockEnum {
 }
 
 export const BlockType = {
-  isSolid: (blockType: BlockEnum) => {
+  isSolid: (blockType?: BlockEnum) => {
     return blockType === BlockEnum.SOLID;
   },
-  isGrounding: (blockType: BlockEnum) => {
+  isGrounding: (blockType?: BlockEnum) => {
     return blockType === BlockEnum.LEDGE || BlockType.isSolid(blockType);
   },
 };
