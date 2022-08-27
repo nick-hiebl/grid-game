@@ -68,7 +68,7 @@ function find<T extends { __identifier: string }>(list: T[], iden: string) {
   return list.find((item) => item.__identifier === iden);
 }
 
-function findIid<T extends { iid: string }>(list: T[], iid: string) {
+function findByIid<T extends { iid: string }>(list: T[], iid: string) {
   return list.find((item) => item.iid === iid);
 }
 
@@ -130,7 +130,7 @@ function createDoor(entity: EntityData) {
     console.warn("Door with no key!");
   }
   const door = new Vector(entity.__grid[0] + 2, entity.__grid[1] + 2);
-  return new DoorInteractible(id, door, getPrereqs(entity), entity.height / 10);
+  return new DoorInteractible(id, door, getPrereqs(entity), pxToTile(entity.height));
 }
 
 function createTrapdoor(entity: EntityData) {
@@ -147,9 +147,21 @@ function createTrapdoor(entity: EntityData) {
     id,
     pos,
     getPrereqs(entity),
-    entity.width / 10,
+    pxToTile(entity.width),
     config
   );
+}
+
+const rectOfEntity = (entity: EntityData) => {
+  return Rectangle.widthForm(
+    ...entity.__grid,
+    pxToTile(entity.width),
+    pxToTile(entity.height)
+  );
+};
+
+function isDefined<T>(value: T | undefined): value is T {
+  return !!value;
 }
 
 function createCoverEntity(entity: EntityData, entities: EntityData[]) {
@@ -160,24 +172,25 @@ function createCoverEntity(entity: EntityData, entities: EntityData[]) {
   const triggerId = (
     find(entity.fieldInstances, "triggerArea")?.__value as EntityRef
   )?.entityIid;
-  const trigger = findIid(entities, triggerId) || entity;
+  const trigger = findByIid(entities, triggerId) || entity;
+
+  const extraField = find(entity.fieldInstances, "extraCover")?.__value as EntityRef[] || [];
+  const extraCovers = extraField
+    .map((ref) => findByIid(entities, ref.entityIid))
+    .filter(isDefined)
+    .map(rectOfEntity);
+
   const config = {
     coverIsTrigger: find(entity.fieldInstances, "coverIsTrigger")
       ?.__value as boolean,
     canReCover: find(entity.fieldInstances, "canReCover")?.__value as boolean,
   };
+
   return new CoverEntity(
     id,
-    Rectangle.widthForm(
-      ...entity.__grid,
-      entity.width / 10,
-      entity.height / 10
-    ),
-    Rectangle.widthForm(
-      ...trigger.__grid,
-      trigger.width / 10,
-      trigger.height / 10
-    ),
+    rectOfEntity(entity),
+    extraCovers,
+    rectOfEntity(trigger),
     config
   );
 }

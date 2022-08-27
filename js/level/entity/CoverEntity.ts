@@ -17,6 +17,7 @@ interface Config {
 
 export class CoverEntity extends Entity {
   coverArea: Rectangle;
+  extraCovers: Rectangle[];
   triggerArea: Rectangle;
 
   coverIsTrigger: boolean;
@@ -30,12 +31,14 @@ export class CoverEntity extends Entity {
   constructor(
     id: string,
     coverArea: Rectangle,
+    extraCovers: Rectangle[],
     triggerArea: Rectangle,
     config: Config = {}
   ) {
     super(id);
 
     this.coverArea = coverArea;
+    this.extraCovers = extraCovers;
     this.triggerArea = triggerArea;
 
     this.coverIsTrigger = !!config.coverIsTrigger;
@@ -45,10 +48,15 @@ export class CoverEntity extends Entity {
     this.revealState = 0;
   }
 
+  playerCollidesCover(player: Player) {
+    return this.coverArea.intersectsPoint(player.position)
+      || this.extraCovers.some((cover) => cover.intersectsPoint(player.position));
+  }
+
   isPlayerTriggering(player: Player) {
     return (
       this.triggerArea.intersectsPoint(player.position) ||
-      (this.coverIsTrigger && this.coverArea.intersectsPoint(player.position))
+      (this.coverIsTrigger && this.playerCollidesCover(player))
     );
   }
 
@@ -111,10 +119,10 @@ export class CoverEntity extends Entity {
       const gradient = canvas.createRadialGradient(
         pos.x,
         pos.y,
-        Math.max(0, rOut - fadeRange),
+        Math.max(0, rOut - fadeRange / 2),
         pos.x,
         pos.y,
-        rOut
+        rOut + fadeRange / 2
       );
       gradient.addColorStop(0, rgbaColor(0, 0, 0, 0));
       gradient.addColorStop(1, rgbaColor(0, 0, 0, 255));
@@ -123,5 +131,6 @@ export class CoverEntity extends Entity {
     }
 
     this.coverArea.draw(canvas);
+    this.extraCovers.forEach((cover) => cover.draw(canvas));
   }
 }

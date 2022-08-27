@@ -268,7 +268,7 @@ export class Player {
     this.contactingAnyLedge = false;
 
     nearbyBlocks.concat(level.objects).forEach(({ type, rect }) => {
-      this.collideWithBlock(type, rect, deltaTime);
+      this.collideWithBlock(type!, rect, deltaTime);
     });
 
     this.isDropping = this.isDropping && this.contactingAnyLedge;

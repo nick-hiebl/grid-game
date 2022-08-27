@@ -24,6 +24,13 @@ const RULES: Record<string, PuzzleRules> = {
     columnCounts: [2, 4, 2, 3, 5],
     rowCounts: [1, 3, 5, 5, 2],
   },
+
+  "obvious-secret": {
+    rows: 4,
+    cols: 5,
+    columnCounts: [1, 3, 2, 3, 1],
+    rowCounts: [2, 0, 5, 3],
+  },
 };
 
 function makePuzzle(id: string): Puzzle {

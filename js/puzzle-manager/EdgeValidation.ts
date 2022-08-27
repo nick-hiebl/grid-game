@@ -28,7 +28,7 @@ class EdgeValidationItem extends ValidationItem {
     }
   }
 
-  validateRow(row: CellValue[]): boolean {
+  validateRow(_row: CellValue[]): boolean {
     throw new TypeError("Cannot validate as a generic EdgeValidationItem");
   }
 
@@ -100,6 +100,7 @@ export class EdgeCountValidationItem extends EdgeValidationItem {
       );
 
       if (this.count === 0) {
+        canvas.setLineDash([]);
         canvas.setLineWidth(circle.radius * scaleBy * 0.5);
         canvas.strokeEllipse(
           position.x,
