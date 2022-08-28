@@ -10,7 +10,7 @@
 	},
 	"jsonVersion": "1.1.3",
 	"appBuildId": 458364,
-	"nextUid": 40,
+	"nextUid": 41,
 	"identifierStyle": "Capitalize",
 	"worldLayout": "GridVania",
 	"worldGridWidth": 320,
@@ -316,6 +316,35 @@
 					"allowOutOfLevelRef": false,
 					"allowedRefs": "OnlyTags",
 					"allowedRefTags": ["outputter"],
+					"tilesetUid": null
+				},
+				{
+					"identifier": "triggerArea",
+					"__type": "EntityRef",
+					"uid": 40,
+					"type": "F_EntityRef",
+					"isArray": false,
+					"canBeNull": true,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "RefLinkBetweenCenters",
+					"editorDisplayPos": "Above",
+					"editorAlwaysShow": false,
+					"editorCutLongValues": true,
+					"editorTextSuffix": null,
+					"editorTextPrefix": null,
+					"useForSmartColor": false,
+					"min": null,
+					"max": null,
+					"regex": null,
+					"acceptFileTypes": null,
+					"defaultOverride": null,
+					"textLanguageMode": null,
+					"symmetricalRef": false,
+					"autoChainRef": false,
+					"allowOutOfLevelRef": false,
+					"allowedRefs": "OnlyTags",
+					"allowedRefTags": ["area"],
 					"tilesetUid": null
 				}
 			]
@@ -783,7 +812,7 @@
 					"entityInstances": [
 						{
 							"__identifier": "PlayerStart",
-							"__grid": [7,8],
+							"__grid": [6,8],
 							"__pivot": [0.5,0.5],
 							"__tags": [],
 							"__tile": null,
@@ -792,7 +821,7 @@
 							"width": 16,
 							"height": 16,
 							"defUid": 7,
-							"px": [75,85],
+							"px": [65,85],
 							"fieldInstances": []
 						},
 						{
@@ -807,7 +836,10 @@
 							"height": 40,
 							"defUid": 14,
 							"px": [100,60],
-							"fieldInstances": [{ "__identifier": "prerequisites", "__value": [], "__type": "Array<EntityRef>", "__tile": null, "defUid": 23, "realEditorValues": [] }]
+							"fieldInstances": [
+								{ "__identifier": "prerequisites", "__value": [], "__type": "Array<EntityRef>", "__tile": null, "defUid": 23, "realEditorValues": [] },
+								{ "__identifier": "triggerArea", "__value": null, "__type": "EntityRef", "__tile": null, "defUid": 40, "realEditorValues": [] }
+							]
 						},
 						{
 							"__identifier": "Door",
@@ -850,7 +882,15 @@
 								}] },
 								{ "__identifier": "prerequisites", "__value": [], "__type": "Array<EntityRef>", "__tile": null, "defUid": 22, "realEditorValues": [] },
 								{ "__identifier": "isFlipped", "__value": false, "__type": "Bool", "__tile": null, "defUid": 24, "realEditorValues": [] },
-								{ "__identifier": "triggerArea", "__value": null, "__type": "EntityRef", "__tile": null, "defUid": 39, "realEditorValues": [] }
+								{ "__identifier": "triggerArea", "__value": {
+									"entityIid": "bc6385e0-02f0-11ed-9b60-c52901d21af1",
+									"layerIid": "677ec570-02f0-11ed-babb-19545103a3fc",
+									"levelIid": "2e2576b0-02f0-11ed-babb-236311c5927d",
+									"worldIid": "02f45360-02f0-11ed-9b60-3f59a809aa82"
+								}, "__type": "EntityRef", "__tile": null, "defUid": 39, "realEditorValues": [{
+									"id": "V_String",
+									"params": ["bc6385e0-02f0-11ed-9b60-c52901d21af1"]
+								}] }
 							]
 						},
 						{
@@ -897,7 +937,15 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "triggerArea", "__value": null, "__type": "EntityRef", "__tile": null, "defUid": 39, "realEditorValues": [] }
+								{ "__identifier": "triggerArea", "__value": {
+									"entityIid": "c5b933b0-02f0-11ed-9b60-d12777a08012",
+									"layerIid": "677ec570-02f0-11ed-babb-19545103a3fc",
+									"levelIid": "2e2576b0-02f0-11ed-babb-236311c5927d",
+									"worldIid": "02f45360-02f0-11ed-9b60-3f59a809aa82"
+								}, "__type": "EntityRef", "__tile": null, "defUid": 39, "realEditorValues": [{
+									"id": "V_String",
+									"params": ["c5b933b0-02f0-11ed-9b60-d12777a08012"]
+								}] }
 							]
 						},
 						{
@@ -966,7 +1014,15 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "triggerArea", "__value": null, "__type": "EntityRef", "__tile": null, "defUid": 39, "realEditorValues": [] }
+								{ "__identifier": "triggerArea", "__value": {
+									"entityIid": "cb8e1f30-02f0-11ed-9b60-71a112bfc1eb",
+									"layerIid": "677ec570-02f0-11ed-babb-19545103a3fc",
+									"levelIid": "2e2576b0-02f0-11ed-babb-236311c5927d",
+									"worldIid": "02f45360-02f0-11ed-9b60-3f59a809aa82"
+								}, "__type": "EntityRef", "__tile": null, "defUid": 39, "realEditorValues": [{
+									"id": "V_String",
+									"params": ["cb8e1f30-02f0-11ed-9b60-71a112bfc1eb"]
+								}] }
 							]
 						},
 						{
@@ -988,7 +1044,15 @@
 								}] },
 								{ "__identifier": "prerequisites", "__value": [], "__type": "Array<EntityRef>", "__tile": null, "defUid": 22, "realEditorValues": [] },
 								{ "__identifier": "isFlipped", "__value": false, "__type": "Bool", "__tile": null, "defUid": 24, "realEditorValues": [] },
-								{ "__identifier": "triggerArea", "__value": null, "__type": "EntityRef", "__tile": null, "defUid": 39, "realEditorValues": [] }
+								{ "__identifier": "triggerArea", "__value": {
+									"entityIid": "d17c8620-02f0-11ed-9b60-15e95c430c97",
+									"layerIid": "677ec570-02f0-11ed-babb-19545103a3fc",
+									"levelIid": "2e2576b0-02f0-11ed-babb-236311c5927d",
+									"worldIid": "02f45360-02f0-11ed-9b60-3f59a809aa82"
+								}, "__type": "EntityRef", "__tile": null, "defUid": 39, "realEditorValues": [{
+									"id": "V_String",
+									"params": ["d17c8620-02f0-11ed-9b60-15e95c430c97"]
+								}] }
 							]
 						},
 						{
@@ -1159,7 +1223,18 @@
 							"height": 40,
 							"defUid": 14,
 							"px": [50,150],
-							"fieldInstances": [{ "__identifier": "prerequisites", "__value": [], "__type": "Array<EntityRef>", "__tile": null, "defUid": 23, "realEditorValues": [] }]
+							"fieldInstances": [
+								{ "__identifier": "prerequisites", "__value": [], "__type": "Array<EntityRef>", "__tile": null, "defUid": 23, "realEditorValues": [] },
+								{ "__identifier": "triggerArea", "__value": {
+									"entityIid": "0706bb30-02f0-11ed-9b60-ff2340d1afe6",
+									"layerIid": "677ec570-02f0-11ed-babb-19545103a3fc",
+									"levelIid": "2e2576b0-02f0-11ed-babb-236311c5927d",
+									"worldIid": "02f45360-02f0-11ed-9b60-3f59a809aa82"
+								}, "__type": "EntityRef", "__tile": null, "defUid": 40, "realEditorValues": [{
+									"id": "V_String",
+									"params": ["0706bb30-02f0-11ed-9b60-ff2340d1afe6"]
+								}] }
+							]
 						},
 						{
 							"__identifier": "CoverEntity",
@@ -1418,6 +1493,76 @@
 							"height": 40,
 							"defUid": 31,
 							"px": [190,170],
+							"fieldInstances": []
+						},
+						{
+							"__identifier": "Util",
+							"__grid": [29,6],
+							"__pivot": [0,0],
+							"__tags": ["area"],
+							"__tile": null,
+							"__smartColor": "#39FF93",
+							"iid": "bc6385e0-02f0-11ed-9b60-c52901d21af1",
+							"width": 100,
+							"height": 40,
+							"defUid": 31,
+							"px": [290,60],
+							"fieldInstances": []
+						},
+						{
+							"__identifier": "Util",
+							"__grid": [48,2],
+							"__pivot": [0,0],
+							"__tags": ["area"],
+							"__tile": null,
+							"__smartColor": "#39FF93",
+							"iid": "c5b933b0-02f0-11ed-9b60-d12777a08012",
+							"width": 80,
+							"height": 40,
+							"defUid": 31,
+							"px": [480,20],
+							"fieldInstances": []
+						},
+						{
+							"__identifier": "Util",
+							"__grid": [57,6],
+							"__pivot": [0,0],
+							"__tags": ["area"],
+							"__tile": null,
+							"__smartColor": "#39FF93",
+							"iid": "cb8e1f30-02f0-11ed-9b60-71a112bfc1eb",
+							"width": 60,
+							"height": 40,
+							"defUid": 31,
+							"px": [570,60],
+							"fieldInstances": []
+						},
+						{
+							"__identifier": "Util",
+							"__grid": [56,16],
+							"__pivot": [0,0],
+							"__tags": ["area"],
+							"__tile": null,
+							"__smartColor": "#39FF93",
+							"iid": "d17c8620-02f0-11ed-9b60-15e95c430c97",
+							"width": 70,
+							"height": 40,
+							"defUid": 31,
+							"px": [560,160],
+							"fieldInstances": []
+						},
+						{
+							"__identifier": "Util",
+							"__grid": [1,15],
+							"__pivot": [0,0],
+							"__tags": ["area"],
+							"__tile": null,
+							"__smartColor": "#39FF93",
+							"iid": "0706bb30-02f0-11ed-9b60-ff2340d1afe6",
+							"width": 80,
+							"height": 40,
+							"defUid": 31,
+							"px": [10,150],
 							"fieldInstances": []
 						}
 					]

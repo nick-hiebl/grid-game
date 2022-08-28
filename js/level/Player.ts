@@ -176,6 +176,12 @@ export class Player {
     } else if (isGrounded) {
       this.state = PlayerState.GROUND;
     } else if (!gridCellWithin) {
+      // If just leaving ladder and holding up
+      if (this.state === PlayerState.CLIMB) {
+        if (inputY < 0) {
+          this.wantsToJump = true;
+        }
+      }
       this.state = PlayerState.AIR;
     }
 

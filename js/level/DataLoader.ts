@@ -112,8 +112,6 @@ function createPuzzle(entity: EntityData, entities: EntityData[]) {
   const config = {
     isFlipped: getField<boolean>(entity, "isFlipped"),
   };
-  const triggerId = getField<EntityRef>(entity, "triggerArea")?.entityIid;
-  const triggerArea = triggerId ? findByIid(entities, triggerId) : undefined;
 
   return new PuzzleInteractible(
     id,
@@ -125,7 +123,7 @@ function createPuzzle(entity: EntityData, entities: EntityData[]) {
   );
 }
 
-function createSwitch(entity: EntityData) {
+function createSwitch(entity: EntityData, entities: EntityData[]) {
   const id = entity.iid;
   if (!id) {
     console.warn("Switch with no key!");
@@ -134,7 +132,7 @@ function createSwitch(entity: EntityData) {
   return new SwitchInteractible(
     id,
     center,
-    Rectangle.aroundPoint(center, 2, 2),
+    getInteractibleTrigger(entity, entities),
     getPrereqs(entity)
   );
 }
@@ -245,7 +243,7 @@ function firstPass(level: LevelData): LevelFactory {
         factory.addInteractibles([createPuzzle(entity, entities)]);
         break;
       case "Switch":
-        factory.addInteractibles([createSwitch(entity)]);
+        factory.addInteractibles([createSwitch(entity, entities)]);
         break;
       case "Door":
         factory.addInteractibles([createDoor(entity)]);
