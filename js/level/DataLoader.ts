@@ -68,7 +68,7 @@ function find<T extends { __identifier: string }>(list: T[], iden: string) {
   return list.find((item) => item.__identifier === iden);
 }
 
-function findByIid<T extends { iid: string }>(list: T[], iid: string) {
+function findByIid<T extends { iid: string }>(list: T[], iid?: string) {
   return list.find((item) => item.iid === iid);
 }
 
@@ -84,26 +84,41 @@ function srcToBlockType(src: [number, number]) {
   return pxToTile(src[0]) + 1;
 }
 
+function getField<T>(entity: EntityData, fieldKey: string): T | undefined {
+  return find(entity.fieldInstances, fieldKey)?.__value as T | undefined;
+}
+
 function getPrereqs(entity: EntityData) {
-  const raw = (find(entity.fieldInstances, "prerequisites")?.__value ||
-    []) as EntityRef[];
+  const raw = getField<EntityRef[]>(entity, "prerequisites") || [];
   return raw.map((ref) => ref.entityIid);
 }
 
-function createPuzzle(entity: EntityData) {
+function getInteractibleTrigger(entity: EntityData, entities: EntityData[]) {
+  const triggerId = getField<EntityRef>(entity, "triggerArea")?.entityIid;
+  const triggerArea = triggerId ? findByIid(entities, triggerId) : undefined;
+
+  return triggerArea ? rectOfEntity(triggerArea) : Rectangle.aroundPoint(
+    new Vector(entity.__grid[0] + 2, entity.__grid[1] + 2), 2, 2
+  );
+}
+
+function createPuzzle(entity: EntityData, entities: EntityData[]) {
   const id = entity.iid;
-  const key = find(entity.fieldInstances, "key")?.__value as string;
+  const key = getField<string>(entity, "key");
   if (!key) {
     console.warn("Puzzle with no key!");
   }
   const center = new Vector(entity.__grid[0] + 2, entity.__grid[1] + 2);
   const config = {
-    isFlipped: find(entity.fieldInstances, "isFlipped")?.__value as boolean,
+    isFlipped: getField<boolean>(entity, "isFlipped"),
   };
+  const triggerId = getField<EntityRef>(entity, "triggerArea")?.entityIid;
+  const triggerArea = triggerId ? findByIid(entities, triggerId) : undefined;
+
   return new PuzzleInteractible(
     id,
     center,
-    Rectangle.aroundPoint(center, 2, 2),
+    getInteractibleTrigger(entity, entities),
     getPrereqs(entity),
     key!,
     config
@@ -145,8 +160,8 @@ function createTrapdoor(entity: EntityData) {
   }
   const pos = new Vector(...entity.__grid);
   const config = {
-    isFlipped: find(entity.fieldInstances, "isFlipped")?.__value as boolean,
-    hasLedge: find(entity.fieldInstances, "hasLedge")?.__value as boolean,
+    isFlipped: getField<boolean>(entity, "isFlipped"), // find(entity.fieldInstances, "isFlipped")?.__value as boolean,
+    hasLedge: getField<boolean>(entity, "hasLedge") // find(entity.fieldInstances, "hasLedge")?.__value as boolean,
   };
   return new TrapdoorInteractible(
     id,
@@ -174,22 +189,18 @@ function createCoverEntity(entity: EntityData, entities: EntityData[]) {
   if (!id) {
     console.warn("CoverEntity with no key!");
   }
-  const triggerId = (
-    find(entity.fieldInstances, "triggerArea")?.__value as EntityRef
-  )?.entityIid;
+  const triggerId = getField<EntityRef>(entity, "triggerArea")?.entityIid;
   const trigger = findByIid(entities, triggerId) || entity;
 
-  const extraField =
-    (find(entity.fieldInstances, "extraCover")?.__value as EntityRef[]) || [];
+  const extraField = getField<EntityRef[]>(entity, "extraCover") || [];
   const extraCovers = extraField
     .map((ref) => findByIid(entities, ref.entityIid))
     .filter(isDefined)
     .map(rectOfEntity);
 
   const config = {
-    coverIsTrigger: find(entity.fieldInstances, "coverIsTrigger")
-      ?.__value as boolean,
-    canReCover: find(entity.fieldInstances, "canReCover")?.__value as boolean,
+    coverIsTrigger: getField<boolean>(entity, "coverIsTrigger"),
+    canReCover: getField<boolean>(entity, "canReCover"),
   };
 
   return new CoverEntity(
@@ -231,7 +242,7 @@ function firstPass(level: LevelData): LevelFactory {
         setStartPos = true;
         break;
       case "PuzzleScreen":
-        factory.addInteractibles([createPuzzle(entity)]);
+        factory.addInteractibles([createPuzzle(entity, entities)]);
         break;
       case "Switch":
         factory.addInteractibles([createSwitch(entity)]);

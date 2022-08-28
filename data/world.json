@@ -10,7 +10,7 @@
 	},
 	"jsonVersion": "1.1.3",
 	"appBuildId": 458364,
-	"nextUid": 39,
+	"nextUid": 40,
 	"identifierStyle": "Capitalize",
 	"worldLayout": "GridVania",
 	"worldGridWidth": 320,
@@ -229,6 +229,35 @@
 					"allowOutOfLevelRef": true,
 					"allowedRefs": "OnlySame",
 					"allowedRefTags": [],
+					"tilesetUid": null
+				},
+				{
+					"identifier": "triggerArea",
+					"__type": "EntityRef",
+					"uid": 39,
+					"type": "F_EntityRef",
+					"isArray": false,
+					"canBeNull": true,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "RefLinkBetweenCenters",
+					"editorDisplayPos": "Above",
+					"editorAlwaysShow": false,
+					"editorCutLongValues": true,
+					"editorTextSuffix": null,
+					"editorTextPrefix": null,
+					"useForSmartColor": false,
+					"min": null,
+					"max": null,
+					"regex": null,
+					"acceptFileTypes": null,
+					"defaultOverride": null,
+					"textLanguageMode": null,
+					"symmetricalRef": false,
+					"autoChainRef": false,
+					"allowOutOfLevelRef": false,
+					"allowedRefs": "OnlyTags",
+					"allowedRefTags": ["area"],
 					"tilesetUid": null
 				}
 			]
@@ -820,7 +849,8 @@
 									"params": ["intro-1"]
 								}] },
 								{ "__identifier": "prerequisites", "__value": [], "__type": "Array<EntityRef>", "__tile": null, "defUid": 22, "realEditorValues": [] },
-								{ "__identifier": "isFlipped", "__value": false, "__type": "Bool", "__tile": null, "defUid": 24, "realEditorValues": [] }
+								{ "__identifier": "isFlipped", "__value": false, "__type": "Bool", "__tile": null, "defUid": 24, "realEditorValues": [] },
+								{ "__identifier": "triggerArea", "__value": null, "__type": "EntityRef", "__tile": null, "defUid": 39, "realEditorValues": [] }
 							]
 						},
 						{
@@ -866,7 +896,8 @@
 								{ "__identifier": "isFlipped", "__value": true, "__type": "Bool", "__tile": null, "defUid": 24, "realEditorValues": [{
 									"id": "V_Bool",
 									"params": [ true ]
-								}] }
+								}] },
+								{ "__identifier": "triggerArea", "__value": null, "__type": "EntityRef", "__tile": null, "defUid": 39, "realEditorValues": [] }
 							]
 						},
 						{
@@ -934,7 +965,8 @@
 								{ "__identifier": "isFlipped", "__value": true, "__type": "Bool", "__tile": null, "defUid": 24, "realEditorValues": [{
 									"id": "V_Bool",
 									"params": [ true ]
-								}] }
+								}] },
+								{ "__identifier": "triggerArea", "__value": null, "__type": "EntityRef", "__tile": null, "defUid": 39, "realEditorValues": [] }
 							]
 						},
 						{
@@ -955,7 +987,8 @@
 									"params": ["intro-side"]
 								}] },
 								{ "__identifier": "prerequisites", "__value": [], "__type": "Array<EntityRef>", "__tile": null, "defUid": 22, "realEditorValues": [] },
-								{ "__identifier": "isFlipped", "__value": false, "__type": "Bool", "__tile": null, "defUid": 24, "realEditorValues": [] }
+								{ "__identifier": "isFlipped", "__value": false, "__type": "Bool", "__tile": null, "defUid": 24, "realEditorValues": [] },
+								{ "__identifier": "triggerArea", "__value": null, "__type": "EntityRef", "__tile": null, "defUid": 39, "realEditorValues": [] }
 							]
 						},
 						{
@@ -979,7 +1012,8 @@
 								{ "__identifier": "isFlipped", "__value": true, "__type": "Bool", "__tile": null, "defUid": 24, "realEditorValues": [{
 									"id": "V_Bool",
 									"params": [ true ]
-								}] }
+								}] },
+								{ "__identifier": "triggerArea", "__value": null, "__type": "EntityRef", "__tile": null, "defUid": 39, "realEditorValues": [] }
 							]
 						},
 						{
@@ -1011,7 +1045,8 @@
 								{ "__identifier": "isFlipped", "__value": true, "__type": "Bool", "__tile": null, "defUid": 24, "realEditorValues": [{
 									"id": "V_Bool",
 									"params": [ true ]
-								}] }
+								}] },
+								{ "__identifier": "triggerArea", "__value": null, "__type": "EntityRef", "__tile": null, "defUid": 39, "realEditorValues": [] }
 							]
 						},
 						{
@@ -1043,7 +1078,8 @@
 								{ "__identifier": "isFlipped", "__value": true, "__type": "Bool", "__tile": null, "defUid": 24, "realEditorValues": [{
 									"id": "V_Bool",
 									"params": [ true ]
-								}] }
+								}] },
+								{ "__identifier": "triggerArea", "__value": null, "__type": "EntityRef", "__tile": null, "defUid": 39, "realEditorValues": [] }
 							]
 						},
 						{
@@ -1075,7 +1111,8 @@
 								{ "__identifier": "isFlipped", "__value": true, "__type": "Bool", "__tile": null, "defUid": 24, "realEditorValues": [{
 									"id": "V_Bool",
 									"params": [ true ]
-								}] }
+								}] },
+								{ "__identifier": "triggerArea", "__value": null, "__type": "EntityRef", "__tile": null, "defUid": 39, "realEditorValues": [] }
 							]
 						},
 						{
@@ -1200,7 +1237,8 @@
 								{ "__identifier": "isFlipped", "__value": true, "__type": "Bool", "__tile": null, "defUid": 24, "realEditorValues": [{
 									"id": "V_Bool",
 									"params": [ true ]
-								}] }
+								}] },
+								{ "__identifier": "triggerArea", "__value": null, "__type": "EntityRef", "__tile": null, "defUid": 39, "realEditorValues": [] }
 							]
 						},
 						{
@@ -1232,7 +1270,8 @@
 								{ "__identifier": "isFlipped", "__value": true, "__type": "Bool", "__tile": null, "defUid": 24, "realEditorValues": [{
 									"id": "V_Bool",
 									"params": [ true ]
-								}] }
+								}] },
+								{ "__identifier": "triggerArea", "__value": null, "__type": "EntityRef", "__tile": null, "defUid": 39, "realEditorValues": [] }
 							]
 						},
 						{
@@ -1278,7 +1317,16 @@
 									"params": ["intro-secret"]
 								}] },
 								{ "__identifier": "prerequisites", "__value": [], "__type": "Array<EntityRef>", "__tile": null, "defUid": 22, "realEditorValues": [] },
-								{ "__identifier": "isFlipped", "__value": false, "__type": "Bool", "__tile": null, "defUid": 24, "realEditorValues": [] }
+								{ "__identifier": "isFlipped", "__value": false, "__type": "Bool", "__tile": null, "defUid": 24, "realEditorValues": [] },
+								{ "__identifier": "triggerArea", "__value": {
+									"entityIid": "25006f30-02f0-11ed-9b60-7b6aa4bb7108",
+									"layerIid": "677ec570-02f0-11ed-babb-19545103a3fc",
+									"levelIid": "2e2576b0-02f0-11ed-babb-236311c5927d",
+									"worldIid": "02f45360-02f0-11ed-9b60-3f59a809aa82"
+								}, "__type": "EntityRef", "__tile": null, "defUid": 39, "realEditorValues": [{
+									"id": "V_String",
+									"params": ["25006f30-02f0-11ed-9b60-7b6aa4bb7108"]
+								}] }
 							]
 						},
 						{
@@ -1354,7 +1402,8 @@
 									"params": ["obvious-secret"]
 								}] },
 								{ "__identifier": "prerequisites", "__value": [], "__type": "Array<EntityRef>", "__tile": null, "defUid": 22, "realEditorValues": [] },
-								{ "__identifier": "isFlipped", "__value": false, "__type": "Bool", "__tile": null, "defUid": 24, "realEditorValues": [] }
+								{ "__identifier": "isFlipped", "__value": false, "__type": "Bool", "__tile": null, "defUid": 24, "realEditorValues": [] },
+								{ "__identifier": "triggerArea", "__value": null, "__type": "EntityRef", "__tile": null, "defUid": 39, "realEditorValues": [] }
 							]
 						},
 						{
