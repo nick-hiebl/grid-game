@@ -1,3 +1,4 @@
+import { Canvas } from "../../Canvas";
 import { PIXELS_PER_TILE } from "../../constants/ScreenConstants";
 import { Rectangle } from "../../math/Shapes";
 import { Vector } from "../../math/Vector";
@@ -16,6 +17,8 @@ import { Interactible } from "./Interactible";
 interface Config {
   isFlipped?: boolean;
 }
+
+const SCREEN_W = 1;
 
 export class PuzzleInteractible extends Interactible {
   puzzleId: string;
@@ -47,7 +50,6 @@ export class PuzzleInteractible extends Interactible {
 
     const canvas = screenManager.dynamicWorldCanvas;
 
-    const SCREEN_W = 1;
     const PIXEL_SCALE = 1 / PIXELS_PER_TILE;
 
     // Draw monitor leg
@@ -118,6 +120,10 @@ export class PuzzleInteractible extends Interactible {
       );
     }
 
+    this.drawGrid(canvas);
+  }
+
+  drawGrid(canvas: Canvas) {
     const offset = new Vector(
       this.position.x - SCREEN_W,
       this.position.y - SCREEN_W
@@ -137,18 +143,16 @@ export class PuzzleInteractible extends Interactible {
     const TOP_PAD = Math.max(0, (SCR_WIDTH - SCR_HEIGHT) / 2);
     const LEFT_PAD = Math.max(0, (SCR_HEIGHT - SCR_WIDTH) / 2);
 
-    for (let row = 0; row < grid.length; row++) {
-      for (let col = 0; col < grid[row].length; col++) {
-        if (this.puzzle.values[grid[row][col].id]) {
-          canvas.fillRect(
-            LEFT_PAD + SCREEN_PIXEL * (3 * col + 1),
-            TOP_PAD + SCREEN_PIXEL * (3 * row + 1),
-            SCREEN_PIXEL * 2,
-            SCREEN_PIXEL * 2
-          );
-        }
+    this.puzzle.miniElements.forEach(({ row, col, shape }) => {
+      if (this.puzzle.values[grid[row][col].id]) {
+        canvas.fillRect(
+          LEFT_PAD + SCREEN_PIXEL * (3 * shape.x1 + 1),
+          TOP_PAD + SCREEN_PIXEL * (3 * shape.y1 + 1),
+          SCREEN_PIXEL * (3 * shape.width - 1),
+          SCREEN_PIXEL * (3 * shape.height - 1)
+        );
       }
-    }
+    });
 
     canvas.translate(-offset.x, -offset.y);
   }

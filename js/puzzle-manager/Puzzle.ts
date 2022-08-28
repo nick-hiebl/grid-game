@@ -60,6 +60,7 @@ export class Puzzle {
   cellMap: PuzzleCellMap;
   elements: Element[];
   positionGetter: PositionGetter;
+  miniElements: Element[];
 
   // Validation & completion
   validator: PuzzleValidator;
@@ -83,11 +84,6 @@ export class Puzzle {
     this.rows = rows;
     this.cols = columns;
 
-    this.grid = [];
-    this.values = {};
-    this.cellMap = {};
-    this.elements = [];
-
     this.validator = validator;
     this.isSolved = false;
     this.hasBeenSolvedEver = false;
@@ -95,6 +91,8 @@ export class Puzzle {
     let incId = 0;
 
     this.positionGetter = positionGetter(rows, columns);
+
+    this.grid = [];
 
     // Initialise grid
     for (let row = 0; row < rows; row++) {
@@ -124,12 +122,18 @@ export class Puzzle {
       }
     }
 
+    this.values = {};
+    this.cellMap = {};
+
     // Initialise values & cell map
     for (const cell of this.grid.flat()) {
       this.values[cell.id] = null;
       this.cellMap[cell.id] =
         cell.id in this.cellMap ? this.cellMap[cell.id].concat([cell]) : [cell];
     }
+
+    this.elements = [];
+    this.miniElements = [];
 
     // Construct elements
     for (const id in this.cellMap) {
@@ -141,6 +145,14 @@ export class Puzzle {
         shape: Rectangle.merged(
           cells.map(({ row, column }) => this.positionGetter(row, column))
         ).inset(UI_PIXEL_WIDTH),
+        isHovered: false,
+      });
+      this.miniElements.push({
+        row: cells[0].row,
+        col: cells[0].column,
+        shape: Rectangle.merged(
+          cells.map(({ row, column }) => Rectangle.widthForm(column, row, 1, 1))
+        ),
         isHovered: false,
       });
     }
