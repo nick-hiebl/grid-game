@@ -1,5 +1,5 @@
-import { Canvas } from "../Canvas";
-import { PuzzleGrid, PuzzleValues } from "./types";
+import { Canvas } from "../../Canvas";
+import { PuzzleGrid, PuzzleValues } from "../types";
 
 export class PuzzleValidator {
   validationItems: ValidationItem[];

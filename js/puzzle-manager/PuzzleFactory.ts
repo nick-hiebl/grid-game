@@ -1,5 +1,5 @@
 import { Puzzle, PuzzleConfig } from "./Puzzle";
-import { PuzzleValidatorFactory } from "./PuzzleValidatorFactory";
+import { PuzzleValidatorFactory } from "./validation/PuzzleValidatorFactory";
 
 export interface PuzzleRules {
   rows: number;

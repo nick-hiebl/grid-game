@@ -1,10 +1,10 @@
-import { Canvas } from "../Canvas";
-import { Circle, Rectangle } from "../math/Shapes";
-import { Vector } from "../math/Vector";
+import { Canvas } from "../../Canvas";
+import { Circle } from "../../math/Shapes";
+import { Vector } from "../../math/Vector";
 
-import { N_CIRCLE_LAYOUT, N_SQUARE_LAYOUT } from "./constants";
+import { N_CIRCLE_LAYOUT, N_SQUARE_LAYOUT } from "../constants";
 import { ValidationItem } from "./PuzzleValidation";
-import { CellValue, PositionGetter, PuzzleGrid, PuzzleValues } from "./types";
+import { CellValue, PositionGetter, PuzzleGrid, PuzzleValues } from "../types";
 
 const rotRight = (vector: Vector) => new Vector(-vector.y, vector.x);
 

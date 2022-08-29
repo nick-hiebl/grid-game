@@ -17,7 +17,7 @@ import {
   SOLVED_BACKGROUND,
 } from "./constants";
 import { positionGetter } from "./PuzzleSpaceManager";
-import { PuzzleValidator } from "./PuzzleValidation";
+import { PuzzleValidator } from "./validation/PuzzleValidation";
 import {
   CellValue,
   PositionGetter,

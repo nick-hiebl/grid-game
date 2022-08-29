@@ -1,10 +1,9 @@
-import { Canvas } from "../Canvas";
-import { Rectangle } from "../math/Shapes";
-import { Vector } from "../math/Vector";
+import { Canvas } from "../../Canvas";
+import { Vector } from "../../math/Vector";
 
-import { N_CIRCLE_LAYOUT, SOLVED_BACKGROUND } from "./constants";
+import { N_CIRCLE_LAYOUT, SOLVED_BACKGROUND } from "../constants";
 import { ValidationItem } from "./PuzzleValidation";
-import { PositionGetter, PuzzleGrid, PuzzleValues } from "./types";
+import { PositionGetter, PuzzleGrid, PuzzleValues } from "../types";
 
 export class CellValidation extends ValidationItem {
   row: number;
