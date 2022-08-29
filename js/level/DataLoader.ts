@@ -11,8 +11,10 @@ import { CoverEntity } from "./entity/CoverEntity";
 import { ExitTrigger } from "./ExitTrigger";
 import { LevelFactory } from "./LevelFactory";
 import { Level } from "./Level";
+import { PuzzleRules } from "../puzzle-manager/PuzzleFactory";
 
 const LEVEL_DATA_URL = "./data/world.json";
+const PUZZLE_DATA_URL = "./data/puzzles.json";
 
 interface EntityRef {
   entityIid: string;
@@ -61,7 +63,7 @@ interface WorldData {
   levels: LevelData[];
 }
 
-function loadJson(file: string): Promise<WorldData> {
+function loadJson<T>(file: string): Promise<T> {
   return fetch(file).then((data) => data.json());
 }
 
@@ -296,9 +298,16 @@ export class DataLoader {
   static hasLoaded = false;
   static data: WorldData | null = null;
   static levelMap: Record<string, Level> = {};
+  static puzzles: Record<string, PuzzleRules> = {};
 
-  static start() {
-    return loadJson(LEVEL_DATA_URL)
+  static fetchPuzzles() {
+    return loadJson<Record<string, PuzzleRules>>(PUZZLE_DATA_URL).then((puzzles) => {
+      DataLoader.puzzles = puzzles;
+    });
+  }
+
+  static fetchWorld() {
+    return loadJson<WorldData>(LEVEL_DATA_URL)
       .then((data) => {
         DataLoader.data = data;
 
@@ -316,6 +325,13 @@ export class DataLoader {
         });
       })
       .then(() => undefined);
+  }
+
+  static start() {
+    return Promise.all([
+      DataLoader.fetchPuzzles(),
+      DataLoader.fetchWorld(),
+    ]);
   }
 
   static getLevel(key: string) {
