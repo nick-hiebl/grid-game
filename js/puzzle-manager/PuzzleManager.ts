@@ -11,12 +11,6 @@ const RULES: Record<string, PuzzleRules> = {
     columnCounts: [1, 3, 2],
     rowCounts: [1, 2, 3],
   },
-  // "intro-secret": {
-  //   rows: 7,
-  //   cols: 7,
-  //   columnCounts: [5, 4, 7, 6, 2, 3, 1],
-  //   rowCounts: [1, 5, 6, 3, 7, 4, 2],
-  // },
   "intro-secret": {
     rows: 2,
     cols: 2,
@@ -64,6 +58,13 @@ const RULES: Record<string, PuzzleRules> = {
     cols: 5,
     columnCounts: [1, 3, 2, 3, 1],
     rowCounts: [2, 0, 5, 3],
+  },
+
+  "multi-sol-1": {
+    rows: 2,
+    cols: 2,
+    columnCounts: [1, 1],
+    rowCounts: [1, 1]
   },
 };
 

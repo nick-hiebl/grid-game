@@ -28,6 +28,7 @@ interface EntityData {
   iid: string;
   fieldInstances: FieldData[];
   __grid: [number, number];
+  px: [number, number];
   width: number;
   height: number;
 }
@@ -156,10 +157,10 @@ function createTrapdoor(entity: EntityData) {
   if (!id) {
     console.warn("Trapdoor with no key!");
   }
-  const pos = new Vector(...entity.__grid);
+  const pos = Vector.scale(new Vector(...entity.px), 1 / PIXELS_PER_TILE);
   const config = {
-    isFlipped: getField<boolean>(entity, "isFlipped"), // find(entity.fieldInstances, "isFlipped")?.__value as boolean,
-    hasLedge: getField<boolean>(entity, "hasLedge") // find(entity.fieldInstances, "hasLedge")?.__value as boolean,
+    isFlipped: getField<boolean>(entity, "isFlipped"),
+    hasLedge: getField<boolean>(entity, "hasLedge")
   };
   return new TrapdoorInteractible(
     id,
