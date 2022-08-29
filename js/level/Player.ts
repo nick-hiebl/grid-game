@@ -170,17 +170,17 @@ export class Player {
             : BlockType.isGrounding(type)) && this.collider.isKissingBelow(rect)
       );
 
+    const hasLeftLadder = this.state === PlayerState.CLIMB && gridCellWithin !== BlockEnum.LADDER;
+
     // Calculate immediate overrides
     if (gridCellWithin === BlockEnum.LADDER && inputY !== 0) {
       this.state = PlayerState.CLIMB;
     } else if (isGrounded) {
       this.state = PlayerState.GROUND;
-    } else if (!gridCellWithin) {
+    } else if (!gridCellWithin || hasLeftLadder) {
       // If just leaving ladder and holding up
-      if (this.state === PlayerState.CLIMB) {
-        if (inputY < 0) {
-          this.wantsToJump = true;
-        }
+      if (hasLeftLadder && inputY < 0) {
+        this.wantsToJump = true;
       }
       this.state = PlayerState.AIR;
     }
