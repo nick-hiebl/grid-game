@@ -102,7 +102,7 @@ export class CountInAreaValidation extends CellValidation {
 
   draw(
     canvas: Canvas,
-    positionGetter: (row: number, column: number) => Rectangle
+    positionGetter: PositionGetter
   ) {
     if (this.isValid) {
       canvas.setColor(this.isCellColoured ? SOLVED_BACKGROUND : "white");

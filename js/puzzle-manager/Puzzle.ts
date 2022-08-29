@@ -44,6 +44,8 @@ export interface PuzzleConfig {
   combinedGroups?: CellGroup[];
 }
 
+const SPACE_DEBUG_DRAW = false;
+
 export class Puzzle {
   // Basic info
   id: string;
@@ -90,7 +92,7 @@ export class Puzzle {
 
     let incId = 0;
 
-    this.positionGetter = positionGetter(rows, columns);
+    this.positionGetter = positionGetter(rows, columns, validator.validationItems.some((item) => item.drawnOnLeft));
 
     this.grid = [];
 
@@ -237,6 +239,16 @@ export class Puzzle {
       PUZZLE_WINDOW_WIDTH,
       UI_PIXEL_WIDTH / 2
     );
+
+    if (SPACE_DEBUG_DRAW) {
+      canvas.setColor('red');
+      canvas.setLineDash([]);
+      for (let i = -1; i <= this.rows; i++) {
+        for (let j = -1; j <= this.cols; j++) {
+          this.positionGetter(i, j).stroke(canvas);
+        }
+      }
+    }
 
     // Draw squares
     for (const element of this.elements) {

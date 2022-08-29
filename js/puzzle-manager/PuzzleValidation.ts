@@ -25,9 +25,11 @@ export class PuzzleValidator {
 
 export class ValidationItem {
   isValid: boolean;
+  drawnOnLeft: boolean;
 
   constructor() {
     this.isValid = false;
+    this.drawnOnLeft = false;
   }
 
   validate(_grid: PuzzleGrid, _values: PuzzleValues) {
