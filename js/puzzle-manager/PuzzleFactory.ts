@@ -20,6 +20,8 @@ export interface PuzzleRules {
   forcedCells?: { row: number; col: number; on: boolean }[];
   countAreas?: { row: number; col: number; count: number }[];
 
+  globalCount?: number;
+
   config?: PuzzleConfig;
 }
 
@@ -61,6 +63,9 @@ export const initPuzzle = (id: string, options: PuzzleRules) => {
     options.countAreas.forEach((cell) => {
       rules.addCountAreaValidator(cell.row, cell.col, cell.count);
     });
+  }
+  if (options.globalCount) {
+    rules.setGlobalCount(options.globalCount);
   }
 
   return new Puzzle(id, rows, cols, rules.create(), config);

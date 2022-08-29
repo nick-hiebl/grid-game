@@ -5,6 +5,7 @@ import {
   EdgeGroupsValidationItem,
   EdgeNoTripleValidationItem,
 } from "./EdgeValidation";
+import { GlobalCountValidationItem } from "./GlobalValidation";
 import { PuzzleValidator, ValidationItem } from "./PuzzleValidation";
 
 export class PuzzleValidatorFactory {
@@ -76,6 +77,7 @@ export class PuzzleValidatorFactory {
 
       this.validationItems.push(new EdgeNoTripleValidationItem(false, index));
     });
+    return this;
   }
 
   addRowNoTriple(yeses: boolean[]) {
@@ -86,6 +88,12 @@ export class PuzzleValidatorFactory {
 
       this.validationItems.push(new EdgeNoTripleValidationItem(true, index));
     });
+    return this;
+  }
+
+  setGlobalCount(count: number) {
+    this.validationItems.push(new GlobalCountValidationItem(count));
+    return this;
   }
 
   create() {
