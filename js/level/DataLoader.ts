@@ -160,7 +160,8 @@ function createTrapdoor(entity: EntityData) {
   const pos = Vector.scale(new Vector(...entity.px), 1 / PIXELS_PER_TILE);
   const config = {
     isFlipped: getField<boolean>(entity, "isFlipped"),
-    hasLedge: getField<boolean>(entity, "hasLedge")
+    hasLedge: getField<boolean>(entity, "hasLedge"),
+    isSingle: getField<boolean>(entity, "isSingle"),
   };
   return new TrapdoorInteractible(
     id,

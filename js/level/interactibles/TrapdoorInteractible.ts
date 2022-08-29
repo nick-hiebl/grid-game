@@ -20,6 +20,7 @@ const OPEN_CLOSE_DUR = 0.3;
 interface Config {
   isFlipped?: boolean;
   hasLedge?: boolean;
+  isSingle?: boolean;
 }
 
 export class TrapdoorInteractible extends Interactible {
@@ -51,8 +52,10 @@ export class TrapdoorInteractible extends Interactible {
       new Vector((config.isFlipped ? 1 : -1) * (width / 2 - 0.9), 0.3)
     );
 
-    this.hasLeft = width > 4 || !config.isFlipped;
-    this.hasRight = width > 4 || !!config.isFlipped;
+    const isDouble = !config.isSingle;
+
+    this.hasLeft = isDouble || !config.isFlipped;
+    this.hasRight = isDouble || !!config.isFlipped;
 
     this.hasLedge = !!config.hasLedge;
 

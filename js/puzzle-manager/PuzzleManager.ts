@@ -66,6 +66,61 @@ const RULES: Record<string, PuzzleRules> = {
     columnCounts: [1, 1],
     rowCounts: [1, 1]
   },
+  "multi-sol-2": {
+    rows: 3,
+    cols: 3,
+    columnCounts: [1, 1, 1],
+    rowCounts: [1, 1, 1]
+  },
+  "multi-sol-3": {
+    rows: 3,
+    cols: 3,
+    columnCounts: [1, 3, 1],
+    rowCounts: [2, 2, 1]
+  },
+  "multi-sol-4": {
+    rows: 3,
+    cols: 3,
+    columnCounts: [2, 1, 3],
+    rowCounts: [2, 2, 2]
+  },
+  "multi-sol-5": {
+    rows: 3,
+    cols: 3,
+    columnCounts: [3, 2, 2],
+    rowCounts: [2, 3, 2]
+  },
+  "multi-sol-6": {
+    rows: 3,
+    cols: 3,
+    columnCounts: [2, 3, 2],
+    rowCounts: [2, 3, 2]
+  },
+
+  "multi-sol-7": {
+    rows: 3,
+    cols: 4,
+    columnCounts: [2, 2, 2, 2],
+    rowCounts: [2, 4, 2]
+  },
+  "multi-sol-8": {
+    rows: 4,
+    cols: 4,
+    columnCounts: [2, 4, 2, 2],
+    rowCounts: [2, 4, 2, 2]
+  },
+  "multi-sol-9": {
+    rows: 4,
+    cols: 4,
+    columnCounts: [3, 4, 2, 3],
+    rowCounts: [3, 2, 4, 3]
+  },
+  "multi-sol-10": {
+    rows: 4,
+    cols: 4,
+    columnCounts: [3, 3, 3, 3],
+    rowCounts: [3, 3, 3, 3]
+  },
 };
 
 function makePuzzle(id: string): Puzzle {

@@ -10,7 +10,7 @@
 	},
 	"jsonVersion": "1.1.3",
 	"appBuildId": 458364,
-	"nextUid": 41,
+	"nextUid": 42,
 	"identifierStyle": "Capitalize",
 	"worldLayout": "GridVania",
 	"worldGridWidth": 320,
@@ -520,6 +520,35 @@
 					"allowedRefs": "OnlySame",
 					"allowedRefTags": [],
 					"tilesetUid": null
+				},
+				{
+					"identifier": "isSingle",
+					"__type": "Bool",
+					"uid": 41,
+					"type": "F_Bool",
+					"isArray": false,
+					"canBeNull": false,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "Hidden",
+					"editorDisplayPos": "Above",
+					"editorAlwaysShow": false,
+					"editorCutLongValues": true,
+					"editorTextSuffix": null,
+					"editorTextPrefix": null,
+					"useForSmartColor": false,
+					"min": null,
+					"max": null,
+					"regex": null,
+					"acceptFileTypes": null,
+					"defaultOverride": null,
+					"textLanguageMode": null,
+					"symmetricalRef": false,
+					"autoChainRef": true,
+					"allowOutOfLevelRef": true,
+					"allowedRefs": "OnlySame",
+					"allowedRefTags": [],
+					"tilesetUid": null
 				}
 			]
 		},
@@ -811,20 +840,6 @@
 					"gridTiles": [],
 					"entityInstances": [
 						{
-							"__identifier": "PlayerStart",
-							"__grid": [6,8],
-							"__pivot": [0.5,0.5],
-							"__tags": [],
-							"__tile": null,
-							"__smartColor": "#94D9B3",
-							"iid": "621dbba0-02f0-11ed-9b60-436fbb949bcf",
-							"width": 16,
-							"height": 16,
-							"defUid": 7,
-							"px": [65,85],
-							"fieldInstances": []
-						},
-						{
 							"__identifier": "Switch",
 							"__grid": [10,6],
 							"__pivot": [0,0],
@@ -857,7 +872,7 @@
 								"entityIid": "7544d6f0-02f0-11ed-9b60-297a3f454309",
 								"layerIid": "677ec570-02f0-11ed-babb-19545103a3fc",
 								"levelIid": "2e2576b0-02f0-11ed-babb-236311c5927d",
-								"worldIid": "190c8560-02f0-11ed-8a68-dd8c9f5083b3"
+								"worldIid": "2f554640-02f0-11ed-898a-235dee4c642e"
 							}], "__type": "Array<EntityRef>", "__tile": null, "defUid": 21, "realEditorValues": [{
 								"id": "V_String",
 								"params": ["7544d6f0-02f0-11ed-9b60-297a3f454309"]
@@ -886,7 +901,7 @@
 									"entityIid": "bc6385e0-02f0-11ed-9b60-c52901d21af1",
 									"layerIid": "677ec570-02f0-11ed-babb-19545103a3fc",
 									"levelIid": "2e2576b0-02f0-11ed-babb-236311c5927d",
-									"worldIid": "190c8560-02f0-11ed-8a68-dd8c9f5083b3"
+									"worldIid": "2f554640-02f0-11ed-898a-235dee4c642e"
 								}, "__type": "EntityRef", "__tile": null, "defUid": 39, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["bc6385e0-02f0-11ed-9b60-c52901d21af1"]
@@ -909,7 +924,7 @@
 								"entityIid": "e5b851f0-02f0-11ed-9b60-a3f9aece135f",
 								"layerIid": "677ec570-02f0-11ed-babb-19545103a3fc",
 								"levelIid": "2e2576b0-02f0-11ed-babb-236311c5927d",
-								"worldIid": "190c8560-02f0-11ed-8a68-dd8c9f5083b3"
+								"worldIid": "2f554640-02f0-11ed-898a-235dee4c642e"
 							}], "__type": "Array<EntityRef>", "__tile": null, "defUid": 21, "realEditorValues": [{
 								"id": "V_String",
 								"params": ["e5b851f0-02f0-11ed-9b60-a3f9aece135f"]
@@ -941,7 +956,7 @@
 									"entityIid": "c5b933b0-02f0-11ed-9b60-d12777a08012",
 									"layerIid": "677ec570-02f0-11ed-babb-19545103a3fc",
 									"levelIid": "2e2576b0-02f0-11ed-babb-236311c5927d",
-									"worldIid": "190c8560-02f0-11ed-8a68-dd8c9f5083b3"
+									"worldIid": "2f554640-02f0-11ed-898a-235dee4c642e"
 								}, "__type": "EntityRef", "__tile": null, "defUid": 39, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["c5b933b0-02f0-11ed-9b60-d12777a08012"]
@@ -964,7 +979,7 @@
 								"entityIid": "7a8caef0-02f0-11ed-9b60-5783289056ec",
 								"layerIid": "677ec570-02f0-11ed-babb-19545103a3fc",
 								"levelIid": "2e2576b0-02f0-11ed-babb-236311c5927d",
-								"worldIid": "190c8560-02f0-11ed-8a68-dd8c9f5083b3"
+								"worldIid": "2f554640-02f0-11ed-898a-235dee4c642e"
 							}], "__type": "Array<EntityRef>", "__tile": null, "defUid": 21, "realEditorValues": [{
 								"id": "V_String",
 								"params": ["7a8caef0-02f0-11ed-9b60-5783289056ec"]
@@ -986,7 +1001,7 @@
 								"entityIid": "9ad85a60-02f0-11ed-9b60-1f743773f6c5",
 								"layerIid": "677ec570-02f0-11ed-babb-19545103a3fc",
 								"levelIid": "2e2576b0-02f0-11ed-babb-236311c5927d",
-								"worldIid": "190c8560-02f0-11ed-8a68-dd8c9f5083b3"
+								"worldIid": "2f554640-02f0-11ed-898a-235dee4c642e"
 							}], "__type": "Array<EntityRef>", "__tile": null, "defUid": 21, "realEditorValues": [{
 								"id": "V_String",
 								"params": ["9ad85a60-02f0-11ed-9b60-1f743773f6c5"]
@@ -1018,7 +1033,7 @@
 									"entityIid": "cb8e1f30-02f0-11ed-9b60-71a112bfc1eb",
 									"layerIid": "677ec570-02f0-11ed-babb-19545103a3fc",
 									"levelIid": "2e2576b0-02f0-11ed-babb-236311c5927d",
-									"worldIid": "190c8560-02f0-11ed-8a68-dd8c9f5083b3"
+									"worldIid": "2f554640-02f0-11ed-898a-235dee4c642e"
 								}, "__type": "EntityRef", "__tile": null, "defUid": 39, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["cb8e1f30-02f0-11ed-9b60-71a112bfc1eb"]
@@ -1048,7 +1063,7 @@
 									"entityIid": "d17c8620-02f0-11ed-9b60-15e95c430c97",
 									"layerIid": "677ec570-02f0-11ed-babb-19545103a3fc",
 									"levelIid": "2e2576b0-02f0-11ed-babb-236311c5927d",
-									"worldIid": "190c8560-02f0-11ed-8a68-dd8c9f5083b3"
+									"worldIid": "2f554640-02f0-11ed-898a-235dee4c642e"
 								}, "__type": "EntityRef", "__tile": null, "defUid": 39, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["d17c8620-02f0-11ed-9b60-15e95c430c97"]
@@ -1101,7 +1116,7 @@
 									"entityIid": "e0fa3100-02f0-11ed-9b60-5f6ee2512ac4",
 									"layerIid": "677ec570-02f0-11ed-babb-19545103a3fc",
 									"levelIid": "2e2576b0-02f0-11ed-babb-236311c5927d",
-									"worldIid": "190c8560-02f0-11ed-8a68-dd8c9f5083b3"
+									"worldIid": "2f554640-02f0-11ed-898a-235dee4c642e"
 								}], "__type": "Array<EntityRef>", "__tile": null, "defUid": 22, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["e0fa3100-02f0-11ed-9b60-5f6ee2512ac4"]
@@ -1134,7 +1149,7 @@
 									"entityIid": "e1ee2df0-02f0-11ed-9b60-f34a58d52dc5",
 									"layerIid": "677ec570-02f0-11ed-babb-19545103a3fc",
 									"levelIid": "2e2576b0-02f0-11ed-babb-236311c5927d",
-									"worldIid": "190c8560-02f0-11ed-8a68-dd8c9f5083b3"
+									"worldIid": "2f554640-02f0-11ed-898a-235dee4c642e"
 								}], "__type": "Array<EntityRef>", "__tile": null, "defUid": 22, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["e1ee2df0-02f0-11ed-9b60-f34a58d52dc5"]
@@ -1167,7 +1182,7 @@
 									"entityIid": "e29395b0-02f0-11ed-9b60-955dcdcaec5d",
 									"layerIid": "677ec570-02f0-11ed-babb-19545103a3fc",
 									"levelIid": "2e2576b0-02f0-11ed-babb-236311c5927d",
-									"worldIid": "190c8560-02f0-11ed-8a68-dd8c9f5083b3"
+									"worldIid": "2f554640-02f0-11ed-898a-235dee4c642e"
 								}], "__type": "Array<EntityRef>", "__tile": null, "defUid": 22, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["e29395b0-02f0-11ed-9b60-955dcdcaec5d"]
@@ -1196,7 +1211,7 @@
 									"entityIid": "50705180-02f0-11ed-9b60-4de8d923fb4a",
 									"layerIid": "677ec570-02f0-11ed-babb-19545103a3fc",
 									"levelIid": "2e2576b0-02f0-11ed-babb-236311c5927d",
-									"worldIid": "190c8560-02f0-11ed-8a68-dd8c9f5083b3"
+									"worldIid": "2f554640-02f0-11ed-898a-235dee4c642e"
 								}], "__type": "Array<EntityRef>", "__tile": null, "defUid": 26, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["50705180-02f0-11ed-9b60-4de8d923fb4a"]
@@ -1208,7 +1223,8 @@
 								{ "__identifier": "hasLedge", "__value": true, "__type": "Bool", "__tile": null, "defUid": 28, "realEditorValues": [{
 									"id": "V_Bool",
 									"params": [ true ]
-								}] }
+								}] },
+								{ "__identifier": "isSingle", "__value": false, "__type": "Bool", "__tile": null, "defUid": 41, "realEditorValues": [] }
 							]
 						},
 						{
@@ -1229,7 +1245,7 @@
 									"entityIid": "0706bb30-02f0-11ed-9b60-ff2340d1afe6",
 									"layerIid": "677ec570-02f0-11ed-babb-19545103a3fc",
 									"levelIid": "2e2576b0-02f0-11ed-babb-236311c5927d",
-									"worldIid": "190c8560-02f0-11ed-8a68-dd8c9f5083b3"
+									"worldIid": "2f554640-02f0-11ed-898a-235dee4c642e"
 								}, "__type": "EntityRef", "__tile": null, "defUid": 40, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["0706bb30-02f0-11ed-9b60-ff2340d1afe6"]
@@ -1253,7 +1269,7 @@
 									"entityIid": "36a2e290-02f0-11ed-9b60-03e80a5a236d",
 									"layerIid": "677ec570-02f0-11ed-babb-19545103a3fc",
 									"levelIid": "2e2576b0-02f0-11ed-babb-236311c5927d",
-									"worldIid": "190c8560-02f0-11ed-8a68-dd8c9f5083b3"
+									"worldIid": "2f554640-02f0-11ed-898a-235dee4c642e"
 								}, "__type": "EntityRef", "__tile": null, "defUid": 32, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["36a2e290-02f0-11ed-9b60-03e80a5a236d"]
@@ -1304,7 +1320,7 @@
 									"entityIid": "e34fe0d0-02f0-11ed-9b60-93ceefb141b8",
 									"layerIid": "677ec570-02f0-11ed-babb-19545103a3fc",
 									"levelIid": "2e2576b0-02f0-11ed-babb-236311c5927d",
-									"worldIid": "190c8560-02f0-11ed-8a68-dd8c9f5083b3"
+									"worldIid": "2f554640-02f0-11ed-898a-235dee4c642e"
 								}], "__type": "Array<EntityRef>", "__tile": null, "defUid": 22, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["e34fe0d0-02f0-11ed-9b60-93ceefb141b8"]
@@ -1337,7 +1353,7 @@
 									"entityIid": "c1ec8320-02f0-11ed-9b60-ed26127938f6",
 									"layerIid": "677ec570-02f0-11ed-babb-19545103a3fc",
 									"levelIid": "2e2576b0-02f0-11ed-babb-236311c5927d",
-									"worldIid": "190c8560-02f0-11ed-8a68-dd8c9f5083b3"
+									"worldIid": "2f554640-02f0-11ed-898a-235dee4c642e"
 								}], "__type": "Array<EntityRef>", "__tile": null, "defUid": 22, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["c1ec8320-02f0-11ed-9b60-ed26127938f6"]
@@ -1397,7 +1413,7 @@
 									"entityIid": "25006f30-02f0-11ed-9b60-7b6aa4bb7108",
 									"layerIid": "677ec570-02f0-11ed-babb-19545103a3fc",
 									"levelIid": "2e2576b0-02f0-11ed-babb-236311c5927d",
-									"worldIid": "190c8560-02f0-11ed-8a68-dd8c9f5083b3"
+									"worldIid": "2f554640-02f0-11ed-898a-235dee4c642e"
 								}, "__type": "EntityRef", "__tile": null, "defUid": 39, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["25006f30-02f0-11ed-9b60-7b6aa4bb7108"]
@@ -1421,7 +1437,7 @@
 									"entityIid": "bee65eb0-02f0-11ed-9b60-07dc78ae169f",
 									"layerIid": "677ec570-02f0-11ed-babb-19545103a3fc",
 									"levelIid": "2e2576b0-02f0-11ed-babb-236311c5927d",
-									"worldIid": "190c8560-02f0-11ed-8a68-dd8c9f5083b3"
+									"worldIid": "2f554640-02f0-11ed-898a-235dee4c642e"
 								}, "__type": "EntityRef", "__tile": null, "defUid": 32, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["bee65eb0-02f0-11ed-9b60-07dc78ae169f"]
@@ -1430,7 +1446,7 @@
 									"entityIid": "b796cc00-02f0-11ed-9b60-fb8d8d3be5db",
 									"layerIid": "677ec570-02f0-11ed-babb-19545103a3fc",
 									"levelIid": "2e2576b0-02f0-11ed-babb-236311c5927d",
-									"worldIid": "190c8560-02f0-11ed-8a68-dd8c9f5083b3"
+									"worldIid": "2f554640-02f0-11ed-898a-235dee4c642e"
 								}], "__type": "Array<EntityRef>", "__tile": null, "defUid": 36, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["b796cc00-02f0-11ed-9b60-fb8d8d3be5db"]
@@ -1582,7 +1598,7 @@
 									"entityIid": "8805f980-02f0-11ed-9b60-9f1bd07e4797",
 									"layerIid": "677ec570-02f0-11ed-babb-19545103a3fc",
 									"levelIid": "2e2576b0-02f0-11ed-babb-236311c5927d",
-									"worldIid": "190c8560-02f0-11ed-8a68-dd8c9f5083b3"
+									"worldIid": "2f554640-02f0-11ed-898a-235dee4c642e"
 								}], "__type": "Array<EntityRef>", "__tile": null, "defUid": 26, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["8805f980-02f0-11ed-9b60-9f1bd07e4797"]
@@ -1591,7 +1607,8 @@
 								{ "__identifier": "hasLedge", "__value": true, "__type": "Bool", "__tile": null, "defUid": 28, "realEditorValues": [{
 									"id": "V_Bool",
 									"params": [ true ]
-								}] }
+								}] },
+								{ "__identifier": "isSingle", "__value": false, "__type": "Bool", "__tile": null, "defUid": 41, "realEditorValues": [] }
 							]
 						},
 						{
@@ -1610,7 +1627,7 @@
 								"entityIid": "c3012770-02f0-11ed-9b60-6fc0ead1186b",
 								"layerIid": "677ec570-02f0-11ed-babb-19545103a3fc",
 								"levelIid": "2e2576b0-02f0-11ed-babb-236311c5927d",
-								"worldIid": "190c8560-02f0-11ed-8a68-dd8c9f5083b3"
+								"worldIid": "2f554640-02f0-11ed-898a-235dee4c642e"
 							}], "__type": "Array<EntityRef>", "__tile": null, "defUid": 21, "realEditorValues": [{
 								"id": "V_String",
 								"params": ["c3012770-02f0-11ed-9b60-6fc0ead1186b"]
@@ -1637,6 +1654,349 @@
 								{ "__identifier": "isFlipped", "__value": false, "__type": "Bool", "__tile": null, "defUid": 24, "realEditorValues": [] },
 								{ "__identifier": "triggerArea", "__value": null, "__type": "EntityRef", "__tile": null, "defUid": 39, "realEditorValues": [] }
 							]
+						},
+						{
+							"__identifier": "PuzzleScreen",
+							"__grid": [14,33],
+							"__pivot": [0,0],
+							"__tags": [ "reader", "outputter" ],
+							"__tile": { "tilesetUid": 11, "x": 0, "y": 0, "w": 40, "h": 40 },
+							"__smartColor": "#94D9B3",
+							"iid": "36416af0-02f0-11ed-8a68-9d1ac5744b5e",
+							"width": 40,
+							"height": 40,
+							"defUid": 10,
+							"px": [140,330],
+							"fieldInstances": [
+								{ "__identifier": "key", "__value": "multi-sol-2", "__type": "String", "__tile": null, "defUid": 12, "realEditorValues": [{
+									"id": "V_String",
+									"params": ["multi-sol-2"]
+								}] },
+								{ "__identifier": "prerequisites", "__value": [{
+									"entityIid": "8bf05ef0-02f0-11ed-8a68-076c24a34289",
+									"layerIid": "677ec570-02f0-11ed-babb-19545103a3fc",
+									"levelIid": "2e2576b0-02f0-11ed-babb-236311c5927d",
+									"worldIid": "2f554640-02f0-11ed-898a-235dee4c642e"
+								}], "__type": "Array<EntityRef>", "__tile": null, "defUid": 22, "realEditorValues": [{
+									"id": "V_String",
+									"params": ["8bf05ef0-02f0-11ed-8a68-076c24a34289"]
+								}] },
+								{ "__identifier": "isFlipped", "__value": false, "__type": "Bool", "__tile": null, "defUid": 24, "realEditorValues": [] },
+								{ "__identifier": "triggerArea", "__value": null, "__type": "EntityRef", "__tile": null, "defUid": 39, "realEditorValues": [] }
+							]
+						},
+						{
+							"__identifier": "PuzzleScreen",
+							"__grid": [18,33],
+							"__pivot": [0,0],
+							"__tags": [ "reader", "outputter" ],
+							"__tile": { "tilesetUid": 11, "x": 0, "y": 0, "w": 40, "h": 40 },
+							"__smartColor": "#94D9B3",
+							"iid": "76108fd0-02f0-11ed-8a68-9fa349dd11b6",
+							"width": 40,
+							"height": 40,
+							"defUid": 10,
+							"px": [180,330],
+							"fieldInstances": [
+								{ "__identifier": "key", "__value": "multi-sol-3", "__type": "String", "__tile": null, "defUid": 12, "realEditorValues": [{
+									"id": "V_String",
+									"params": ["multi-sol-3"]
+								}] },
+								{ "__identifier": "prerequisites", "__value": [{
+									"entityIid": "36416af0-02f0-11ed-8a68-9d1ac5744b5e",
+									"layerIid": "677ec570-02f0-11ed-babb-19545103a3fc",
+									"levelIid": "2e2576b0-02f0-11ed-babb-236311c5927d",
+									"worldIid": "2f554640-02f0-11ed-898a-235dee4c642e"
+								}], "__type": "Array<EntityRef>", "__tile": null, "defUid": 22, "realEditorValues": [{
+									"id": "V_String",
+									"params": ["36416af0-02f0-11ed-8a68-9d1ac5744b5e"]
+								}] },
+								{ "__identifier": "isFlipped", "__value": false, "__type": "Bool", "__tile": null, "defUid": 24, "realEditorValues": [] },
+								{ "__identifier": "triggerArea", "__value": null, "__type": "EntityRef", "__tile": null, "defUid": 39, "realEditorValues": [] }
+							]
+						},
+						{
+							"__identifier": "PuzzleScreen",
+							"__grid": [22,33],
+							"__pivot": [0,0],
+							"__tags": [ "reader", "outputter" ],
+							"__tile": { "tilesetUid": 11, "x": 0, "y": 0, "w": 40, "h": 40 },
+							"__smartColor": "#94D9B3",
+							"iid": "7b615730-02f0-11ed-8a68-859967f2c051",
+							"width": 40,
+							"height": 40,
+							"defUid": 10,
+							"px": [220,330],
+							"fieldInstances": [
+								{ "__identifier": "key", "__value": "multi-sol-4", "__type": "String", "__tile": null, "defUid": 12, "realEditorValues": [{
+									"id": "V_String",
+									"params": ["multi-sol-4"]
+								}] },
+								{ "__identifier": "prerequisites", "__value": [{
+									"entityIid": "76108fd0-02f0-11ed-8a68-9fa349dd11b6",
+									"layerIid": "677ec570-02f0-11ed-babb-19545103a3fc",
+									"levelIid": "2e2576b0-02f0-11ed-babb-236311c5927d",
+									"worldIid": "2f554640-02f0-11ed-898a-235dee4c642e"
+								}], "__type": "Array<EntityRef>", "__tile": null, "defUid": 22, "realEditorValues": [{
+									"id": "V_String",
+									"params": ["76108fd0-02f0-11ed-8a68-9fa349dd11b6"]
+								}] },
+								{ "__identifier": "isFlipped", "__value": false, "__type": "Bool", "__tile": null, "defUid": 24, "realEditorValues": [] },
+								{ "__identifier": "triggerArea", "__value": null, "__type": "EntityRef", "__tile": null, "defUid": 39, "realEditorValues": [] }
+							]
+						},
+						{
+							"__identifier": "PuzzleScreen",
+							"__grid": [26,33],
+							"__pivot": [0,0],
+							"__tags": [ "reader", "outputter" ],
+							"__tile": { "tilesetUid": 11, "x": 0, "y": 0, "w": 40, "h": 40 },
+							"__smartColor": "#94D9B3",
+							"iid": "b55c53e0-02f0-11ed-8a68-b1666a539e94",
+							"width": 40,
+							"height": 40,
+							"defUid": 10,
+							"px": [260,330],
+							"fieldInstances": [
+								{ "__identifier": "key", "__value": "multi-sol-5", "__type": "String", "__tile": null, "defUid": 12, "realEditorValues": [{
+									"id": "V_String",
+									"params": ["multi-sol-5"]
+								}] },
+								{ "__identifier": "prerequisites", "__value": [{
+									"entityIid": "7b615730-02f0-11ed-8a68-859967f2c051",
+									"layerIid": "677ec570-02f0-11ed-babb-19545103a3fc",
+									"levelIid": "2e2576b0-02f0-11ed-babb-236311c5927d",
+									"worldIid": "2f554640-02f0-11ed-898a-235dee4c642e"
+								}], "__type": "Array<EntityRef>", "__tile": null, "defUid": 22, "realEditorValues": [{
+									"id": "V_String",
+									"params": ["7b615730-02f0-11ed-8a68-859967f2c051"]
+								}] },
+								{ "__identifier": "isFlipped", "__value": false, "__type": "Bool", "__tile": null, "defUid": 24, "realEditorValues": [] },
+								{ "__identifier": "triggerArea", "__value": null, "__type": "EntityRef", "__tile": null, "defUid": 39, "realEditorValues": [] }
+							]
+						},
+						{
+							"__identifier": "PuzzleScreen",
+							"__grid": [30,33],
+							"__pivot": [0,0],
+							"__tags": [ "reader", "outputter" ],
+							"__tile": { "tilesetUid": 11, "x": 0, "y": 0, "w": 40, "h": 40 },
+							"__smartColor": "#94D9B3",
+							"iid": "a3bed3e0-02f0-11ed-8a68-0f9bec9fd630",
+							"width": 40,
+							"height": 40,
+							"defUid": 10,
+							"px": [300,330],
+							"fieldInstances": [
+								{ "__identifier": "key", "__value": "multi-sol-6", "__type": "String", "__tile": null, "defUid": 12, "realEditorValues": [{
+									"id": "V_String",
+									"params": ["multi-sol-6"]
+								}] },
+								{ "__identifier": "prerequisites", "__value": [{
+									"entityIid": "b55c53e0-02f0-11ed-8a68-b1666a539e94",
+									"layerIid": "677ec570-02f0-11ed-babb-19545103a3fc",
+									"levelIid": "2e2576b0-02f0-11ed-babb-236311c5927d",
+									"worldIid": "2f554640-02f0-11ed-898a-235dee4c642e"
+								}], "__type": "Array<EntityRef>", "__tile": null, "defUid": 22, "realEditorValues": [{
+									"id": "V_String",
+									"params": ["b55c53e0-02f0-11ed-8a68-b1666a539e94"]
+								}] },
+								{ "__identifier": "isFlipped", "__value": false, "__type": "Bool", "__tile": null, "defUid": 24, "realEditorValues": [] },
+								{ "__identifier": "triggerArea", "__value": null, "__type": "EntityRef", "__tile": null, "defUid": 39, "realEditorValues": [] }
+							]
+						},
+						{
+							"__identifier": "Trapdoor",
+							"__grid": [36,37],
+							"__pivot": [0.5,0],
+							"__tags": ["reader"],
+							"__tile": { "tilesetUid": 11, "x": 160, "y": 190, "w": 40, "h": 10 },
+							"__smartColor": "#94D9B3",
+							"iid": "cdefea00-02f0-11ed-8a68-d9adff965e0a",
+							"width": 60,
+							"height": 10,
+							"defUid": 25,
+							"px": [360,370],
+							"fieldInstances": [
+								{ "__identifier": "prerequisites", "__value": [{
+									"entityIid": "a3bed3e0-02f0-11ed-8a68-0f9bec9fd630",
+									"layerIid": "677ec570-02f0-11ed-babb-19545103a3fc",
+									"levelIid": "2e2576b0-02f0-11ed-babb-236311c5927d",
+									"worldIid": "2f554640-02f0-11ed-898a-235dee4c642e"
+								}], "__type": "Array<EntityRef>", "__tile": null, "defUid": 26, "realEditorValues": [{
+									"id": "V_String",
+									"params": ["a3bed3e0-02f0-11ed-8a68-0f9bec9fd630"]
+								}] },
+								{ "__identifier": "isFlipped", "__value": false, "__type": "Bool", "__tile": null, "defUid": 27, "realEditorValues": [] },
+								{ "__identifier": "hasLedge", "__value": true, "__type": "Bool", "__tile": null, "defUid": 28, "realEditorValues": [{
+									"id": "V_Bool",
+									"params": [ true ]
+								}] },
+								{ "__identifier": "isSingle", "__value": true, "__type": "Bool", "__tile": null, "defUid": 41, "realEditorValues": [{
+									"id": "V_Bool",
+									"params": [ true ]
+								}] }
+							]
+						},
+						{
+							"__identifier": "PuzzleScreen",
+							"__grid": [28,41],
+							"__pivot": [0,0],
+							"__tags": [ "reader", "outputter" ],
+							"__tile": { "tilesetUid": 11, "x": 0, "y": 0, "w": 40, "h": 40 },
+							"__smartColor": "#94D9B3",
+							"iid": "73d8f280-02f0-11ed-898a-191ba76fd173",
+							"width": 40,
+							"height": 40,
+							"defUid": 10,
+							"px": [280,410],
+							"fieldInstances": [
+								{ "__identifier": "key", "__value": "multi-sol-7", "__type": "String", "__tile": null, "defUid": 12, "realEditorValues": [{
+									"id": "V_String",
+									"params": ["multi-sol-7"]
+								}] },
+								{ "__identifier": "prerequisites", "__value": [], "__type": "Array<EntityRef>", "__tile": null, "defUid": 22, "realEditorValues": [] },
+								{ "__identifier": "isFlipped", "__value": true, "__type": "Bool", "__tile": null, "defUid": 24, "realEditorValues": [{
+									"id": "V_Bool",
+									"params": [ true ]
+								}] },
+								{ "__identifier": "triggerArea", "__value": null, "__type": "EntityRef", "__tile": null, "defUid": 39, "realEditorValues": [] }
+							]
+						},
+						{
+							"__identifier": "PuzzleScreen",
+							"__grid": [23,41],
+							"__pivot": [0,0],
+							"__tags": [ "reader", "outputter" ],
+							"__tile": { "tilesetUid": 11, "x": 0, "y": 0, "w": 40, "h": 40 },
+							"__smartColor": "#94D9B3",
+							"iid": "7b969b30-02f0-11ed-898a-b30a2b8128b3",
+							"width": 40,
+							"height": 40,
+							"defUid": 10,
+							"px": [230,410],
+							"fieldInstances": [
+								{ "__identifier": "key", "__value": "multi-sol-8", "__type": "String", "__tile": null, "defUid": 12, "realEditorValues": [{
+									"id": "V_String",
+									"params": ["multi-sol-8"]
+								}] },
+								{ "__identifier": "prerequisites", "__value": [{
+									"entityIid": "73d8f280-02f0-11ed-898a-191ba76fd173",
+									"layerIid": "677ec570-02f0-11ed-babb-19545103a3fc",
+									"levelIid": "2e2576b0-02f0-11ed-babb-236311c5927d",
+									"worldIid": "2f554640-02f0-11ed-898a-235dee4c642e"
+								}], "__type": "Array<EntityRef>", "__tile": null, "defUid": 22, "realEditorValues": [{
+									"id": "V_String",
+									"params": ["73d8f280-02f0-11ed-898a-191ba76fd173"]
+								}] },
+								{ "__identifier": "isFlipped", "__value": true, "__type": "Bool", "__tile": null, "defUid": 24, "realEditorValues": [{
+									"id": "V_Bool",
+									"params": [ true ]
+								}] },
+								{ "__identifier": "triggerArea", "__value": null, "__type": "EntityRef", "__tile": null, "defUid": 39, "realEditorValues": [] }
+							]
+						},
+						{
+							"__identifier": "PuzzleScreen",
+							"__grid": [18,41],
+							"__pivot": [0,0],
+							"__tags": [ "reader", "outputter" ],
+							"__tile": { "tilesetUid": 11, "x": 0, "y": 0, "w": 40, "h": 40 },
+							"__smartColor": "#94D9B3",
+							"iid": "7cadfea0-02f0-11ed-898a-a990a95cddef",
+							"width": 40,
+							"height": 40,
+							"defUid": 10,
+							"px": [180,410],
+							"fieldInstances": [
+								{ "__identifier": "key", "__value": "multi-sol-9", "__type": "String", "__tile": null, "defUid": 12, "realEditorValues": [{
+									"id": "V_String",
+									"params": ["multi-sol-9"]
+								}] },
+								{ "__identifier": "prerequisites", "__value": [{
+									"entityIid": "7b969b30-02f0-11ed-898a-b30a2b8128b3",
+									"layerIid": "677ec570-02f0-11ed-babb-19545103a3fc",
+									"levelIid": "2e2576b0-02f0-11ed-babb-236311c5927d",
+									"worldIid": "2f554640-02f0-11ed-898a-235dee4c642e"
+								}], "__type": "Array<EntityRef>", "__tile": null, "defUid": 22, "realEditorValues": [{
+									"id": "V_String",
+									"params": ["7b969b30-02f0-11ed-898a-b30a2b8128b3"]
+								}] },
+								{ "__identifier": "isFlipped", "__value": true, "__type": "Bool", "__tile": null, "defUid": 24, "realEditorValues": [{
+									"id": "V_Bool",
+									"params": [ true ]
+								}] },
+								{ "__identifier": "triggerArea", "__value": null, "__type": "EntityRef", "__tile": null, "defUid": 39, "realEditorValues": [] }
+							]
+						},
+						{
+							"__identifier": "PuzzleScreen",
+							"__grid": [13,41],
+							"__pivot": [0,0],
+							"__tags": [ "reader", "outputter" ],
+							"__tile": { "tilesetUid": 11, "x": 0, "y": 0, "w": 40, "h": 40 },
+							"__smartColor": "#94D9B3",
+							"iid": "7d930770-02f0-11ed-898a-bd8838f3180a",
+							"width": 40,
+							"height": 40,
+							"defUid": 10,
+							"px": [130,410],
+							"fieldInstances": [
+								{ "__identifier": "key", "__value": "multi-sol-10", "__type": "String", "__tile": null, "defUid": 12, "realEditorValues": [{
+									"id": "V_String",
+									"params": ["multi-sol-10"]
+								}] },
+								{ "__identifier": "prerequisites", "__value": [{
+									"entityIid": "7cadfea0-02f0-11ed-898a-a990a95cddef",
+									"layerIid": "677ec570-02f0-11ed-babb-19545103a3fc",
+									"levelIid": "2e2576b0-02f0-11ed-babb-236311c5927d",
+									"worldIid": "2f554640-02f0-11ed-898a-235dee4c642e"
+								}], "__type": "Array<EntityRef>", "__tile": null, "defUid": 22, "realEditorValues": [{
+									"id": "V_String",
+									"params": ["7cadfea0-02f0-11ed-898a-a990a95cddef"]
+								}] },
+								{ "__identifier": "isFlipped", "__value": true, "__type": "Bool", "__tile": null, "defUid": 24, "realEditorValues": [{
+									"id": "V_Bool",
+									"params": [ true ]
+								}] },
+								{ "__identifier": "triggerArea", "__value": null, "__type": "EntityRef", "__tile": null, "defUid": 39, "realEditorValues": [] }
+							]
+						},
+						{
+							"__identifier": "Door",
+							"__grid": [7,38],
+							"__pivot": [0,0],
+							"__tags": ["reader"],
+							"__tile": { "tilesetUid": 11, "x": 180, "y": 160, "w": 20, "h": 30 },
+							"__smartColor": "#94D9B3",
+							"iid": "807e8ea0-02f0-11ed-898a-d7beaa404382",
+							"width": 40,
+							"height": 70,
+							"defUid": 18,
+							"px": [70,380],
+							"fieldInstances": [{ "__identifier": "prerequisites", "__value": [{
+								"entityIid": "7d930770-02f0-11ed-898a-bd8838f3180a",
+								"layerIid": "677ec570-02f0-11ed-babb-19545103a3fc",
+								"levelIid": "2e2576b0-02f0-11ed-babb-236311c5927d",
+								"worldIid": "2f554640-02f0-11ed-898a-235dee4c642e"
+							}], "__type": "Array<EntityRef>", "__tile": null, "defUid": 21, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["7d930770-02f0-11ed-898a-bd8838f3180a"]
+							}] }]
+						},
+						{
+							"__identifier": "PlayerStart",
+							"__grid": [6,8],
+							"__pivot": [0.5,0.5],
+							"__tags": [],
+							"__tile": null,
+							"__smartColor": "#94D9B3",
+							"iid": "79d6cd50-02f0-11ed-898a-f5e1145ec437",
+							"width": 16,
+							"height": 16,
+							"defUid": 7,
+							"px": [65,85],
+							"fieldInstances": []
 						}
 					]
 				},
@@ -2184,12 +2544,6 @@
 						{ "px": [300,370], "src": [0,0], "f": 0, "t": 0, "d": [2398] },
 						{ "px": [310,370], "src": [0,0], "f": 0, "t": 0, "d": [2399] },
 						{ "px": [320,370], "src": [0,0], "f": 0, "t": 0, "d": [2400] },
-						{ "px": [330,370], "src": [0,0], "f": 0, "t": 0, "d": [2401] },
-						{ "px": [340,370], "src": [0,0], "f": 0, "t": 0, "d": [2402] },
-						{ "px": [350,370], "src": [0,0], "f": 0, "t": 0, "d": [2403] },
-						{ "px": [360,370], "src": [0,0], "f": 0, "t": 0, "d": [2404] },
-						{ "px": [370,370], "src": [0,0], "f": 0, "t": 0, "d": [2405] },
-						{ "px": [380,370], "src": [0,0], "f": 0, "t": 0, "d": [2406] },
 						{ "px": [390,370], "src": [0,0], "f": 0, "t": 0, "d": [2407] },
 						{ "px": [460,370], "src": [20,0], "f": 0, "t": 2, "d": [2414] },
 						{ "px": [530,370], "src": [0,0], "f": 0, "t": 0, "d": [2421] },
@@ -2200,16 +2554,25 @@
 						{ "px": [530,380], "src": [0,0], "f": 0, "t": 0, "d": [2485] },
 						{ "px": [630,380], "src": [0,0], "f": 0, "t": 0, "d": [2495] },
 						{ "px": [0,390], "src": [0,0], "f": 0, "t": 0, "d": [2496] },
+						{ "px": [350,390], "src": [20,0], "f": 0, "t": 2, "d": [2531] },
+						{ "px": [360,390], "src": [20,0], "f": 0, "t": 2, "d": [2532] },
+						{ "px": [370,390], "src": [20,0], "f": 0, "t": 2, "d": [2533] },
 						{ "px": [390,390], "src": [0,0], "f": 0, "t": 0, "d": [2535] },
 						{ "px": [460,390], "src": [20,0], "f": 0, "t": 2, "d": [2542] },
 						{ "px": [530,390], "src": [0,0], "f": 0, "t": 0, "d": [2549] },
 						{ "px": [630,390], "src": [0,0], "f": 0, "t": 0, "d": [2559] },
 						{ "px": [0,400], "src": [0,0], "f": 0, "t": 0, "d": [2560] },
+						{ "px": [350,400], "src": [20,0], "f": 0, "t": 2, "d": [2595] },
+						{ "px": [360,400], "src": [20,0], "f": 0, "t": 2, "d": [2596] },
+						{ "px": [370,400], "src": [20,0], "f": 0, "t": 2, "d": [2597] },
 						{ "px": [390,400], "src": [0,0], "f": 0, "t": 0, "d": [2599] },
 						{ "px": [460,400], "src": [20,0], "f": 0, "t": 2, "d": [2606] },
 						{ "px": [530,400], "src": [0,0], "f": 0, "t": 0, "d": [2613] },
 						{ "px": [630,400], "src": [0,0], "f": 0, "t": 0, "d": [2623] },
 						{ "px": [0,410], "src": [0,0], "f": 0, "t": 0, "d": [2624] },
+						{ "px": [350,410], "src": [20,0], "f": 0, "t": 2, "d": [2659] },
+						{ "px": [360,410], "src": [20,0], "f": 0, "t": 2, "d": [2660] },
+						{ "px": [370,410], "src": [20,0], "f": 0, "t": 2, "d": [2661] },
 						{ "px": [390,410], "src": [0,0], "f": 0, "t": 0, "d": [2663] },
 						{ "px": [460,410], "src": [20,0], "f": 0, "t": 2, "d": [2670] },
 						{ "px": [530,410], "src": [0,0], "f": 0, "t": 0, "d": [2677] },
@@ -2230,26 +2593,75 @@
 						{ "px": [530,440], "src": [0,0], "f": 0, "t": 0, "d": [2869] },
 						{ "px": [630,440], "src": [0,0], "f": 0, "t": 0, "d": [2879] },
 						{ "px": [0,450], "src": [0,0], "f": 0, "t": 0, "d": [2880] },
+						{ "px": [10,450], "src": [10,0], "f": 0, "t": 1, "d": [2881] },
+						{ "px": [20,450], "src": [10,0], "f": 0, "t": 1, "d": [2882] },
+						{ "px": [30,450], "src": [10,0], "f": 0, "t": 1, "d": [2883] },
+						{ "px": [40,450], "src": [10,0], "f": 0, "t": 1, "d": [2884] },
+						{ "px": [50,450], "src": [10,0], "f": 0, "t": 1, "d": [2885] },
+						{ "px": [60,450], "src": [10,0], "f": 0, "t": 1, "d": [2886] },
+						{ "px": [70,450], "src": [10,0], "f": 0, "t": 1, "d": [2887] },
+						{ "px": [80,450], "src": [0,0], "f": 0, "t": 0, "d": [2888] },
+						{ "px": [90,450], "src": [0,0], "f": 0, "t": 0, "d": [2889] },
+						{ "px": [100,450], "src": [0,0], "f": 0, "t": 0, "d": [2890] },
+						{ "px": [110,450], "src": [0,0], "f": 0, "t": 0, "d": [2891] },
+						{ "px": [120,450], "src": [0,0], "f": 0, "t": 0, "d": [2892] },
+						{ "px": [130,450], "src": [0,0], "f": 0, "t": 0, "d": [2893] },
+						{ "px": [140,450], "src": [0,0], "f": 0, "t": 0, "d": [2894] },
+						{ "px": [150,450], "src": [0,0], "f": 0, "t": 0, "d": [2895] },
+						{ "px": [160,450], "src": [0,0], "f": 0, "t": 0, "d": [2896] },
+						{ "px": [170,450], "src": [0,0], "f": 0, "t": 0, "d": [2897] },
+						{ "px": [180,450], "src": [0,0], "f": 0, "t": 0, "d": [2898] },
+						{ "px": [190,450], "src": [0,0], "f": 0, "t": 0, "d": [2899] },
+						{ "px": [200,450], "src": [0,0], "f": 0, "t": 0, "d": [2900] },
+						{ "px": [210,450], "src": [0,0], "f": 0, "t": 0, "d": [2901] },
+						{ "px": [220,450], "src": [0,0], "f": 0, "t": 0, "d": [2902] },
+						{ "px": [230,450], "src": [0,0], "f": 0, "t": 0, "d": [2903] },
+						{ "px": [240,450], "src": [0,0], "f": 0, "t": 0, "d": [2904] },
+						{ "px": [250,450], "src": [0,0], "f": 0, "t": 0, "d": [2905] },
+						{ "px": [260,450], "src": [0,0], "f": 0, "t": 0, "d": [2906] },
+						{ "px": [270,450], "src": [0,0], "f": 0, "t": 0, "d": [2907] },
+						{ "px": [280,450], "src": [0,0], "f": 0, "t": 0, "d": [2908] },
+						{ "px": [290,450], "src": [0,0], "f": 0, "t": 0, "d": [2909] },
+						{ "px": [300,450], "src": [0,0], "f": 0, "t": 0, "d": [2910] },
+						{ "px": [310,450], "src": [0,0], "f": 0, "t": 0, "d": [2911] },
+						{ "px": [320,450], "src": [0,0], "f": 0, "t": 0, "d": [2912] },
+						{ "px": [330,450], "src": [0,0], "f": 0, "t": 0, "d": [2913] },
+						{ "px": [340,450], "src": [0,0], "f": 0, "t": 0, "d": [2914] },
+						{ "px": [350,450], "src": [0,0], "f": 0, "t": 0, "d": [2915] },
+						{ "px": [360,450], "src": [0,0], "f": 0, "t": 0, "d": [2916] },
+						{ "px": [370,450], "src": [0,0], "f": 0, "t": 0, "d": [2917] },
+						{ "px": [380,450], "src": [0,0], "f": 0, "t": 0, "d": [2918] },
 						{ "px": [390,450], "src": [0,0], "f": 0, "t": 0, "d": [2919] },
 						{ "px": [460,450], "src": [20,0], "f": 0, "t": 2, "d": [2926] },
 						{ "px": [530,450], "src": [0,0], "f": 0, "t": 0, "d": [2933] },
 						{ "px": [630,450], "src": [0,0], "f": 0, "t": 0, "d": [2943] },
 						{ "px": [0,460], "src": [0,0], "f": 0, "t": 0, "d": [2944] },
+						{ "px": [80,460], "src": [0,0], "f": 0, "t": 0, "d": [2952] },
 						{ "px": [390,460], "src": [0,0], "f": 0, "t": 0, "d": [2983] },
 						{ "px": [460,460], "src": [20,0], "f": 0, "t": 2, "d": [2990] },
 						{ "px": [530,460], "src": [0,0], "f": 0, "t": 0, "d": [2997] },
 						{ "px": [630,460], "src": [0,0], "f": 0, "t": 0, "d": [3007] },
 						{ "px": [0,470], "src": [0,0], "f": 0, "t": 0, "d": [3008] },
+						{ "px": [80,470], "src": [0,0], "f": 0, "t": 0, "d": [3016] },
 						{ "px": [390,470], "src": [0,0], "f": 0, "t": 0, "d": [3047] },
 						{ "px": [460,470], "src": [20,0], "f": 0, "t": 2, "d": [3054] },
 						{ "px": [530,470], "src": [0,0], "f": 0, "t": 0, "d": [3061] },
 						{ "px": [630,470], "src": [0,0], "f": 0, "t": 0, "d": [3071] },
 						{ "px": [0,480], "src": [0,0], "f": 0, "t": 0, "d": [3072] },
+						{ "px": [80,480], "src": [0,0], "f": 0, "t": 0, "d": [3080] },
 						{ "px": [390,480], "src": [0,0], "f": 0, "t": 0, "d": [3111] },
 						{ "px": [460,480], "src": [20,0], "f": 0, "t": 2, "d": [3118] },
 						{ "px": [530,480], "src": [0,0], "f": 0, "t": 0, "d": [3125] },
 						{ "px": [630,480], "src": [0,0], "f": 0, "t": 0, "d": [3135] },
 						{ "px": [0,490], "src": [0,0], "f": 0, "t": 0, "d": [3136] },
+						{ "px": [10,490], "src": [10,0], "f": 0, "t": 1, "d": [3137] },
+						{ "px": [20,490], "src": [10,0], "f": 0, "t": 1, "d": [3138] },
+						{ "px": [30,490], "src": [10,0], "f": 0, "t": 1, "d": [3139] },
+						{ "px": [40,490], "src": [10,0], "f": 0, "t": 1, "d": [3140] },
+						{ "px": [50,490], "src": [10,0], "f": 0, "t": 1, "d": [3141] },
+						{ "px": [60,490], "src": [10,0], "f": 0, "t": 1, "d": [3142] },
+						{ "px": [70,490], "src": [10,0], "f": 0, "t": 1, "d": [3143] },
+						{ "px": [80,490], "src": [0,0], "f": 0, "t": 0, "d": [3144] },
 						{ "px": [390,490], "src": [0,0], "f": 0, "t": 0, "d": [3175] },
 						{ "px": [460,490], "src": [20,0], "f": 0, "t": 2, "d": [3182] },
 						{ "px": [530,490], "src": [0,0], "f": 0, "t": 0, "d": [3189] },
