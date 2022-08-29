@@ -83,30 +83,10 @@ export class BackgroundArtist {
       screenManager.background.height
     );
 
-    // Narrow vertical pipes
+    // Thick horizontal and vertical beams
     this.prepareCanvas(
       screenManager,
       0,
-      hue,
-      backgroundColor,
-      foregroundColor,
-      (canvas, width, height) => {
-        for (const [_row, _col, rect] of this.iterateArea(
-          width,
-          height,
-          30,
-          height
-        )) {
-          if (Math.random() > 0.86) {
-            rect.draw(canvas);
-          }
-        }
-      }
-    );
-
-    this.prepareCanvas(
-      screenManager,
-      1,
       hue,
       backgroundColor,
       foregroundColor,
@@ -129,6 +109,46 @@ export class BackgroundArtist {
         )) {
           if (Math.random() > 0.95) {
             rect.draw(canvas);
+          }
+        }
+      }
+    );
+
+    // Structural vertical beams
+    this.prepareCanvas(
+      screenManager,
+      1,
+      hue,
+      backgroundColor,
+      foregroundColor,
+      (canvas, width, height) => {
+        for (const [_row, _col, rect] of this.iterateArea(
+          width,
+          height,
+          120,
+          height
+        )) {
+          if (Math.random() > 0.9) {
+            const thickWidth = 20;
+            canvas.setLineWidth(thickWidth * 2);
+            canvas.drawLine(rect.x1, rect.y1, rect.x1, rect.y2);
+            canvas.drawLine(rect.x2, rect.y1, rect.x2, rect.y2);
+
+            const beamWidth = 10;
+            canvas.setLineWidth(beamWidth * 2);
+            for (const [_row2, _col2, rect2] of this.iterateArea(
+              1,
+              height,
+              1,
+              240,
+            )) {
+              canvas.drawLine(rect.x1, rect2.y1, rect.x2, rect2.y1);
+              const radius = 20;
+              canvas.outerCircleCorner(rect.x2 - thickWidth - radius, rect2.y1 - beamWidth - radius, 20, 0);
+              canvas.outerCircleCorner(rect.x1 + thickWidth + radius, rect2.y1 - beamWidth - radius, 20, Math.PI / 2);
+              canvas.outerCircleCorner(rect.x1 + thickWidth + radius, rect2.y1 + beamWidth + radius, 20, Math.PI);
+              canvas.outerCircleCorner(rect.x2 - thickWidth - radius, rect2.y1 + beamWidth + radius, 20, Math.PI * 3 / 2);
+            }
           }
         }
       }
@@ -176,7 +196,7 @@ export class BackgroundArtist {
       }
     );
 
-    // Thick horizontal and vertical pipes
+    // Lots of narrow pipes
     this.prepareCanvas(
       screenManager,
       3,
@@ -187,20 +207,10 @@ export class BackgroundArtist {
         for (const [_row, _col, rect] of this.iterateArea(
           width,
           height,
-          90,
+          30,
           height
         )) {
-          if (Math.random() > 0.95) {
-            rect.draw(canvas);
-          }
-        }
-        for (const [_row, _col, rect] of this.iterateArea(
-          width,
-          height,
-          width,
-          90
-        )) {
-          if (Math.random() > 0.95) {
+          if (Math.random() > 0.92) {
             rect.draw(canvas);
           }
         }

@@ -148,7 +148,7 @@ export class TrapdoorInteractible extends Interactible {
     const canvas = screenManager.dynamicWorldCanvas;
 
     if (this.hasLedge) {
-      for (let x = -this.ledge.x1; x < this.ledge.x2; x++) {
+      for (let x = this.ledge.x1; x < this.ledge.x2; x++) {
         canvas.drawImage(
           TileImage,
           PIXELS_PER_TILE,

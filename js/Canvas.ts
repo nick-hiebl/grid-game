@@ -1,3 +1,4 @@
+import { sign } from "./math/Common";
 import { hslaColor, rgbaColor } from "./utils/Color";
 
 const CTX = Symbol("ctx");
@@ -93,6 +94,14 @@ export class Canvas {
     this[CTX].beginPath();
     this[CTX].ellipse(x, y, width, height, 0, 0, 2 * Math.PI);
     this[CTX].stroke();
+  }
+
+  outerCircleCorner(x: number, y: number, radius: number, startAngle: number) {
+    this[CTX].beginPath();
+    this[CTX].arc(x, y, radius, startAngle, startAngle + Math.PI / 2);
+    const toPoint = startAngle + Math.PI / 4;
+    this[CTX].lineTo(x + sign(Math.cos(toPoint)) * radius, y + sign(Math.sin(toPoint)) * radius);
+    this[CTX].fill();
   }
 
   /**
