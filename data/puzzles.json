@@ -126,6 +126,43 @@
     "rowCounts": [3, 3, 3, 3, 3, 4]
   },
 
+  "zeros-1": {
+    "rows": 1,
+    "cols": 2,
+    "columnCounts": [1, 0],
+    "rowCounts": [1]
+  },
+  "zeros-2": {
+    "rows": 3,
+    "cols": 3,
+    "columnCounts": [0, 1, 0],
+    "rowCounts": [0, 1, 0]
+  },
+  "zeros-3": {
+    "rows": 3,
+    "cols": 2,
+    "columnCounts": [2, 0],
+    "rowCounts": [1, 0, 1]
+  },
+  "zeros-4": {
+    "rows": 4,
+    "cols": 4,
+    "columnCounts": [2, 0, 1, 4],
+    "rowCounts": [3, 1, 2, 1]
+  },
+  "zeros-5": {
+    "rows": 5,
+    "cols": 5,
+    "columnCounts": [4, 1, 3, 3, 4],
+    "rowCounts": [5, 2, 4, 0, 4]
+  },
+  "zeros-6": {
+    "rows": 6,
+    "cols": 6,
+    "columnCounts": [1, 3, 5, 2, 0, 2],
+    "rowCounts": [0, 5, 2, 4, 1, 1]
+  },  
+
   "ambiguity-1": {
     "rows": 2,
     "cols": 1,

@@ -11,10 +11,22 @@ export class LevelManager {
   currentLevel: Level;
 
   constructor() {
-    const key = "Level_0";
+    let initialLevel = "Level_0";
+
+    if (location.href.includes("localhost")) {
+      (window as any).setStartLevel = (levelName: string) => {
+        localStorage.setItem('start_level', levelName);
+      }
+
+      const curr = localStorage.getItem('start_level');
+      if (curr) {
+        initialLevel = curr;
+      }
+    }
+
     this.levelMap = {};
-    this.currentLevel = DataLoader.getLevel(key);
-    this.levelMap[key] = this.currentLevel;
+    this.currentLevel = DataLoader.getLevel(initialLevel);
+    this.levelMap[initialLevel] = this.currentLevel;
   }
 
   getInitialLevel() {
