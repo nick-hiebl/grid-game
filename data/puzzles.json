@@ -117,5 +117,30 @@
     "cols": 4,
     "columnCounts": [3, 3, 3, 3],
     "rowCounts": [3, 3, 3, 3]
+  },
+
+  "multi-sol-to-ambiguity": {
+    "rows": 6,
+    "cols": 6,
+    "columnCounts": [2, 2, 6, 4, 3, 2],
+    "rowCounts": [3, 3, 3, 3, 3, 4]
+  },
+
+  "ambiguity-1": {
+    "rows": 2,
+    "cols": 2,
+    "rowCounts": [1, 1]
+  },
+  "ambiguity-2": {
+    "rows": 2,
+    "cols": 2,
+    "rowCounts": [2, 1],
+    "colCounts": [1, null]
+  },
+
+  "ambiguity-fixed-back-to-ambiguity": {
+    "rows": 1,
+    "cols": 1,
+    "columnCounts": [1]
   }
 }
