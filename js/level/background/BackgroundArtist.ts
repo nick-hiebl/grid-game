@@ -83,6 +83,10 @@ export class BackgroundArtist {
       screenManager.background.height
     );
 
+    for (const canvas of screenManager.parallax) {
+      canvas.clear();
+    }
+
     // Thick horizontal and vertical beams
     this.prepareCanvas(
       screenManager,
@@ -162,16 +166,14 @@ export class BackgroundArtist {
       backgroundColor,
       foregroundColor,
       (canvas, width, height) => {
-        const xs = [
-          Math.random() * width,
-          Math.random() * width,
-          Math.random() * width,
-        ];
-        const ys = [
-          Math.random() * height,
-          Math.random() * height,
-          Math.random() * height,
-        ];
+        const xs = [], ys = [];
+        for (let i = 0; i < width; i += 800) {
+          xs.push(Math.random() * width);
+        }
+        for (let i = 0; i < height; i += 600) {
+          ys.push(Math.random() * height);
+        }
+
         for (const [_row, _col, rect] of this.iterateArea(
           width,
           height,
