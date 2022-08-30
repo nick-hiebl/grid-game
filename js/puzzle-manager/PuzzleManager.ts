@@ -8,7 +8,14 @@ function makePuzzle(id: string): Puzzle {
     return initPuzzle(id, rules[id]);
   }
 
-  throw new Error(`Cannot find puzzle with id: ${id}`);
+  console.warn(`Cannot find puzzle with id: ${id}`);
+
+  return initPuzzle(id, {
+    rows: 1,
+    cols: 1,
+    rowCounts: [1],
+    columnCounts: [1],
+  });
 }
 
 class PuzzleManagerInstance {
