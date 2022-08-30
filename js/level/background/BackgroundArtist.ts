@@ -69,9 +69,9 @@ export class BackgroundArtist {
   }
 
   draw(screenManager: ScreenManager) {
-    const hue = 40;
-    const backgroundColor = new Vector(0.28, 0.55);
-    const foregroundColor = new Vector(0.7, 0.3);
+    const hue = 154;
+    const backgroundColor = new Vector(0.14, 0.72);
+    const foregroundColor = new Vector(0.14, 0.4);
 
     screenManager.background.setColor(
       hslaColor(hue, backgroundColor.x, backgroundColor.y)
@@ -140,18 +140,20 @@ export class BackgroundArtist {
 
             const beamWidth = 10;
             canvas.setLineWidth(beamWidth * 2);
+            const yOffset = Math.floor(Math.random() * 240);
             for (const [_row2, _col2, rect2] of this.iterateArea(
               1,
               height,
               1,
               240,
             )) {
-              canvas.drawLine(rect.x1, rect2.y1, rect.x2, rect2.y1);
+              const y = rect2.y1 + yOffset;
+              canvas.drawLine(rect.x1, y, rect.x2, y);
               const radius = 20;
-              canvas.outerCircleCorner(rect.x2 - thickWidth - radius, rect2.y1 - beamWidth - radius, 20, 0);
-              canvas.outerCircleCorner(rect.x1 + thickWidth + radius, rect2.y1 - beamWidth - radius, 20, Math.PI / 2);
-              canvas.outerCircleCorner(rect.x1 + thickWidth + radius, rect2.y1 + beamWidth + radius, 20, Math.PI);
-              canvas.outerCircleCorner(rect.x2 - thickWidth - radius, rect2.y1 + beamWidth + radius, 20, Math.PI * 3 / 2);
+              canvas.outerCircleCorner(rect.x2 - thickWidth - radius, y - beamWidth - radius, 20, 0);
+              canvas.outerCircleCorner(rect.x1 + thickWidth + radius, y - beamWidth - radius, 20, Math.PI / 2);
+              canvas.outerCircleCorner(rect.x1 + thickWidth + radius, y + beamWidth + radius, 20, Math.PI);
+              canvas.outerCircleCorner(rect.x2 - thickWidth - radius, y + beamWidth + radius, 20, Math.PI * 3 / 2);
             }
           }
         }
