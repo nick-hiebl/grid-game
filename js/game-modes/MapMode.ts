@@ -75,7 +75,7 @@ export class MapMode {
       }
     } else if (inputEvent.isScroll()) {
       const scroll = inputEvent as ScrollEvent;
-      this.zoom = clamp(this.zoom + scroll.delta * -0.01, 0.5, 10);
+      this.zoom = clamp(this.zoom + scroll.delta * -0.01, 0.5, 20);
     }
   }
 

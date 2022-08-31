@@ -1,3 +1,4 @@
+import { Canvas } from "../../Canvas";
 import { EntityImage } from "../../constants/Image";
 import { PIXELS_PER_TILE } from "../../constants/ScreenConstants";
 import { clamp } from "../../math/Common";
@@ -105,5 +106,11 @@ export class DoorInteractible extends Interactible {
       12 / PIXELS_PER_TILE,
       6 / PIXELS_PER_TILE
     );
+  }
+
+  drawForMap(canvas: Canvas): void {
+    canvas.setColor("black");
+
+    this.doorCollider.draw(canvas);
   }
 }

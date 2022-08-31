@@ -1,3 +1,4 @@
+import { Canvas } from "../../Canvas";
 import { EntityImage, TileImage } from "../../constants/Image";
 import { PIXELS_PER_TILE } from "../../constants/ScreenConstants";
 import { clamp } from "../../math/Common";
@@ -225,6 +226,17 @@ export class TrapdoorInteractible extends Interactible {
         this.rightHead.width,
         this.rightHead.height
       );
+    }
+  }
+
+  drawForMap(canvas: Canvas): void {
+    canvas.setColor("black");
+
+    if (this.hasLeft) {
+      this.leftDoor.draw(canvas);
+    }
+    if (this.hasRight) {
+      this.rightDoor.draw(canvas);
     }
   }
 }
