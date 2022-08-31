@@ -99,9 +99,6 @@ export class MapMode {
 
     canvas.translate(-this.cameraPosition.x, -this.cameraPosition.y);
 
-    canvas.setColor("red");
-    canvas.fillRect(this.mousePosition.x, this.mousePosition.y, 3, 3);
-
     for (const level of Object.values(DataLoader.levelMap)) {
       if (!level.visited) {
         continue;
