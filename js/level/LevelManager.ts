@@ -15,10 +15,10 @@ export class LevelManager {
 
     if (location.href.includes("localhost")) {
       (window as any).setStartLevel = (levelName: string) => {
-        localStorage.setItem('start_level', levelName);
-      }
+        localStorage.setItem("start_level", levelName);
+      };
 
-      const curr = localStorage.getItem('start_level');
+      const curr = localStorage.getItem("start_level");
       if (curr) {
         initialLevel = curr;
       }

@@ -92,7 +92,11 @@ export class Puzzle {
 
     let incId = 0;
 
-    this.positionGetter = positionGetter(rows, columns, validator.validationItems.some((item) => item.drawnOnLeft));
+    this.positionGetter = positionGetter(
+      rows,
+      columns,
+      validator.validationItems.some((item) => item.drawnOnLeft)
+    );
 
     this.grid = [];
 
@@ -241,7 +245,7 @@ export class Puzzle {
     );
 
     if (SPACE_DEBUG_DRAW) {
-      canvas.setColor('red');
+      canvas.setColor("red");
       canvas.setLineDash([]);
       for (let i = -1; i <= this.rows; i++) {
         for (let j = -1; j <= this.cols; j++) {

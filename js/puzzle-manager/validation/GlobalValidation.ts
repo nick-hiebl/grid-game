@@ -40,8 +40,8 @@ export class GlobalCountValidationItem extends GlobalValidationItem {
     const w = Math.min(rectangle.height, rectangle.width);
     const squareSize = Math.ceil(Math.sqrt(number));
     const radius = w / squareSize;
-    const l = center.x - (squareSize - 1) * radius / 2;
-    const t = center.y - (squareSize - 1) * radius / 2;
+    const l = center.x - ((squareSize - 1) * radius) / 2;
+    const t = center.y - ((squareSize - 1) * radius) / 2;
 
     if (number === 0) {
       canvas.setLineWidth(PIXEL_WIDTH);

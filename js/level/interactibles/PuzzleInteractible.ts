@@ -152,12 +152,7 @@ export class PuzzleInteractible extends Interactible {
         const w = SCREEN_PIXEL * (3 * shape.width - 1);
         const h = SCREEN_PIXEL * (3 * shape.height - 1);
         if (DRAW_CIRCLES) {
-          canvas.fillEllipse(
-            x0 + w / 2,
-            y0 + h / 2,
-            w / 2,
-            h / 2
-          );
+          canvas.fillEllipse(x0 + w / 2, y0 + h / 2, w / 2, h / 2);
         } else {
           canvas.fillRect(x0, y0, w, h);
         }

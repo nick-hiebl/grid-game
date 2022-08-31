@@ -108,7 +108,10 @@ export class Canvas {
     this[CTX].beginPath();
     this[CTX].arc(x, y, radius, startAngle, startAngle + Math.PI / 2);
     const toPoint = startAngle + Math.PI / 4;
-    this[CTX].lineTo(x + sign(Math.cos(toPoint)) * radius, y + sign(Math.sin(toPoint)) * radius);
+    this[CTX].lineTo(
+      x + sign(Math.cos(toPoint)) * radius,
+      y + sign(Math.sin(toPoint)) * radius
+    );
     this[CTX].fill();
   }
 

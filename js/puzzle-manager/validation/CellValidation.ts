@@ -100,10 +100,7 @@ export class CountInAreaValidation extends CellValidation {
     this.isCellColoured = !!values[grid[this.row][this.column].id];
   }
 
-  draw(
-    canvas: Canvas,
-    positionGetter: PositionGetter
-  ) {
+  draw(canvas: Canvas, positionGetter: PositionGetter) {
     if (this.isValid) {
       canvas.setColor(this.isCellColoured ? SOLVED_BACKGROUND : "white");
     } else {

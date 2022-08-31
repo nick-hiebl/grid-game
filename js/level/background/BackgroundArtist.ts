@@ -145,15 +145,35 @@ export class BackgroundArtist {
               1,
               height,
               1,
-              240,
+              240
             )) {
               const y = rect2.y1 + yOffset;
               canvas.drawLine(rect.x1, y, rect.x2, y);
               const radius = 20;
-              canvas.outerCircleCorner(rect.x2 - thickWidth - radius, y - beamWidth - radius, 20, 0);
-              canvas.outerCircleCorner(rect.x1 + thickWidth + radius, y - beamWidth - radius, 20, Math.PI / 2);
-              canvas.outerCircleCorner(rect.x1 + thickWidth + radius, y + beamWidth + radius, 20, Math.PI);
-              canvas.outerCircleCorner(rect.x2 - thickWidth - radius, y + beamWidth + radius, 20, Math.PI * 3 / 2);
+              canvas.outerCircleCorner(
+                rect.x2 - thickWidth - radius,
+                y - beamWidth - radius,
+                20,
+                0
+              );
+              canvas.outerCircleCorner(
+                rect.x1 + thickWidth + radius,
+                y - beamWidth - radius,
+                20,
+                Math.PI / 2
+              );
+              canvas.outerCircleCorner(
+                rect.x1 + thickWidth + radius,
+                y + beamWidth + radius,
+                20,
+                Math.PI
+              );
+              canvas.outerCircleCorner(
+                rect.x2 - thickWidth - radius,
+                y + beamWidth + radius,
+                20,
+                (Math.PI * 3) / 2
+              );
             }
           }
         }
@@ -168,7 +188,8 @@ export class BackgroundArtist {
       backgroundColor,
       foregroundColor,
       (canvas, width, height) => {
-        const xs = [], ys = [];
+        const xs = [],
+          ys = [];
         for (let i = 0; i < width; i += 800) {
           xs.push(Math.random() * width);
         }

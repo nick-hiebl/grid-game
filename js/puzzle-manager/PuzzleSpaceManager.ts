@@ -4,9 +4,14 @@ import { PositionGetter } from "./types";
 
 const CACHE: Record<string, Rectangle[][]> = {};
 
-const cacheKey = (rows: number, cols: number, leftCol: boolean) => `${rows}-${cols}-${leftCol}`;
+const cacheKey = (rows: number, cols: number, leftCol: boolean) =>
+  `${rows}-${cols}-${leftCol}`;
 
-const produceObject = (rows: number, cols: number, leftCol: boolean): Rectangle[][] => {
+const produceObject = (
+  rows: number,
+  cols: number,
+  leftCol: boolean
+): Rectangle[][] => {
   const WIDE_EDGE = 0.7;
   const BOTTOM_ROW = 0.5;
   const LEFT_COL = leftCol ? 1 : 0.5;
@@ -73,7 +78,11 @@ const getObject = (rows: number, cols: number, leftCol: boolean) => {
   return CACHE[key];
 };
 
-export const positionGetter = (rows: number, cols: number, leftCol?: boolean): PositionGetter => {
+export const positionGetter = (
+  rows: number,
+  cols: number,
+  leftCol?: boolean
+): PositionGetter => {
   const matrix = getObject(rows, cols, !!leftCol);
 
   // Indexed from [-1 to ROWS][-1 to COLS]

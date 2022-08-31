@@ -1,4 +1,9 @@
-import { ClickEvent, InputEvent, InputState, ScrollEvent } from "../InputManager";
+import {
+  ClickEvent,
+  InputEvent,
+  InputState,
+  ScrollEvent,
+} from "../InputManager";
 import { DataLoader } from "../level/DataLoader";
 import { clamp } from "../math/Common";
 import { Vector } from "../math/Vector";
@@ -45,11 +50,9 @@ export class MapMode {
   toWorldPosition(position: Vector) {
     return Vector.add(
       Vector.scale(
-        Vector.diff(
-          position,
-          new Vector(this.canvasW / 2, this.canvasH / 2)
-        ),
-      1 / this.zoom),
+        Vector.diff(position, new Vector(this.canvasW / 2, this.canvasH / 2)),
+        1 / this.zoom
+      ),
       this.cameraPosition
     );
   }
@@ -58,7 +61,9 @@ export class MapMode {
     // Do this on start
     if (inputState.isLeftClicking() && this.isClicked) {
       const currentWorldPos = this.toWorldPosition(inputState.mousePosition);
-      this.cameraPosition.subtract(Vector.diff(currentWorldPos, this.mousePosition));
+      this.cameraPosition.subtract(
+        Vector.diff(currentWorldPos, this.mousePosition)
+      );
       // this.mousePosition = currentWorldPos;
     } else {
       this.isClicked = false;
@@ -90,10 +95,7 @@ export class MapMode {
     canvas.fillRect(0, 0, canvas.width, canvas.height);
 
     canvas.saveTransform();
-    canvas.translate(
-      canvas.width / 2,
-      canvas.height / 2
-    );
+    canvas.translate(canvas.width / 2, canvas.height / 2);
 
     canvas.scale(this.zoom, this.zoom);
 
@@ -105,18 +107,33 @@ export class MapMode {
       }
 
       canvas.setColor("white");
-      canvas.fillRect(level.worldPosition.x, level.worldPosition.y, level.width, level.height);
+      canvas.fillRect(
+        level.worldPosition.x,
+        level.worldPosition.y,
+        level.width,
+        level.height
+      );
       canvas.translate(level.worldPosition.x, level.worldPosition.y);
 
       level.drawForMap(canvas);
 
       if (currentLevel === level) {
         canvas.setColor("#EF9606");
-        canvas.fillEllipse(level.player.position.x, level.player.position.y, 3, 3);
+        canvas.fillEllipse(
+          level.player.position.x,
+          level.player.position.y,
+          3,
+          3
+        );
         canvas.setColor("black");
         canvas.setLineWidth(1);
         canvas.setLineDash([]);
-        canvas.strokeEllipse(level.player.position.x, level.player.position.y, 3, 3);
+        canvas.strokeEllipse(
+          level.player.position.x,
+          level.player.position.y,
+          3,
+          3
+        );
       }
 
       canvas.translate(-level.worldPosition.x, -level.worldPosition.y);
@@ -130,11 +147,21 @@ export class MapMode {
       canvas.translate(level.worldPosition.x, level.worldPosition.y);
 
       canvas.setColor("#EF9606");
-      canvas.fillEllipse(level.player.position.x, level.player.position.y, 3, 3);
+      canvas.fillEllipse(
+        level.player.position.x,
+        level.player.position.y,
+        3,
+        3
+      );
       canvas.setColor("black");
       canvas.setLineWidth(1);
       canvas.setLineDash([]);
-      canvas.strokeEllipse(level.player.position.x, level.player.position.y, 3, 3);
+      canvas.strokeEllipse(
+        level.player.position.x,
+        level.player.position.y,
+        3,
+        3
+      );
 
       canvas.translate(-level.worldPosition.x, -level.worldPosition.y);
     }

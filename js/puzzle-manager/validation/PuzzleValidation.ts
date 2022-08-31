@@ -53,7 +53,10 @@ export class PuzzleValidator {
     const globals = this.validationItems.filter((item) => item.drawnOnLeft);
 
     globals.forEach((item, index) => {
-      item.draw(canvas, this.getLeftArea(index, globals.length, positionGetter));
+      item.draw(
+        canvas,
+        this.getLeftArea(index, globals.length, positionGetter)
+      );
     });
   }
 }

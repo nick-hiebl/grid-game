@@ -100,9 +100,13 @@ function getInteractibleTrigger(entity: EntityData, entities: EntityData[]) {
   const triggerId = getField<EntityRef>(entity, "triggerArea")?.entityIid;
   const triggerArea = triggerId ? findByIid(entities, triggerId) : undefined;
 
-  return triggerArea ? rectOfEntity(triggerArea) : Rectangle.aroundPoint(
-    new Vector(entity.__grid[0] + 2, entity.__grid[1] + 2), 2, 2
-  );
+  return triggerArea
+    ? rectOfEntity(triggerArea)
+    : Rectangle.aroundPoint(
+        new Vector(entity.__grid[0] + 2, entity.__grid[1] + 2),
+        2,
+        2
+      );
 }
 
 function entityToPos(entity: EntityData) {
@@ -319,7 +323,7 @@ export class DataLoader {
 
       for (const level of Object.values(puzzlesByLevel)) {
         for (const group of Object.values(level))
-        Object.assign(allPuzzles, group);
+          Object.assign(allPuzzles, group);
       }
 
       DataLoader.puzzles = allPuzzles;
@@ -348,10 +352,7 @@ export class DataLoader {
   }
 
   static start() {
-    return Promise.all([
-      DataLoader.fetchPuzzles(),
-      DataLoader.fetchWorld(),
-    ]);
+    return Promise.all([DataLoader.fetchPuzzles(), DataLoader.fetchWorld()]);
   }
 
   static getLevel(key: string) {
