@@ -20,6 +20,8 @@ interface Config {
 
 const SCREEN_W = 1;
 
+const DRAW_CIRCLES = false;
+
 export class PuzzleInteractible extends Interactible {
   puzzleId: string;
   puzzle: Puzzle;
@@ -145,12 +147,20 @@ export class PuzzleInteractible extends Interactible {
 
     this.puzzle.miniElements.forEach(({ row, col, shape }) => {
       if (this.puzzle.values[grid[row][col].id]) {
-        canvas.fillRect(
-          LEFT_PAD + SCREEN_PIXEL * (3 * shape.x1 + 1),
-          TOP_PAD + SCREEN_PIXEL * (3 * shape.y1 + 1),
-          SCREEN_PIXEL * (3 * shape.width - 1),
-          SCREEN_PIXEL * (3 * shape.height - 1)
-        );
+        const x0 = LEFT_PAD + SCREEN_PIXEL * (3 * shape.x1 + 1);
+        const y0 = TOP_PAD + SCREEN_PIXEL * (3 * shape.y1 + 1);
+        const w = SCREEN_PIXEL * (3 * shape.width - 1);
+        const h = SCREEN_PIXEL * (3 * shape.height - 1);
+        if (DRAW_CIRCLES) {
+          canvas.fillEllipse(
+            x0 + w / 2,
+            y0 + h / 2,
+            w / 2,
+            h / 2
+          );
+        } else {
+          canvas.fillRect(x0, y0, w, h);
+        }
       }
     });
 

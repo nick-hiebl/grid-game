@@ -83,6 +83,14 @@ export class Canvas {
     this[CTX].fill();
   }
 
+  fillTriangle(x: number, y: number, width: number, height: number) {
+    this[CTX].beginPath();
+    this[CTX].moveTo(x, y + height);
+    this[CTX].lineTo(x + width, y + height);
+    this[CTX].lineTo(x + width / 2, y);
+    this[CTX].fill();
+  }
+
   /**
    * Outline an ellipse on the canvas.
    * @param {number} x The horizontal position of the ellipse center.
