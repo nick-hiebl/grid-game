@@ -5,6 +5,7 @@ const Right = Symbol("Right");
 const Jump = Symbol("Jump");
 const Interact = Symbol("Interact");
 const Escape = Symbol("Escape");
+const Map = Symbol("Map");
 
 // TODO Convert this to an enum
 export const Input = {
@@ -15,4 +16,5 @@ export const Input = {
   Left,
   Right,
   Up,
+  Map,
 };

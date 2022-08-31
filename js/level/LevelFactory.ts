@@ -90,7 +90,8 @@ export class LevelFactory {
       new Player(this.playerPosition),
       this.exitTriggers,
       this.interactibles,
-      this.entities
+      this.entities,
+      this.worldPosition
     );
   }
 }

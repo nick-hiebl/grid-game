@@ -1,3 +1,4 @@
+import { Canvas } from "../../Canvas";
 import { clamp } from "../../math/Common";
 import { Rectangle } from "../../math/Shapes";
 import { Vector } from "../../math/Vector";
@@ -134,5 +135,14 @@ export class CoverEntity extends Entity {
 
     this.coverArea.draw(canvas);
     this.extraCovers.forEach((cover) => cover.draw(canvas));
+  }
+
+  drawForMap(canvas: Canvas) {
+    if (this.revealState !== 1) {
+      canvas.setColor("black");
+      for (const rect of this.extraCovers.concat(this.coverArea)) {
+        rect.draw(canvas);
+      }
+    }
   }
 }

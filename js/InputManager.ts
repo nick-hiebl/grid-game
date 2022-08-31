@@ -16,6 +16,7 @@ const KEY_MAP: Record<string, Key> = {
   s: Input.Down,
   d: Input.Right,
   e: Input.Interact,
+  m: Input.Map,
 };
 
 type ValueOf<T> = T[keyof T];
@@ -85,6 +86,10 @@ export class InputEvent {
   isClick() {
     return false;
   }
+
+  isScroll() {
+    return false;
+  }
 }
 
 export class KeyPressEvent extends InputEvent {
@@ -116,6 +121,19 @@ export class ClickEvent extends InputEvent {
 
   isRightClick() {
     return this.isRight;
+  }
+}
+
+export class ScrollEvent extends InputEvent {
+  delta: number;
+
+  constructor(delta: number) {
+    super();
+    this.delta = delta;
+  }
+
+  isScroll() {
+    return true;
   }
 }
 
@@ -199,6 +217,16 @@ export class InputManager {
 
     document.addEventListener("contextmenu", (event) => {
       event.preventDefault();
+    });
+
+    // Stop current clicks on mouse leave
+    this.canvas.addEventListener("mouseleave", () => {
+      this.leftClicking = false;
+      this.rightClicking = false;
+    });
+
+    this.canvas.addEventListener("wheel", (event) => {
+      this.listener?.(new ScrollEvent(event.deltaY));
     });
 
     const wireButton = (id: string, input: Key) => {

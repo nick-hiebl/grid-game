@@ -55,6 +55,10 @@ export class Level {
   drawnStatic: boolean;
   playModeManager: PlayMode | undefined;
 
+  worldPosition: Vector;
+
+  visited: boolean;
+
   constructor(
     key: string,
     width: number,
@@ -64,7 +68,8 @@ export class Level {
     player: Player,
     exitTriggers: ExitTrigger[],
     interactibles: Interactible[],
-    entities: Entity[]
+    entities: Entity[],
+    worldPosition: Vector
   ) {
     this.key = key;
     this.levelGrid = levelGrid;
@@ -83,14 +88,27 @@ export class Level {
     this.backgroundArtist = new BackgroundArtist(width, height);
     this.drawnStatic = false;
     this.playModeManager = undefined;
+
+    this.worldPosition = worldPosition;
+
+    this.visited = false;
   }
 
   start(playModeManager: PlayMode) {
-    this.drawnStatic = false;
+    this.onAwaken();
+
     this.interactingWith = undefined;
     this.playModeManager = playModeManager;
     this.interactibles.forEach((i) => i.onStart(this));
     this.entities.forEach((e) => e.onStart(this));
+
+    this.visited = true;
+  }
+
+  onAwaken() {
+    this.drawnStatic = false;
+    this.interactibles.forEach((i) => i.onAwaken());
+    this.entities.forEach((e) => e.onAwaken());
   }
 
   addWithoutDuplicate(object: Object) {
@@ -261,6 +279,23 @@ export class Level {
     canvas.restoreTransform();
   }
 
+  drawForMap(canvas: Canvas) {
+    for (let row = 0; row < this.height; row++) {
+      for (let col = 0; col < this.width; col++) {
+        const blockType = this.levelGrid[row][col];
+
+        if (blockType === BlockEnum.SOLID) {
+          canvas.setColor("black");
+          canvas.fillRect(col, row, 1, 1);
+        }
+      }
+    }
+
+    for (const entity of this.entities) {
+      entity.drawForMap(canvas);
+    }
+  }
+
   /**
    * Draw the current level.
    * @param {ScreenManager} screenManager The screen to draw on
@@ -294,6 +329,8 @@ export class Level {
           }
         }
       });
+
+      screenManager.uiCanvas.clear();
 
       this.drawnStatic = true;
     }

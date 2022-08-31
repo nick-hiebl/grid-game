@@ -11,11 +11,14 @@ export class PlayMode {
   puzzleManager: typeof PuzzleManager;
 
   currentPuzzle: Puzzle | undefined;
-  currentLevel?: Level;
+  currentLevel: Level;
 
   constructor() {
     this.levelManager = new LevelManager();
-    this.startLevel(this.levelManager.getInitialLevel());
+
+    this.currentLevel = this.levelManager.getInitialLevel();
+    this.startLevel(this.currentLevel);
+
     this.puzzleManager = PuzzleManager;
 
     this.currentPuzzle = undefined;
@@ -24,6 +27,10 @@ export class PlayMode {
   startLevel(level: Level) {
     this.currentLevel = level;
     level.start(this);
+  }
+
+  onStart() {
+    this.currentLevel.onAwaken();
   }
 
   onLevelEvent(event: LevelEvent) {

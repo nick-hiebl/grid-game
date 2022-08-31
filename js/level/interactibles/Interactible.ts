@@ -49,6 +49,10 @@ export class Interactible extends Entity {
     this.findPrerequisites(level);
   }
 
+  onAwaken() {
+    // Do nothing
+  }
+
   findPrerequisites(level: Level): Interactible[] {
     if (this.prereqEntities.length === this.prerequisites.length) {
       return this.prereqEntities;
