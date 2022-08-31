@@ -298,6 +298,7 @@ export class Puzzle {
   }
 
   resolveClick(element: Element, left: boolean, right: boolean) {
+    const elementState = this.getElementState(element);
     if (this.dragKind === undefined) {
       return;
     } else if (this.dragKind === "left" && !left) {
@@ -310,7 +311,7 @@ export class Puzzle {
 
     if (this.dragKind === "left") {
       if (this.dragState === undefined) {
-        const current = this.getElementState(element);
+        const current = elementState;
         if (current !== true) {
           this.dragState = "enabling";
         } else {
@@ -319,13 +320,17 @@ export class Puzzle {
       }
 
       if (this.dragState === "enabling") {
-        this.setElementState(element, true);
+        if (elementState !== false) {
+          this.setElementState(element, true);
+        }
       } else if (this.dragState === "emptying") {
-        this.setElementState(element, null);
+        if (elementState !== false) {
+          this.setElementState(element, null);
+        }
       }
     } else if (this.dragKind === "right") {
       if (this.dragState === undefined) {
-        const current = this.getElementState(element);
+        const current = elementState;
         if (current !== false) {
           this.dragState = "disabling";
         } else {
@@ -334,9 +339,13 @@ export class Puzzle {
       }
 
       if (this.dragState === "disabling") {
-        this.setElementState(element, false);
+        if (elementState !== true) {
+          this.setElementState(element, false);
+        }
       } else if (this.dragState === "emptying") {
-        this.setElementState(element, null);
+        if (elementState !== true) {
+          this.setElementState(element, null);
+        }
       }
     }
   }
