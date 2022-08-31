@@ -105,6 +105,10 @@ function getInteractibleTrigger(entity: EntityData, entities: EntityData[]) {
   );
 }
 
+function entityToPos(entity: EntityData) {
+  return Vector.scale(new Vector(...entity.px), 1 / PIXELS_PER_TILE);
+}
+
 function createPuzzle(entity: EntityData, entities: EntityData[]) {
   const id = entity.iid;
   const key = getField<string>(entity, "key");
@@ -145,7 +149,7 @@ function createDoor(entity: EntityData) {
   if (!id) {
     console.warn("Door with no key!");
   }
-  const door = new Vector(entity.__grid[0] + 2, entity.__grid[1] + 2);
+  const door = Vector.add(entityToPos(entity), new Vector(2, 2));
   return new DoorInteractible(
     id,
     door,
@@ -159,7 +163,7 @@ function createTrapdoor(entity: EntityData) {
   if (!id) {
     console.warn("Trapdoor with no key!");
   }
-  const pos = Vector.scale(new Vector(...entity.px), 1 / PIXELS_PER_TILE);
+  const pos = entityToPos(entity);
   const config = {
     isFlipped: getField<boolean>(entity, "isFlipped"),
     hasLedge: getField<boolean>(entity, "hasLedge"),
