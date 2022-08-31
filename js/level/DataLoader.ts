@@ -294,6 +294,14 @@ function secondPass(level: LevelData, others: Record<string, LevelFactory>) {
   return factory.create();
 }
 
+interface RawPuzzles {
+  puzzlesByLevel: {
+    [levelName: string]: {
+      [groupName: string]: Record<string, PuzzleRules>;
+    };
+  };
+}
+
 export class DataLoader {
   static hasLoaded = false;
   static data: WorldData | null = null;
@@ -301,8 +309,16 @@ export class DataLoader {
   static puzzles: Record<string, PuzzleRules> = {};
 
   static fetchPuzzles() {
-    return loadJson<Record<string, PuzzleRules>>(PUZZLE_DATA_URL).then((puzzles) => {
-      DataLoader.puzzles = puzzles;
+    return loadJson<RawPuzzles>(PUZZLE_DATA_URL).then((rawPuzzles) => {
+      const { puzzlesByLevel } = rawPuzzles;
+      const allPuzzles: Record<string, PuzzleRules> = {};
+
+      for (const level of Object.values(puzzlesByLevel)) {
+        for (const group of Object.values(level))
+        Object.assign(allPuzzles, group);
+      }
+
+      DataLoader.puzzles = allPuzzles;
     });
   }
 

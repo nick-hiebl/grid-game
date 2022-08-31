@@ -49,6 +49,7 @@ export class ForcedCellValidation extends CellValidation {
       canvas.fillEllipse(center.x, center.y, width * 0.1, width * 0.1);
     } else {
       canvas.setLineWidth(width * 0.05);
+      canvas.setLineDash([]);
       canvas.strokeEllipse(center.x, center.y, width * 0.075, width * 0.075);
     }
   }
