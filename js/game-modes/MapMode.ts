@@ -5,6 +5,7 @@ import {
   ScrollEvent,
 } from "../InputManager";
 import { DataLoader } from "../level/DataLoader";
+import { Player } from "../level/Player";
 import { clamp } from "../math/Common";
 import { Vector } from "../math/Vector";
 import { ScreenManager } from "../ScreenManager";
@@ -101,6 +102,8 @@ export class MapMode {
 
     canvas.translate(-this.cameraPosition.x, -this.cameraPosition.y);
 
+    let currentPlayer: Player | undefined;
+
     for (const level of Object.values(DataLoader.levelMap)) {
       if (!level.visited) {
         continue;
@@ -118,52 +121,29 @@ export class MapMode {
       level.drawForMap(canvas);
 
       if (currentLevel === level) {
-        canvas.setColor("#EF9606");
-        canvas.fillEllipse(
-          level.player.position.x,
-          level.player.position.y,
-          3,
-          3
-        );
-        canvas.setColor("black");
-        canvas.setLineWidth(1);
-        canvas.setLineDash([]);
-        canvas.strokeEllipse(
-          level.player.position.x,
-          level.player.position.y,
-          3,
-          3
-        );
+        currentPlayer = level.player;
       }
 
       canvas.translate(-level.worldPosition.x, -level.worldPosition.y);
     }
 
-    for (const level of Object.values(DataLoader.levelMap)) {
-      if (level !== currentLevel) {
-        continue;
-      }
+    if (currentPlayer) {
+      const offset = Vector.add(currentLevel.worldPosition, currentPlayer.position);
+      canvas.translate(offset.x, offset.y);
 
-      canvas.translate(level.worldPosition.x, level.worldPosition.y);
+      canvas.setLineWidth(2);
+      canvas.setLineDash([]);
+
+      canvas.scale(1 / this.zoom, 1 / this.zoom);
 
       canvas.setColor("#EF9606");
-      canvas.fillEllipse(
-        level.player.position.x,
-        level.player.position.y,
-        3,
-        3
-      );
+      canvas.fillEllipse(0, 0, 15, 15);
       canvas.setColor("black");
-      canvas.setLineWidth(1);
-      canvas.setLineDash([]);
-      canvas.strokeEllipse(
-        level.player.position.x,
-        level.player.position.y,
-        3,
-        3
-      );
+      canvas.strokeEllipse(0, 0, 15, 15);
 
-      canvas.translate(-level.worldPosition.x, -level.worldPosition.y);
+      canvas.scale(this.zoom, this.zoom);
+
+      canvas.translate(-offset.x, -offset.y);
     }
 
     canvas.restoreTransform();

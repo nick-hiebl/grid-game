@@ -141,7 +141,7 @@ export class CoverEntity extends Entity {
     if (this.revealState !== 1) {
       canvas.setColor("black");
       for (const rect of this.extraCovers.concat(this.coverArea)) {
-        rect.draw(canvas);
+        rect.draw(canvas, 0.05);
       }
     }
   }

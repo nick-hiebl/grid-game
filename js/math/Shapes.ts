@@ -174,8 +174,13 @@ export class Rectangle {
    * Draw this rectangle onto a canvas.
    * @param {Canvas} canvas The canvas to draw on.
    */
-  draw(canvas: Canvas) {
-    canvas.fillRect(this.x1, this.y1, this.width, this.height);
+  draw(canvas: Canvas, outset = 0) {
+    canvas.fillRect(
+      this.x1 - outset,
+      this.y1 - outset,
+      this.width + outset * 2,
+      this.height + outset * 2
+    );
   }
 
   stroke(canvas: Canvas, inset = 0) {

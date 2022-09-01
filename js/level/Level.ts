@@ -286,10 +286,10 @@ export class Level {
 
         if (blockType === BlockEnum.SOLID) {
           canvas.setColor("black");
-          canvas.fillRect(col, row, 1, 1);
+          canvas.fillRect(col - 0.05, row - 0.05, 1.1, 1.1);
         } else if (blockType === BlockEnum.LEDGE) {
           canvas.setColor("black");
-          canvas.fillRect(col, row, 1, 0.2);
+          canvas.fillRect(col - 0.05, row - 0.05, 1.1, 0.2);
         }
       }
     }
