@@ -170,8 +170,10 @@ export class PuzzleInteractible extends Interactible {
     canvas.setColor("#222222");
     canvas.setLineWidth(0.2);
     canvas.setLineDash([]);
+    // Outline
     canvas.strokeRectInset(this.position.x, this.position.y, 0, 0, -1.1);
-    canvas.fillRect(this.position.x - 0.5, this.position.y + 1, 1, 1);
+    // Leg
+    canvas.fillRect(this.position.x - 0.5, this.position.y + 1.1, 1, 0.9);
   }
 
   onInteract() {

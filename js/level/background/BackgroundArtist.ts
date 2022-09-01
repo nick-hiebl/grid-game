@@ -68,6 +68,16 @@ export class BackgroundArtist {
     action(canvas, size.x, size.y);
   }
 
+  getBackgroundHSL(): [number, Vector] {
+    return [154, new Vector(0.14, 0.72)];
+  }
+
+  getBackgroundColor() {
+    const [hue, { x: saturation, y: lightness }] = this.getBackgroundHSL();
+
+    return hslaColor(hue, saturation, lightness);
+  }
+
   draw(screenManager: ScreenManager) {
     const hue = 154;
     const backgroundColor = new Vector(0.14, 0.72);

@@ -280,6 +280,8 @@ export class Level {
   }
 
   drawForMap(canvas: Canvas) {
+    canvas.setColor(this.backgroundArtist.getBackgroundColor());
+    canvas.fillRect(0, 0, this.width, this.height);
     for (let row = 0; row < this.height; row++) {
       for (let col = 0; col < this.width; col++) {
         const blockType = this.levelGrid[row][col];
