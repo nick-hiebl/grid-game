@@ -162,6 +162,18 @@ export class PuzzleInteractible extends Interactible {
     canvas.translate(-offset.x, -offset.y);
   }
 
+  drawForMap(canvas: Canvas) {
+    canvas.setColor(
+      this.puzzle.isSolved ? SOLVED_BACKGROUND : DEFAULT_BACKGROUND
+    );
+    canvas.fillRect(this.position.x - 1, this.position.y - 1, 2, 2);
+    canvas.setColor("#222222");
+    canvas.setLineWidth(0.2);
+    canvas.setLineDash([]);
+    canvas.strokeRectInset(this.position.x, this.position.y, 0, 0, -1.1);
+    canvas.fillRect(this.position.x - 0.5, this.position.y + 1, 1, 1);
+  }
+
   onInteract() {
     return new OpenPuzzleEvent(this.puzzleId);
   }
