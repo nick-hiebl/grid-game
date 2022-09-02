@@ -12,6 +12,7 @@ import { ExitTrigger } from "./ExitTrigger";
 import { LevelFactory } from "./LevelFactory";
 import { Level } from "./Level";
 import { PuzzleRules } from "../puzzle-manager/PuzzleFactory";
+import { DecorationEntity } from "./entity/DecorationEntity";
 
 const LEVEL_DATA_URL = "./data/world.json";
 const PUZZLE_DATA_URL = "./data/puzzles.json";
@@ -33,6 +34,8 @@ interface EntityData {
   px: [number, number];
   width: number;
   height: number;
+  __tags: string[];
+  __tile: { x: number; y: number; w: number; h: number };
 }
 
 interface GridCell {
@@ -222,6 +225,20 @@ function createCoverEntity(entity: EntityData, entities: EntityData[]) {
   );
 }
 
+function createDecoration(entity: EntityData) {
+  console.log('Entity', entity);
+  return new DecorationEntity(
+    entity.iid,
+    entityToPos(entity),
+    pxToTile(entity.width),
+    pxToTile(entity.height),
+    new Vector(entity.__tile.x, entity.__tile.y),
+    entity.__tile.w,
+    entity.__tile.h,
+    entity.__tags.includes("Scaling")
+  );
+}
+
 function firstPass(level: LevelData): LevelFactory {
   const factory = new LevelFactory(
     level.identifier,
@@ -252,6 +269,10 @@ function firstPass(level: LevelData): LevelFactory {
         setStartPos = true;
         break;
       case "PuzzleScreen":
+        const key = getField<string>(entity, "key");
+        if (!key) {
+          console.warn("Puzzle with unknown id in:", level.identifier);
+        }
         factory.addInteractibles([createPuzzle(entity, entities)]);
         break;
       case "Switch":
@@ -270,6 +291,11 @@ function firstPass(level: LevelData): LevelFactory {
         console.warn("Processing unknown entity type:", entity.__identifier);
     }
   });
+
+  const decors = findLayer(level, "Decorations")?.entityInstances;
+  if (decors) {
+    factory.addEntities(decors.map(createDecoration));
+  }
 
   if (!setStartPos) {
     console.warn(`Level ${level.identifier} is missing a PlayerStart`);
