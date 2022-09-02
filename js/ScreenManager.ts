@@ -45,27 +45,27 @@ export class ScreenManager {
 
     this[REAL_CANVAS] = screenCanvas;
 
-    this.background = Canvas.fromScratch(CANVAS_WIDTH * 3, CANVAS_HEIGHT * 3);
+    this.background = Canvas.fromScratch(CANVAS_WIDTH * 3, CANVAS_HEIGHT * 4);
     this.parallax = [
-      Canvas.fromScratch(CANVAS_WIDTH * 3, CANVAS_HEIGHT * 3),
-      Canvas.fromScratch(CANVAS_WIDTH * 3, CANVAS_HEIGHT * 3),
-      Canvas.fromScratch(CANVAS_WIDTH * 3, CANVAS_HEIGHT * 3),
-      Canvas.fromScratch(CANVAS_WIDTH * 3, CANVAS_HEIGHT * 3),
-      Canvas.fromScratch(CANVAS_WIDTH * 3, CANVAS_HEIGHT * 3),
+      Canvas.fromScratch(CANVAS_WIDTH * 3, CANVAS_HEIGHT * 4),
+      Canvas.fromScratch(CANVAS_WIDTH * 3, CANVAS_HEIGHT * 4),
+      Canvas.fromScratch(CANVAS_WIDTH * 3, CANVAS_HEIGHT * 4),
+      Canvas.fromScratch(CANVAS_WIDTH * 3, CANVAS_HEIGHT * 4),
+      Canvas.fromScratch(CANVAS_WIDTH * 3, CANVAS_HEIGHT * 4),
     ];
     this.parallaxCameras = this.parallax.map(() => new Vector(0, 0));
 
     this.behindGroundCanvas = Canvas.fromScratch(
       CANVAS_WIDTH * 3,
-      CANVAS_HEIGHT * 3
+      CANVAS_HEIGHT * 4
     );
     this.staticWorldCanvas = Canvas.fromScratch(
       CANVAS_WIDTH * 3,
-      CANVAS_HEIGHT * 3
+      CANVAS_HEIGHT * 4
     );
     this.dynamicWorldCanvas = Canvas.fromScratch(
       CANVAS_WIDTH * 3,
-      CANVAS_HEIGHT * 3
+      CANVAS_HEIGHT * 4
     );
     this.uiCanvas = Canvas.fromScratch(
       ON_SCREEN_CANVAS_WIDTH,
