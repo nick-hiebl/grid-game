@@ -9,6 +9,7 @@ import {
 import { Puzzle } from "../../puzzle-manager/Puzzle";
 import { PuzzleManager } from "../../puzzle-manager/PuzzleManager";
 import { ScreenManager } from "../../ScreenManager";
+import { Level } from "../Level";
 
 import { OpenPuzzleEvent } from "../LevelEvent";
 
@@ -24,7 +25,7 @@ const DRAW_CIRCLES = false;
 
 export class PuzzleInteractible extends Interactible {
   puzzleId: string;
-  puzzle: Puzzle;
+  private _puzzle: Puzzle | undefined;
   config: Config;
 
   constructor(
@@ -38,13 +39,22 @@ export class PuzzleInteractible extends Interactible {
     super(id, position, area, prereqs);
 
     this.puzzleId = puzzleId;
-    this.puzzle = PuzzleManager.getPuzzle(puzzleId);
     this.connectionPoint = Vector.add(position, new Vector(0, 1.2));
     this.outputPoint = Vector.add(
       position,
       new Vector(config.isFlipped ? -1 : 1, -1.15)
     );
     this.config = config;
+  }
+
+  onStart(level: Level) {
+    super.onStart(level);
+    this._puzzle = PuzzleManager.getPuzzle(this.puzzleId);
+  }
+
+  // This only works after PuzzleManager instantiation and an onStart call
+  get puzzle(): Puzzle {
+    return this._puzzle!;
   }
 
   draw(screenManager: ScreenManager) {

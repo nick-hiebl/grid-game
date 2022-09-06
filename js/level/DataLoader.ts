@@ -341,43 +341,40 @@ export class DataLoader {
   static levelMap: Record<string, Level> = {};
   static puzzles: Record<string, PuzzleRules> = {};
 
-  static fetchPuzzles() {
-    return loadJson<RawPuzzles>(PUZZLE_DATA_URL).then((rawPuzzles) => {
-      const { puzzlesByLevel } = rawPuzzles;
-      const allPuzzles: Record<string, PuzzleRules> = {};
+  static async fetchPuzzles() {
+    const rawPuzzles = await loadJson<RawPuzzles>(PUZZLE_DATA_URL);
 
-      for (const level of Object.values(puzzlesByLevel)) {
-        for (const group of Object.values(level))
-          Object.assign(allPuzzles, group);
-      }
+    const { puzzlesByLevel } = rawPuzzles;
+    const allPuzzles: Record<string, PuzzleRules> = {};
 
-      DataLoader.puzzles = allPuzzles;
+    for (const level of Object.values(puzzlesByLevel)) {
+      for (const group of Object.values(level))
+        Object.assign(allPuzzles, group);
+    }
+
+    DataLoader.puzzles = allPuzzles;
+  }
+
+  static async fetchWorld() {
+    const data = await loadJson<WorldData>(LEVEL_DATA_URL);
+    DataLoader.data = data;
+
+    const basicMap: Record<string, LevelFactory> = {};
+
+    data.levels.forEach((level) => {
+      const basicData = firstPass(level);
+      basicMap[basicData.iid] = basicData;
+      basicMap[basicData.key] = basicData;
+    });
+
+    data.levels.forEach((rawLevel) => {
+      const level = secondPass(rawLevel, basicMap);
+      DataLoader.levelMap[level.key] = level;
     });
   }
 
-  static fetchWorld() {
-    return loadJson<WorldData>(LEVEL_DATA_URL)
-      .then((data) => {
-        DataLoader.data = data;
-
-        const basicMap: Record<string, LevelFactory> = {};
-
-        data.levels.forEach((level) => {
-          const basicData = firstPass(level);
-          basicMap[basicData.iid] = basicData;
-          basicMap[basicData.key] = basicData;
-        });
-
-        data.levels.forEach((rawLevel) => {
-          const level = secondPass(rawLevel, basicMap);
-          DataLoader.levelMap[level.key] = level;
-        });
-      })
-      .then(() => undefined);
-  }
-
-  static start() {
-    return Promise.all([DataLoader.fetchPuzzles(), DataLoader.fetchWorld()]);
+  static async start() {
+    await Promise.all([DataLoader.fetchPuzzles(), DataLoader.fetchWorld()]);
   }
 
   static getLevel(key: string) {
