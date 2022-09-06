@@ -265,8 +265,8 @@ export class InputManager {
   toCanvasPosition(event: MouseEvent) {
     return Vector.scale(
       new Vector(
-        event.clientX - this.canvas.offsetLeft,
-        event.clientY - this.canvas.offsetTop
+        event.clientX - this.canvas.offsetLeft + window.scrollX,
+        event.clientY - this.canvas.offsetTop + window.scrollY
       ),
       ((this.canvas.width / this.canvas.clientWidth) * UI_CANVAS_WIDTH) /
         ON_SCREEN_CANVAS_WIDTH

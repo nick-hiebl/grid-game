@@ -80,11 +80,6 @@ const main = () => {
     (window as any).app = app;
   });
 
-  if (!IS_MOBILE && !location.href.includes("localhost")) {
-    Array.from(document.getElementsByTagName("p")).forEach((tag) =>
-      tag.classList.add("visible")
-    );
-  }
   if (!IS_MOBILE) {
     findById("mobile-controls")?.remove();
   }
