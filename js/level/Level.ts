@@ -166,7 +166,9 @@ export class Level {
       entity.update(this.player, deltaTime, this);
     });
 
-    this.updateCamera(deltaTime);
+    if (!this.interactingWith) {
+      this.updateCamera(deltaTime);
+    }
 
     this.updateExits();
   }
