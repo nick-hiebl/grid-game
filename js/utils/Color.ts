@@ -35,23 +35,18 @@ export const hslaColor = (
 
 const rgbToHue = (r: number, g: number, b: number): number => {
   let h = 0;
-  const rgb = [
-    r / 255,
-    g / 255,
-    b / 255
-  ];
+
   const min = Math.min(r, g, b);
   const max = Math.max(r, g, b);
-  const maxcolor = rgb.findIndex((v) => v === max / 255);
 
-  if (maxcolor === 0) {
-    h = (rgb[1] - rgb[2]) / (max - min);
+  if (max === r) {
+    h = (g - b) / (max - min);
   }
-  if (maxcolor === 1) {
-    h = 2 + (rgb[2] - rgb[0]) / (max - min);
+  if (max === g) {
+    h = 2 + (b - r) / (max - min);
   }
-  if (maxcolor === 2) {
-    h = 4 + (rgb[0] - rgb[1]) / (max - min);
+  if (max === b) {
+    h = 4 + (r - g) / (max - min);
   }
   if (isNaN(h)) {
     h = 0;
