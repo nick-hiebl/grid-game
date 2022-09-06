@@ -226,7 +226,6 @@ function createCoverEntity(entity: EntityData, entities: EntityData[]) {
 }
 
 function createDecoration(entity: EntityData) {
-  console.log('Entity', entity);
   return new DecorationEntity(
     entity.iid,
     entityToPos(entity),
