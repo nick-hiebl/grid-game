@@ -8,7 +8,7 @@ import {
 import { Rectangle } from "../../math/Shapes";
 import { Vector } from "../../math/Vector";
 import { ScreenManager } from "../../ScreenManager";
-import { hslaColor } from "../../utils/Color";
+import { hexToHue, hslaColor } from "../../utils/Color";
 
 type DrawAction = (canvas: Canvas, width: number, height: number) => void;
 
@@ -16,9 +16,13 @@ export class BackgroundArtist {
   width: number;
   height: number;
 
-  constructor(width: number, height: number) {
+  hue: number;
+
+  constructor(width: number, height: number, bgColor: string) {
     this.width = width;
     this.height = height;
+
+    this.hue = hexToHue(bgColor);
   }
 
   lerpFactor(index: number, screenManager: ScreenManager) {
@@ -45,7 +49,6 @@ export class BackgroundArtist {
   prepareCanvas(
     screenManager: ScreenManager,
     index: number,
-    hue: number,
     backColor: Vector,
     foreColor: Vector,
     action: DrawAction
@@ -63,7 +66,7 @@ export class BackgroundArtist {
 
     const color = Vector.lerp(backColor, foreColor, factor);
 
-    canvas.setColor(hslaColor(hue, color.x, color.y));
+    canvas.setColor(hslaColor(this.hue, color.x, color.y));
 
     action(canvas, size.x, size.y);
   }
@@ -79,12 +82,11 @@ export class BackgroundArtist {
   }
 
   draw(screenManager: ScreenManager) {
-    const hue = 154;
-    const backgroundColor = new Vector(0.14, 0.72);
-    const foregroundColor = new Vector(0.14, 0.4);
+    const backgroundColor = new Vector(0.14, 0.64);
+    const foregroundColor = new Vector(0.3, 0.24);
 
     screenManager.background.setColor(
-      hslaColor(hue, backgroundColor.x, backgroundColor.y)
+      hslaColor(this.hue, backgroundColor.x, backgroundColor.y)
     );
     screenManager.background.fillRect(
       0,
@@ -101,7 +103,6 @@ export class BackgroundArtist {
     this.prepareCanvas(
       screenManager,
       0,
-      hue,
       backgroundColor,
       foregroundColor,
       (canvas, width, height) => {
@@ -132,7 +133,6 @@ export class BackgroundArtist {
     this.prepareCanvas(
       screenManager,
       1,
-      hue,
       backgroundColor,
       foregroundColor,
       (canvas, width, height) => {
@@ -194,7 +194,6 @@ export class BackgroundArtist {
     this.prepareCanvas(
       screenManager,
       2,
-      hue,
       backgroundColor,
       foregroundColor,
       (canvas, width, height) => {
@@ -235,7 +234,6 @@ export class BackgroundArtist {
     this.prepareCanvas(
       screenManager,
       3,
-      hue,
       backgroundColor,
       foregroundColor,
       (canvas, width, height) => {

@@ -19,12 +19,14 @@ export class LevelFactory {
   interactibles: Interactible[];
   entities: Entity[];
   worldPosition: Vector;
+  bgColor: string;
 
-  constructor(key: string, iid: string, width: number, height: number) {
+  constructor(key: string, iid: string, width: number, height: number, color: string) {
     this.key = key;
     this.iid = iid;
     this.width = width;
     this.height = height;
+    this.bgColor = color;
     this.levelGrid = [];
     this.objects = [];
     this.playerPosition = new Vector(16, 9);
@@ -85,6 +87,7 @@ export class LevelFactory {
       this.key,
       this.width,
       this.height,
+      this.bgColor,
       this.levelGrid,
       this.objects,
       new Player(this.playerPosition),

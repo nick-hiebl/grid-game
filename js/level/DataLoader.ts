@@ -57,6 +57,7 @@ interface LevelData {
   worldX: number;
   worldY: number;
 
+  __bgColor: string;
   __neighbours: { levelIid: string }[];
 
   layerInstances: LayerData[];
@@ -243,7 +244,8 @@ function firstPass(level: LevelData): LevelFactory {
     level.identifier,
     level.iid,
     pxToTile(level.pxWid),
-    pxToTile(level.pxHei)
+    pxToTile(level.pxHei),
+    level.__bgColor
   );
   factory.makeGridSpace();
   const solidLayer = findLayer(level, "Solid")!;

@@ -286,7 +286,7 @@ export class Player {
    * @param {Canvas} canvas The canvas to draw on
    */
   draw(canvas: Canvas) {
-    canvas.setColor("#EF9606");
+    canvas.setColor("white");
 
     this.collider.draw(canvas);
   }

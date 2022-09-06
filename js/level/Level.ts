@@ -63,6 +63,7 @@ export class Level {
     key: string,
     width: number,
     height: number,
+    color: string,
     levelGrid: BlockEnum[][],
     objects: Object[],
     player: Player,
@@ -85,7 +86,7 @@ export class Level {
     this.camera = this.getIdealCamera();
     this.interactingWith = undefined;
 
-    this.backgroundArtist = new BackgroundArtist(width, height);
+    this.backgroundArtist = new BackgroundArtist(width, height, color);
     this.drawnStatic = false;
     this.playModeManager = undefined;
 
