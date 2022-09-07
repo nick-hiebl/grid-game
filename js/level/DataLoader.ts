@@ -13,6 +13,7 @@ import { LevelFactory } from "./LevelFactory";
 import { Level } from "./Level";
 import { PuzzleRules } from "../puzzle-manager/PuzzleFactory";
 import { DecorationEntity } from "./entity/DecorationEntity";
+import { NodeInteractible } from "./interactibles/NodeInteractible";
 
 const LEVEL_DATA_URL = "./data/world.json";
 const PUZZLE_DATA_URL = "./data/puzzles.json";
@@ -239,6 +240,21 @@ function createDecoration(entity: EntityData) {
   );
 }
 
+function createNode(entity: EntityData) {
+  const id = entity.iid;
+  const key = getField<string>(entity, "key");
+  if (!key) {
+    console.warn("Puzzle with no key!");
+  }
+
+  return new NodeInteractible(
+    id,
+    rectOfEntity(entity).midpoint,
+    getPrereqs(entity),
+    key!
+  );
+}
+
 function firstPass(level: LevelData): LevelFactory {
   const factory = new LevelFactory(
     level.identifier,
@@ -287,6 +303,9 @@ function firstPass(level: LevelData): LevelFactory {
         break;
       case "CoverEntity":
         factory.addEntities([createCoverEntity(entity, entities)]);
+        break;
+      case "Node":
+        factory.addInteractibles([createNode(entity)]);
         break;
       default:
         console.warn("Processing unknown entity type:", entity.__identifier);
