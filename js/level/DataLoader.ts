@@ -243,14 +243,15 @@ function createDecoration(entity: EntityData) {
 function createNode(entity: EntityData) {
   const id = entity.iid;
   const key = getField<string>(entity, "key");
-  if (!key) {
-    console.warn("Puzzle with no key!");
+  const prereqs = getPrereqs(entity);
+  if (!key && !prereqs.length) {
+    console.warn("Node with no key or prerequisites!");
   }
 
   return new NodeInteractible(
     id,
     rectOfEntity(entity).midpoint,
-    getPrereqs(entity),
+    prereqs,
     key!
   );
 }
