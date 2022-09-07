@@ -88,6 +88,10 @@ function pxToTile(num: number) {
   return Math.floor(num / PIXELS_PER_TILE);
 }
 
+function toTile(num: number) {
+  return num / PIXELS_PER_TILE;
+}
+
 function srcToBlockType(src: [number, number]) {
   return pxToTile(src[0]) + 1;
 }
@@ -189,7 +193,8 @@ function createTrapdoor(entity: EntityData) {
 
 const rectOfEntity = (entity: EntityData) => {
   return Rectangle.widthForm(
-    ...entity.__grid,
+    toTile(entity.px[0]),
+    toTile(entity.px[1]),
     pxToTile(entity.width),
     pxToTile(entity.height)
   );

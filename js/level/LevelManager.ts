@@ -11,7 +11,7 @@ export class LevelManager {
   currentLevel: Level;
 
   constructor() {
-    let initialLevel = "Initial_Level";
+    let initialLevel = "First_Level";
 
     if (location.href.includes("localhost")) {
       (window as any).setStartLevel = (levelName: string) => {
