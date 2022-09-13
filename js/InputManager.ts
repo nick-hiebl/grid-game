@@ -2,6 +2,7 @@ import { Input } from "./constants/Keys";
 import {
   UI_CANVAS_WIDTH,
   ON_SCREEN_CANVAS_WIDTH,
+  IS_MOBILE,
 } from "./constants/ScreenConstants";
 import { Vector } from "./math/Vector";
 
@@ -191,26 +192,32 @@ export class InputManager {
       this.isButtonDown[symbol] = false;
     });
 
-    document.addEventListener("mousemove", (event) => {
+    document.addEventListener(IS_MOBILE ? "touchmove" : "mousemove", (event) => {
       this.mousePosition = this.toCanvasPosition(event);
     });
 
-    document.addEventListener("mousedown", (event) => {
+    document.addEventListener(IS_MOBILE ? "touchstart" : "mousedown", (event) => {
       this.mousePosition = this.toCanvasPosition(event);
 
-      if (event.button === 0) {
+      const isLeft = event instanceof TouchEvent || (event instanceof MouseEvent && event.button === 0);
+      const isRight = event instanceof MouseEvent && event.button === 2;
+
+      if (isLeft) {
         this.listener?.(new ClickEvent(this.mousePosition, false));
         this.leftClicking = true;
-      } else if (event.button === 2) {
+      } else if (isRight) {
         this.listener?.(new ClickEvent(this.mousePosition, true));
         this.rightClicking = true;
       }
     });
 
-    document.addEventListener("mouseup", (event) => {
-      if (event.button === 0) {
+    document.addEventListener(IS_MOBILE ? "touchend" : "mouseup", (event) => {
+      const isLeft = event instanceof TouchEvent || (event instanceof MouseEvent && event.button === 0);
+      const isRight = event instanceof MouseEvent && event.button === 2;
+
+      if (isLeft) {
         this.leftClicking = false;
-      } else if (event.button === 2) {
+      } else if (isRight) {
         this.rightClicking = false;
       }
     });
@@ -220,7 +227,7 @@ export class InputManager {
     });
 
     // Stop current clicks on mouse leave
-    this.canvas.addEventListener("mouseleave", () => {
+    this.canvas.addEventListener(IS_MOBILE ? "touchend" : "mouseleave", () => {
       this.leftClicking = false;
       this.rightClicking = false;
     });
@@ -262,11 +269,14 @@ export class InputManager {
     wireButton("interact", Input.Interact);
   }
 
-  toCanvasPosition(event: MouseEvent) {
+  toCanvasPosition(event: MouseEvent | TouchEvent) {
+    const e = event instanceof TouchEvent
+      ? (event.touches.item(0) || { clientX: 0, clientY: 0 })
+      : event;
     return Vector.scale(
       new Vector(
-        event.clientX - this.canvas.offsetLeft + window.scrollX,
-        event.clientY - this.canvas.offsetTop + window.scrollY
+        e.clientX - this.canvas.offsetLeft + window.scrollX,
+        e.clientY - this.canvas.offsetTop + window.scrollY
       ),
       ((this.canvas.width / this.canvas.clientWidth) * UI_CANVAS_WIDTH) /
         ON_SCREEN_CANVAS_WIDTH
