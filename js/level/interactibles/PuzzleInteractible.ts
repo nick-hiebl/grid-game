@@ -173,8 +173,9 @@ export class PuzzleInteractible extends Interactible {
   }
 
   drawForMap(canvas: Canvas) {
+    const isSolved = !!this._puzzle?.hasBeenSolvedEver;
     canvas.setColor(
-      this.puzzle.isSolved ? SOLVED_BACKGROUND : DEFAULT_BACKGROUND
+      isSolved ? SOLVED_BACKGROUND : DEFAULT_BACKGROUND
     );
     canvas.fillRect(this.position.x - 1, this.position.y - 1, 2, 2);
     canvas.setColor("#222222");

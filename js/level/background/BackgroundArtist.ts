@@ -72,7 +72,7 @@ export class BackgroundArtist {
   }
 
   getBackgroundHSL(): [number, Vector] {
-    return [154, new Vector(0.14, 0.72)];
+    return [this.hue, new Vector(0.14, 0.64)];
   }
 
   getBackgroundColor() {

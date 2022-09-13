@@ -11,6 +11,8 @@ import { Vector } from "../math/Vector";
 import { ScreenManager } from "../ScreenManager";
 import { PlayMode } from "./PlayMode";
 
+const DEBUG_SHOW_ALL_LEVELS = document.location.toString().includes('localhost');
+
 export class MapMode {
   playMode: PlayMode;
   cameraPosition: Vector;
@@ -105,7 +107,7 @@ export class MapMode {
     let currentPlayer: Player | undefined;
 
     for (const level of Object.values(DataLoader.levelMap)) {
-      if (!level.visited) {
+      if (!DEBUG_SHOW_ALL_LEVELS && !level.visited) {
         continue;
       }
 
@@ -136,7 +138,7 @@ export class MapMode {
 
       canvas.scale(1 / this.zoom, 1 / this.zoom);
 
-      canvas.setColor("#EF9606");
+      canvas.setColor("white");
       canvas.fillEllipse(0, 0, 15, 15);
       canvas.setColor("black");
       canvas.strokeEllipse(0, 0, 15, 15);

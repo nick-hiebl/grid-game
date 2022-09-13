@@ -2,12 +2,15 @@ import { Canvas } from "../Canvas";
 import { TileImage } from "../constants/Image";
 import { Input } from "../constants/Keys";
 import {
+  CANVAS_HEIGHT,
   CANVAS_WIDTH,
   HORIZONTAL_TILES,
   PIXELS_PER_TILE,
+  PIXEL_WIDTH,
+  UI_PIXEL_WIDTH,
   VERTICAL_TILES,
 } from "../constants/ScreenConstants";
-import { InputEvent, InputState } from "../InputManager";
+import { ClickEvent, InputEvent, InputState } from "../InputManager";
 import { clamp } from "../math/Common";
 import { Rectangle } from "../math/Shapes";
 import { Vector } from "../math/Vector";
@@ -27,8 +30,16 @@ import { Interactible } from "./interactibles/Interactible";
 import { Player } from "./Player";
 import { PlayMode } from "../game-modes/PlayMode";
 import { BackgroundArtist } from "./background/BackgroundArtist";
+import { PUZZLE_WINDOW_WIDTH } from "../puzzle-manager/constants";
 
 const SCALE_FACTOR = CANVAS_WIDTH / HORIZONTAL_TILES;
+
+const ON_SCREEN_RECTANGLE = Rectangle.centerForm(
+  CANVAS_WIDTH / 2,
+  CANVAS_HEIGHT / 2,
+  PUZZLE_WINDOW_WIDTH / 2 + UI_PIXEL_WIDTH * 8,
+  PUZZLE_WINDOW_WIDTH / 2 + UI_PIXEL_WIDTH * 8
+);
 
 export interface Object {
   type: BlockEnum;
@@ -186,6 +197,13 @@ export class Level {
     }
   }
 
+  screenToWorldPos(position: Vector) {
+    return Vector.add(
+      Vector.scale(position, 1 / (PIXEL_WIDTH * PIXELS_PER_TILE)),
+      this.camera
+    );
+  }
+
   /**
    * Function for when an interaction input occurs from the InputManager
    * @param {InputEvent} input The input event to be processed
@@ -195,17 +213,33 @@ export class Level {
       this.player.onInput(input);
     }
 
-    if (input.isForKey(Input.Interact)) {
+    const isClick = input.isClick() && !(input as ClickEvent).isRightClick();
+    const isInteractKey = input.isForKey(Input.Interact);
+
+    if (isClick || isInteractKey) {
       if (this.interactingWith) {
-        this.closeCurrentPuzzle();
+        const shouldClose =
+          isInteractKey || !ON_SCREEN_RECTANGLE.intersectsPoint((input as ClickEvent).position);
+
+        if (shouldClose) {
+          this.closeCurrentPuzzle();
+        }
       } else {
         const relevant = this.interactibles.find((i) => i.isAreaActive);
-        if (relevant) {
-          const event = relevant.onInteract();
 
-          if (event && event instanceof OpenPuzzleEvent) {
-            this.interactingWith = relevant;
-            this.emitEvent(event);
+        if (relevant) {
+          const shouldOpen = isInteractKey
+            || (relevant.triggerArea?.intersectsPoint(
+              this.screenToWorldPos((input as ClickEvent).position)
+            ));
+
+          if (shouldOpen) {
+            const event = relevant.onInteract();
+
+            if (event && event instanceof OpenPuzzleEvent) {
+              this.interactingWith = relevant;
+              this.emitEvent(event);
+            }
           }
         }
       }
