@@ -1,3 +1,4 @@
+import { Canvas } from "../Canvas";
 import {
   ClickEvent,
   InputEvent,
@@ -13,6 +14,12 @@ import { PlayMode } from "./PlayMode";
 
 const DEBUG_SHOW_ALL_LEVELS = document.location.toString().includes('localhost');
 
+const MAX_ZOOM = 20;
+const MIN_ZOOM = 0.5;
+const ZOOM_SPEED = 0.01;
+
+const MAP_PLAYER_SCALE = 15;
+
 export class MapMode {
   playMode: PlayMode;
   cameraPosition: Vector;
@@ -23,6 +30,8 @@ export class MapMode {
 
   canvasW: number;
   canvasH: number;
+
+  levelCanvasMap: Map<string, Canvas>;
 
   constructor(playMode: PlayMode) {
     this.playMode = playMode;
@@ -35,6 +44,8 @@ export class MapMode {
 
     this.canvasW = 0;
     this.canvasH = 0;
+
+    this.levelCanvasMap = new Map<string, Canvas>();
   }
 
   setCameraPos() {
@@ -48,6 +59,25 @@ export class MapMode {
     this.setCameraPos();
     this.mousePosition = new Vector(0, 0);
     this.isClicked = false;
+    this.predrawLevels();
+  }
+
+  predrawLevels() {
+    for (const level of Object.values(DataLoader.levelMap)) {
+      if (!DEBUG_SHOW_ALL_LEVELS && !level.visited) {
+        continue;
+      }
+
+      const canvas = this.levelCanvasMap.get(level.key)
+        || Canvas.fromScratch(level.width * MAX_ZOOM, level.height * MAX_ZOOM);
+
+      canvas.saveTransform();
+      canvas.scale(MAX_ZOOM, MAX_ZOOM);
+      level.drawForMap(canvas);
+      canvas.restoreTransform();
+
+      this.levelCanvasMap.set(level.key, canvas);
+    }
   }
 
   toWorldPosition(position: Vector) {
@@ -83,7 +113,7 @@ export class MapMode {
       }
     } else if (inputEvent.isScroll()) {
       const scroll = inputEvent as ScrollEvent;
-      this.zoom = clamp(this.zoom + scroll.delta * -0.01, 0.5, 20);
+      this.zoom = clamp(this.zoom + scroll.delta * -ZOOM_SPEED, MIN_ZOOM, MAX_ZOOM);
     }
   }
 
@@ -107,26 +137,26 @@ export class MapMode {
     let currentPlayer: Player | undefined;
 
     for (const level of Object.values(DataLoader.levelMap)) {
-      if (!DEBUG_SHOW_ALL_LEVELS && !level.visited) {
+      const levelCanvas = this.levelCanvasMap.get(level.key);
+      if ((!DEBUG_SHOW_ALL_LEVELS && !level.visited) || !levelCanvas) {
         continue;
       }
 
-      canvas.setColor("white");
-      canvas.fillRect(
+      canvas.drawImage(
+        levelCanvas,
+        0,
+        0,
+        levelCanvas.width,
+        levelCanvas.height,
         level.worldPosition.x,
         level.worldPosition.y,
         level.width,
         level.height
       );
-      canvas.translate(level.worldPosition.x, level.worldPosition.y);
-
-      level.drawForMap(canvas);
 
       if (currentLevel === level) {
         currentPlayer = level.player;
       }
-
-      canvas.translate(-level.worldPosition.x, -level.worldPosition.y);
     }
 
     if (currentPlayer) {
@@ -139,9 +169,9 @@ export class MapMode {
       canvas.scale(1 / this.zoom, 1 / this.zoom);
 
       canvas.setColor("white");
-      canvas.fillEllipse(0, 0, 15, 15);
+      canvas.fillEllipse(0, 0, MAP_PLAYER_SCALE, MAP_PLAYER_SCALE);
       canvas.setColor("black");
-      canvas.strokeEllipse(0, 0, 15, 15);
+      canvas.strokeEllipse(0, 0, MAP_PLAYER_SCALE, MAP_PLAYER_SCALE);
 
       canvas.scale(this.zoom, this.zoom);
 

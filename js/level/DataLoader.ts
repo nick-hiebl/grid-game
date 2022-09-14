@@ -241,7 +241,7 @@ function createDecoration(entity: EntityData) {
     new Vector(entity.__tile.x, entity.__tile.y),
     entity.__tile.w,
     entity.__tile.h,
-    entity.__tags.includes("Scaling")
+    entity.__tags
   );
 }
 

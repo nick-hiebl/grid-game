@@ -26,6 +26,10 @@ type Key = ValueOf<typeof Input>;
 
 type KeyMap = Record<Key, boolean>;
 
+function isTouchEvent(event: MouseEvent | TouchEvent): event is TouchEvent {
+  return window.TouchEvent && event instanceof TouchEvent;
+}
+
 export class InputState {
   keyMap: KeyMap;
   mousePosition: Vector;
@@ -199,7 +203,7 @@ export class InputManager {
     document.addEventListener(IS_MOBILE ? "touchstart" : "mousedown", (event) => {
       this.mousePosition = this.toCanvasPosition(event);
 
-      const isLeft = event instanceof TouchEvent || (event instanceof MouseEvent && event.button === 0);
+      const isLeft = isTouchEvent(event) || (event instanceof MouseEvent && event.button === 0);
       const isRight = event instanceof MouseEvent && event.button === 2;
 
       if (isLeft) {
@@ -212,7 +216,7 @@ export class InputManager {
     });
 
     document.addEventListener(IS_MOBILE ? "touchend" : "mouseup", (event) => {
-      const isLeft = event instanceof TouchEvent || (event instanceof MouseEvent && event.button === 0);
+      const isLeft = isTouchEvent(event) || (event instanceof MouseEvent && event.button === 0);
       const isRight = event instanceof MouseEvent && event.button === 2;
 
       if (isLeft) {
@@ -265,12 +269,10 @@ export class InputManager {
     wireButton("right", Input.Right);
     wireButton("jump", Input.Jump);
     wireButton("down", Input.Down);
-    wireButton("escape", Input.Escape);
-    wireButton("interact", Input.Interact);
   }
 
   toCanvasPosition(event: MouseEvent | TouchEvent) {
-    const e = event instanceof TouchEvent
+    const e = isTouchEvent(event)
       ? (event.touches.item(0) || { clientX: 0, clientY: 0 })
       : event;
     return Vector.scale(

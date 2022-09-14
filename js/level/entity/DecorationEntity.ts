@@ -1,5 +1,5 @@
 import { DecorationImage } from "../../constants/Image";
-import { PIXELS_PER_TILE } from "../../constants/ScreenConstants";
+import { IS_MOBILE, PIXELS_PER_TILE } from "../../constants/ScreenConstants";
 import { Vector } from "../../math/Vector";
 import { ScreenManager } from "../../ScreenManager";
 import { Entity } from "./Entity";
@@ -12,6 +12,7 @@ export class DecorationEntity extends Entity {
   tilesetWidth: number;
   tilesetHeight: number;
   scaling: boolean;
+  hasMobileAlt: boolean;
 
   constructor(
     id: string,
@@ -21,7 +22,7 @@ export class DecorationEntity extends Entity {
     tilesetPosition: Vector,
     tilesetWidth: number,
     tilesetHeight: number,
-    scaling: boolean
+    tags: string[]
   ) {
     super(id);
     this.position = position;
@@ -30,7 +31,8 @@ export class DecorationEntity extends Entity {
     this.tilesetPosition = tilesetPosition;
     this.tilesetWidth = tilesetWidth;
     this.tilesetHeight = tilesetHeight;
-    this.scaling = scaling;
+    this.scaling = tags.includes("Scaling");
+    this.hasMobileAlt = tags.includes("Mobile_alt");
   }
 
   draw(screenManager: ScreenManager) {
@@ -95,7 +97,7 @@ export class DecorationEntity extends Entity {
       canvas.drawImage(
         DecorationImage,
         this.tilesetPosition.x,
-        this.tilesetPosition.y,
+        this.tilesetPosition.y + (this.hasMobileAlt && IS_MOBILE ? this.tilesetHeight : 0),
         this.tilesetWidth,
         this.tilesetHeight,
         this.position.x,
