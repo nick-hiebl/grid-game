@@ -374,7 +374,7 @@ export class Puzzle {
 
     this.openCloseStatus = clamp(this.openCloseStatus, 0, 1);
 
-    if (inputState) {
+    if (inputState && this.openCloseStatus === 1) {
       const position = Vector.diff(inputState.mousePosition, this.uiPosition());
 
       const foundElement = this.findPositionElement(position);

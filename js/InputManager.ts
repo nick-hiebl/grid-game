@@ -196,11 +196,14 @@ export class InputManager {
       this.isButtonDown[symbol] = false;
     });
 
-    document.addEventListener(IS_MOBILE ? "touchmove" : "mousemove", (event) => {
+    this.canvas.addEventListener(IS_MOBILE ? "touchmove" : "mousemove", (event) => {
       this.mousePosition = this.toCanvasPosition(event);
     });
 
-    document.addEventListener(IS_MOBILE ? "touchstart" : "mousedown", (event) => {
+    this.canvas.addEventListener(IS_MOBILE ? "touchstart" : "mousedown", (event) => {
+      if (IS_MOBILE) {
+        event.preventDefault();
+      }
       this.mousePosition = this.toCanvasPosition(event);
 
       const isLeft = isTouchEvent(event) || (event instanceof MouseEvent && event.button === 0);
@@ -215,7 +218,7 @@ export class InputManager {
       }
     });
 
-    document.addEventListener(IS_MOBILE ? "touchend" : "mouseup", (event) => {
+    this.canvas.addEventListener(IS_MOBILE ? "touchend" : "mouseup", (event) => {
       const isLeft = isTouchEvent(event) || (event instanceof MouseEvent && event.button === 0);
       const isRight = event instanceof MouseEvent && event.button === 2;
 
@@ -226,7 +229,7 @@ export class InputManager {
       }
     });
 
-    document.addEventListener("contextmenu", (event) => {
+    this.canvas.addEventListener("contextmenu", (event) => {
       event.preventDefault();
     });
 
