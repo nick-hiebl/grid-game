@@ -1,4 +1,5 @@
 import { Canvas } from "../Canvas";
+import { GameModeManager } from "../GameModeManager";
 import {
   ClickEvent,
   InputEvent,
@@ -6,6 +7,9 @@ import {
   ScrollEvent,
 } from "../InputManager";
 import { DataLoader } from "../level/DataLoader";
+import { Interactible } from "../level/interactibles/Interactible";
+import { PortalInteractible } from "../level/interactibles/PortalInteractible";
+import { Level } from "../level/Level";
 import { Player } from "../level/Player";
 import { clamp } from "../math/Common";
 import { Vector } from "../math/Vector";
@@ -20,7 +24,15 @@ const ZOOM_SPEED = 0.01;
 
 const MAP_PLAYER_SCALE = 15;
 
+interface MapInteractible {
+  level: Level;
+  interactible: Interactible;
+  isHovered: boolean;
+  position: Vector;
+}
+
 export class MapMode {
+  gameModeManager: GameModeManager;
   playMode: PlayMode;
   cameraPosition: Vector;
   zoom: number;
@@ -32,9 +44,11 @@ export class MapMode {
   canvasH: number;
 
   levelCanvasMap: Map<string, Canvas>;
+  drawIcons: MapInteractible[];
 
-  constructor(playMode: PlayMode) {
-    this.playMode = playMode;
+  constructor(gameModeManager: GameModeManager) {
+    this.gameModeManager = gameModeManager;
+    this.playMode = gameModeManager.playMode;
     this.cameraPosition = new Vector(0, 0);
     this.setCameraPos();
     this.zoom = 2;
@@ -46,6 +60,7 @@ export class MapMode {
     this.canvasH = 0;
 
     this.levelCanvasMap = new Map<string, Canvas>();
+    this.drawIcons = [];
   }
 
   setCameraPos() {
@@ -60,6 +75,25 @@ export class MapMode {
     this.mousePosition = new Vector(0, 0);
     this.isClicked = false;
     this.predrawLevels();
+    this.drawIcons = this.getIconsToShow();
+  }
+
+  getIconsToShow(): MapInteractible[] {
+    const icons: MapInteractible[] = [];
+    for (const level of Object.values(DataLoader.levelMap)) {
+      for (const interactible of level.interactibles) {
+        if (interactible.showAsMapIcon) {
+          icons.push({
+            level,
+            interactible,
+            position: Vector.add(level.worldPosition, interactible.position),
+            isHovered: false,
+          });
+        }
+      }
+    }
+
+    return icons;
   }
 
   predrawLevels() {
@@ -91,13 +125,28 @@ export class MapMode {
   }
 
   update(_deltaTime: number, inputState: InputState) {
-    // Do this on start
+    const currentWorldPos = this.toWorldPosition(inputState.mousePosition);
+
+    let found: MapInteractible | undefined = undefined;
+    for (const icon of this.drawIcons) {
+      // Only allow one icon to be hovered
+      if (found) {
+        icon.isHovered = false;
+        continue;
+      }
+
+      if (Vector.sqrDist(icon.position, currentWorldPos) < 32) {
+        icon.isHovered = true;
+        found = icon;
+      } else {
+        icon.isHovered = false;
+      }
+    }
+
     if (inputState.isLeftClicking() && this.isClicked) {
-      const currentWorldPos = this.toWorldPosition(inputState.mousePosition);
       this.cameraPosition.subtract(
         Vector.diff(currentWorldPos, this.mousePosition)
       );
-      // this.mousePosition = currentWorldPos;
     } else {
       this.isClicked = false;
     }
@@ -106,6 +155,19 @@ export class MapMode {
   onInput(inputEvent: InputEvent) {
     // Do nothing
     if (inputEvent.isClick()) {
+      const hoveredIcon = this.drawIcons.find((icon) => icon.isHovered);
+
+      const isAPortalActive = this.playMode.currentLevel.interactingWith instanceof PortalInteractible;
+
+      if (hoveredIcon && isAPortalActive) {
+        const event = hoveredIcon.interactible.clickedOnMap();
+
+        if (event) {
+          event.process(this.playMode);
+          this.gameModeManager.switchToMode(this.playMode);
+        }
+      }
+
       const event = inputEvent as ClickEvent;
       if (!event.isRightClick()) {
         this.mousePosition = this.toWorldPosition(event.position);
@@ -134,7 +196,7 @@ export class MapMode {
 
     canvas.translate(-this.cameraPosition.x, -this.cameraPosition.y);
 
-    let currentPlayer: Player | undefined;
+    const currentPlayer = currentLevel.player;
 
     for (const level of Object.values(DataLoader.levelMap)) {
       const levelCanvas = this.levelCanvasMap.get(level.key);
@@ -153,10 +215,6 @@ export class MapMode {
         level.width,
         level.height
       );
-
-      if (currentLevel === level) {
-        currentPlayer = level.player;
-      }
     }
 
     if (currentPlayer) {
@@ -175,6 +233,20 @@ export class MapMode {
 
       canvas.scale(this.zoom, this.zoom);
 
+      canvas.translate(-offset.x, -offset.y);
+    }
+
+    const zoom = this.zoom / 2;
+
+    for (const { level, interactible, isHovered } of this.drawIcons) {
+      const offset = Vector.add(level.worldPosition, interactible.position);
+      canvas.translate(offset.x, offset.y);
+      const innerZoom = isHovered ? zoom * 0.8 : zoom;
+      canvas.scale(1 / innerZoom, 1 / innerZoom);
+
+      interactible.drawAsMapIcon(canvas, level);
+
+      canvas.scale(innerZoom, innerZoom);
       canvas.translate(-offset.x, -offset.y);
     }
 

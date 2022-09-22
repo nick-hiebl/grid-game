@@ -29,4 +29,8 @@ export class Entity {
   drawForMap(_canvas: Canvas) {
     // Do nothing
   }
+
+  drawAsMapIcon(_canvas: Canvas, _level: Level) {
+    // Do nothing
+  }
 }

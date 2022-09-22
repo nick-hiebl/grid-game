@@ -14,6 +14,7 @@ import { Level } from "./Level";
 import { PuzzleRules } from "../puzzle-manager/PuzzleFactory";
 import { DecorationEntity } from "./entity/DecorationEntity";
 import { NodeInteractible } from "./interactibles/NodeInteractible";
+import { PortalInteractible } from "./interactibles/PortalInteractible";
 
 const LEVEL_DATA_URL = "./data/world.json";
 const PUZZLE_DATA_URL = "./data/puzzles.json";
@@ -261,6 +262,15 @@ function createNode(entity: EntityData) {
   );
 }
 
+function createPortal(entity: EntityData) {
+  const id = entity.iid;
+
+  return new PortalInteractible(
+    id,
+    new Vector(toTile(entity.px[0]), toTile(entity.px[1]))
+  );
+}
+
 function firstPass(level: LevelData): LevelFactory {
   const factory = new LevelFactory(
     level.identifier,
@@ -312,6 +322,9 @@ function firstPass(level: LevelData): LevelFactory {
         break;
       case "Node":
         factory.addInteractibles([createNode(entity)]);
+        break;
+      case "Portal":
+        factory.addInteractibles([createPortal(entity)]);
         break;
       default:
         console.warn("Processing unknown entity type:", entity.__identifier);

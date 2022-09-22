@@ -2,3 +2,5 @@ ldtk-test
 node_modules/
 util-images/
 builds/
+data/world/backups/
+yarn-error.log

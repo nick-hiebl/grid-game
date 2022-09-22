@@ -1,4 +1,7 @@
+import { PlayMode } from "../game-modes/PlayMode";
+import { PortalInteractible } from "./interactibles/PortalInteractible";
 import { ExitTrigger } from "./ExitTrigger";
+import { Level } from "./Level";
 
 export class LevelEvent {
   constructor() {}
@@ -7,13 +10,19 @@ export class LevelEvent {
     return false;
   }
 
-  isOpenPuzzleEvent() {
+  isOpenPuzzleEvent(): this is OpenPuzzleEvent {
     return false;
   }
 
-  isClosePuzzleEvent() {
+  isClosePuzzleEvent(): this is ClosePuzzleEvent {
     return false;
   }
+
+  isOpenMapEvent(): this is OpenMapEvent {
+    return false;
+  }
+
+  process(_playMode: PlayMode) {}
 }
 
 export class ExitEvent extends LevelEvent {
@@ -52,5 +61,42 @@ export class ClosePuzzleEvent extends LevelEvent {
 
   isClosePuzzleEvent() {
     return true;
+  }
+}
+
+export class OpenMapEvent extends LevelEvent {
+  fromPortal: PortalInteractible;
+  fromLevel: Level;
+
+  constructor(portal: PortalInteractible, level: Level) {
+    super();
+
+    this.fromPortal = portal;
+    this.fromLevel = level;
+  }
+
+  isOpenMapEvent() {
+    return true;
+  }
+}
+
+export class ToPortalEvent extends LevelEvent {
+  toPortal: PortalInteractible;
+  toLevel: Level;
+
+  constructor(portal: PortalInteractible, level: Level) {
+    super();
+
+    this.toPortal = portal;
+    this.toLevel = level;
+  }
+
+  process(playMode: PlayMode): void {
+    const currentPortal = playMode.currentLevel.interactingWith;
+    if (currentPortal && currentPortal instanceof PortalInteractible) {
+      playMode.currentLevel.interactingWith = undefined;
+    }
+
+    playMode.goToPortal(this.toLevel, this.toPortal);
   }
 }

@@ -115,6 +115,7 @@ export class Level {
     this.entities.forEach((e) => e.onStart(this));
 
     this.visited = true;
+    this.camera = this.getIdealCamera();
   }
 
   onAwaken() {
@@ -236,9 +237,11 @@ export class Level {
           if (shouldOpen) {
             const event = relevant.onInteract();
 
-            if (event && event instanceof OpenPuzzleEvent) {
-              this.interactingWith = relevant;
-              this.emitEvent(event);
+            if (event) {
+              if (event.isOpenPuzzleEvent() || event.isOpenMapEvent()) {
+                this.interactingWith = relevant;
+                this.emitEvent(event);
+              }
             }
           }
         }

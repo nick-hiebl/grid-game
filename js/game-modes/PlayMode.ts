@@ -5,15 +5,20 @@ import { Level } from "../level/Level";
 import { ExitEvent, LevelEvent, OpenPuzzleEvent } from "../level/LevelEvent";
 import { InputEvent, InputState } from "../InputManager";
 import { ScreenManager } from "../ScreenManager";
+import { GameModeManager } from "../GameModeManager";
+import { Interactible } from "../level/interactibles/Interactible";
+import { Vector } from "../math/Vector";
 
 export class PlayMode {
+  gameModeManager: GameModeManager;
   levelManager: LevelManager;
   puzzleManager: typeof PuzzleManager;
 
   currentPuzzle: Puzzle | undefined;
   currentLevel: Level;
 
-  constructor() {
+  constructor(gameModeManager: GameModeManager) {
+    this.gameModeManager = gameModeManager;
     this.levelManager = new LevelManager();
 
     this.currentLevel = this.levelManager.getInitialLevel();
@@ -22,6 +27,14 @@ export class PlayMode {
     this.puzzleManager = PuzzleManager;
 
     this.currentPuzzle = undefined;
+  }
+
+  goToPortal(level: Level, interactible: Interactible) {
+    // Reset player
+    level.player.position.setFrom(interactible.position);
+    level.player.velocity = new Vector(0, 0);
+
+    this.startLevel(level);
   }
 
   startLevel(level: Level) {
@@ -44,6 +57,8 @@ export class PlayMode {
       this.currentPuzzle.open();
     } else if (event.isClosePuzzleEvent()) {
       this.currentPuzzle?.close();
+    } else if (event.isOpenMapEvent()) {
+      this.gameModeManager.switchToMode(this.gameModeManager.mapMode);
     }
   }
 

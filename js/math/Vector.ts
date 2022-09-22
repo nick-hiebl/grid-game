@@ -30,6 +30,11 @@ export class Vector {
     return new Vector(this.x, this.y);
   }
 
+  setFrom(otherVector: Vector) {
+    this.x = otherVector.x;
+    this.y = otherVector.y;
+  }
+
   get magnitude(): number {
     return Math.hypot(this.x, this.y);
   }

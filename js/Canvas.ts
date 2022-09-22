@@ -104,6 +104,16 @@ export class Canvas {
     this[CTX].stroke();
   }
 
+  fillDiamond(x: number, y: number, xRadius: number, yRadius: number) {
+    this[CTX].beginPath();
+    this[CTX].moveTo(x, y - yRadius);
+    this[CTX].lineTo(x + xRadius, y);
+    this[CTX].lineTo(x, y + yRadius);
+    this[CTX].lineTo(x - xRadius, y);
+    this[CTX].lineTo(x, y - yRadius);
+    this[CTX].fill();
+  }
+
   outerCircleCorner(x: number, y: number, radius: number, startAngle: number) {
     this[CTX].beginPath();
     this[CTX].arc(x, y, radius, startAngle, startAngle + Math.PI / 2);

@@ -22,6 +22,8 @@ export class Interactible extends Entity {
   connectionPoint: Vector;
   outputPoint: Vector;
 
+  showAsMapIcon: boolean;
+
   constructor(
     id: string,
     position: Vector,
@@ -43,6 +45,8 @@ export class Interactible extends Entity {
 
     this.connectionPoint = this.position;
     this.outputPoint = this.position;
+
+    this.showAsMapIcon = false;
   }
 
   onStart(level: Level) {
@@ -106,6 +110,10 @@ export class Interactible extends Entity {
         control.y
       );
     }
+  }
+
+  clickedOnMap(): LevelEvent | undefined | void {
+    // Maybe return an event
   }
 
   onInteract(): LevelEvent | undefined | void {

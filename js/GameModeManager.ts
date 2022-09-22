@@ -18,8 +18,8 @@ export class GameModeManager {
   currentMode: Mode;
 
   constructor() {
-    this.playMode = new PlayMode();
-    this.mapMode = new MapMode(this.playMode);
+    this.playMode = new PlayMode(this);
+    this.mapMode = new MapMode(this);
 
     // Probably needs to initially be a menu mode eventually, or some dev-mode tooling
     this.currentMode = this.playMode;

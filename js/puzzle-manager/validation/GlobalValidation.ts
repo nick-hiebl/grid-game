@@ -1,7 +1,7 @@
 import { Canvas } from "../../Canvas";
 import { PIXEL_WIDTH } from "../../constants/ScreenConstants";
 import { Rectangle } from "../../math/Shapes";
-import { PositionGetter, PuzzleGrid, PuzzleValues } from "../types";
+import { PuzzleGrid, PuzzleValues } from "../types";
 import { ValidationItem } from "./PuzzleValidation";
 
 class GlobalValidationItem extends ValidationItem {
