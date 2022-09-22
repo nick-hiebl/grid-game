@@ -10,7 +10,7 @@
 	},
 	"jsonVersion": "1.1.3",
 	"appBuildId": 458364,
-	"nextUid": 85,
+	"nextUid": 86,
 	"identifierStyle": "Capitalize",
 	"worldLayout": "GridVania",
 	"worldGridWidth": 320,
@@ -1066,7 +1066,7 @@
 		{
 			"identifier": "Portal",
 			"uid": 83,
-			"tags": [],
+			"tags": ["reader"],
 			"width": 80,
 			"height": 80,
 			"resizableX": false,
@@ -1089,7 +1089,37 @@
 			"limitBehavior": "MoveLastOne",
 			"pivotX": 0.5,
 			"pivotY": 0.5,
-			"fieldDefs": []
+			"fieldDefs": [
+				{
+					"identifier": "prerequisites",
+					"__type": "Array<EntityRef>",
+					"uid": 85,
+					"type": "F_EntityRef",
+					"isArray": true,
+					"canBeNull": false,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "RefLinkBetweenCenters",
+					"editorDisplayPos": "Above",
+					"editorAlwaysShow": false,
+					"editorCutLongValues": true,
+					"editorTextSuffix": null,
+					"editorTextPrefix": null,
+					"useForSmartColor": false,
+					"min": null,
+					"max": null,
+					"regex": null,
+					"acceptFileTypes": null,
+					"defaultOverride": null,
+					"textLanguageMode": null,
+					"symmetricalRef": false,
+					"autoChainRef": false,
+					"allowOutOfLevelRef": false,
+					"allowedRefs": "OnlyTags",
+					"allowedRefTags": ["outputter"],
+					"tilesetUid": null
+				}
+			]
 		}
 	], "tilesets": [
 		{
@@ -5049,7 +5079,7 @@
 							"__identifier": "Portal",
 							"__grid": [15,25],
 							"__pivot": [0.5,0.5],
-							"__tags": [],
+							"__tags": ["reader"],
 							"__tile": { "tilesetUid": 11, "x": 80, "y": 40, "w": 80, "h": 80 },
 							"__smartColor": "#94D9B3",
 							"iid": "ca413600-2a00-11ed-9741-c3a46fe4f2ae",
@@ -5057,13 +5087,13 @@
 							"height": 80,
 							"defUid": 83,
 							"px": [150,250],
-							"fieldInstances": []
+							"fieldInstances": [{ "__identifier": "prerequisites", "__value": [], "__type": "Array<EntityRef>", "__tile": null, "defUid": 85, "realEditorValues": [] }]
 						},
 						{
 							"__identifier": "Portal",
 							"__grid": [18,9],
 							"__pivot": [0.5,0.5],
-							"__tags": [],
+							"__tags": ["reader"],
 							"__tile": { "tilesetUid": 11, "x": 80, "y": 40, "w": 80, "h": 80 },
 							"__smartColor": "#94D9B3",
 							"iid": "50dd1980-2a00-11ed-9741-6fba1ca5025c",
@@ -5071,7 +5101,32 @@
 							"height": 80,
 							"defUid": 83,
 							"px": [180,90],
-							"fieldInstances": []
+							"fieldInstances": [{ "__identifier": "prerequisites", "__value": [{
+								"entityIid": "e643b220-2a00-11ed-9741-151df18be8e2",
+								"layerIid": "34ff5161-02f0-11ed-898a-11d525420694",
+								"levelIid": "34ff5160-02f0-11ed-898a-67b3c5a6e5b8",
+								"worldIid": "8b717530-2a00-11ed-9741-dbd7c2cdab4f"
+							}], "__type": "Array<EntityRef>", "__tile": null, "defUid": 85, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["e643b220-2a00-11ed-9741-151df18be8e2"]
+							}] }]
+						},
+						{
+							"__identifier": "Switch",
+							"__grid": [9,9],
+							"__pivot": [0,0],
+							"__tags": ["outputter"],
+							"__tile": { "tilesetUid": 11, "x": 40, "y": 0, "w": 40, "h": 40 },
+							"__smartColor": "#94D9B3",
+							"iid": "e643b220-2a00-11ed-9741-151df18be8e2",
+							"width": 40,
+							"height": 40,
+							"defUid": 14,
+							"px": [90,90],
+							"fieldInstances": [
+								{ "__identifier": "prerequisites", "__value": [], "__type": "Array<EntityRef>", "__tile": null, "defUid": 23, "realEditorValues": [] },
+								{ "__identifier": "triggerArea", "__value": null, "__type": "EntityRef", "__tile": null, "defUid": 40, "realEditorValues": [] }
+							]
 						}
 					]
 				},
@@ -11588,7 +11643,7 @@
 							"__identifier": "Portal",
 							"__grid": [17,7],
 							"__pivot": [0.5,0.5],
-							"__tags": [],
+							"__tags": ["reader"],
 							"__tile": { "tilesetUid": 11, "x": 80, "y": 40, "w": 80, "h": 80 },
 							"__smartColor": "#94D9B3",
 							"iid": "0ebe9eb0-2a00-11ed-9741-bf43557e0065",
@@ -11596,7 +11651,7 @@
 							"height": 80,
 							"defUid": 83,
 							"px": [175,70],
-							"fieldInstances": []
+							"fieldInstances": [{ "__identifier": "prerequisites", "__value": [], "__type": "Array<EntityRef>", "__tile": null, "defUid": 85, "realEditorValues": [] }]
 						}
 					]
 				},

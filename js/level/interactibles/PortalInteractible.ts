@@ -12,13 +12,15 @@ import { Interactible } from "./Interactible";
 export class PortalInteractible extends Interactible {
   level: Level | undefined;
 
-  constructor(id: string, position: Vector) {
+  constructor(id: string, position: Vector, prereqs: string[]) {
     super(
       id,
       position,
       Rectangle.centerForm(position.x, position.y, 4, 4),
-      []
+      prereqs
     );
+
+    this.connectionPoint = new Vector(position.x, position.y + 3.5);
 
     this.showAsMapIcon = false;
   }

@@ -267,7 +267,8 @@ function createPortal(entity: EntityData) {
 
   return new PortalInteractible(
     id,
-    new Vector(toTile(entity.px[0]), toTile(entity.px[1]))
+    new Vector(toTile(entity.px[0]), toTile(entity.px[1])),
+    getPrereqs(entity)
   );
 }
 
