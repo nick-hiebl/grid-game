@@ -95,3 +95,85 @@ export class GlobalCountValidationItem extends GlobalValidationItem {
     );
   }
 }
+
+export class GlobalContinentValidationItem extends GlobalValidationItem {
+  constructor() {
+    super();
+    this.isValid = true;
+  }
+
+  validate(grid: PuzzleGrid, values: PuzzleValues): void {
+    const SIGNAL_VALUE = 1;
+
+    // Make copy of grid
+    const copiedGrid: (boolean | typeof SIGNAL_VALUE)[][] = [];
+    for (const row of grid) {
+      const copiedRow = [];
+      for (const cell of row) {
+        copiedRow.push(!!values[cell.id]);
+      }
+      copiedGrid.push(copiedRow);
+    }
+
+    const queue: [number, number][] = [];
+
+    for (let row = 0; row < copiedGrid.length; row++) {
+      for (let col = 0; col < copiedGrid[row].length; col++) {
+        if (copiedGrid[row][col]) {
+          queue.push([row, col]);
+          // Break out of all
+          row = copiedGrid.length;
+          break;
+        }
+      }
+    }
+
+    while (queue.length > 0) {
+      const [row, col] = queue.pop()!;
+
+      // Cell already visited or empty
+      if (copiedGrid[row][col] === SIGNAL_VALUE || !copiedGrid[row][col]) {
+        continue;
+      }
+
+      copiedGrid[row][col] = SIGNAL_VALUE;
+      if (row > 0) {
+        queue.push([row - 1, col]);
+      }
+      if (col > 0) {
+        queue.push([row, col - 1]);
+      }
+      if (row + 1 < copiedGrid.length) {
+        queue.push([row + 1, col]);
+      }
+      if (col + 1 < copiedGrid[row].length) {
+        queue.push([row, col + 1]);
+      }
+    }
+
+    this.isValid = true;
+
+    for (let row = 0; row < copiedGrid.length; row++) {
+      for (let col = 0; col < copiedGrid[row].length; col++) {
+        if (copiedGrid[row][col] && copiedGrid[row][col] !== SIGNAL_VALUE) {
+          this.isValid = false;
+          // Immediately terminate
+          row = copiedGrid.length;
+          break;
+        }
+      }
+    }
+  }
+
+  draw(canvas: Canvas, rectangle: Rectangle): void {
+    if (this.isValid) {
+      canvas.setColor("white");
+    } else {
+      canvas.setColor("red");
+    }
+
+    const center = rectangle.midpoint;
+    const minDim = Math.min(rectangle.width, rectangle.height) / 2;
+    canvas.fillEllipse(center.x, center.y, minDim * 0.8, minDim * 0.8);
+  }
+}

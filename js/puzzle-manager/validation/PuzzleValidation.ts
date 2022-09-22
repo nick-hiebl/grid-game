@@ -38,8 +38,6 @@ export class PuzzleValidator {
       );
     }
 
-    console.log(this.leftAreas);
-
     return this.leftAreas[index];
   }
 

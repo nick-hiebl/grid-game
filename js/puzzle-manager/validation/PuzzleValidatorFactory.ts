@@ -5,7 +5,7 @@ import {
   EdgeGroupsValidationItem,
   EdgeNoTripleValidationItem,
 } from "./EdgeValidation";
-import { GlobalCountValidationItem } from "./GlobalValidation";
+import { GlobalContinentValidationItem, GlobalCountValidationItem } from "./GlobalValidation";
 import { PuzzleValidator, ValidationItem } from "./PuzzleValidation";
 
 export class PuzzleValidatorFactory {
@@ -93,6 +93,11 @@ export class PuzzleValidatorFactory {
 
   setGlobalCount(count: number) {
     this.validationItems.push(new GlobalCountValidationItem(count));
+    return this;
+  }
+
+  addContinentRule() {
+    this.validationItems.push(new GlobalContinentValidationItem());
     return this;
   }
 

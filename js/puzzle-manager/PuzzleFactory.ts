@@ -21,6 +21,7 @@ export interface PuzzleRules {
   countAreas?: { row: number; col: number; count: number }[];
 
   globalCount?: number;
+  continent?: boolean;
 
   config?: PuzzleConfig;
 }
@@ -66,6 +67,9 @@ export const initPuzzle = (id: string, options: PuzzleRules) => {
   }
   if (options.globalCount) {
     rules.setGlobalCount(options.globalCount);
+  }
+  if (options.continent) {
+    rules.addContinentRule();
   }
 
   return new Puzzle(id, rows, cols, rules.create(), config);
