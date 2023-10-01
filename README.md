@@ -1,0 +1,1 @@
+[Try the game!](https://nick-hiebl.github.io/grid-game/).
