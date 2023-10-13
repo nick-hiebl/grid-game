@@ -66,6 +66,14 @@ function findById(id: string) {
   return element;
 }
 
+function inIframe() {
+  try {
+    return window.self !== window.top;
+  } catch {
+    return true;
+  }
+}
+
 /**
  * The function used to kick off the whole app.
  */
@@ -86,6 +94,28 @@ const main = () => {
   if (IS_MOBILE) {
     findById("canvas")?.classList.add("fit-screen");
     findById("mobile-controls")?.classList.remove("hidden");
+
+    const fullScreenButton = findById("fullscreen");
+
+    if (!fullScreenButton) {
+      // Do nothing
+    } else if (inIframe()) {
+      fullScreenButton.classList.add("hidden");
+    } else {
+      fullScreenButton.addEventListener("click", () => {
+        if (document.fullscreenElement) {
+          fullScreenButton.classList.remove("smaller");
+          document.exitFullscreen();
+        } else {
+          document.body.requestFullscreen({
+            navigationUI: 'hide',
+          }).then(() => {
+            fullScreenButton.classList.add("smaller");
+          });
+        }
+      });
+    }
+
   }
 };
 

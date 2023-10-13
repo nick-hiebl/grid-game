@@ -1,4 +1,5 @@
 import { Input } from "./constants/Keys";
+import { IS_MOBILE } from "./constants/ScreenConstants";
 import { MapMode } from "./game-modes/MapMode";
 import { PlayMode } from "./game-modes/PlayMode";
 import { InputEvent, InputState } from "./InputManager";
@@ -10,6 +11,14 @@ interface Mode {
   draw(screenManager: ScreenManager): void;
   onStart(): void;
 }
+
+const ALL_SECTIONS = [
+  "horizontal-movement",
+  "vertical-movement",
+  "map-c",
+  "exit-c",
+  "zoom-c",
+];
 
 export class GameModeManager {
   playMode: PlayMode;
@@ -23,6 +32,7 @@ export class GameModeManager {
 
     // Probably needs to initially be a menu mode eventually, or some dev-mode tooling
     this.currentMode = this.playMode;
+    this.playMode.onStart();
   }
 
   /**
@@ -68,5 +78,19 @@ export class GameModeManager {
    */
   draw(screenManager: ScreenManager) {
     this.currentMode.draw(screenManager);
+  }
+
+  enableSections(sectionIds: string[]) {
+    if (!IS_MOBILE) {
+      return;
+    }
+
+    for (const section of ALL_SECTIONS) {
+      document.getElementById(section)?.classList.add("hidden");
+    }
+
+    for (const section of sectionIds) {
+      document.getElementById(section)?.classList.remove("hidden");
+    }
   }
 }

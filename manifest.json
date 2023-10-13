@@ -1,0 +1,9 @@
+{
+  "manifest_version": 2,
+
+  "name": "Grid puzzle game",
+  "version": "0.1",
+
+  "orientation": "landscape",
+  "display": "standalone"
+}

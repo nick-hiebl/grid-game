@@ -44,6 +44,11 @@ export class PlayMode {
 
   onStart() {
     this.currentLevel.onAwaken();
+    this.gameModeManager.enableSections([
+      "horizontal-movement",
+      "vertical-movement",
+      "map-c",
+    ]);
   }
 
   onLevelEvent(event: LevelEvent) {
@@ -54,9 +59,17 @@ export class PlayMode {
       this.currentPuzzle = this.puzzleManager.getPuzzle(
         (event as OpenPuzzleEvent).puzzleId
       );
+      this.gameModeManager.enableSections([
+        "exit-c",
+      ]);
       this.currentPuzzle.open();
     } else if (event.isClosePuzzleEvent()) {
       this.currentPuzzle?.close();
+      this.gameModeManager.enableSections([
+        "horizontal-movement",
+        "vertical-movement",
+        "map-c",
+      ]);
     } else if (event.isOpenMapEvent()) {
       this.gameModeManager.switchToMode(this.gameModeManager.mapMode);
     }

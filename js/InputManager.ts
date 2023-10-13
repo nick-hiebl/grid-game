@@ -131,10 +131,12 @@ export class ClickEvent extends InputEvent {
 
 export class ScrollEvent extends InputEvent {
   delta: number;
+  discrete: boolean;
 
-  constructor(delta: number) {
+  constructor(delta: number, discrete?: boolean) {
     super();
     this.delta = delta;
+    this.discrete = !!discrete;
   }
 
   isScroll() {
@@ -243,7 +245,7 @@ export class InputManager {
       this.listener?.(new ScrollEvent(event.deltaY));
     });
 
-    const wireButton = (id: string, input: Key) => {
+    const wireButton = (id: string, input: Key | (() => InputEvent)) => {
       const btn = document.getElementById(id);
 
       if (!btn) {
@@ -252,19 +254,32 @@ export class InputManager {
 
       btn.addEventListener("touchstart", (e) => {
         e.preventDefault();
-        this.isButtonDown[input] = true;
 
-        onKeyEvent(input);
+        if (typeof input === "function") {
+          this.listener?.(input());
+        } else {
+          this.isButtonDown[input] = true;
+
+          onKeyEvent(input);
+        }
       });
 
       btn.addEventListener("touchcancel", (e) => {
         e.preventDefault();
-        this.isButtonDown[input] = false;
+        if (typeof input === "function") {
+          // Do nothing
+        } else {
+          this.isButtonDown[input] = false;
+        }
       });
 
       btn.addEventListener("touchend", (e) => {
         e.preventDefault();
-        this.isButtonDown[input] = false;
+        if (typeof input === "function") {
+          // Do nothing
+        } else {
+          this.isButtonDown[input] = false;
+        }
       });
     };
 
@@ -272,6 +287,10 @@ export class InputManager {
     wireButton("right", Input.Right);
     wireButton("jump", Input.Jump);
     wireButton("down", Input.Down);
+    wireButton("map", Input.Map);
+    wireButton("exit", Input.Escape);
+    wireButton("zoom-in", () => new ScrollEvent(1, true));
+    wireButton("zoom-out", () => new ScrollEvent(-1, true));
   }
 
   toCanvasPosition(event: MouseEvent | TouchEvent) {

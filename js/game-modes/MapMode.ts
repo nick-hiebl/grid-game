@@ -10,17 +10,20 @@ import { DataLoader } from "../level/DataLoader";
 import { Interactible } from "../level/interactibles/Interactible";
 import { PortalInteractible } from "../level/interactibles/PortalInteractible";
 import { Level } from "../level/Level";
-import { Player } from "../level/Player";
 import { clamp } from "../math/Common";
 import { Vector } from "../math/Vector";
 import { ScreenManager } from "../ScreenManager";
 import { PlayMode } from "./PlayMode";
 
-const DEBUG_SHOW_ALL_LEVELS = document.location.toString().includes('localhost');
+const DEBUG_SHOW_ALL_LEVELS = document.location.toString().includes("localhost");
 
 const MAX_ZOOM = 20;
 const MIN_ZOOM = 0.5;
 const ZOOM_SPEED = 0.01;
+
+const ZOOM_LEVELS = [0.5, 0.75, 1, 1.5, 2, 3, 5, 7.5, 10, 15, 20];
+const ZOOMS_REVERSED = ZOOM_LEVELS.slice();
+ZOOMS_REVERSED.reverse();
 
 const MAP_PLAYER_SCALE = 15;
 
@@ -76,6 +79,10 @@ export class MapMode {
     this.isClicked = false;
     this.predrawLevels();
     this.drawIcons = this.getIconsToShow();
+    this.gameModeManager.enableSections([
+      "map-c",
+      "zoom-c",
+    ]);
   }
 
   getIconsToShow(): MapInteractible[] {
@@ -175,7 +182,15 @@ export class MapMode {
       }
     } else if (inputEvent.isScroll()) {
       const scroll = inputEvent as ScrollEvent;
-      this.zoom = clamp(this.zoom + scroll.delta * -ZOOM_SPEED, MIN_ZOOM, MAX_ZOOM);
+      if (scroll.discrete) {
+        if (scroll.delta > 0) {
+          this.zoom = ZOOM_LEVELS.find(x => x > this.zoom) || MAX_ZOOM;
+        } else {
+          this.zoom = ZOOMS_REVERSED.find(x => x < this.zoom) || MIN_ZOOM;
+        }
+      } else {
+        this.zoom = clamp(this.zoom + scroll.delta * -ZOOM_SPEED, MIN_ZOOM, MAX_ZOOM);
+      }
     }
   }
 
