@@ -397,6 +397,24 @@
             ]
           }
         }
+      },
+      "connecty": {
+        "simple-connect": {
+          "rows": 3,
+          "cols": 3,
+          "columnCounts": [3, 1, 1],
+          "rowCounts": [3, 1, 1]
+        },
+        "continent-basic": {
+          "rows": 3,
+          "cols": 3,
+          "columnCounts": [2, null, 2],
+          "rowCounts": [null, null, 1],
+          "forcedCells": [
+            { "row": 0, "col": 2, "on": true }
+          ],
+          "continent": true
+        }
       }
     }
   }
