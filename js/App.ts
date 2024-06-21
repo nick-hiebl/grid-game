@@ -4,6 +4,7 @@ import { DataLoader } from "./level/DataLoader";
 import { AppCore } from "./AppCore";
 import { GameModeManager } from "./GameModeManager";
 import { InputManager } from "./InputManager";
+import { ScreenManager } from "./ScreenManager";
 
 function findById(id: string) {
   const element = document.getElementById(id);
@@ -30,8 +31,11 @@ const main = () => {
   const loading = DataLoader.start();
 
   loading.then(() => {
-    // const app = new App();
-    const app = new AppCore(new GameModeManager(), new InputManager(() => undefined));
+    const app = new AppCore(
+      ScreenManager.getInstance(),
+      new GameModeManager(),
+      new InputManager(() => undefined),
+    );
 
     app.start();
 

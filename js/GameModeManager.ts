@@ -4,13 +4,7 @@ import { MapMode } from "./game-modes/MapMode";
 import { PlayMode } from "./game-modes/PlayMode";
 import { InputEvent, InputState } from "./InputManager";
 import { ScreenManager } from "./ScreenManager";
-
-interface Mode {
-  update(deltaTime: number, inputState: InputState): void;
-  onInput(inputEvent: InputEvent): void;
-  draw(screenManager: ScreenManager): void;
-  onStart(): void;
-}
+import { GameModeManagerEssentials, Mode } from "./types";
 
 const ALL_SECTIONS = [
   "horizontal-movement",
@@ -20,11 +14,11 @@ const ALL_SECTIONS = [
   "zoom-c",
 ];
 
-export class GameModeManager {
+export class GameModeManager implements GameModeManagerEssentials<ScreenManager> {
   playMode: PlayMode;
   mapMode: MapMode;
 
-  currentMode: Mode;
+  currentMode: Mode<ScreenManager>;
 
   constructor() {
     this.playMode = new PlayMode(this);
@@ -44,7 +38,7 @@ export class GameModeManager {
     this.currentMode.update(deltaTime, inputState);
   }
 
-  switchToMode(mode: Mode) {
+  switchToMode(mode: Mode<ScreenManager>) {
     this.currentMode = mode;
     mode.onStart();
   }

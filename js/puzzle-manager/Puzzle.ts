@@ -25,6 +25,7 @@ import {
   PuzzleGrid,
   PuzzleValues,
 } from "./types";
+import { SimpleScreen } from "../apps/SimpleScreen";
 
 const PARTIAL_RADIUS = 0.4;
 
@@ -164,29 +165,41 @@ export class Puzzle {
     }
   }
 
-  open() {
+  open(status = 0) {
     if (this.isOpen) {
       return;
     }
 
     this.isOpen = true;
-    this.openCloseStatus = 0;
+    this.openCloseStatus = status;
   }
 
-  close() {
+  close(status?: number) {
     this.isOpen = false;
+
+    if (status !== undefined) {
+      this.openCloseStatus = status;
+    }
   }
 
-  uiPosition() {
+  canvasWidth: number = 0;
+  canvasHeight: number = 0;
+
+  uiPosition(screenManager?: ScreenManager | SimpleScreen) {
     // Function with f(0) = 1, f(1) = 0, f"(1) = 0
     // Feel free to replace this with any other function moving those
     // parameters.
     const pos = Math.pow(1 - this.openCloseStatus, 2);
 
+    if (screenManager) {
+      this.canvasWidth = screenManager.uiCanvas.width;
+      this.canvasHeight = screenManager.uiCanvas.height;
+    }
+
     const slideInOffset = new Vector(0, UI_CANVAS_HEIGHT * pos);
     const puzzleScreenOffset = new Vector(
-      (UI_CANVAS_WIDTH - PUZZLE_WINDOW_WIDTH) / 2,
-      (UI_CANVAS_HEIGHT - PUZZLE_WINDOW_WIDTH) / 2
+      (this.canvasWidth - PUZZLE_WINDOW_WIDTH) / 2,
+      (this.canvasHeight - PUZZLE_WINDOW_WIDTH) / 2
     );
     return Vector.add(slideInOffset, puzzleScreenOffset);
   }
@@ -195,7 +208,7 @@ export class Puzzle {
    * Draw.
    * @param {ScreenManager} screenManager The screenManager to draw upon.
    */
-  draw(screenManager: ScreenManager) {
+  draw(screenManager: ScreenManager | SimpleScreen) {
     const canvas = screenManager.uiCanvas;
 
     canvas.clear();
@@ -204,7 +217,7 @@ export class Puzzle {
       return;
     }
 
-    const offset = this.uiPosition();
+    const offset = this.uiPosition(screenManager);
 
     canvas.translate(offset.x, offset.y);
 

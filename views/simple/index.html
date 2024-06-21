@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="manifest" href="/manifest.json">
+  <title>Grid game</title>
+
+  <style>
+    :root {
+      --mobile-button-padding: min(3vw, 3vh);
+      --mobile-button-scale: min(20vw, 20vh);
+      --mobile-button-font: min(10vw, 10vh);
+
+      --mobile-button-small: min(10vw, 10vh);
+      --mobile-button-text-small: min(5vw, 5vh);
+    }
+
+    body {
+      background-color: black;
+      text-align: center;
+      color: white;
+      font-family: sans-serif;
+      margin: 0;
+      overflow-y: hidden;
+    }
+    p, .hidden {
+      visibility: hidden;
+    }
+    .visible {
+      visibility: visible;
+    }
+    .fit-screen {
+      max-height: 100vh;
+      max-width: 100vw;
+      text-align: center;
+    }
+    #main {
+      height: 100vh;
+      width: 100vw;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="main">
+    <canvas id="canvas" width="1080" height="1080" class="fit-screen"></canvas>
+  </div>
+</body>
+
+<script src="/build/index-simple.js" type="module"></script>
+
+</html>

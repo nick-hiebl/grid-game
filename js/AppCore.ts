@@ -1,24 +1,20 @@
-import { IS_MOBILE } from "./constants/ScreenConstants";
-import { DataLoader } from "./level/DataLoader";
-
-import { GameModeManager } from "./GameModeManager";
 import { InputEvent, InputManager } from "./InputManager";
-import { ScreenManager } from "./ScreenManager";
+import { GameModeManagerEssentials, ScreenManagerEssentials } from "./types";
 
 const MAX_FRAME_TIME = 1 / 20;
 
 /**
  * The head owner of everything.
  */
-export class AppCore {
-  screenManager: ScreenManager;
-  gameModeManager: GameModeManager;
+export class AppCore<Screen extends ScreenManagerEssentials> {
+  screenManager: Screen;
+  gameModeManager: GameModeManagerEssentials<Screen>;
   inputManager: InputManager;
 
   lastFrameTime: number;
 
-  constructor(gameModeManager: GameModeManager, inputManager: InputManager) {
-    this.screenManager = ScreenManager.getInstance();
+  constructor(screenManager: Screen, gameModeManager: GameModeManagerEssentials<Screen>, inputManager: InputManager) {
+    this.screenManager = screenManager;
     this.gameModeManager = gameModeManager;
     this.inputManager = inputManager;
 

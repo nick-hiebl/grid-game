@@ -16,6 +16,8 @@ export const IS_MOBILE =
 export const ON_SCREEN_CANVAS_WIDTH = 1280;
 export const ON_SCREEN_CANVAS_HEIGHT = 720;
 
+export const SQUARE_CANVAS_SIZE = 720;
+
 export const UI_CANVAS_WIDTH = ON_SCREEN_CANVAS_WIDTH;
 export const UI_CANVAS_HEIGHT = ON_SCREEN_CANVAS_HEIGHT;
 

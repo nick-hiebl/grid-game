@@ -12,9 +12,11 @@
   },
   "scripts": {
     "build": "esbuild js/App.ts --bundle --minify --sourcemap --outfile=build/index.js",
+    "build:simple": "esbuild js/apps/SimpleApp.ts --bundle --minify --sourcemap --outfile=build/index-simple.js",
     "serve": "http-server -c-1",
     "typecheck": "tsc",
     "watch": "nodemon --exec \"yarn build && yarn serve\" -e js,ts --ignore build/",
+    "watch:simple": "nodemon --exec \"yarn build:simple && yarn serve\" -e js,ts --ignore build/",
     "lint:fix": "prettier --write \"js/**/*.{js,ts}\""
   },
   "repository": {
