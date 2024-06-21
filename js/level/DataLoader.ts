@@ -16,8 +16,8 @@ import { DecorationEntity } from "./entity/DecorationEntity";
 import { NodeInteractible } from "./interactibles/NodeInteractible";
 import { PortalInteractible } from "./interactibles/PortalInteractible";
 
-const LEVEL_DATA_URL = "./data/world.json";
-const PUZZLE_DATA_URL = "./data/puzzles.json";
+const LEVEL_DATA_URL = "/data/world.json";
+const PUZZLE_DATA_URL = "/data/puzzles.json";
 
 interface EntityRef {
   entityIid: string;

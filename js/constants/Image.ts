@@ -1,8 +1,8 @@
 export const TileImage = new Image();
-TileImage.src = "./img/tileset.png";
+TileImage.src = "/img/tileset.png";
 
 export const EntityImage = new Image();
-EntityImage.src = "./img/entity-set.png";
+EntityImage.src = "/img/entity-set.png";
 
 export const DecorationImage = new Image();
-DecorationImage.src = "./img/decoration.png";
+DecorationImage.src = "/img/decoration.png";

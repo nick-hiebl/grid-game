@@ -166,6 +166,10 @@ export class InputManager {
     this.canvas = document.getElementById("canvas") as HTMLCanvasElement;
   }
 
+  setListener(listener: (inputEvent: InputEvent) => void) {
+    this.listener = listener;
+  }
+
   /**
    * Set up event listeners.
    */
