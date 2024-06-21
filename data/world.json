@@ -5,12 +5,12 @@
 		"doc": "https://ldtk.io/json",
 		"schema": "https://ldtk.io/files/JSON_SCHEMA.json",
 		"appAuthor": "Sebastien 'deepnight' Benard",
-		"appVersion": "1.4.1",
+		"appVersion": "1.5.3",
 		"url": "https://ldtk.io"
 	},
 	"iid": "a2e9dc70-6280-11ee-a5b1-29e7fb7ffffe",
-	"jsonVersion": "1.4.1",
-	"appBuildId": 471015,
+	"jsonVersion": "1.5.3",
+	"appBuildId": 473703,
 	"nextUid": 90,
 	"identifierStyle": "Capitalize",
 	"toc": [],
@@ -39,7 +39,7 @@
 	"levelNamePattern": "Level_%idx",
 	"tutorialDesc": null,
 	"customCommands": [],
-	"flags": [],
+	"flags": ["ExportOldTableOfContentData"],
 	"defs": { "layers": [
 		{
 			"__type": "Entities",
@@ -64,13 +64,17 @@
 			"parallaxScaling": true,
 			"requiredTags": [],
 			"excludedTags": ["Decoration"],
+			"autoTilesKilledByOtherLayerUid": null,
+			"uiFilterTags": [],
+			"useAsyncRender": false,
 			"intGridValues": [],
 			"intGridValuesGroups": [],
 			"autoRuleGroups": [],
 			"autoSourceLayerDefUid": null,
 			"tilesetDefUid": null,
 			"tilePivotX": 0,
-			"tilePivotY": 0
+			"tilePivotY": 0,
+			"biomeFieldUid": null
 		},
 		{
 			"__type": "Tiles",
@@ -95,13 +99,17 @@
 			"parallaxScaling": true,
 			"requiredTags": [],
 			"excludedTags": [],
+			"autoTilesKilledByOtherLayerUid": null,
+			"uiFilterTags": [],
+			"useAsyncRender": false,
 			"intGridValues": [],
 			"intGridValuesGroups": [],
 			"autoRuleGroups": [],
 			"autoSourceLayerDefUid": null,
 			"tilesetDefUid": 5,
 			"tilePivotX": 0,
-			"tilePivotY": 0
+			"tilePivotY": 0,
+			"biomeFieldUid": null
 		},
 		{
 			"__type": "Entities",
@@ -126,13 +134,17 @@
 			"parallaxScaling": true,
 			"requiredTags": ["Decoration"],
 			"excludedTags": [],
+			"autoTilesKilledByOtherLayerUid": null,
+			"uiFilterTags": [],
+			"useAsyncRender": false,
 			"intGridValues": [],
 			"intGridValuesGroups": [],
 			"autoRuleGroups": [],
 			"autoSourceLayerDefUid": null,
 			"tilesetDefUid": null,
 			"tilePivotX": 0,
-			"tilePivotY": 0
+			"tilePivotY": 0,
+			"biomeFieldUid": null
 		}
 	], "entities": [
 		{
@@ -140,6 +152,7 @@
 			"uid": 7,
 			"tags": [],
 			"exportToToc": false,
+			"allowOutOfBounds": false,
 			"doc": null,
 			"width": 16,
 			"height": 16,
@@ -174,6 +187,7 @@
 			"uid": 10,
 			"tags": [ "reader", "outputter" ],
 			"exportToToc": false,
+			"allowOutOfBounds": false,
 			"doc": null,
 			"width": 40,
 			"height": 40,
@@ -223,6 +237,8 @@
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": "/.+/gi",
@@ -258,6 +274,8 @@
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -293,6 +311,8 @@
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -328,6 +348,8 @@
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -349,6 +371,7 @@
 			"uid": 14,
 			"tags": ["outputter"],
 			"exportToToc": false,
+			"allowOutOfBounds": false,
 			"doc": null,
 			"width": 40,
 			"height": 40,
@@ -398,6 +421,8 @@
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -433,6 +458,8 @@
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -454,6 +481,7 @@
 			"uid": 18,
 			"tags": ["reader"],
 			"exportToToc": false,
+			"allowOutOfBounds": false,
 			"doc": null,
 			"width": 40,
 			"height": 30,
@@ -503,6 +531,8 @@
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -524,6 +554,7 @@
 			"uid": 25,
 			"tags": ["reader"],
 			"exportToToc": false,
+			"allowOutOfBounds": false,
 			"doc": null,
 			"width": 40,
 			"height": 10,
@@ -573,6 +604,8 @@
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -608,6 +641,8 @@
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -643,6 +678,8 @@
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -678,6 +715,8 @@
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -699,6 +738,7 @@
 			"uid": 29,
 			"tags": ["area"],
 			"exportToToc": false,
+			"allowOutOfBounds": false,
 			"doc": null,
 			"width": 20,
 			"height": 20,
@@ -748,6 +788,8 @@
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -783,6 +825,8 @@
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -818,6 +862,8 @@
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -853,6 +899,8 @@
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -874,6 +922,7 @@
 			"uid": 31,
 			"tags": ["area"],
 			"exportToToc": false,
+			"allowOutOfBounds": false,
 			"doc": null,
 			"width": 10,
 			"height": 10,
@@ -908,6 +957,7 @@
 			"uid": 61,
 			"tags": [ "Decoration", "Scaling" ],
 			"exportToToc": false,
+			"allowOutOfBounds": false,
 			"doc": null,
 			"width": 20,
 			"height": 40,
@@ -942,6 +992,7 @@
 			"uid": 64,
 			"tags": ["Decoration"],
 			"exportToToc": false,
+			"allowOutOfBounds": false,
 			"doc": null,
 			"width": 140,
 			"height": 160,
@@ -976,6 +1027,7 @@
 			"uid": 68,
 			"tags": ["outputter"],
 			"exportToToc": false,
+			"allowOutOfBounds": false,
 			"doc": null,
 			"width": 40,
 			"height": 40,
@@ -1025,6 +1077,8 @@
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -1060,6 +1114,8 @@
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -1081,6 +1137,7 @@
 			"uid": 72,
 			"tags": [ "Decoration", "Mobile_alt" ],
 			"exportToToc": false,
+			"allowOutOfBounds": false,
 			"doc": null,
 			"width": 80,
 			"height": 40,
@@ -1115,6 +1172,7 @@
 			"uid": 73,
 			"tags": ["Decoration"],
 			"exportToToc": false,
+			"allowOutOfBounds": false,
 			"doc": null,
 			"width": 30,
 			"height": 30,
@@ -1149,6 +1207,7 @@
 			"uid": 75,
 			"tags": ["Decoration"],
 			"exportToToc": false,
+			"allowOutOfBounds": false,
 			"doc": null,
 			"width": 20,
 			"height": 20,
@@ -1183,6 +1242,7 @@
 			"uid": 76,
 			"tags": ["Decoration"],
 			"exportToToc": false,
+			"allowOutOfBounds": false,
 			"doc": null,
 			"width": 20,
 			"height": 20,
@@ -1217,6 +1277,7 @@
 			"uid": 77,
 			"tags": ["Decoration"],
 			"exportToToc": false,
+			"allowOutOfBounds": false,
 			"doc": null,
 			"width": 30,
 			"height": 30,
@@ -1251,6 +1312,7 @@
 			"uid": 82,
 			"tags": ["Decoration"],
 			"exportToToc": false,
+			"allowOutOfBounds": false,
 			"doc": null,
 			"width": 100,
 			"height": 60,
@@ -1285,6 +1347,7 @@
 			"uid": 83,
 			"tags": ["reader"],
 			"exportToToc": false,
+			"allowOutOfBounds": false,
 			"doc": null,
 			"width": 80,
 			"height": 80,
@@ -1334,6 +1397,8 @@
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -1493,14 +1558,14 @@
 							"__tags": [],
 							"__tile": null,
 							"__smartColor": "#94D9B3",
-							"__worldX": 465,
-							"__worldY": 15,
 							"iid": "60fd0d10-2a00-11ed-a7c5-91aa81c9a061",
 							"width": 16,
 							"height": 16,
 							"defUid": 7,
 							"px": [145,15],
-							"fieldInstances": []
+							"fieldInstances": [],
+							"__worldX": 465,
+							"__worldY": 15
 						}
 					]
 				},
@@ -2960,7 +3025,13 @@
 					"entityInstances": []
 				}
 			],
-			"__neighbours": [ { "levelIid": "201d8dc0-02f0-11ed-898a-b98937ef4b4b", "dir": "s" }, { "levelIid": "7843e970-2a00-11ed-a7c5-5f7095cb9269", "dir": "n" }, { "levelIid": "77053e60-2a00-11ed-a7c5-f5e470203016", "dir": "w" } ]
+			"__neighbours": [
+				{ "levelIid": "0693c5e0-02f0-11ed-898a-f54c61423253", "dir": "sw" },
+				{ "levelIid": "201d8dc0-02f0-11ed-898a-b98937ef4b4b", "dir": "s" },
+				{ "levelIid": "7843e970-2a00-11ed-a7c5-5f7095cb9269", "dir": "n" },
+				{ "levelIid": "77053e60-2a00-11ed-a7c5-f5e470203016", "dir": "w" },
+				{ "levelIid": "86686c80-2a00-11ed-a7c5-dd0db56b14f4", "dir": "ne" }
+			]
 		},
 		{
 			"identifier": "Ambiguity",
@@ -3014,14 +3085,14 @@
 							"__tags": [],
 							"__tile": null,
 							"__smartColor": "#94D9B3",
-							"__worldX": 75,
-							"__worldY": 645,
 							"iid": "ad62b700-02f0-11ed-898a-59f44b5cfeca",
 							"width": 16,
 							"height": 16,
 							"defUid": 7,
 							"px": [75,105],
-							"fieldInstances": []
+							"fieldInstances": [],
+							"__worldX": 75,
+							"__worldY": 645
 						},
 						{
 							"__identifier": "Door",
@@ -3030,8 +3101,6 @@
 							"__tags": ["reader"],
 							"__tile": { "tilesetUid": 11, "x": 180, "y": 160, "w": 20, "h": 30 },
 							"__smartColor": "#94D9B3",
-							"__worldX": 270,
-							"__worldY": 620,
 							"iid": "14291c60-02f0-11ed-a7c5-ffbe128c9101",
 							"width": 40,
 							"height": 90,
@@ -3045,7 +3114,9 @@
 							}], "__tile": null, "defUid": 21, "realEditorValues": [{
 								"id": "V_String",
 								"params": ["1b391ff0-02f0-11ed-a7c5-53c5a5066b1b"]
-							}] }]
+							}] }],
+							"__worldX": 270,
+							"__worldY": 620
 						},
 						{
 							"__identifier": "PuzzleScreen",
@@ -3054,8 +3125,6 @@
 							"__tags": [ "reader", "outputter" ],
 							"__tile": { "tilesetUid": 11, "x": 0, "y": 0, "w": 40, "h": 40 },
 							"__smartColor": "#94D9B3",
-							"__worldX": 140,
-							"__worldY": 640,
 							"iid": "1a53f010-02f0-11ed-a7c5-83cf01c2602e",
 							"width": 40,
 							"height": 40,
@@ -3077,7 +3146,9 @@
 								}] },
 								{ "__identifier": "isFlipped", "__type": "Bool", "__value": false, "__tile": null, "defUid": 24, "realEditorValues": [] },
 								{ "__identifier": "triggerArea", "__type": "EntityRef", "__value": null, "__tile": null, "defUid": 39, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 140,
+							"__worldY": 640
 						},
 						{
 							"__identifier": "PuzzleScreen",
@@ -3086,8 +3157,6 @@
 							"__tags": [ "reader", "outputter" ],
 							"__tile": { "tilesetUid": 11, "x": 0, "y": 0, "w": 40, "h": 40 },
 							"__smartColor": "#94D9B3",
-							"__worldX": 200,
-							"__worldY": 660,
 							"iid": "1b391ff0-02f0-11ed-a7c5-53c5a5066b1b",
 							"width": 40,
 							"height": 40,
@@ -3109,7 +3178,9 @@
 								}] },
 								{ "__identifier": "isFlipped", "__type": "Bool", "__value": false, "__tile": null, "defUid": 24, "realEditorValues": [] },
 								{ "__identifier": "triggerArea", "__type": "EntityRef", "__value": null, "__tile": null, "defUid": 39, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 200,
+							"__worldY": 660
 						},
 						{
 							"__identifier": "PuzzleScreen",
@@ -3118,8 +3189,6 @@
 							"__tags": [ "reader", "outputter" ],
 							"__tile": { "tilesetUid": 11, "x": 0, "y": 0, "w": 40, "h": 40 },
 							"__smartColor": "#94D9B3",
-							"__worldX": 70,
-							"__worldY": 620,
 							"iid": "23aad660-02f0-11ed-a7c5-6d0a7e971091",
 							"width": 40,
 							"height": 40,
@@ -3133,7 +3202,9 @@
 								{ "__identifier": "prerequisites", "__type": "Array<EntityRef>", "__value": [], "__tile": null, "defUid": 22, "realEditorValues": [] },
 								{ "__identifier": "isFlipped", "__type": "Bool", "__value": false, "__tile": null, "defUid": 24, "realEditorValues": [] },
 								{ "__identifier": "triggerArea", "__type": "EntityRef", "__value": null, "__tile": null, "defUid": 39, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 70,
+							"__worldY": 620
 						},
 						{
 							"__identifier": "PuzzleScreen",
@@ -3142,8 +3213,6 @@
 							"__tags": [ "reader", "outputter" ],
 							"__tile": { "tilesetUid": 11, "x": 0, "y": 0, "w": 40, "h": 40 },
 							"__smartColor": "#94D9B3",
-							"__worldX": 230,
-							"__worldY": 570,
 							"iid": "27b5fe60-02f0-11ed-a7c5-975a64286f8e",
 							"width": 40,
 							"height": 40,
@@ -3160,7 +3229,9 @@
 									"params": [ true ]
 								}] },
 								{ "__identifier": "triggerArea", "__type": "EntityRef", "__value": null, "__tile": null, "defUid": 39, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 230,
+							"__worldY": 570
 						},
 						{
 							"__identifier": "PuzzleScreen",
@@ -3169,8 +3240,6 @@
 							"__tags": [ "reader", "outputter" ],
 							"__tile": { "tilesetUid": 11, "x": 0, "y": 0, "w": 40, "h": 40 },
 							"__smartColor": "#94D9B3",
-							"__worldX": 180,
-							"__worldY": 570,
 							"iid": "296e0ea0-02f0-11ed-a7c5-c9d02a9d51e7",
 							"width": 40,
 							"height": 40,
@@ -3195,7 +3264,9 @@
 									"params": [ true ]
 								}] },
 								{ "__identifier": "triggerArea", "__type": "EntityRef", "__value": null, "__tile": null, "defUid": 39, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 180,
+							"__worldY": 570
 						},
 						{
 							"__identifier": "PuzzleScreen",
@@ -3204,8 +3275,6 @@
 							"__tags": [ "reader", "outputter" ],
 							"__tile": { "tilesetUid": 11, "x": 0, "y": 0, "w": 40, "h": 40 },
 							"__smartColor": "#94D9B3",
-							"__worldX": 140,
-							"__worldY": 570,
 							"iid": "2a7df800-02f0-11ed-a7c5-cf8467e19e64",
 							"width": 40,
 							"height": 40,
@@ -3230,7 +3299,9 @@
 									"params": [ true ]
 								}] },
 								{ "__identifier": "triggerArea", "__type": "EntityRef", "__value": null, "__tile": null, "defUid": 39, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 140,
+							"__worldY": 570
 						},
 						{
 							"__identifier": "PuzzleScreen",
@@ -3239,8 +3310,6 @@
 							"__tags": [ "reader", "outputter" ],
 							"__tile": { "tilesetUid": 11, "x": 0, "y": 0, "w": 40, "h": 40 },
 							"__smartColor": "#94D9B3",
-							"__worldX": 100,
-							"__worldY": 570,
 							"iid": "2b2b00e0-02f0-11ed-a7c5-e78ca1d7dbfa",
 							"width": 40,
 							"height": 40,
@@ -3265,7 +3334,9 @@
 									"params": [ true ]
 								}] },
 								{ "__identifier": "triggerArea", "__type": "EntityRef", "__value": null, "__tile": null, "defUid": 39, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 100,
+							"__worldY": 570
 						},
 						{
 							"__identifier": "PuzzleScreen",
@@ -3274,8 +3345,6 @@
 							"__tags": [ "reader", "outputter" ],
 							"__tile": { "tilesetUid": 11, "x": 0, "y": 0, "w": 40, "h": 40 },
 							"__smartColor": "#94D9B3",
-							"__worldX": 60,
-							"__worldY": 570,
 							"iid": "2c033870-02f0-11ed-a7c5-2340487137ff",
 							"width": 40,
 							"height": 40,
@@ -3300,7 +3369,9 @@
 									"params": [ true ]
 								}] },
 								{ "__identifier": "triggerArea", "__type": "EntityRef", "__value": null, "__tile": null, "defUid": 39, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 60,
+							"__worldY": 570
 						},
 						{
 							"__identifier": "Node",
@@ -3309,8 +3380,6 @@
 							"__tags": ["outputter"],
 							"__tile": null,
 							"__smartColor": "#94D9B3",
-							"__worldX": 250,
-							"__worldY": 710,
 							"iid": "d9aa5750-2a00-11ed-a7c5-8dbe65479606",
 							"width": 40,
 							"height": 120,
@@ -3327,7 +3396,9 @@
 									"id": "V_String",
 									"params": ["1b391ff0-02f0-11ed-a7c5-53c5a5066b1b"]
 								}] }
-							]
+							],
+							"__worldX": 250,
+							"__worldY": 710
 						},
 						{
 							"__identifier": "CoverEntity",
@@ -3336,8 +3407,6 @@
 							"__tags": ["area"],
 							"__tile": null,
 							"__smartColor": "#FF76FF",
-							"__worldX": 0,
-							"__worldY": 550,
 							"iid": "228de060-6280-11ee-bc16-a97b6c3e2151",
 							"width": 10,
 							"height": 30,
@@ -3351,7 +3420,9 @@
 									"params": [ true ]
 								}] },
 								{ "__identifier": "canReCover", "__type": "Bool", "__value": false, "__tile": null, "defUid": 35, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 0,
+							"__worldY": 550
 						}
 					]
 				},
@@ -3603,7 +3674,7 @@
 					"entityInstances": []
 				}
 			],
-			"__neighbours": [ { "levelIid": "201d8dc0-02f0-11ed-898a-b98937ef4b4b", "dir": "e" }, { "levelIid": "34ff5160-02f0-11ed-898a-67b3c5a6e5b8", "dir": "s" }, { "levelIid": "f5594e40-6280-11ee-bc16-131c427ccf94", "dir": "w" } ]
+			"__neighbours": [ { "levelIid": "2e2576b0-02f0-11ed-babb-236311c5927d", "dir": "ne" }, { "levelIid": "201d8dc0-02f0-11ed-898a-b98937ef4b4b", "dir": "e" }, { "levelIid": "34ff5160-02f0-11ed-898a-67b3c5a6e5b8", "dir": "s" }, { "levelIid": "f5594e40-6280-11ee-bc16-131c427ccf94", "dir": "w" } ]
 		},
 		{
 			"identifier": "Fixed",
@@ -3657,8 +3728,6 @@
 							"__tags": ["reader"],
 							"__tile": { "tilesetUid": 11, "x": 180, "y": 160, "w": 20, "h": 30 },
 							"__smartColor": "#94D9B3",
-							"__worldX": 340,
-							"__worldY": 800,
 							"iid": "faea8e10-02f0-11ed-a7c5-abe1243a99bf",
 							"width": 40,
 							"height": 50,
@@ -3672,7 +3741,9 @@
 							}], "__tile": null, "defUid": 21, "realEditorValues": [{
 								"id": "V_String",
 								"params": ["00918bc0-02f0-11ed-a7c5-653c2c5f1647"]
-							}] }]
+							}] }],
+							"__worldX": 340,
+							"__worldY": 800
 						},
 						{
 							"__identifier": "PuzzleScreen",
@@ -3681,8 +3752,6 @@
 							"__tags": [ "reader", "outputter" ],
 							"__tile": { "tilesetUid": 11, "x": 0, "y": 0, "w": 40, "h": 40 },
 							"__smartColor": "#94D9B3",
-							"__worldX": 390,
-							"__worldY": 810,
 							"iid": "00918bc0-02f0-11ed-a7c5-653c2c5f1647",
 							"width": 40,
 							"height": 40,
@@ -3707,7 +3776,9 @@
 									"params": [ true ]
 								}] },
 								{ "__identifier": "triggerArea", "__type": "EntityRef", "__value": null, "__tile": null, "defUid": 39, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 390,
+							"__worldY": 810
 						},
 						{
 							"__identifier": "Trapdoor",
@@ -3716,8 +3787,6 @@
 							"__tags": ["reader"],
 							"__tile": { "tilesetUid": 11, "x": 160, "y": 190, "w": 40, "h": 10 },
 							"__smartColor": "#94D9B3",
-							"__worldX": 400,
-							"__worldY": 710,
 							"iid": "bd592ec0-02f0-11ed-a7c5-3bdbd0bd8e2b",
 							"width": 60,
 							"height": 10,
@@ -3742,7 +3811,9 @@
 									"params": [ true ]
 								}] },
 								{ "__identifier": "isSingle", "__type": "Bool", "__value": false, "__tile": null, "defUid": 41, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 400,
+							"__worldY": 710
 						},
 						{
 							"__identifier": "PuzzleScreen",
@@ -3751,8 +3822,6 @@
 							"__tags": [ "reader", "outputter" ],
 							"__tile": { "tilesetUid": 11, "x": 0, "y": 0, "w": 40, "h": 40 },
 							"__smartColor": "#94D9B3",
-							"__worldX": 450,
-							"__worldY": 720,
 							"iid": "c60ad460-02f0-11ed-a7c5-7d2992332883",
 							"width": 40,
 							"height": 40,
@@ -3769,7 +3838,9 @@
 									"params": [ false ]
 								}] },
 								{ "__identifier": "triggerArea", "__type": "EntityRef", "__value": null, "__tile": null, "defUid": 39, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 450,
+							"__worldY": 720
 						},
 						{
 							"__identifier": "Door",
@@ -3778,8 +3849,6 @@
 							"__tags": ["reader"],
 							"__tile": { "tilesetUid": 11, "x": 180, "y": 160, "w": 20, "h": 30 },
 							"__smartColor": "#94D9B3",
-							"__worldX": 580,
-							"__worldY": 650,
 							"iid": "034a4db0-02f0-11ed-a7c5-09b20f1897e1",
 							"width": 40,
 							"height": 50,
@@ -3793,7 +3862,9 @@
 							}], "__tile": null, "defUid": 21, "realEditorValues": [{
 								"id": "V_String",
 								"params": ["c60ad460-02f0-11ed-a7c5-7d2992332883"]
-							}] }]
+							}] }],
+							"__worldX": 580,
+							"__worldY": 650
 						},
 						{
 							"__identifier": "PuzzleScreen",
@@ -3802,8 +3873,6 @@
 							"__tags": [ "reader", "outputter" ],
 							"__tile": { "tilesetUid": 11, "x": 0, "y": 0, "w": 40, "h": 40 },
 							"__smartColor": "#94D9B3",
-							"__worldX": 550,
-							"__worldY": 600,
 							"iid": "44e95b20-02f0-11ed-a7c5-ede5e82c82b2",
 							"width": 40,
 							"height": 40,
@@ -3817,7 +3886,9 @@
 								{ "__identifier": "prerequisites", "__type": "Array<EntityRef>", "__value": [], "__tile": null, "defUid": 22, "realEditorValues": [] },
 								{ "__identifier": "isFlipped", "__type": "Bool", "__value": false, "__tile": null, "defUid": 24, "realEditorValues": [] },
 								{ "__identifier": "triggerArea", "__type": "EntityRef", "__value": null, "__tile": null, "defUid": 39, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 550,
+							"__worldY": 600
 						},
 						{
 							"__identifier": "PuzzleScreen",
@@ -3826,8 +3897,6 @@
 							"__tags": [ "reader", "outputter" ],
 							"__tile": { "tilesetUid": 11, "x": 0, "y": 0, "w": 40, "h": 40 },
 							"__smartColor": "#94D9B3",
-							"__worldX": 640,
-							"__worldY": 600,
 							"iid": "45863760-02f0-11ed-a7c5-cfed372859d2",
 							"width": 40,
 							"height": 40,
@@ -3849,7 +3918,9 @@
 								}] },
 								{ "__identifier": "isFlipped", "__type": "Bool", "__value": false, "__tile": null, "defUid": 24, "realEditorValues": [] },
 								{ "__identifier": "triggerArea", "__type": "EntityRef", "__value": null, "__tile": null, "defUid": 39, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 640,
+							"__worldY": 600
 						},
 						{
 							"__identifier": "PuzzleScreen",
@@ -3858,8 +3929,6 @@
 							"__tags": [ "reader", "outputter" ],
 							"__tile": { "tilesetUid": 11, "x": 0, "y": 0, "w": 40, "h": 40 },
 							"__smartColor": "#94D9B3",
-							"__worldX": 730,
-							"__worldY": 610,
 							"iid": "46ea5b40-02f0-11ed-a7c5-eba001468025",
 							"width": 40,
 							"height": 40,
@@ -3884,7 +3953,9 @@
 									"params": [ true ]
 								}] },
 								{ "__identifier": "triggerArea", "__type": "EntityRef", "__value": null, "__tile": null, "defUid": 39, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 730,
+							"__worldY": 610
 						},
 						{
 							"__identifier": "PuzzleScreen",
@@ -3893,8 +3964,6 @@
 							"__tags": [ "reader", "outputter" ],
 							"__tile": { "tilesetUid": 11, "x": 0, "y": 0, "w": 40, "h": 40 },
 							"__smartColor": "#94D9B3",
-							"__worldX": 640,
-							"__worldY": 660,
 							"iid": "492e09b0-02f0-11ed-a7c5-9f9c07e90437",
 							"width": 40,
 							"height": 40,
@@ -3919,7 +3988,9 @@
 									"params": [ false ]
 								}] },
 								{ "__identifier": "triggerArea", "__type": "EntityRef", "__value": null, "__tile": null, "defUid": 39, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 640,
+							"__worldY": 660
 						},
 						{
 							"__identifier": "PuzzleScreen",
@@ -3928,8 +3999,6 @@
 							"__tags": [ "reader", "outputter" ],
 							"__tile": { "tilesetUid": 11, "x": 0, "y": 0, "w": 40, "h": 40 },
 							"__smartColor": "#94D9B3",
-							"__worldX": 670,
-							"__worldY": 780,
 							"iid": "49f1f5f0-02f0-11ed-a7c5-075f4cd022be",
 							"width": 40,
 							"height": 40,
@@ -3954,7 +4023,9 @@
 									"params": [ false ]
 								}] },
 								{ "__identifier": "triggerArea", "__type": "EntityRef", "__value": null, "__tile": null, "defUid": 39, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 670,
+							"__worldY": 780
 						},
 						{
 							"__identifier": "PuzzleScreen",
@@ -3963,8 +4034,6 @@
 							"__tags": [ "reader", "outputter" ],
 							"__tile": { "tilesetUid": 11, "x": 0, "y": 0, "w": 40, "h": 40 },
 							"__smartColor": "#94D9B3",
-							"__worldX": 740,
-							"__worldY": 780,
 							"iid": "4c4004a0-02f0-11ed-a7c5-39892623e1a5",
 							"width": 40,
 							"height": 40,
@@ -3986,7 +4055,9 @@
 								}] },
 								{ "__identifier": "isFlipped", "__type": "Bool", "__value": false, "__tile": null, "defUid": 24, "realEditorValues": [] },
 								{ "__identifier": "triggerArea", "__type": "EntityRef", "__value": null, "__tile": null, "defUid": 39, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 740,
+							"__worldY": 780
 						},
 						{
 							"__identifier": "PuzzleScreen",
@@ -3995,8 +4066,6 @@
 							"__tags": [ "reader", "outputter" ],
 							"__tile": { "tilesetUid": 11, "x": 0, "y": 0, "w": 40, "h": 40 },
 							"__smartColor": "#94D9B3",
-							"__worldX": 810,
-							"__worldY": 780,
 							"iid": "4dcf7e40-02f0-11ed-a7c5-e98e70224474",
 							"width": 40,
 							"height": 40,
@@ -4018,7 +4087,9 @@
 								}] },
 								{ "__identifier": "isFlipped", "__type": "Bool", "__value": false, "__tile": null, "defUid": 24, "realEditorValues": [] },
 								{ "__identifier": "triggerArea", "__type": "EntityRef", "__value": null, "__tile": null, "defUid": 39, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 810,
+							"__worldY": 780
 						},
 						{
 							"__identifier": "PuzzleScreen",
@@ -4027,8 +4098,6 @@
 							"__tags": [ "reader", "outputter" ],
 							"__tile": { "tilesetUid": 11, "x": 0, "y": 0, "w": 40, "h": 40 },
 							"__smartColor": "#94D9B3",
-							"__worldX": 830,
-							"__worldY": 850,
 							"iid": "4ed2e480-02f0-11ed-a7c5-73e88cde8f4a",
 							"width": 40,
 							"height": 40,
@@ -4053,7 +4122,9 @@
 									"params": [ true ]
 								}] },
 								{ "__identifier": "triggerArea", "__type": "EntityRef", "__value": null, "__tile": null, "defUid": 39, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 830,
+							"__worldY": 850
 						},
 						{
 							"__identifier": "PuzzleScreen",
@@ -4062,8 +4133,6 @@
 							"__tags": [ "reader", "outputter" ],
 							"__tile": { "tilesetUid": 11, "x": 0, "y": 0, "w": 40, "h": 40 },
 							"__smartColor": "#94D9B3",
-							"__worldX": 730,
-							"__worldY": 850,
 							"iid": "4f4f6780-02f0-11ed-a7c5-0b9baa075bd3",
 							"width": 40,
 							"height": 40,
@@ -4088,7 +4157,9 @@
 									"params": [ true ]
 								}] },
 								{ "__identifier": "triggerArea", "__type": "EntityRef", "__value": null, "__tile": null, "defUid": 39, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 730,
+							"__worldY": 850
 						},
 						{
 							"__identifier": "PuzzleScreen",
@@ -4097,8 +4168,6 @@
 							"__tags": [ "reader", "outputter" ],
 							"__tile": { "tilesetUid": 11, "x": 0, "y": 0, "w": 40, "h": 40 },
 							"__smartColor": "#94D9B3",
-							"__worldX": 600,
-							"__worldY": 850,
 							"iid": "4fe7d6f0-02f0-11ed-a7c5-f91b515ab0b6",
 							"width": 40,
 							"height": 40,
@@ -4123,7 +4192,9 @@
 									"params": [ true ]
 								}] },
 								{ "__identifier": "triggerArea", "__type": "EntityRef", "__value": null, "__tile": null, "defUid": 39, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 600,
+							"__worldY": 850
 						},
 						{
 							"__identifier": "PlayerStart",
@@ -4132,14 +4203,14 @@
 							"__tags": [],
 							"__tile": null,
 							"__smartColor": "#94D9B3",
-							"__worldX": 555,
-							"__worldY": 625,
 							"iid": "abfeba30-02f0-11ed-898a-65d895799590",
 							"width": 16,
 							"height": 16,
 							"defUid": 7,
 							"px": [235,85],
-							"fieldInstances": []
+							"fieldInstances": [],
+							"__worldX": 555,
+							"__worldY": 625
 						},
 						{
 							"__identifier": "Node",
@@ -4148,8 +4219,6 @@
 							"__tags": ["outputter"],
 							"__tile": null,
 							"__smartColor": "#94D9B3",
-							"__worldX": 475,
-							"__worldY": 785,
 							"iid": "989528a0-2a00-11ed-a7c5-115aa200e0ba",
 							"width": 40,
 							"height": 40,
@@ -4166,7 +4235,9 @@
 									"id": "V_String",
 									"params": ["4fe7d6f0-02f0-11ed-a7c5-f91b515ab0b6"]
 								}] }
-							]
+							],
+							"__worldX": 475,
+							"__worldY": 785
 						}
 					]
 				},
@@ -5326,14 +5397,14 @@
 							"__tags": [],
 							"__tile": null,
 							"__smartColor": "#94D9B3",
-							"__worldX": 95,
-							"__worldY": 915,
 							"iid": "a555afc0-02f0-11ed-a7c5-a701b0f2710d",
 							"width": 16,
 							"height": 16,
 							"defUid": 7,
 							"px": [95,195],
-							"fieldInstances": []
+							"fieldInstances": [],
+							"__worldX": 95,
+							"__worldY": 915
 						},
 						{
 							"__identifier": "Door",
@@ -5342,8 +5413,6 @@
 							"__tags": ["reader"],
 							"__tile": { "tilesetUid": 11, "x": 180, "y": 160, "w": 20, "h": 30 },
 							"__smartColor": "#94D9B3",
-							"__worldX": 250,
-							"__worldY": 770,
 							"iid": "af36b9f0-2a00-11ed-a7c5-e71f7aab5638",
 							"width": 40,
 							"height": 80,
@@ -5357,7 +5426,9 @@
 							}], "__tile": null, "defUid": 21, "realEditorValues": [{
 								"id": "V_String",
 								"params": ["83079790-2a00-11ed-a7c5-519c25212dfc"]
-							}] }]
+							}] }],
+							"__worldX": 250,
+							"__worldY": 770
 						},
 						{
 							"__identifier": "Node",
@@ -5366,8 +5437,6 @@
 							"__tags": ["outputter"],
 							"__tile": null,
 							"__smartColor": "#94D9B3",
-							"__worldX": 210,
-							"__worldY": 600,
 							"iid": "83079790-2a00-11ed-a7c5-519c25212dfc",
 							"width": 40,
 							"height": 140,
@@ -5379,7 +5448,9 @@
 									"params": ["ambiguity-8"]
 								}] },
 								{ "__identifier": "prerequisites", "__type": "Array<EntityRef>", "__value": [], "__tile": null, "defUid": 70, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 210,
+							"__worldY": 600
 						},
 						{
 							"__identifier": "Portal",
@@ -5388,14 +5459,14 @@
 							"__tags": ["reader"],
 							"__tile": { "tilesetUid": 11, "x": 80, "y": 40, "w": 80, "h": 80 },
 							"__smartColor": "#94D9B3",
-							"__worldX": 150,
-							"__worldY": 970,
 							"iid": "ca413600-2a00-11ed-9741-c3a46fe4f2ae",
 							"width": 80,
 							"height": 80,
 							"defUid": 83,
 							"px": [150,250],
-							"fieldInstances": [{ "__identifier": "prerequisites", "__type": "Array<EntityRef>", "__value": [], "__tile": null, "defUid": 85, "realEditorValues": [] }]
+							"fieldInstances": [{ "__identifier": "prerequisites", "__type": "Array<EntityRef>", "__value": [], "__tile": null, "defUid": 85, "realEditorValues": [] }],
+							"__worldX": 150,
+							"__worldY": 970
 						},
 						{
 							"__identifier": "Portal",
@@ -5404,8 +5475,6 @@
 							"__tags": ["reader"],
 							"__tile": { "tilesetUid": 11, "x": 80, "y": 40, "w": 80, "h": 80 },
 							"__smartColor": "#94D9B3",
-							"__worldX": 180,
-							"__worldY": 810,
 							"iid": "50dd1980-2a00-11ed-9741-6fba1ca5025c",
 							"width": 80,
 							"height": 80,
@@ -5419,7 +5488,9 @@
 							}], "__tile": null, "defUid": 85, "realEditorValues": [{
 								"id": "V_String",
 								"params": ["e643b220-2a00-11ed-9741-151df18be8e2"]
-							}] }]
+							}] }],
+							"__worldX": 180,
+							"__worldY": 810
 						},
 						{
 							"__identifier": "Switch",
@@ -5428,8 +5499,6 @@
 							"__tags": ["outputter"],
 							"__tile": { "tilesetUid": 11, "x": 40, "y": 0, "w": 40, "h": 40 },
 							"__smartColor": "#94D9B3",
-							"__worldX": 90,
-							"__worldY": 810,
 							"iid": "e643b220-2a00-11ed-9741-151df18be8e2",
 							"width": 40,
 							"height": 40,
@@ -5438,7 +5507,9 @@
 							"fieldInstances": [
 								{ "__identifier": "prerequisites", "__type": "Array<EntityRef>", "__value": [], "__tile": null, "defUid": 23, "realEditorValues": [] },
 								{ "__identifier": "triggerArea", "__type": "EntityRef", "__value": null, "__tile": null, "defUid": 40, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 90,
+							"__worldY": 810
 						}
 					]
 				},
@@ -6101,19 +6172,19 @@
 							"__tags": ["Decoration"],
 							"__tile": { "tilesetUid": 62, "x": 1100, "y": 840, "w": 100, "h": 60 },
 							"__smartColor": "#94D9B3",
-							"__worldX": 170,
-							"__worldY": 950,
 							"iid": "59edc860-2a00-11ed-a7c5-6d0396efd1c8",
 							"width": 100,
 							"height": 60,
 							"defUid": 82,
 							"px": [170,230],
-							"fieldInstances": []
+							"fieldInstances": [],
+							"__worldX": 170,
+							"__worldY": 950
 						}
 					]
 				}
 			],
-			"__neighbours": [ { "levelIid": "0693c5e0-02f0-11ed-898a-f54c61423253", "dir": "n" }, { "levelIid": "201d8dc0-02f0-11ed-898a-b98937ef4b4b", "dir": "e" }, { "levelIid": "629cc350-2a00-11ed-9741-f742fc2764a6", "dir": "w" } ]
+			"__neighbours": [ { "levelIid": "0693c5e0-02f0-11ed-898a-f54c61423253", "dir": "n" }, { "levelIid": "201d8dc0-02f0-11ed-898a-b98937ef4b4b", "dir": "e" }, { "levelIid": "629cc350-2a00-11ed-9741-f742fc2764a6", "dir": "w" }, { "levelIid": "f5594e40-6280-11ee-bc16-131c427ccf94", "dir": "nw" } ]
 		},
 		{
 			"identifier": "First_Level",
@@ -6167,14 +6238,14 @@
 							"__tags": [],
 							"__tile": null,
 							"__smartColor": "#94D9B3",
-							"__worldX": -885,
-							"__worldY": -215,
 							"iid": "124c8950-2a00-11ed-a7c5-4123ef1e3db1",
 							"width": 16,
 							"height": 16,
 							"defUid": 7,
 							"px": [75,325],
-							"fieldInstances": []
+							"fieldInstances": [],
+							"__worldX": -885,
+							"__worldY": -215
 						},
 						{
 							"__identifier": "Switch",
@@ -6183,8 +6254,6 @@
 							"__tags": ["outputter"],
 							"__tile": { "tilesetUid": 11, "x": 40, "y": 0, "w": 40, "h": 40 },
 							"__smartColor": "#94D9B3",
-							"__worldX": -820,
-							"__worldY": -240,
 							"iid": "204ecf40-2a00-11ed-a7c5-1bc4825f58fb",
 							"width": 40,
 							"height": 40,
@@ -6193,7 +6262,9 @@
 							"fieldInstances": [
 								{ "__identifier": "prerequisites", "__type": "Array<EntityRef>", "__value": [], "__tile": null, "defUid": 23, "realEditorValues": [] },
 								{ "__identifier": "triggerArea", "__type": "EntityRef", "__value": null, "__tile": null, "defUid": 40, "realEditorValues": [] }
-							]
+							],
+							"__worldX": -820,
+							"__worldY": -240
 						},
 						{
 							"__identifier": "Door",
@@ -6202,8 +6273,6 @@
 							"__tags": ["reader"],
 							"__tile": { "tilesetUid": 11, "x": 180, "y": 160, "w": 20, "h": 30 },
 							"__smartColor": "#94D9B3",
-							"__worldX": -760,
-							"__worldY": -300,
 							"iid": "22a1bff0-2a00-11ed-a7c5-ab152120a3b6",
 							"width": 40,
 							"height": 100,
@@ -6217,7 +6286,9 @@
 							}], "__tile": null, "defUid": 21, "realEditorValues": [{
 								"id": "V_String",
 								"params": ["204ecf40-2a00-11ed-a7c5-1bc4825f58fb"]
-							}] }]
+							}] }],
+							"__worldX": -760,
+							"__worldY": -300
 						},
 						{
 							"__identifier": "Door",
@@ -6226,8 +6297,6 @@
 							"__tags": ["reader"],
 							"__tile": { "tilesetUid": 11, "x": 180, "y": 160, "w": 20, "h": 30 },
 							"__smartColor": "#94D9B3",
-							"__worldX": -390,
-							"__worldY": -500,
 							"iid": "d0c89da0-2a00-11ed-a7c5-a1db5e9b19c7",
 							"width": 40,
 							"height": 70,
@@ -6241,7 +6310,9 @@
 							}], "__tile": null, "defUid": 21, "realEditorValues": [{
 								"id": "V_String",
 								"params": ["d9529700-2a00-11ed-a7c5-2d48b99cbd5d"]
-							}] }]
+							}] }],
+							"__worldX": -390,
+							"__worldY": -500
 						},
 						{
 							"__identifier": "PuzzleScreen",
@@ -6250,8 +6321,6 @@
 							"__tags": [ "reader", "outputter" ],
 							"__tile": { "tilesetUid": 11, "x": 0, "y": 0, "w": 40, "h": 40 },
 							"__smartColor": "#94D9B3",
-							"__worldX": -470,
-							"__worldY": -470,
 							"iid": "d9529700-2a00-11ed-a7c5-2d48b99cbd5d",
 							"width": 40,
 							"height": 40,
@@ -6265,7 +6334,9 @@
 								{ "__identifier": "prerequisites", "__type": "Array<EntityRef>", "__value": [], "__tile": null, "defUid": 22, "realEditorValues": [] },
 								{ "__identifier": "isFlipped", "__type": "Bool", "__value": false, "__tile": null, "defUid": 24, "realEditorValues": [] },
 								{ "__identifier": "triggerArea", "__type": "EntityRef", "__value": null, "__tile": null, "defUid": 39, "realEditorValues": [] }
-							]
+							],
+							"__worldX": -470,
+							"__worldY": -470
 						},
 						{
 							"__identifier": "Door",
@@ -6274,8 +6345,6 @@
 							"__tags": ["reader"],
 							"__tile": { "tilesetUid": 11, "x": 180, "y": 160, "w": 20, "h": 30 },
 							"__smartColor": "#94D9B3",
-							"__worldX": -180,
-							"__worldY": -410,
 							"iid": "b342fa90-2a00-11ed-a7c5-6bd3f15c5e93",
 							"width": 40,
 							"height": 60,
@@ -6289,7 +6358,9 @@
 							}], "__tile": null, "defUid": 21, "realEditorValues": [{
 								"id": "V_String",
 								"params": ["b647fd30-2a00-11ed-a7c5-ed87f1f71e45"]
-							}] }]
+							}] }],
+							"__worldX": -180,
+							"__worldY": -410
 						},
 						{
 							"__identifier": "PuzzleScreen",
@@ -6298,8 +6369,6 @@
 							"__tags": [ "reader", "outputter" ],
 							"__tile": { "tilesetUid": 11, "x": 0, "y": 0, "w": 40, "h": 40 },
 							"__smartColor": "#94D9B3",
-							"__worldX": -250,
-							"__worldY": -390,
 							"iid": "b647fd30-2a00-11ed-a7c5-ed87f1f71e45",
 							"width": 40,
 							"height": 40,
@@ -6313,7 +6382,9 @@
 								{ "__identifier": "prerequisites", "__type": "Array<EntityRef>", "__value": [], "__tile": null, "defUid": 22, "realEditorValues": [] },
 								{ "__identifier": "isFlipped", "__type": "Bool", "__value": false, "__tile": null, "defUid": 24, "realEditorValues": [] },
 								{ "__identifier": "triggerArea", "__type": "EntityRef", "__value": null, "__tile": null, "defUid": 39, "realEditorValues": [] }
-							]
+							],
+							"__worldX": -250,
+							"__worldY": -390
 						},
 						{
 							"__identifier": "Trapdoor",
@@ -6322,8 +6393,6 @@
 							"__tags": ["reader"],
 							"__tile": { "tilesetUid": 11, "x": 160, "y": 190, "w": 40, "h": 10 },
 							"__smartColor": "#94D9B3",
-							"__worldX": -90,
-							"__worldY": -350,
 							"iid": "1035fe00-2a00-11ed-a7c5-71676fa3b78e",
 							"width": 60,
 							"height": 10,
@@ -6345,7 +6414,9 @@
 								}] },
 								{ "__identifier": "hasLedge", "__type": "Bool", "__value": false, "__tile": null, "defUid": 28, "realEditorValues": [] },
 								{ "__identifier": "isSingle", "__type": "Bool", "__value": false, "__tile": null, "defUid": 41, "realEditorValues": [] }
-							]
+							],
+							"__worldX": -90,
+							"__worldY": -350
 						},
 						{
 							"__identifier": "PuzzleScreen",
@@ -6354,8 +6425,6 @@
 							"__tags": [ "reader", "outputter" ],
 							"__tile": { "tilesetUid": 11, "x": 0, "y": 0, "w": 40, "h": 40 },
 							"__smartColor": "#94D9B3",
-							"__worldX": -70,
-							"__worldY": -390,
 							"iid": "30b00c70-2a00-11ed-a7c5-b9485f621415",
 							"width": 40,
 							"height": 40,
@@ -6369,7 +6438,9 @@
 								{ "__identifier": "prerequisites", "__type": "Array<EntityRef>", "__value": [], "__tile": null, "defUid": 22, "realEditorValues": [] },
 								{ "__identifier": "isFlipped", "__type": "Bool", "__value": false, "__tile": null, "defUid": 24, "realEditorValues": [] },
 								{ "__identifier": "triggerArea", "__type": "EntityRef", "__value": null, "__tile": null, "defUid": 39, "realEditorValues": [] }
-							]
+							],
+							"__worldX": -70,
+							"__worldY": -390
 						},
 						{
 							"__identifier": "Door",
@@ -6378,8 +6449,6 @@
 							"__tags": ["reader"],
 							"__tile": { "tilesetUid": 11, "x": 180, "y": 160, "w": 20, "h": 30 },
 							"__smartColor": "#94D9B3",
-							"__worldX": -60,
-							"__worldY": -280,
 							"iid": "868ddc30-2a00-11ed-a7c5-f5693e73cd98",
 							"width": 40,
 							"height": 80,
@@ -6393,7 +6462,9 @@
 							}], "__tile": null, "defUid": 21, "realEditorValues": [{
 								"id": "V_String",
 								"params": ["af6296a0-2a00-11ed-a7c5-e7f98c54f340"]
-							}] }]
+							}] }],
+							"__worldX": -60,
+							"__worldY": -280
 						},
 						{
 							"__identifier": "Node",
@@ -6402,8 +6473,6 @@
 							"__tags": ["outputter"],
 							"__tile": null,
 							"__smartColor": "#94D9B3",
-							"__worldX": -280,
-							"__worldY": -300,
 							"iid": "ae436b00-2a00-11ed-a7c5-fff3ec4b0d5b",
 							"width": 40,
 							"height": 40,
@@ -6420,7 +6489,9 @@
 									"id": "V_String",
 									"params": ["b2654f50-2a00-11ed-a7c5-f58ed178a1ba"]
 								}] }
-							]
+							],
+							"__worldX": -280,
+							"__worldY": -300
 						},
 						{
 							"__identifier": "Node",
@@ -6429,8 +6500,6 @@
 							"__tags": ["outputter"],
 							"__tile": null,
 							"__smartColor": "#94D9B3",
-							"__worldX": -170,
-							"__worldY": -300,
 							"iid": "af6296a0-2a00-11ed-a7c5-e7f98c54f340",
 							"width": 40,
 							"height": 40,
@@ -6447,7 +6516,9 @@
 									"id": "V_String",
 									"params": ["ae436b00-2a00-11ed-a7c5-fff3ec4b0d5b"]
 								}] }
-							]
+							],
+							"__worldX": -170,
+							"__worldY": -300
 						},
 						{
 							"__identifier": "PuzzleScreen",
@@ -6456,8 +6527,6 @@
 							"__tags": [ "reader", "outputter" ],
 							"__tile": { "tilesetUid": 11, "x": 0, "y": 0, "w": 40, "h": 40 },
 							"__smartColor": "#94D9B3",
-							"__worldX": -310,
-							"__worldY": -240,
 							"iid": "b2654f50-2a00-11ed-a7c5-f58ed178a1ba",
 							"width": 40,
 							"height": 40,
@@ -6471,7 +6540,9 @@
 								{ "__identifier": "prerequisites", "__type": "Array<EntityRef>", "__value": [], "__tile": null, "defUid": 22, "realEditorValues": [] },
 								{ "__identifier": "isFlipped", "__type": "Bool", "__value": false, "__tile": null, "defUid": 24, "realEditorValues": [] },
 								{ "__identifier": "triggerArea", "__type": "EntityRef", "__value": null, "__tile": null, "defUid": 39, "realEditorValues": [] }
-							]
+							],
+							"__worldX": -310,
+							"__worldY": -240
 						},
 						{
 							"__identifier": "CoverEntity",
@@ -6480,8 +6551,6 @@
 							"__tags": ["area"],
 							"__tile": null,
 							"__smartColor": "#FF76FF",
-							"__worldX": -960,
-							"__worldY": -280,
 							"iid": "002f7e60-6280-11ee-bc16-55f96c28e87b",
 							"width": 20,
 							"height": 50,
@@ -6498,7 +6567,9 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] }
-							]
+							],
+							"__worldX": -960,
+							"__worldY": -280
 						},
 						{
 							"__identifier": "CoverEntity",
@@ -6507,8 +6578,6 @@
 							"__tags": ["area"],
 							"__tile": null,
 							"__smartColor": "#FF76FF",
-							"__worldX": -580,
-							"__worldY": -340,
 							"iid": "0d3f0a70-6280-11ee-bc16-e5f9b3346f7a",
 							"width": 240,
 							"height": 160,
@@ -6522,7 +6591,9 @@
 									"params": [ true ]
 								}] },
 								{ "__identifier": "canReCover", "__type": "Bool", "__value": false, "__tile": null, "defUid": 35, "realEditorValues": [] }
-							]
+							],
+							"__worldX": -580,
+							"__worldY": -340
 						},
 						{
 							"__identifier": "Door",
@@ -6531,8 +6602,6 @@
 							"__tags": ["reader"],
 							"__tile": { "tilesetUid": 11, "x": 180, "y": 160, "w": 20, "h": 30 },
 							"__smartColor": "#94D9B3",
-							"__worldX": -370,
-							"__worldY": -280,
 							"iid": "221387a0-6280-11ee-bc16-29a6373ad2bb",
 							"width": 40,
 							"height": 50,
@@ -6546,7 +6615,9 @@
 							}], "__tile": null, "defUid": 21, "realEditorValues": [{
 								"id": "V_String",
 								"params": ["62f729c0-6280-11ee-bc16-0f41fa84cb01"]
-							}] }]
+							}] }],
+							"__worldX": -370,
+							"__worldY": -280
 						},
 						{
 							"__identifier": "PuzzleScreen",
@@ -6555,8 +6626,6 @@
 							"__tags": [ "reader", "outputter" ],
 							"__tile": { "tilesetUid": 11, "x": 0, "y": 0, "w": 40, "h": 40 },
 							"__smartColor": "#94D9B3",
-							"__worldX": -460,
-							"__worldY": -270,
 							"iid": "62f729c0-6280-11ee-bc16-0f41fa84cb01",
 							"width": 40,
 							"height": 40,
@@ -6570,7 +6639,9 @@
 								{ "__identifier": "prerequisites", "__type": "Array<EntityRef>", "__value": [], "__tile": null, "defUid": 22, "realEditorValues": [] },
 								{ "__identifier": "isFlipped", "__type": "Bool", "__value": false, "__tile": null, "defUid": 24, "realEditorValues": [] },
 								{ "__identifier": "triggerArea", "__type": "EntityRef", "__value": null, "__tile": null, "defUid": 39, "realEditorValues": [] }
-							]
+							],
+							"__worldX": -460,
+							"__worldY": -270
 						}
 					]
 				},
@@ -8700,14 +8771,14 @@
 							"__tags": [ "Decoration", "Mobile_alt" ],
 							"__tile": { "tilesetUid": 62, "x": 1120, "y": 30, "w": 80, "h": 40 },
 							"__smartColor": "#94D9B3",
-							"__worldX": -885,
-							"__worldY": -240,
 							"iid": "6191a860-2a00-11ed-a7c5-419106e94eff",
 							"width": 80,
 							"height": 40,
 							"defUid": 72,
 							"px": [75,300],
-							"fieldInstances": []
+							"fieldInstances": [],
+							"__worldX": -885,
+							"__worldY": -240
 						},
 						{
 							"__identifier": "TRCorner",
@@ -8716,14 +8787,14 @@
 							"__tags": ["Decoration"],
 							"__tile": { "tilesetUid": 62, "x": 20, "y": 0, "w": 20, "h": 20 },
 							"__smartColor": "#94D9B3",
-							"__worldX": -560,
-							"__worldY": -430,
 							"iid": "cecd8660-2a00-11ed-a7c5-e15092944c93",
 							"width": 20,
 							"height": 20,
 							"defUid": 75,
 							"px": [400,110],
-							"fieldInstances": []
+							"fieldInstances": [],
+							"__worldX": -560,
+							"__worldY": -430
 						},
 						{
 							"__identifier": "TLCorner",
@@ -8732,14 +8803,14 @@
 							"__tags": ["Decoration"],
 							"__tile": { "tilesetUid": 62, "x": 40, "y": 0, "w": 20, "h": 20 },
 							"__smartColor": "#94D9B3",
-							"__worldX": -700,
-							"__worldY": -390,
 							"iid": "dfff8870-2a00-11ed-a7c5-bf721669a1c8",
 							"width": 20,
 							"height": 20,
 							"defUid": 76,
 							"px": [260,150],
-							"fieldInstances": []
+							"fieldInstances": [],
+							"__worldX": -700,
+							"__worldY": -390
 						},
 						{
 							"__identifier": "TRCorner",
@@ -8748,14 +8819,14 @@
 							"__tags": ["Decoration"],
 							"__tile": { "tilesetUid": 62, "x": 20, "y": 0, "w": 20, "h": 20 },
 							"__smartColor": "#94D9B3",
-							"__worldX": -640,
-							"__worldY": -390,
 							"iid": "e13d86b0-2a00-11ed-a7c5-8d2389cab3bf",
 							"width": 20,
 							"height": 20,
 							"defUid": 75,
 							"px": [320,150],
-							"fieldInstances": []
+							"fieldInstances": [],
+							"__worldX": -640,
+							"__worldY": -390
 						},
 						{
 							"__identifier": "UpCue",
@@ -8764,14 +8835,14 @@
 							"__tags": ["Decoration"],
 							"__tile": { "tilesetUid": 62, "x": 1110, "y": 0, "w": 30, "h": 30 },
 							"__smartColor": "#94D9B3",
-							"__worldX": -700,
-							"__worldY": -340,
 							"iid": "12d88ac0-2a00-11ed-a7c5-2d847f6fc6ba",
 							"width": 30,
 							"height": 30,
 							"defUid": 77,
 							"px": [260,200],
-							"fieldInstances": []
+							"fieldInstances": [],
+							"__worldX": -700,
+							"__worldY": -340
 						},
 						{
 							"__identifier": "DownCue",
@@ -8780,14 +8851,14 @@
 							"__tags": ["Decoration"],
 							"__tile": { "tilesetUid": 62, "x": 1140, "y": 0, "w": 30, "h": 30 },
 							"__smartColor": "#94D9B3",
-							"__worldX": -280,
-							"__worldY": -460,
 							"iid": "81f29ea0-2a00-11ed-a7c5-2d105afbbd40",
 							"width": 30,
 							"height": 30,
 							"defUid": 73,
 							"px": [680,80],
-							"fieldInstances": []
+							"fieldInstances": [],
+							"__worldX": -280,
+							"__worldY": -460
 						},
 						{
 							"__identifier": "TLCorner",
@@ -8796,14 +8867,14 @@
 							"__tags": ["Decoration"],
 							"__tile": { "tilesetUid": 62, "x": 40, "y": 0, "w": 20, "h": 20 },
 							"__smartColor": "#94D9B3",
-							"__worldX": -340,
-							"__worldY": -390,
 							"iid": "9cb582c0-2a00-11ed-a7c5-e5d3ccab99dd",
 							"width": 20,
 							"height": 20,
 							"defUid": 76,
 							"px": [620,150],
-							"fieldInstances": []
+							"fieldInstances": [],
+							"__worldX": -340,
+							"__worldY": -390
 						},
 						{
 							"__identifier": "TLCorner",
@@ -8812,14 +8883,14 @@
 							"__tags": ["Decoration"],
 							"__tile": { "tilesetUid": 62, "x": 40, "y": 0, "w": 20, "h": 20 },
 							"__smartColor": "#94D9B3",
-							"__worldX": -340,
-							"__worldY": -430,
 							"iid": "9ef42820-2a00-11ed-a7c5-0b43f802903b",
 							"width": 20,
 							"height": 20,
 							"defUid": 76,
 							"px": [620,110],
-							"fieldInstances": []
+							"fieldInstances": [],
+							"__worldX": -340,
+							"__worldY": -430
 						},
 						{
 							"__identifier": "TRCorner",
@@ -8828,19 +8899,19 @@
 							"__tags": ["Decoration"],
 							"__tile": { "tilesetUid": 62, "x": 20, "y": 0, "w": 20, "h": 20 },
 							"__smartColor": "#94D9B3",
-							"__worldX": -270,
-							"__worldY": -430,
 							"iid": "a039c780-2a00-11ed-a7c5-bf7f65e7480a",
 							"width": 20,
 							"height": 20,
 							"defUid": 75,
 							"px": [690,110],
-							"fieldInstances": []
+							"fieldInstances": [],
+							"__worldX": -270,
+							"__worldY": -430
 						}
 					]
 				}
 			],
-			"__neighbours": [ { "levelIid": "29ed7020-2a00-11ed-a7c5-471921c45806", "dir": "e" }, { "levelIid": "e39912c0-6280-11ee-bc16-67a55c76d351", "dir": "w" }, { "levelIid": "cfa9f710-6280-11ee-bc16-2be36738d9bd", "dir": "s" } ]
+			"__neighbours": [ { "levelIid": "29ed7020-2a00-11ed-a7c5-471921c45806", "dir": "e" }, { "levelIid": "7843e970-2a00-11ed-a7c5-5f7095cb9269", "dir": "se" }, { "levelIid": "e39912c0-6280-11ee-bc16-67a55c76d351", "dir": "w" }, { "levelIid": "cfa9f710-6280-11ee-bc16-2be36738d9bd", "dir": "s" } ]
 		},
 		{
 			"identifier": "Intro_Hall",
@@ -8894,8 +8965,6 @@
 							"__tags": ["reader"],
 							"__tile": { "tilesetUid": 11, "x": 160, "y": 190, "w": 40, "h": 10 },
 							"__smartColor": "#94D9B3",
-							"__worldX": 220,
-							"__worldY": -200,
 							"iid": "8c0967a0-2a00-11ed-a7c5-65e2c774c33b",
 							"width": 80,
 							"height": 10,
@@ -8920,7 +8989,9 @@
 									"params": [ true ]
 								}] },
 								{ "__identifier": "isSingle", "__type": "Bool", "__value": false, "__tile": null, "defUid": 41, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 220,
+							"__worldY": -200
 						},
 						{
 							"__identifier": "PuzzleScreen",
@@ -8929,8 +9000,6 @@
 							"__tags": [ "reader", "outputter" ],
 							"__tile": { "tilesetUid": 11, "x": 0, "y": 0, "w": 40, "h": 40 },
 							"__smartColor": "#94D9B3",
-							"__worldX": 280,
-							"__worldY": -240,
 							"iid": "a420dad0-2a00-11ed-a7c5-19e10aeee52d",
 							"width": 40,
 							"height": 40,
@@ -8955,7 +9024,9 @@
 									"params": [ true ]
 								}] },
 								{ "__identifier": "triggerArea", "__type": "EntityRef", "__value": null, "__tile": null, "defUid": 39, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 280,
+							"__worldY": -240
 						},
 						{
 							"__identifier": "PuzzleScreen",
@@ -8964,8 +9035,6 @@
 							"__tags": [ "reader", "outputter" ],
 							"__tile": { "tilesetUid": 11, "x": 0, "y": 0, "w": 40, "h": 40 },
 							"__smartColor": "#94D9B3",
-							"__worldX": 320,
-							"__worldY": -240,
 							"iid": "a4e4ee20-2a00-11ed-a7c5-0f0aecf36c30",
 							"width": 40,
 							"height": 40,
@@ -8990,7 +9059,9 @@
 									"params": [ true ]
 								}] },
 								{ "__identifier": "triggerArea", "__type": "EntityRef", "__value": null, "__tile": null, "defUid": 39, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 320,
+							"__worldY": -240
 						},
 						{
 							"__identifier": "PuzzleScreen",
@@ -8999,8 +9070,6 @@
 							"__tags": [ "reader", "outputter" ],
 							"__tile": { "tilesetUid": 11, "x": 0, "y": 0, "w": 40, "h": 40 },
 							"__smartColor": "#94D9B3",
-							"__worldX": 360,
-							"__worldY": -240,
 							"iid": "a56bf870-2a00-11ed-a7c5-f9952bc1899d",
 							"width": 40,
 							"height": 40,
@@ -9025,7 +9094,9 @@
 									"params": [ true ]
 								}] },
 								{ "__identifier": "triggerArea", "__type": "EntityRef", "__value": null, "__tile": null, "defUid": 39, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 360,
+							"__worldY": -240
 						},
 						{
 							"__identifier": "PuzzleScreen",
@@ -9034,8 +9105,6 @@
 							"__tags": [ "reader", "outputter" ],
 							"__tile": { "tilesetUid": 11, "x": 0, "y": 0, "w": 40, "h": 40 },
 							"__smartColor": "#94D9B3",
-							"__worldX": 400,
-							"__worldY": -240,
 							"iid": "a622c550-2a00-11ed-a7c5-d57a1c7cd530",
 							"width": 40,
 							"height": 40,
@@ -9060,7 +9129,9 @@
 									"params": [ true ]
 								}] },
 								{ "__identifier": "triggerArea", "__type": "EntityRef", "__value": null, "__tile": null, "defUid": 39, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 400,
+							"__worldY": -240
 						},
 						{
 							"__identifier": "PuzzleScreen",
@@ -9069,8 +9140,6 @@
 							"__tags": [ "reader", "outputter" ],
 							"__tile": { "tilesetUid": 11, "x": 0, "y": 0, "w": 40, "h": 40 },
 							"__smartColor": "#94D9B3",
-							"__worldX": 440,
-							"__worldY": -240,
 							"iid": "a74c5130-2a00-11ed-a7c5-0ff81bf40a90",
 							"width": 40,
 							"height": 40,
@@ -9095,7 +9164,9 @@
 									"params": [ true ]
 								}] },
 								{ "__identifier": "triggerArea", "__type": "EntityRef", "__value": null, "__tile": null, "defUid": 39, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 440,
+							"__worldY": -240
 						},
 						{
 							"__identifier": "PuzzleScreen",
@@ -9104,8 +9175,6 @@
 							"__tags": [ "reader", "outputter" ],
 							"__tile": { "tilesetUid": 11, "x": 0, "y": 0, "w": 40, "h": 40 },
 							"__smartColor": "#94D9B3",
-							"__worldX": 480,
-							"__worldY": -240,
 							"iid": "b2aee600-2a00-11ed-a7c5-41bdb0407d65",
 							"width": 40,
 							"height": 40,
@@ -9122,7 +9191,9 @@
 									"params": [ true ]
 								}] },
 								{ "__identifier": "triggerArea", "__type": "EntityRef", "__value": null, "__tile": null, "defUid": 39, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 480,
+							"__worldY": -240
 						},
 						{
 							"__identifier": "PlayerStart",
@@ -9131,14 +9202,14 @@
 							"__tags": [],
 							"__tile": null,
 							"__smartColor": "#94D9B3",
-							"__worldX": 145,
-							"__worldY": -215,
 							"iid": "de23cb50-2a00-11ed-a7c5-59d33387992f",
 							"width": 16,
 							"height": 16,
 							"defUid": 7,
 							"px": [145,145],
-							"fieldInstances": []
+							"fieldInstances": [],
+							"__worldX": 145,
+							"__worldY": -215
 						}
 					]
 				},
@@ -9626,7 +9697,7 @@
 					"entityInstances": []
 				}
 			],
-			"__neighbours": [ { "levelIid": "fb8eb2b0-2a00-11ed-a7c5-dfec299c7e76", "dir": "w" }, { "levelIid": "7843e970-2a00-11ed-a7c5-5f7095cb9269", "dir": "s" } ]
+			"__neighbours": [ { "levelIid": "fb8eb2b0-2a00-11ed-a7c5-dfec299c7e76", "dir": "w" }, { "levelIid": "7843e970-2a00-11ed-a7c5-5f7095cb9269", "dir": "s" }, { "levelIid": "86686c80-2a00-11ed-a7c5-dd0db56b14f4", "dir": "se" } ]
 		},
 		{
 			"identifier": "Intro_Merge",
@@ -9680,8 +9751,6 @@
 							"__tags": [ "reader", "outputter" ],
 							"__tile": { "tilesetUid": 11, "x": 0, "y": 0, "w": 40, "h": 40 },
 							"__smartColor": "#94D9B3",
-							"__worldX": 80,
-							"__worldY": -60,
 							"iid": "1a794f40-2a00-11ed-a7c5-df407d9368d0",
 							"width": 40,
 							"height": 40,
@@ -9703,7 +9772,9 @@
 								}] },
 								{ "__identifier": "isFlipped", "__type": "Bool", "__value": false, "__tile": null, "defUid": 24, "realEditorValues": [] },
 								{ "__identifier": "triggerArea", "__type": "EntityRef", "__value": null, "__tile": null, "defUid": 39, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 80,
+							"__worldY": -60
 						},
 						{
 							"__identifier": "Node",
@@ -9712,8 +9783,6 @@
 							"__tags": ["outputter"],
 							"__tile": null,
 							"__smartColor": "#94D9B3",
-							"__worldX": 40,
-							"__worldY": -10,
 							"iid": "1eea16e0-2a00-11ed-a7c5-893b9c5f18e3",
 							"width": 40,
 							"height": 140,
@@ -9725,7 +9794,9 @@
 									"params": ["zeros-5"]
 								}] },
 								{ "__identifier": "prerequisites", "__type": "Array<EntityRef>", "__value": [], "__tile": null, "defUid": 70, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 40,
+							"__worldY": -10
 						},
 						{
 							"__identifier": "PlayerStart",
@@ -9734,14 +9805,14 @@
 							"__tags": [],
 							"__tile": null,
 							"__smartColor": "#94D9B3",
-							"__worldX": 175,
-							"__worldY": -135,
 							"iid": "6dbf5d20-2a00-11ed-a7c5-3b1db882f873",
 							"width": 16,
 							"height": 16,
 							"defUid": 7,
 							"px": [175,45],
-							"fieldInstances": []
+							"fieldInstances": [],
+							"__worldX": 175,
+							"__worldY": -135
 						},
 						{
 							"__identifier": "Node",
@@ -9750,8 +9821,6 @@
 							"__tags": ["outputter"],
 							"__tile": null,
 							"__smartColor": "#94D9B3",
-							"__worldX": 100,
-							"__worldY": -110,
 							"iid": "2b805440-2a00-11ed-a7c5-efad19be218d",
 							"width": 40,
 							"height": 40,
@@ -9768,7 +9837,9 @@
 									"id": "V_String",
 									"params": ["1a794f40-2a00-11ed-a7c5-df407d9368d0"]
 								}] }
-							]
+							],
+							"__worldX": 100,
+							"__worldY": -110
 						},
 						{
 							"__identifier": "Node",
@@ -9777,8 +9848,6 @@
 							"__tags": ["outputter"],
 							"__tile": null,
 							"__smartColor": "#94D9B3",
-							"__worldX": 380,
-							"__worldY": -110,
 							"iid": "4c167630-2a00-11ed-a7c5-cf0f354557b7",
 							"width": 40,
 							"height": 40,
@@ -9795,7 +9864,9 @@
 									"id": "V_String",
 									"params": ["acd820c0-6280-11ee-a5b1-1b06f08e846a"]
 								}] }
-							]
+							],
+							"__worldX": 380,
+							"__worldY": -110
 						},
 						{
 							"__identifier": "PuzzleScreen",
@@ -9804,8 +9875,6 @@
 							"__tags": [ "reader", "outputter" ],
 							"__tile": { "tilesetUid": 11, "x": 0, "y": 0, "w": 40, "h": 40 },
 							"__smartColor": "#94D9B3",
-							"__worldX": 580,
-							"__worldY": -140,
 							"iid": "df2e6810-2a00-11ed-a7c5-777f79d9fc03",
 							"width": 40,
 							"height": 40,
@@ -9830,7 +9899,9 @@
 									"params": [ true ]
 								}] },
 								{ "__identifier": "triggerArea", "__type": "EntityRef", "__value": null, "__tile": null, "defUid": 39, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 580,
+							"__worldY": -140
 						},
 						{
 							"__identifier": "PuzzleScreen",
@@ -9839,8 +9910,6 @@
 							"__tags": [ "reader", "outputter" ],
 							"__tile": { "tilesetUid": 11, "x": 0, "y": 0, "w": 40, "h": 40 },
 							"__smartColor": "#94D9B3",
-							"__worldX": 510,
-							"__worldY": -100,
 							"iid": "e3189a90-2a00-11ed-a7c5-bfc65786008e",
 							"width": 40,
 							"height": 40,
@@ -9865,7 +9934,9 @@
 									"params": [ true ]
 								}] },
 								{ "__identifier": "triggerArea", "__type": "EntityRef", "__value": null, "__tile": null, "defUid": 39, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 510,
+							"__worldY": -100
 						},
 						{
 							"__identifier": "Node",
@@ -9874,8 +9945,6 @@
 							"__tags": ["outputter"],
 							"__tile": null,
 							"__smartColor": "#94D9B3",
-							"__worldX": 620,
-							"__worldY": -170,
 							"iid": "f3425460-2a00-11ed-a7c5-e37c1c8cfcf5",
 							"width": 80,
 							"height": 40,
@@ -9887,7 +9956,9 @@
 									"params": ["multi-sol-9"]
 								}] },
 								{ "__identifier": "prerequisites", "__type": "Array<EntityRef>", "__value": [], "__tile": null, "defUid": 70, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 620,
+							"__worldY": -170
 						},
 						{
 							"__identifier": "Trapdoor",
@@ -9896,8 +9967,6 @@
 							"__tags": ["reader"],
 							"__tile": { "tilesetUid": 11, "x": 160, "y": 190, "w": 40, "h": 10 },
 							"__smartColor": "#94D9B3",
-							"__worldX": 470,
-							"__worldY": -20,
 							"iid": "f1158c80-2a00-11ed-a7c5-f7388251d323",
 							"width": 60,
 							"height": 10,
@@ -9927,7 +9996,9 @@
 									"params": [ true ]
 								}] },
 								{ "__identifier": "isSingle", "__type": "Bool", "__value": false, "__tile": null, "defUid": 41, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 470,
+							"__worldY": -20
 						},
 						{
 							"__identifier": "Node",
@@ -9936,8 +10007,6 @@
 							"__tags": ["outputter"],
 							"__tile": null,
 							"__smartColor": "#94D9B3",
-							"__worldX": 240,
-							"__worldY": -110,
 							"iid": "acd820c0-6280-11ee-a5b1-1b06f08e846a",
 							"width": 40,
 							"height": 40,
@@ -9954,7 +10023,9 @@
 									"id": "V_String",
 									"params": ["2b805440-2a00-11ed-a7c5-efad19be218d"]
 								}] }
-							]
+							],
+							"__worldX": 240,
+							"__worldY": -110
 						}
 					]
 				},
@@ -10619,7 +10690,14 @@
 					"entityInstances": []
 				}
 			],
-			"__neighbours": [ { "levelIid": "2e2576b0-02f0-11ed-babb-236311c5927d", "dir": "s" }, { "levelIid": "29ed7020-2a00-11ed-a7c5-471921c45806", "dir": "n" }, { "levelIid": "77053e60-2a00-11ed-a7c5-f5e470203016", "dir": "s" }, { "levelIid": "86686c80-2a00-11ed-a7c5-dd0db56b14f4", "dir": "e" } ]
+			"__neighbours": [
+				{ "levelIid": "2e2576b0-02f0-11ed-babb-236311c5927d", "dir": "s" },
+				{ "levelIid": "fb8eb2b0-2a00-11ed-a7c5-dfec299c7e76", "dir": "nw" },
+				{ "levelIid": "29ed7020-2a00-11ed-a7c5-471921c45806", "dir": "n" },
+				{ "levelIid": "77053e60-2a00-11ed-a7c5-f5e470203016", "dir": "s" },
+				{ "levelIid": "86686c80-2a00-11ed-a7c5-dd0db56b14f4", "dir": "e" },
+				{ "levelIid": "134fd100-6280-11ee-bc16-59de887d4daf", "dir": "sw" }
+			]
 		},
 		{
 			"identifier": "Zeros_Room",
@@ -10673,8 +10751,6 @@
 							"__tags": [ "reader", "outputter" ],
 							"__tile": { "tilesetUid": 11, "x": 0, "y": 0, "w": 40, "h": 40 },
 							"__smartColor": "#94D9B3",
-							"__worldX": 250,
-							"__worldY": 50,
 							"iid": "d3e33dc0-2a00-11ed-a7c5-11e245a40e87",
 							"width": 40,
 							"height": 40,
@@ -10691,7 +10767,9 @@
 									"params": [ true ]
 								}] },
 								{ "__identifier": "triggerArea", "__type": "EntityRef", "__value": null, "__tile": null, "defUid": 39, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 250,
+							"__worldY": 50
 						},
 						{
 							"__identifier": "PuzzleScreen",
@@ -10700,8 +10778,6 @@
 							"__tags": [ "reader", "outputter" ],
 							"__tile": { "tilesetUid": 11, "x": 0, "y": 0, "w": 40, "h": 40 },
 							"__smartColor": "#94D9B3",
-							"__worldX": 210,
-							"__worldY": 50,
 							"iid": "d4aea410-2a00-11ed-a7c5-4d6003767856",
 							"width": 40,
 							"height": 40,
@@ -10726,7 +10802,9 @@
 									"params": [ true ]
 								}] },
 								{ "__identifier": "triggerArea", "__type": "EntityRef", "__value": null, "__tile": null, "defUid": 39, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 210,
+							"__worldY": 50
 						},
 						{
 							"__identifier": "PuzzleScreen",
@@ -10735,8 +10813,6 @@
 							"__tags": [ "reader", "outputter" ],
 							"__tile": { "tilesetUid": 11, "x": 0, "y": 0, "w": 40, "h": 40 },
 							"__smartColor": "#94D9B3",
-							"__worldX": 170,
-							"__worldY": 50,
 							"iid": "d6b808a0-2a00-11ed-a7c5-f97b03ec2f43",
 							"width": 40,
 							"height": 40,
@@ -10761,7 +10837,9 @@
 									"params": [ true ]
 								}] },
 								{ "__identifier": "triggerArea", "__type": "EntityRef", "__value": null, "__tile": null, "defUid": 39, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 170,
+							"__worldY": 50
 						},
 						{
 							"__identifier": "PuzzleScreen",
@@ -10770,8 +10848,6 @@
 							"__tags": [ "reader", "outputter" ],
 							"__tile": { "tilesetUid": 11, "x": 0, "y": 0, "w": 40, "h": 40 },
 							"__smartColor": "#94D9B3",
-							"__worldX": 130,
-							"__worldY": 50,
 							"iid": "d77bf4e0-2a00-11ed-a7c5-4facefd5f186",
 							"width": 40,
 							"height": 40,
@@ -10796,7 +10872,9 @@
 									"params": [ true ]
 								}] },
 								{ "__identifier": "triggerArea", "__type": "EntityRef", "__value": null, "__tile": null, "defUid": 39, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 130,
+							"__worldY": 50
 						},
 						{
 							"__identifier": "PuzzleScreen",
@@ -10805,8 +10883,6 @@
 							"__tags": [ "reader", "outputter" ],
 							"__tile": { "tilesetUid": 11, "x": 0, "y": 0, "w": 40, "h": 40 },
 							"__smartColor": "#94D9B3",
-							"__worldX": 30,
-							"__worldY": 50,
 							"iid": "d84efc50-2a00-11ed-a7c5-e111f019e8b7",
 							"width": 40,
 							"height": 40,
@@ -10828,7 +10904,9 @@
 								}] },
 								{ "__identifier": "isFlipped", "__type": "Bool", "__value": false, "__tile": null, "defUid": 24, "realEditorValues": [] },
 								{ "__identifier": "triggerArea", "__type": "EntityRef", "__value": null, "__tile": null, "defUid": 39, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 30,
+							"__worldY": 50
 						},
 						{
 							"__identifier": "Node",
@@ -10837,8 +10915,6 @@
 							"__tags": ["outputter"],
 							"__tile": null,
 							"__smartColor": "#94D9B3",
-							"__worldX": 80,
-							"__worldY": -70,
 							"iid": "4d2e4440-2a00-11ed-a7c5-b3ca55e222d7",
 							"width": 40,
 							"height": 80,
@@ -10855,7 +10931,9 @@
 									"id": "V_String",
 									"params": ["d84efc50-2a00-11ed-a7c5-e111f019e8b7"]
 								}] }
-							]
+							],
+							"__worldX": 80,
+							"__worldY": -70
 						},
 						{
 							"__identifier": "PlayerStart",
@@ -10864,14 +10942,14 @@
 							"__tags": [],
 							"__tile": null,
 							"__smartColor": "#94D9B3",
-							"__worldX": 115,
-							"__worldY": 75,
 							"iid": "e229c330-2a00-11ed-a7c5-61b12900c7ad",
 							"width": 16,
 							"height": 16,
 							"defUid": 7,
 							"px": [115,75],
-							"fieldInstances": []
+							"fieldInstances": [],
+							"__worldX": 115,
+							"__worldY": 75
 						},
 						{
 							"__identifier": "CoverEntity",
@@ -10880,8 +10958,6 @@
 							"__tags": ["area"],
 							"__tile": null,
 							"__smartColor": "#FF76FF",
-							"__worldX": 0,
-							"__worldY": 90,
 							"iid": "49f03100-6280-11ee-bc16-5d54d19f7765",
 							"width": 210,
 							"height": 70,
@@ -10895,7 +10971,9 @@
 									"params": [ true ]
 								}] },
 								{ "__identifier": "canReCover", "__type": "Bool", "__value": false, "__tile": null, "defUid": 35, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 0,
+							"__worldY": 90
 						}
 					]
 				},
@@ -11257,7 +11335,7 @@
 					"entityInstances": []
 				}
 			],
-			"__neighbours": [ { "levelIid": "2e2576b0-02f0-11ed-babb-236311c5927d", "dir": "e" }, { "levelIid": "7843e970-2a00-11ed-a7c5-5f7095cb9269", "dir": "n" }, { "levelIid": "134fd100-6280-11ee-bc16-59de887d4daf", "dir": "w" } ]
+			"__neighbours": [ { "levelIid": "2e2576b0-02f0-11ed-babb-236311c5927d", "dir": "e" }, { "levelIid": "7843e970-2a00-11ed-a7c5-5f7095cb9269", "dir": "n" }, { "levelIid": "134fd100-6280-11ee-bc16-59de887d4daf", "dir": "w" }, { "levelIid": "f5594e40-6280-11ee-bc16-131c427ccf94", "dir": "sw" } ]
 		},
 		{
 			"identifier": "Multi_Sol_Room",
@@ -11311,8 +11389,6 @@
 							"__tags": [ "reader", "outputter" ],
 							"__tile": { "tilesetUid": 11, "x": 0, "y": 0, "w": 40, "h": 40 },
 							"__smartColor": "#94D9B3",
-							"__worldX": 670,
-							"__worldY": -50,
 							"iid": "b7a196f0-2a00-11ed-a7c5-3be0edb052e7",
 							"width": 40,
 							"height": 40,
@@ -11326,7 +11402,9 @@
 								{ "__identifier": "prerequisites", "__type": "Array<EntityRef>", "__value": [], "__tile": null, "defUid": 22, "realEditorValues": [] },
 								{ "__identifier": "isFlipped", "__type": "Bool", "__value": false, "__tile": null, "defUid": 24, "realEditorValues": [] },
 								{ "__identifier": "triggerArea", "__type": "EntityRef", "__value": null, "__tile": null, "defUid": 39, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 670,
+							"__worldY": -50
 						},
 						{
 							"__identifier": "PuzzleScreen",
@@ -11335,8 +11413,6 @@
 							"__tags": [ "reader", "outputter" ],
 							"__tile": { "tilesetUid": 11, "x": 0, "y": 0, "w": 40, "h": 40 },
 							"__smartColor": "#94D9B3",
-							"__worldX": 730,
-							"__worldY": -50,
 							"iid": "b8681b40-2a00-11ed-a7c5-150605ce60d6",
 							"width": 40,
 							"height": 40,
@@ -11358,7 +11434,9 @@
 								}] },
 								{ "__identifier": "isFlipped", "__type": "Bool", "__value": false, "__tile": null, "defUid": 24, "realEditorValues": [] },
 								{ "__identifier": "triggerArea", "__type": "EntityRef", "__value": null, "__tile": null, "defUid": 39, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 730,
+							"__worldY": -50
 						},
 						{
 							"__identifier": "PuzzleScreen",
@@ -11367,8 +11445,6 @@
 							"__tags": [ "reader", "outputter" ],
 							"__tile": { "tilesetUid": 11, "x": 0, "y": 0, "w": 40, "h": 40 },
 							"__smartColor": "#94D9B3",
-							"__worldX": 790,
-							"__worldY": -50,
 							"iid": "b90fccf0-2a00-11ed-a7c5-3fd36e890d63",
 							"width": 40,
 							"height": 40,
@@ -11390,7 +11466,9 @@
 								}] },
 								{ "__identifier": "isFlipped", "__type": "Bool", "__value": false, "__tile": null, "defUid": 24, "realEditorValues": [] },
 								{ "__identifier": "triggerArea", "__type": "EntityRef", "__value": null, "__tile": null, "defUid": 39, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 790,
+							"__worldY": -50
 						},
 						{
 							"__identifier": "PuzzleScreen",
@@ -11399,8 +11477,6 @@
 							"__tags": [ "reader", "outputter" ],
 							"__tile": { "tilesetUid": 11, "x": 0, "y": 0, "w": 40, "h": 40 },
 							"__smartColor": "#94D9B3",
-							"__worldX": 850,
-							"__worldY": -50,
 							"iid": "ba5fa580-2a00-11ed-a7c5-9fafd468cc78",
 							"width": 40,
 							"height": 40,
@@ -11425,7 +11501,9 @@
 									"params": [ true ]
 								}] },
 								{ "__identifier": "triggerArea", "__type": "EntityRef", "__value": null, "__tile": null, "defUid": 39, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 850,
+							"__worldY": -50
 						},
 						{
 							"__identifier": "PuzzleScreen",
@@ -11434,8 +11512,6 @@
 							"__tags": [ "reader", "outputter" ],
 							"__tile": { "tilesetUid": 11, "x": 0, "y": 0, "w": 40, "h": 40 },
 							"__smartColor": "#94D9B3",
-							"__worldX": 890,
-							"__worldY": -140,
 							"iid": "bd0941b0-2a00-11ed-a7c5-8bc747af3789",
 							"width": 40,
 							"height": 40,
@@ -11460,7 +11536,9 @@
 									"params": [ true ]
 								}] },
 								{ "__identifier": "triggerArea", "__type": "EntityRef", "__value": null, "__tile": null, "defUid": 39, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 890,
+							"__worldY": -140
 						},
 						{
 							"__identifier": "PuzzleScreen",
@@ -11469,8 +11547,6 @@
 							"__tags": [ "reader", "outputter" ],
 							"__tile": { "tilesetUid": 11, "x": 0, "y": 0, "w": 40, "h": 40 },
 							"__smartColor": "#94D9B3",
-							"__worldX": 840,
-							"__worldY": -140,
 							"iid": "bdbdc4a0-2a00-11ed-a7c5-65f8cb81ff82",
 							"width": 40,
 							"height": 40,
@@ -11495,7 +11571,9 @@
 									"params": [ true ]
 								}] },
 								{ "__identifier": "triggerArea", "__type": "EntityRef", "__value": null, "__tile": null, "defUid": 39, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 840,
+							"__worldY": -140
 						},
 						{
 							"__identifier": "PuzzleScreen",
@@ -11504,8 +11582,6 @@
 							"__tags": [ "reader", "outputter" ],
 							"__tile": { "tilesetUid": 11, "x": 0, "y": 0, "w": 40, "h": 40 },
 							"__smartColor": "#94D9B3",
-							"__worldX": 790,
-							"__worldY": -140,
 							"iid": "bf998980-2a00-11ed-a7c5-692f0d171de6",
 							"width": 40,
 							"height": 40,
@@ -11530,7 +11606,9 @@
 									"params": [ true ]
 								}] },
 								{ "__identifier": "triggerArea", "__type": "EntityRef", "__value": null, "__tile": null, "defUid": 39, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 790,
+							"__worldY": -140
 						},
 						{
 							"__identifier": "Node",
@@ -11539,8 +11617,6 @@
 							"__tags": ["outputter"],
 							"__tile": null,
 							"__smartColor": "#94D9B3",
-							"__worldX": 550,
-							"__worldY": -130,
 							"iid": "407423d0-2a00-11ed-a7c5-35d3e0ad957f",
 							"width": 100,
 							"height": 40,
@@ -11557,7 +11633,9 @@
 									"id": "V_String",
 									"params": ["beac82b0-2a00-11ed-a7c5-e7516f6620a9"]
 								}] }
-							]
+							],
+							"__worldX": 550,
+							"__worldY": -130
 						},
 						{
 							"__identifier": "PlayerStart",
@@ -11566,14 +11644,14 @@
 							"__tags": [],
 							"__tile": null,
 							"__smartColor": "#94D9B3",
-							"__worldX": 715,
-							"__worldY": -135,
 							"iid": "0e22b620-2a00-11ed-a7c5-9b53f5f6906c",
 							"width": 16,
 							"height": 16,
 							"defUid": 7,
 							"px": [75,45],
-							"fieldInstances": []
+							"fieldInstances": [],
+							"__worldX": 715,
+							"__worldY": -135
 						},
 						{
 							"__identifier": "PuzzleScreen",
@@ -11582,8 +11660,6 @@
 							"__tags": [ "reader", "outputter" ],
 							"__tile": { "tilesetUid": 11, "x": 0, "y": 0, "w": 40, "h": 40 },
 							"__smartColor": "#94D9B3",
-							"__worldX": 730,
-							"__worldY": -160,
 							"iid": "bc5e7400-2a00-11ed-a7c5-61f8f70ebd52",
 							"width": 40,
 							"height": 40,
@@ -11608,7 +11684,9 @@
 									"params": [ true ]
 								}] },
 								{ "__identifier": "triggerArea", "__type": "EntityRef", "__value": null, "__tile": null, "defUid": 39, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 730,
+							"__worldY": -160
 						},
 						{
 							"__identifier": "PuzzleScreen",
@@ -11617,8 +11695,6 @@
 							"__tags": [ "reader", "outputter" ],
 							"__tile": { "tilesetUid": 11, "x": 0, "y": 0, "w": 40, "h": 40 },
 							"__smartColor": "#94D9B3",
-							"__worldX": 650,
-							"__worldY": -160,
 							"iid": "beac82b0-2a00-11ed-a7c5-e7516f6620a9",
 							"width": 40,
 							"height": 40,
@@ -11643,7 +11719,9 @@
 									"params": [ true ]
 								}] },
 								{ "__identifier": "triggerArea", "__type": "EntityRef", "__value": null, "__tile": null, "defUid": 39, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 650,
+							"__worldY": -160
 						}
 					]
 				},
@@ -11891,7 +11969,7 @@
 					"entityInstances": []
 				}
 			],
-			"__neighbours": [{ "levelIid": "7843e970-2a00-11ed-a7c5-5f7095cb9269", "dir": "w" }]
+			"__neighbours": [ { "levelIid": "2e2576b0-02f0-11ed-babb-236311c5927d", "dir": "sw" }, { "levelIid": "29ed7020-2a00-11ed-a7c5-471921c45806", "dir": "nw" }, { "levelIid": "7843e970-2a00-11ed-a7c5-5f7095cb9269", "dir": "w" } ]
 		},
 		{
 			"identifier": "Level_9",
@@ -11945,14 +12023,30 @@
 							"__tags": ["reader"],
 							"__tile": { "tilesetUid": 11, "x": 80, "y": 40, "w": 80, "h": 80 },
 							"__smartColor": "#94D9B3",
-							"__worldX": -145,
-							"__worldY": 970,
 							"iid": "0ebe9eb0-2a00-11ed-9741-bf43557e0065",
 							"width": 80,
 							"height": 80,
 							"defUid": 83,
 							"px": [175,70],
-							"fieldInstances": [{ "__identifier": "prerequisites", "__type": "Array<EntityRef>", "__value": [], "__tile": null, "defUid": 85, "realEditorValues": [] }]
+							"fieldInstances": [{ "__identifier": "prerequisites", "__type": "Array<EntityRef>", "__value": [], "__tile": null, "defUid": 85, "realEditorValues": [] }],
+							"__worldX": -145,
+							"__worldY": 970
+						},
+						{
+							"__identifier": "PlayerStart",
+							"__grid": [26,9],
+							"__pivot": [0.5,0.5],
+							"__tags": [],
+							"__tile": null,
+							"__smartColor": "#94D9B3",
+							"iid": "845936f0-25d0-11ef-9db6-bb93f2aa3608",
+							"width": 16,
+							"height": 16,
+							"defUid": 7,
+							"px": [265,95],
+							"fieldInstances": [],
+							"__worldX": -55,
+							"__worldY": 995
 						}
 					]
 				},
@@ -12494,8 +12588,6 @@
 							"__tags": ["area"],
 							"__tile": null,
 							"__smartColor": "#FF76FF",
-							"__worldX": -1260,
-							"__worldY": -320,
 							"iid": "1e302860-6280-11ee-bc16-03e3cf6307bf",
 							"width": 300,
 							"height": 90,
@@ -12509,7 +12601,9 @@
 									"params": [ true ]
 								}] },
 								{ "__identifier": "canReCover", "__type": "Bool", "__value": false, "__tile": null, "defUid": 35, "realEditorValues": [] }
-							]
+							],
+							"__worldX": -1260,
+							"__worldY": -320
 						},
 						{
 							"__identifier": "PuzzleScreen",
@@ -12518,8 +12612,6 @@
 							"__tags": [ "reader", "outputter" ],
 							"__tile": { "tilesetUid": 11, "x": 0, "y": 0, "w": 40, "h": 40 },
 							"__smartColor": "#94D9B3",
-							"__worldX": -1140,
-							"__worldY": -270,
 							"iid": "6d014ff0-6280-11ee-bc16-c754cd59465e",
 							"width": 40,
 							"height": 40,
@@ -12533,7 +12625,9 @@
 								{ "__identifier": "prerequisites", "__type": "Array<EntityRef>", "__value": [], "__tile": null, "defUid": 22, "realEditorValues": [] },
 								{ "__identifier": "isFlipped", "__type": "Bool", "__value": false, "__tile": null, "defUid": 24, "realEditorValues": [] },
 								{ "__identifier": "triggerArea", "__type": "EntityRef", "__value": null, "__tile": null, "defUid": 39, "realEditorValues": [] }
-							]
+							],
+							"__worldX": -1140,
+							"__worldY": -270
 						},
 						{
 							"__identifier": "PlayerStart",
@@ -12542,14 +12636,14 @@
 							"__tags": [],
 							"__tile": null,
 							"__smartColor": "#94D9B3",
-							"__worldX": -1015,
-							"__worldY": -245,
 							"iid": "8a841760-6280-11ee-bc16-1bd5625776c2",
 							"width": 16,
 							"height": 16,
 							"defUid": 7,
 							"px": [265,115],
-							"fieldInstances": []
+							"fieldInstances": [],
+							"__worldX": -1015,
+							"__worldY": -245
 						}
 					]
 				},
@@ -12914,14 +13008,14 @@
 							"__tags": ["Decoration"],
 							"__tile": { "tilesetUid": 62, "x": 0, "y": 740, "w": 140, "h": 160 },
 							"__smartColor": "#94D9B3",
-							"__worldX": -1220,
-							"__worldY": -360,
 							"iid": "48e4c660-6280-11ee-bc16-1fef4a5c4d44",
 							"width": 140,
 							"height": 160,
 							"defUid": 64,
 							"px": [60,0],
-							"fieldInstances": []
+							"fieldInstances": [],
+							"__worldX": -1220,
+							"__worldY": -360
 						},
 						{
 							"__identifier": "TRCorner",
@@ -12930,14 +13024,14 @@
 							"__tags": ["Decoration"],
 							"__tile": { "tilesetUid": 62, "x": 20, "y": 0, "w": 20, "h": 20 },
 							"__smartColor": "#94D9B3",
-							"__worldX": -1000,
-							"__worldY": -320,
 							"iid": "4b515990-6280-11ee-bc16-ffb351918dbf",
 							"width": 20,
 							"height": 20,
 							"defUid": 75,
 							"px": [280,40],
-							"fieldInstances": []
+							"fieldInstances": [],
+							"__worldX": -1000,
+							"__worldY": -320
 						},
 						{
 							"__identifier": "TLCorner",
@@ -12946,14 +13040,14 @@
 							"__tags": ["Decoration"],
 							"__tile": { "tilesetUid": 62, "x": 40, "y": 0, "w": 20, "h": 20 },
 							"__smartColor": "#94D9B3",
-							"__worldX": -1260,
-							"__worldY": -320,
 							"iid": "4cbf6880-6280-11ee-bc16-3f7675ddc307",
 							"width": 20,
 							"height": 20,
 							"defUid": 76,
 							"px": [20,40],
-							"fieldInstances": []
+							"fieldInstances": [],
+							"__worldX": -1260,
+							"__worldY": -320
 						},
 						{
 							"__identifier": "Pillar",
@@ -12962,14 +13056,14 @@
 							"__tags": [ "Decoration", "Scaling" ],
 							"__tile": { "tilesetUid": 62, "x": 0, "y": 0, "w": 20, "h": 40 },
 							"__smartColor": "#94D9B3",
-							"__worldX": -1060,
-							"__worldY": -320,
 							"iid": "52d66610-6280-11ee-bc16-39adb746720f",
 							"width": 20,
 							"height": 40,
 							"defUid": 61,
 							"px": [220,40],
-							"fieldInstances": []
+							"fieldInstances": [],
+							"__worldX": -1060,
+							"__worldY": -320
 						},
 						{
 							"__identifier": "Pillar",
@@ -12978,14 +13072,14 @@
 							"__tags": [ "Decoration", "Scaling" ],
 							"__tile": { "tilesetUid": 62, "x": 0, "y": 0, "w": 20, "h": 40 },
 							"__smartColor": "#94D9B3",
-							"__worldX": -1060,
-							"__worldY": -280,
 							"iid": "55010e40-6280-11ee-bc16-51d497772754",
 							"width": 20,
 							"height": 40,
 							"defUid": 61,
 							"px": [220,80],
-							"fieldInstances": []
+							"fieldInstances": [],
+							"__worldX": -1060,
+							"__worldY": -280
 						},
 						{
 							"__identifier": "Pillar",
@@ -12994,14 +13088,14 @@
 							"__tags": [ "Decoration", "Scaling" ],
 							"__tile": { "tilesetUid": 62, "x": 0, "y": 0, "w": 20, "h": 40 },
 							"__smartColor": "#94D9B3",
-							"__worldX": -1060,
-							"__worldY": -240,
 							"iid": "55f77c30-6280-11ee-bc16-89fb530e390f",
 							"width": 20,
 							"height": 40,
 							"defUid": 61,
 							"px": [220,120],
-							"fieldInstances": []
+							"fieldInstances": [],
+							"__worldX": -1060,
+							"__worldY": -240
 						}
 					]
 				}
@@ -13060,8 +13154,6 @@
 							"__tags": ["area"],
 							"__tile": null,
 							"__smartColor": "#FF76FF",
-							"__worldX": -930,
-							"__worldY": -90,
 							"iid": "48ef6d60-6280-11ee-bc16-29941901d510",
 							"width": 160,
 							"height": 130,
@@ -13075,7 +13167,9 @@
 									"params": [ true ]
 								}] },
 								{ "__identifier": "canReCover", "__type": "Bool", "__value": false, "__tile": null, "defUid": 35, "realEditorValues": [] }
-							]
+							],
+							"__worldX": -930,
+							"__worldY": -90
 						},
 						{
 							"__identifier": "PuzzleScreen",
@@ -13084,8 +13178,6 @@
 							"__tags": [ "reader", "outputter" ],
 							"__tile": { "tilesetUid": 11, "x": 0, "y": 0, "w": 40, "h": 40 },
 							"__smartColor": "#94D9B3",
-							"__worldX": -890,
-							"__worldY": 0,
 							"iid": "50b99930-6280-11ee-bc16-afb6603d3b72",
 							"width": 40,
 							"height": 40,
@@ -13099,7 +13191,25 @@
 								{ "__identifier": "prerequisites", "__type": "Array<EntityRef>", "__value": [], "__tile": null, "defUid": 22, "realEditorValues": [] },
 								{ "__identifier": "isFlipped", "__type": "Bool", "__value": false, "__tile": null, "defUid": 24, "realEditorValues": [] },
 								{ "__identifier": "triggerArea", "__type": "EntityRef", "__value": null, "__tile": null, "defUid": 39, "realEditorValues": [] }
-							]
+							],
+							"__worldX": -890,
+							"__worldY": 0
+						},
+						{
+							"__identifier": "PlayerStart",
+							"__grid": [10,8],
+							"__pivot": [0.5,0.5],
+							"__tags": [],
+							"__tile": null,
+							"__smartColor": "#94D9B3",
+							"iid": "73ab5900-25d0-11ef-9db6-d7ff75347e84",
+							"width": 16,
+							"height": 16,
+							"defUid": 7,
+							"px": [105,85],
+							"fieldInstances": [],
+							"__worldX": -1175,
+							"__worldY": -95
 						}
 					]
 				},
@@ -15821,7 +15931,7 @@
 					"entityInstances": []
 				}
 			],
-			"__neighbours": [ { "levelIid": "fb8eb2b0-2a00-11ed-a7c5-dfec299c7e76", "dir": "n" }, { "levelIid": "e39912c0-6280-11ee-bc16-67a55c76d351", "dir": "n" }, { "levelIid": "134fd100-6280-11ee-bc16-59de887d4daf", "dir": "e" } ]
+			"__neighbours": [ { "levelIid": "fb8eb2b0-2a00-11ed-a7c5-dfec299c7e76", "dir": "n" }, { "levelIid": "e39912c0-6280-11ee-bc16-67a55c76d351", "dir": "n" }, { "levelIid": "134fd100-6280-11ee-bc16-59de887d4daf", "dir": "e" }, { "levelIid": "f5594e40-6280-11ee-bc16-131c427ccf94", "dir": "se" } ]
 		},
 		{
 			"identifier": "Level_12",
@@ -15875,8 +15985,6 @@
 							"__tags": ["area"],
 							"__tile": null,
 							"__smartColor": "#FF76FF",
-							"__worldX": -260,
-							"__worldY": 110,
 							"iid": "2b2fce90-6280-11ee-bc16-4b4752fac3ac",
 							"width": 60,
 							"height": 70,
@@ -15890,7 +15998,9 @@
 									"params": [ true ]
 								}] },
 								{ "__identifier": "canReCover", "__type": "Bool", "__value": false, "__tile": null, "defUid": 35, "realEditorValues": [] }
-							]
+							],
+							"__worldX": -260,
+							"__worldY": 110
 						},
 						{
 							"__identifier": "CoverEntity",
@@ -15899,8 +16009,6 @@
 							"__tags": ["area"],
 							"__tile": null,
 							"__smartColor": "#FF76FF",
-							"__worldX": -100,
-							"__worldY": 150,
 							"iid": "35336fa0-6280-11ee-bc16-6bfcb7c6e617",
 							"width": 60,
 							"height": 30,
@@ -15914,7 +16022,25 @@
 									"params": [ true ]
 								}] },
 								{ "__identifier": "canReCover", "__type": "Bool", "__value": false, "__tile": null, "defUid": 35, "realEditorValues": [] }
-							]
+							],
+							"__worldX": -100,
+							"__worldY": 150
+						},
+						{
+							"__identifier": "PlayerStart",
+							"__grid": [4,9],
+							"__pivot": [0.5,0.5],
+							"__tags": [],
+							"__tile": null,
+							"__smartColor": "#94D9B3",
+							"iid": "76a89370-25d0-11ef-9db6-55d09ac20ff6",
+							"width": 16,
+							"height": 16,
+							"defUid": 7,
+							"px": [45,95],
+							"fieldInstances": [],
+							"__worldX": -275,
+							"__worldY": 95
 						}
 					]
 				},
@@ -16277,14 +16403,14 @@
 							"__tags": ["Decoration"],
 							"__tile": { "tilesetUid": 62, "x": 40, "y": 0, "w": 20, "h": 20 },
 							"__smartColor": "#94D9B3",
-							"__worldX": -130,
-							"__worldY": 110,
 							"iid": "7434a810-6280-11ee-bc16-f358c007ef29",
 							"width": 20,
 							"height": 20,
 							"defUid": 76,
 							"px": [190,110],
-							"fieldInstances": []
+							"fieldInstances": [],
+							"__worldX": -130,
+							"__worldY": 110
 						},
 						{
 							"__identifier": "UpCue",
@@ -16293,14 +16419,14 @@
 							"__tags": ["Decoration"],
 							"__tile": { "tilesetUid": 62, "x": 1110, "y": 0, "w": 30, "h": 30 },
 							"__smartColor": "#94D9B3",
-							"__worldX": -130,
-							"__worldY": 120,
 							"iid": "799c04b0-6280-11ee-bc16-bb1c61972c45",
 							"width": 30,
 							"height": 30,
 							"defUid": 77,
 							"px": [190,120],
-							"fieldInstances": []
+							"fieldInstances": [],
+							"__worldX": -130,
+							"__worldY": 120
 						},
 						{
 							"__identifier": "Pillar",
@@ -16309,14 +16435,14 @@
 							"__tags": [ "Decoration", "Scaling" ],
 							"__tile": { "tilesetUid": 62, "x": 0, "y": 0, "w": 20, "h": 40 },
 							"__smartColor": "#94D9B3",
-							"__worldX": -260,
-							"__worldY": 70,
 							"iid": "c21056a0-6280-11ee-bc16-531560953545",
 							"width": 20,
 							"height": 40,
 							"defUid": 61,
 							"px": [60,70],
-							"fieldInstances": []
+							"fieldInstances": [],
+							"__worldX": -260,
+							"__worldY": 70
 						},
 						{
 							"__identifier": "Pillar",
@@ -16325,14 +16451,14 @@
 							"__tags": [ "Decoration", "Scaling" ],
 							"__tile": { "tilesetUid": 62, "x": 0, "y": 0, "w": 20, "h": 40 },
 							"__smartColor": "#94D9B3",
-							"__worldX": -260,
-							"__worldY": 30,
 							"iid": "c2d68cd0-6280-11ee-bc16-03ac624e4a47",
 							"width": 20,
 							"height": 40,
 							"defUid": 61,
 							"px": [60,30],
-							"fieldInstances": []
+							"fieldInstances": [],
+							"__worldX": -260,
+							"__worldY": 30
 						},
 						{
 							"__identifier": "Pillar",
@@ -16341,14 +16467,14 @@
 							"__tags": [ "Decoration", "Scaling" ],
 							"__tile": { "tilesetUid": 62, "x": 0, "y": 0, "w": 20, "h": 40 },
 							"__smartColor": "#94D9B3",
-							"__worldX": -220,
-							"__worldY": 70,
 							"iid": "c4ef33a0-6280-11ee-bc16-e77081c30755",
 							"width": 20,
 							"height": 40,
 							"defUid": 61,
 							"px": [100,70],
-							"fieldInstances": []
+							"fieldInstances": [],
+							"__worldX": -220,
+							"__worldY": 70
 						},
 						{
 							"__identifier": "Pillar",
@@ -16357,19 +16483,19 @@
 							"__tags": [ "Decoration", "Scaling" ],
 							"__tile": { "tilesetUid": 62, "x": 0, "y": 0, "w": 20, "h": 40 },
 							"__smartColor": "#94D9B3",
-							"__worldX": -220,
-							"__worldY": 30,
 							"iid": "c6465f30-6280-11ee-bc16-c5dba0ea10c0",
 							"width": 20,
 							"height": 40,
 							"defUid": 61,
 							"px": [100,30],
-							"fieldInstances": []
+							"fieldInstances": [],
+							"__worldX": -220,
+							"__worldY": 30
 						}
 					]
 				}
 			],
-			"__neighbours": [ { "levelIid": "77053e60-2a00-11ed-a7c5-f5e470203016", "dir": "e" }, { "levelIid": "cfa9f710-6280-11ee-bc16-2be36738d9bd", "dir": "w" }, { "levelIid": "f5594e40-6280-11ee-bc16-131c427ccf94", "dir": "s" } ]
+			"__neighbours": [ { "levelIid": "7843e970-2a00-11ed-a7c5-5f7095cb9269", "dir": "ne" }, { "levelIid": "77053e60-2a00-11ed-a7c5-f5e470203016", "dir": "e" }, { "levelIid": "cfa9f710-6280-11ee-bc16-2be36738d9bd", "dir": "w" }, { "levelIid": "f5594e40-6280-11ee-bc16-131c427ccf94", "dir": "s" } ]
 		},
 		{
 			"identifier": "Level_13",
@@ -16415,7 +16541,24 @@
 					"seed": 933476,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "PlayerStart",
+							"__grid": [21,38],
+							"__pivot": [0.5,0.5],
+							"__tags": [],
+							"__tile": null,
+							"__smartColor": "#94D9B3",
+							"iid": "791ca0b0-25d0-11ef-9db6-f9c517f5e0db",
+							"width": 16,
+							"height": 16,
+							"defUid": 7,
+							"px": [215,385],
+							"fieldInstances": [],
+							"__worldX": -105,
+							"__worldY": 565
+						}
+					]
 				},
 				{
 					"__identifier": "Solid",
@@ -17886,7 +18029,13 @@
 					"entityInstances": []
 				}
 			],
-			"__neighbours": [ { "levelIid": "0693c5e0-02f0-11ed-898a-f54c61423253", "dir": "e" }, { "levelIid": "134fd100-6280-11ee-bc16-59de887d4daf", "dir": "n" } ]
+			"__neighbours": [
+				{ "levelIid": "0693c5e0-02f0-11ed-898a-f54c61423253", "dir": "e" },
+				{ "levelIid": "34ff5160-02f0-11ed-898a-67b3c5a6e5b8", "dir": "se" },
+				{ "levelIid": "77053e60-2a00-11ed-a7c5-f5e470203016", "dir": "ne" },
+				{ "levelIid": "cfa9f710-6280-11ee-bc16-2be36738d9bd", "dir": "nw" },
+				{ "levelIid": "134fd100-6280-11ee-bc16-59de887d4daf", "dir": "n" }
+			]
 		}
 	],
 	"worlds": [],
