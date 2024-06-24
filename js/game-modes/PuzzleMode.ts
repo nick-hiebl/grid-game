@@ -271,8 +271,11 @@ export class PuzzleMode implements Mode<SimpleScreen> {
           uiCanvas.setLineWidth(UI_PIXEL_WIDTH * 2);
           uiCanvas.setLineDash([]);
           const crossArea = shape.box.inset(shape.box.width / 5);
-          uiCanvas.drawLine(crossArea.x1, crossArea.y1, crossArea.x2, crossArea.y2);
-          uiCanvas.drawLine(crossArea.x2, crossArea.y1, crossArea.x1, crossArea.y2);
+          const crossMid = crossArea.midpoint;
+          uiCanvas.drawLine(crossArea.x1, crossMid.y, crossArea.x2, crossMid.y);
+          uiCanvas.drawLine(crossArea.x1, crossMid.y, crossMid.x, crossArea.y1);
+          uiCanvas.drawLine(crossArea.x1, crossMid.y, crossMid.x, crossArea.y2);
+          uiCanvas.fillDiamond(crossArea.x1, crossMid.y, UI_PIXEL_WIDTH * Math.SQRT2, UI_PIXEL_WIDTH * Math.SQRT2);
         } else if (isSubgroup(shape)) {
           uiCanvas.setColor(shape.innerGrouping.isAllSolved ? "#cc00cc" : "yellow");
 
