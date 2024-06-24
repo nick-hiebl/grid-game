@@ -390,14 +390,18 @@ export class DataLoader {
     const { puzzlesByLevel } = rawPuzzles;
     const allPuzzles: Record<string, PuzzleRules> = {};
 
-    const keyGrouping = { children: [] as Grouping[], isLeaf: false };
+    const keyGrouping = { children: [] as Grouping[], isLeaf: false, isAllSolved: false };
     this.keyGrouping = keyGrouping;
 
     for (const level of Object.values(puzzlesByLevel)) {
-      const grouping: Grouping = { children: [], isLeaf: false };
+      const grouping: Grouping = { children: [], isLeaf: false, isAllSolved: false };
       for (const group of Object.values(level)) {
         Object.assign(allPuzzles, group);
-        grouping.children = Object.keys(group).map((id) => ({ isLeaf: true, level: id }));
+        grouping.children!.push({
+          children: Object.keys(group).map((id) => ({ isLeaf: true, level: id, isAllSolved: false })),
+          isLeaf: false,
+          isAllSolved: false,
+        });
       }
       keyGrouping.children.push(grouping);
     }

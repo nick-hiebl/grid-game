@@ -7,23 +7,94 @@ import { Grouping, Mode } from "../types";
 import { DataLoader } from "../level/DataLoader";
 import { Rectangle } from "../math/Shapes";
 import { DEFAULT_BACKGROUND, PUZZLE_WINDOW_WIDTH, SOLVED_BACKGROUND } from "../puzzle-manager/constants";
-import { SQUARE_CANVAS_SIZE, UI_PIXEL_WIDTH } from "../constants/ScreenConstants";
-import { Canvas } from "../Canvas";
-import { Vector } from "../math/Vector";
+import { SQUARE_CANVAS_SIZE } from "../constants/ScreenConstants";
 import { distributeRectangles, drawInnerPuzzle } from "./utils";
 
-interface PuzzleOption {
-  puzzle: Puzzle;
-  box: Rectangle;
+interface OptionCore {
   isHovered: boolean;
+  box: Rectangle;
+}
+
+interface LeafOption extends OptionCore {
+  puzzle: Puzzle;
+}
+
+interface BackOption extends OptionCore {
+  action: "back";
+}
+
+interface SubgroupOption extends OptionCore {
+  action: "subgroup";
+  innerGrouping: Grouping;
+  childRects: Rectangle[];
+}
+
+type PuzzleOption = LeafOption | BackOption | SubgroupOption;
+
+function isLeaf(option: PuzzleOption): option is LeafOption {
+  return "puzzle" in option;
+}
+
+function isBack(option: PuzzleOption): option is BackOption {
+  return "action" in option && option.action === "back";
+}
+
+function isSubgroup(option: PuzzleOption): option is SubgroupOption {
+  return "action" in option && option.action === "subgroup";
 }
 
 const ON_SCREEN_RECTANGLE = Rectangle.centerForm(
   SQUARE_CANVAS_SIZE / 2,
   SQUARE_CANVAS_SIZE / 2,
-  PUZZLE_WINDOW_WIDTH / 2 + UI_PIXEL_WIDTH * 8,
-  PUZZLE_WINDOW_WIDTH / 2 + UI_PIXEL_WIDTH * 8
+  PUZZLE_WINDOW_WIDTH / 2,
+  PUZZLE_WINDOW_WIDTH / 2,
 );
+
+function placeGrouping(grouping: Grouping, hasBackOption: boolean): PuzzleOption[] {
+  if (!grouping.children?.length || grouping.isLeaf) {
+    throw Error("Drawing leaf to the screen");
+  }
+
+  const rectangles = distributeRectangles(ON_SCREEN_RECTANGLE, grouping.children.length);
+
+  const options: PuzzleOption[] = [];
+
+  for (let i = 0; i < grouping.children.length; i++) {
+    const child = grouping.children[i];
+    const rect = rectangles[i];
+
+    if (child.isLeaf) {
+      options.push({
+        box: rect,
+        isHovered: false,
+        puzzle: PuzzleManager.getPuzzle(child.level!),
+      });
+    } else {
+      options.push({
+        box: rect,
+        isHovered: false,
+        action: 'subgroup',
+        innerGrouping: child,
+        childRects: distributeRectangles(rect.inset(rect.width / 10), child.children?.length ?? 0),
+      });
+    }
+  }
+
+  if (hasBackOption) {
+    options.push({
+      box: new Rectangle(
+        0,
+        0,
+        (SQUARE_CANVAS_SIZE - PUZZLE_WINDOW_WIDTH) / 2,
+        (SQUARE_CANVAS_SIZE - PUZZLE_WINDOW_WIDTH) / 2,
+      ),
+      isHovered: false,
+      action: 'back',
+    });
+  }
+
+  return options;
+}
 
 export class PuzzleMode implements Mode<SimpleScreen> {
   gameModeManager: SimpleGameManager;
@@ -36,38 +107,18 @@ export class PuzzleMode implements Mode<SimpleScreen> {
   viewDirty: boolean = true;
 
   overallGrouping: Grouping;
+  groupStack: Grouping[];
 
   constructor(gameModeManager: SimpleGameManager) {
     this.gameModeManager = gameModeManager;
 
     this.puzzleManager = PuzzleManager;
 
-    const puzzles = DataLoader.puzzles;
     this.overallGrouping = DataLoader.keyGrouping;
 
-    console.log(this.overallGrouping)
+    this.groupStack = [this.overallGrouping];
 
-    const puzzleKeys = Object.keys(puzzles);
-    console.log(puzzleKeys);
-    const numPuzzles = puzzleKeys.length;
-
-    this.shapes = [];
-
-    const rects = distributeRectangles(ON_SCREEN_RECTANGLE, numPuzzles);
-
-    let i = 0;
-    for (const key of puzzleKeys) {
-      this.shapes.push({
-        puzzle: PuzzleManager.getPuzzle(key),
-        // box: Rectangle.widthForm(column * 20, row * 20, 10, 10),
-        box: rects[i],
-        isHovered: false,
-      });
-      i++;
-    }
-    
-
-    // this.currentPuzzle = this.puzzleManager.getPuzzle("intro-1");
+    this.shapes = placeGrouping(this.overallGrouping, false);
   }
 
   onStart() {
@@ -100,6 +151,22 @@ export class PuzzleMode implements Mode<SimpleScreen> {
 
     this.viewDirty = true;
 
+    for (const stackLevel of this.groupStack.slice().reverse()) {
+      let allGood = true;
+      for (const child of stackLevel.children ?? []) {
+        if (child.isAllSolved || (child.level && this.puzzleManager.getPuzzle(child.level).isSolved)) {
+          //
+        } else {
+          allGood = false;
+        }
+      }
+      if (allGood) {
+        stackLevel.isAllSolved = true;
+      } else {
+        break;
+      }
+    }
+
     this.currentPuzzle = undefined;
   }
 
@@ -122,9 +189,24 @@ export class PuzzleMode implements Mode<SimpleScreen> {
         const click = input as ClickEvent;
         for (const shape of this.shapes) {
           if (shape.box.intersectsPoint(click.position)) {
-            this.currentPuzzle = shape.puzzle;
-            this.currentPuzzle.open(1);
-            break;
+            if (isBack(shape) && this.groupStack.length > 1) {
+              this.groupStack.splice(this.groupStack.length - 1, 1);
+              this.shapes = placeGrouping(this.groupStack[this.groupStack.length - 1], this.groupStack.length > 1);
+              this.viewDirty = true;
+              break;
+            } else if (isSubgroup(shape)) {
+              this.groupStack.push(shape.innerGrouping);
+              this.shapes = placeGrouping(shape.innerGrouping, true);
+              this.viewDirty = true;
+              break;
+            } else if (isLeaf(shape)) {
+              this.currentPuzzle = shape.puzzle;
+              this.currentPuzzle.open(1);
+              break;
+            }
+            // this.currentPuzzle = shape.puzzle;
+            // this.currentPuzzle.open(1);
+            // break;
           }
         }
       }
@@ -156,17 +238,28 @@ export class PuzzleMode implements Mode<SimpleScreen> {
       const uiCanvas = screenManager.uiCanvas;
       uiCanvas.clear();
 
-      for (const { box, isHovered, puzzle } of this.shapes) {
-        uiCanvas.setColor(puzzle.isSolved ? SOLVED_BACKGROUND : DEFAULT_BACKGROUND);
-        box.draw(uiCanvas);
+      for (const shape of this.shapes) {
+        if (isLeaf(shape)) {
+          uiCanvas.setColor(shape.puzzle.isSolved ? SOLVED_BACKGROUND : DEFAULT_BACKGROUND);
 
-        if (isHovered) {
+          shape.box.draw(uiCanvas);
+          drawInnerPuzzle(uiCanvas, shape.box, shape.puzzle);
+        } else if (isBack(shape)) {
           uiCanvas.setColor("white");
-          const outset = box;
+
+          shape.box.draw(uiCanvas);
+        } else if (isSubgroup(shape)) {
+          uiCanvas.setColor(shape.innerGrouping.isAllSolved ? "#ff00ff" : "yellow");
+
+          shape.box.draw(uiCanvas);
+        }
+
+        if (shape.isHovered) {
+          uiCanvas.setColor("white");
+          const outset = shape.box;
           uiCanvas.strokeRect(outset.x1, outset.y1, outset.width, outset.height);
         }
 
-        drawInnerPuzzle(uiCanvas, box, puzzle);
       }
 
       this.viewDirty = false;

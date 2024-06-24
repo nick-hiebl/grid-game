@@ -21,4 +21,5 @@ export interface Grouping {
   children?: Grouping[];
   level?: string;
   isLeaf: boolean;
+  isAllSolved: boolean;
 }
