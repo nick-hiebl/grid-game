@@ -15,6 +15,7 @@ import { PuzzleRules } from "../puzzle-manager/PuzzleFactory";
 import { DecorationEntity } from "./entity/DecorationEntity";
 import { NodeInteractible } from "./interactibles/NodeInteractible";
 import { PortalInteractible } from "./interactibles/PortalInteractible";
+import { Grouping } from "../types";
 
 const LEVEL_DATA_URL = "/data/world.json";
 const PUZZLE_DATA_URL = "/data/puzzles.json";
@@ -381,6 +382,7 @@ export class DataLoader {
   static data: WorldData | null = null;
   static levelMap: Record<string, Level> = {};
   static puzzles: Record<string, PuzzleRules> = {};
+  static keyGrouping: Grouping;
 
   static async fetchPuzzles() {
     const rawPuzzles = await loadJson<RawPuzzles>(PUZZLE_DATA_URL);
@@ -388,9 +390,16 @@ export class DataLoader {
     const { puzzlesByLevel } = rawPuzzles;
     const allPuzzles: Record<string, PuzzleRules> = {};
 
+    const keyGrouping = { children: [] as Grouping[], isLeaf: false };
+    this.keyGrouping = keyGrouping;
+
     for (const level of Object.values(puzzlesByLevel)) {
-      for (const group of Object.values(level))
+      const grouping: Grouping = { children: [], isLeaf: false };
+      for (const group of Object.values(level)) {
         Object.assign(allPuzzles, group);
+        grouping.children = Object.keys(group).map((id) => ({ isLeaf: true, level: id }));
+      }
+      keyGrouping.children.push(grouping);
     }
 
     DataLoader.puzzles = allPuzzles;

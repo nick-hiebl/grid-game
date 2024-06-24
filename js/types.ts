@@ -16,3 +16,9 @@ export interface Mode<Screen extends ScreenManagerEssentials> {
   draw(screenManager: Screen): void;
   onStart(): void;
 }
+
+export interface Grouping {
+  children?: Grouping[];
+  level?: string;
+  isLeaf: boolean;
+}
