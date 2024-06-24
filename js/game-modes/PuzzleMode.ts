@@ -7,8 +7,12 @@ import { Grouping, Mode } from "../types";
 import { DataLoader } from "../level/DataLoader";
 import { Rectangle } from "../math/Shapes";
 import { DEFAULT_BACKGROUND, PUZZLE_WINDOW_WIDTH, SOLVED_BACKGROUND } from "../puzzle-manager/constants";
-import { SQUARE_CANVAS_SIZE } from "../constants/ScreenConstants";
+import { SQUARE_CANVAS_SIZE, UI_PIXEL_WIDTH } from "../constants/ScreenConstants";
 import { distributeRectangles, drawInnerPuzzle } from "./utils";
+
+function zip<A, B>(as: A[], bs: B[]): [A, B][] {
+  return as.map((a, index) => [a, bs[index]]);
+}
 
 interface OptionCore {
   isHovered: boolean;
@@ -59,15 +63,12 @@ function placeGrouping(grouping: Grouping, hasBackOption: boolean): PuzzleOption
 
   const options: PuzzleOption[] = [];
 
-  for (let i = 0; i < grouping.children.length; i++) {
-    const child = grouping.children[i];
-    const rect = rectangles[i];
-
+  for (const [child, rect] of zip(grouping.children, rectangles)) {
     if (child.isLeaf) {
       options.push({
         box: rect,
         isHovered: false,
-        puzzle: PuzzleManager.getPuzzle(child.level!),
+        puzzle: child.puzzle!,
       });
     } else {
       options.push({
@@ -154,7 +155,7 @@ export class PuzzleMode implements Mode<SimpleScreen> {
     for (const stackLevel of this.groupStack.slice().reverse()) {
       let allGood = true;
       for (const child of stackLevel.children ?? []) {
-        if (child.isAllSolved || (child.level && this.puzzleManager.getPuzzle(child.level).isSolved)) {
+        if (child.isAllSolved || (child.puzzle?.isSolved)) {
           //
         } else {
           allGood = false;
@@ -190,27 +191,44 @@ export class PuzzleMode implements Mode<SimpleScreen> {
         for (const shape of this.shapes) {
           if (shape.box.intersectsPoint(click.position)) {
             if (isBack(shape) && this.groupStack.length > 1) {
-              this.groupStack.splice(this.groupStack.length - 1, 1);
-              this.shapes = placeGrouping(this.groupStack[this.groupStack.length - 1], this.groupStack.length > 1);
-              this.viewDirty = true;
-              break;
+              this.goBackOneLevel();
+              return;
             } else if (isSubgroup(shape)) {
               this.groupStack.push(shape.innerGrouping);
               this.shapes = placeGrouping(shape.innerGrouping, true);
               this.viewDirty = true;
-              break;
+              return;
             } else if (isLeaf(shape)) {
               this.currentPuzzle = shape.puzzle;
               this.currentPuzzle.open(1);
-              break;
+              return;
             }
-            // this.currentPuzzle = shape.puzzle;
-            // this.currentPuzzle.open(1);
-            // break;
           }
+        }
+        if (!ON_SCREEN_RECTANGLE.intersectsPoint(click.position)) {
+          this.goBackOneLevel();
+          return;
         }
       }
     }
+  }
+
+  clickedOutside() {
+    if (this.currentPuzzle) {
+      this.dismissCurrentPuzzle();
+    } else {
+      this.goBackOneLevel();
+    }
+  }
+
+  goBackOneLevel() {
+    if (this.groupStack.length <= 1) {
+      return;
+    }
+
+    this.groupStack.splice(this.groupStack.length - 1, 1);
+    this.shapes = placeGrouping(this.groupStack[this.groupStack.length - 1], this.groupStack.length > 1);
+    this.viewDirty = true;
   }
 
   /**
@@ -248,18 +266,38 @@ export class PuzzleMode implements Mode<SimpleScreen> {
           uiCanvas.setColor("white");
 
           shape.box.draw(uiCanvas);
+
+          uiCanvas.setColor("black");
+          uiCanvas.setLineWidth(UI_PIXEL_WIDTH * 2);
+          uiCanvas.setLineDash([]);
+          const crossArea = shape.box.inset(shape.box.width / 5);
+          uiCanvas.drawLine(crossArea.x1, crossArea.y1, crossArea.x2, crossArea.y2);
+          uiCanvas.drawLine(crossArea.x2, crossArea.y1, crossArea.x1, crossArea.y2);
         } else if (isSubgroup(shape)) {
-          uiCanvas.setColor(shape.innerGrouping.isAllSolved ? "#ff00ff" : "yellow");
+          uiCanvas.setColor(shape.innerGrouping.isAllSolved ? "#cc00cc" : "yellow");
 
           shape.box.draw(uiCanvas);
+
+          for (const [rect, child] of zip(shape.childRects, shape.innerGrouping.children!)) {
+            uiCanvas.setColor(
+              child.isLeaf
+                ? child.puzzle?.isSolved
+                  ? SOLVED_BACKGROUND
+                  : DEFAULT_BACKGROUND
+                : child.isAllSolved
+                  ? "#ff00ff"
+                  : "#ffaa00",
+            );
+            rect.draw(uiCanvas);
+          }
         }
 
         if (shape.isHovered) {
           uiCanvas.setColor("white");
           const outset = shape.box;
+          uiCanvas.setLineDash([]);
           uiCanvas.strokeRect(outset.x1, outset.y1, outset.width, outset.height);
         }
-
       }
 
       this.viewDirty = false;

@@ -1,4 +1,5 @@
 import { InputEvent, InputState } from "./InputManager";
+import { Puzzle } from "./puzzle-manager/Puzzle";
 
 export interface GameModeManagerEssentials<Screen extends ScreenManagerEssentials> {
   onInput(input: InputEvent): void;
@@ -19,7 +20,7 @@ export interface Mode<Screen extends ScreenManagerEssentials> {
 
 export interface Grouping {
   children?: Grouping[];
-  level?: string;
+  puzzle?: Puzzle;
   isLeaf: boolean;
   isAllSolved: boolean;
 }

@@ -16,6 +16,7 @@ import { DecorationEntity } from "./entity/DecorationEntity";
 import { NodeInteractible } from "./interactibles/NodeInteractible";
 import { PortalInteractible } from "./interactibles/PortalInteractible";
 import { Grouping } from "../types";
+import { PuzzleManager } from "../puzzle-manager/PuzzleManager";
 
 const LEVEL_DATA_URL = "/data/world.json";
 const PUZZLE_DATA_URL = "/data/puzzles.json";
@@ -370,11 +371,30 @@ function secondPass(level: LevelData, others: Record<string, LevelFactory>) {
 }
 
 interface RawPuzzles {
+  puzzlesGrouping: any[],
   puzzlesByLevel: {
     [levelName: string]: {
       [groupName: string]: Record<string, PuzzleRules>;
     };
   };
+}
+
+function buildGrouping(items: any): Grouping {
+  if (typeof items === "string") {
+    return {
+      isLeaf: true,
+      puzzle: PuzzleManager.getPuzzle(items),
+      isAllSolved: false,
+    };
+  } else if (Array.isArray(items)) {
+    return {
+      isLeaf: false,
+      isAllSolved: false,
+      children: items.map(buildGrouping),
+    };
+  }
+
+  throw Error(`Building grouping from invalid items: ${JSON.stringify(items)}`);
 }
 
 export class DataLoader {
@@ -387,26 +407,23 @@ export class DataLoader {
   static async fetchPuzzles() {
     const rawPuzzles = await loadJson<RawPuzzles>(PUZZLE_DATA_URL);
 
-    const { puzzlesByLevel } = rawPuzzles;
+    const { puzzlesByLevel, puzzlesGrouping } = rawPuzzles;
     const allPuzzles: Record<string, PuzzleRules> = {};
 
-    const keyGrouping = { children: [] as Grouping[], isLeaf: false, isAllSolved: false };
-    this.keyGrouping = keyGrouping;
-
     for (const level of Object.values(puzzlesByLevel)) {
-      const grouping: Grouping = { children: [], isLeaf: false, isAllSolved: false };
       for (const group of Object.values(level)) {
         Object.assign(allPuzzles, group);
-        grouping.children!.push({
-          children: Object.keys(group).map((id) => ({ isLeaf: true, level: id, isAllSolved: false })),
-          isLeaf: false,
-          isAllSolved: false,
-        });
       }
-      keyGrouping.children.push(grouping);
     }
 
     DataLoader.puzzles = allPuzzles;
+
+    for (const puzzleId of Object.keys(allPuzzles)) {
+      PuzzleManager.insertPuzzle(puzzleId, allPuzzles[puzzleId]);
+    }
+
+    // .puzzles is available enough for PuzzleManager to work
+    this.keyGrouping = buildGrouping(puzzlesGrouping);
   }
 
   static async fetchWorld() {

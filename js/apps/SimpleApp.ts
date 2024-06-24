@@ -23,7 +23,7 @@ const main = () => {
     if (main) {
       main.addEventListener("click", (e) => {
         if (e.target === main) {
-          gameManager.puzzleMode.dismissCurrentPuzzle();
+          gameManager.puzzleMode.clickedOutside();
         }
       });
     }
