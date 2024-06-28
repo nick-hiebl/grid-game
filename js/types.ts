@@ -23,4 +23,5 @@ export interface Grouping {
   puzzle?: Puzzle;
   isLeaf: boolean;
   isAllSolved: boolean;
+  display?: string;
 }

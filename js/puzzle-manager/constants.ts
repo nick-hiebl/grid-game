@@ -10,6 +10,9 @@ export const PUZZLE_WINDOW_WIDTH = (7 / 9) * UI_CANVAS_HEIGHT;
 export const SOLVED_BACKGROUND = "#00ff62dd";
 export const DEFAULT_BACKGROUND = "#0096ffdd";
 
+export const GROUP_SOLVED_BACKGROUND = "#00cc22";
+export const GROUP_DEFAULT_BACKGROUND = "#0060dd";
+
 export const N_CIRCLE_LAYOUT = [
   [new Circle(new Vector(0, 0), 0.33)],
   [new Circle(new Vector(0, 0), 0.33)],

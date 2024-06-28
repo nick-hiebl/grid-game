@@ -1,13 +1,24 @@
-import { PuzzleManager } from "../puzzle-manager/PuzzleManager";
-import { Puzzle } from "../puzzle-manager/Puzzle";
+import { Canvas } from "../Canvas";
 import { ClickEvent, InputEvent, InputState } from "../InputManager";
+
 import { SimpleGameManager } from "../apps/SimpleGameManager";
 import { SimpleScreen } from "../apps/SimpleScreen";
-import { Grouping, Mode } from "../types";
-import { DataLoader } from "../level/DataLoader";
-import { Rectangle } from "../math/Shapes";
-import { DEFAULT_BACKGROUND, PUZZLE_WINDOW_WIDTH, SOLVED_BACKGROUND } from "../puzzle-manager/constants";
 import { SQUARE_CANVAS_SIZE, UI_PIXEL_WIDTH } from "../constants/ScreenConstants";
+import { DataLoader } from "../level/DataLoader";
+import { Circle, Rectangle } from "../math/Shapes";
+import { Vector } from "../math/Vector";
+import {
+  DEFAULT_BACKGROUND,
+  GROUP_DEFAULT_BACKGROUND,
+  GROUP_SOLVED_BACKGROUND,
+  N_CIRCLE_LAYOUT,
+  PUZZLE_WINDOW_WIDTH,
+  SOLVED_BACKGROUND,
+} from "../puzzle-manager/constants";
+import { PuzzleManager } from "../puzzle-manager/PuzzleManager";
+import { Puzzle } from "../puzzle-manager/Puzzle";
+import { Grouping, Mode } from "../types";
+
 import { distributeRectangles, drawInnerPuzzle } from "./utils";
 
 function zip<A, B>(as: A[], bs: B[]): [A, B][] {
@@ -21,6 +32,7 @@ interface OptionCore {
 
 interface LeafOption extends OptionCore {
   puzzle: Puzzle;
+  display?: string;
 }
 
 interface BackOption extends OptionCore {
@@ -31,6 +43,7 @@ interface SubgroupOption extends OptionCore {
   action: "subgroup";
   innerGrouping: Grouping;
   childRects: Rectangle[];
+  display?: string;
 }
 
 type PuzzleOption = LeafOption | BackOption | SubgroupOption;
@@ -77,6 +90,7 @@ function placeGrouping(grouping: Grouping, hasBackOption: boolean): PuzzleOption
         action: 'subgroup',
         innerGrouping: child,
         childRects: distributeRectangles(rect.inset(rect.width / 10), child.children?.length ?? 0),
+        display: child.display,
       });
     }
   }
@@ -231,6 +245,50 @@ export class PuzzleMode implements Mode<SimpleScreen> {
     this.viewDirty = true;
   }
 
+  drawGroupShapeContents(uiCanvas: Canvas, shape: SubgroupOption) {
+    if (shape.display) {
+      if (shape.display.match(/circle\-\d+/)) {
+        const n = parseInt(shape.display.slice(7), 10);
+
+        if (0 <= n && n <= 8) {
+          uiCanvas.setColor("white");
+          for (const circle of N_CIRCLE_LAYOUT[n]) {
+            const pos = Vector.add(
+              shape.box.midpoint,
+              Vector.scale(circle.position, shape.box.width / 2),
+            );
+            const newCircle = new Circle(pos, circle.radius * shape.box.width / 2);
+            if (n === 0) {
+              uiCanvas.setLineWidth(circle.radius * shape.box.width * 0.5);
+              uiCanvas.strokeEllipse(
+                shape.box.midpoint.x,
+                shape.box.midpoint.y,
+                circle.radius * shape.box.width * 0.75,
+                circle.radius * shape.box.width * 0.75
+              );
+            } else {
+              newCircle.draw(uiCanvas);
+            }
+          }
+          return;
+        }
+      }
+    } else {
+      for (const [rect, child] of zip(shape.childRects, shape.innerGrouping.children!)) {
+        uiCanvas.setColor(
+          child.isLeaf
+            ? child.puzzle?.isSolved
+              ? SOLVED_BACKGROUND
+              : DEFAULT_BACKGROUND
+            : child.isAllSolved
+              ? SOLVED_BACKGROUND
+              : DEFAULT_BACKGROUND,
+        );
+        rect.draw(uiCanvas);
+      }
+    }
+  }
+
   /**
    * Draw.
    * @param {ScreenManager} screenManager The screenManager to draw upon.
@@ -277,25 +335,15 @@ export class PuzzleMode implements Mode<SimpleScreen> {
           uiCanvas.drawLine(crossArea.x1, crossMid.y, crossMid.x, crossArea.y2);
           uiCanvas.fillDiamond(crossArea.x1, crossMid.y, UI_PIXEL_WIDTH * Math.SQRT2, UI_PIXEL_WIDTH * Math.SQRT2);
         } else if (isSubgroup(shape)) {
-          uiCanvas.setColor(shape.innerGrouping.isAllSolved ? "#cc00cc" : "yellow");
+          uiCanvas.setColor(shape.innerGrouping.isAllSolved ? GROUP_SOLVED_BACKGROUND : GROUP_DEFAULT_BACKGROUND);
 
           shape.box.draw(uiCanvas);
 
-          for (const [rect, child] of zip(shape.childRects, shape.innerGrouping.children!)) {
-            uiCanvas.setColor(
-              child.isLeaf
-                ? child.puzzle?.isSolved
-                  ? SOLVED_BACKGROUND
-                  : DEFAULT_BACKGROUND
-                : child.isAllSolved
-                  ? "#ff00ff"
-                  : "#ffaa00",
-            );
-            rect.draw(uiCanvas);
-          }
+          this.drawGroupShapeContents(uiCanvas, shape);
         }
 
         if (shape.isHovered) {
+          uiCanvas.setLineWidth(shape.box.width * 0.05);
           uiCanvas.setColor("white");
           const outset = shape.box;
           uiCanvas.setLineDash([]);

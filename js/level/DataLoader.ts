@@ -392,6 +392,24 @@ function buildGrouping(items: any): Grouping {
       isAllSolved: false,
       children: items.map(buildGrouping),
     };
+  } else if (typeof items === "object") {
+    console.log('parsing', items);
+    const isLeaf = typeof items.children === "string";
+    if (isLeaf) {
+      return {
+        isLeaf,
+        puzzle: PuzzleManager.getPuzzle(items.children),
+        isAllSolved: false,
+        display: items.icon,
+      };
+    } else {
+      return {
+        isLeaf,
+        isAllSolved: false,
+        children: items.children.map(buildGrouping),
+        display: items.icon,
+      };
+    }
   }
 
   throw Error(`Building grouping from invalid items: ${JSON.stringify(items)}`);
