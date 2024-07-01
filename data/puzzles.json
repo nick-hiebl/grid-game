@@ -1,5 +1,6 @@
 {
   "puzzlesGrouping": [
+    { "icon": "calendar", "children": [{ "icon": "square-2", "children": "dailies-0" }] },
     [
       { "icon": "circle-1", "children": ["intro-1", "intro-2", "intro-3", "intro-4", "intro-secret"] },
       { "icon": "circle-2", "children": ["hall-1", "hall-2", "hall-3", "hall-4", "hall-5", "hall-6"] },
@@ -12,6 +13,19 @@
     "brick-secret"
   ],
   "puzzlesByLevel": {
+    "Dailies": {
+      "early": {
+        "dailies-0": {
+          "rows": 4,
+          "cols": 4,
+          "columnCounts": [null, 4, 2, 3],
+          "columnGroups": [2, null, null, null],
+          "rowCounts": [1, 3, null, null],
+          "forcedCells": [{ "row": 1, "col": 2, "on": false }]
+
+        }
+      }
+    },
     "Level_0": {
       "intro": {
         "intro-1": { "rows": 1, "cols": 1, "columnCounts": [1], "rowCounts": [1] },

@@ -208,7 +208,7 @@ export class Puzzle {
    * Draw.
    * @param {ScreenManager} screenManager The screenManager to draw upon.
    */
-  draw(screenManager: ScreenManager | SimpleScreen) {
+  draw(screenManager: ScreenManager | SimpleScreen, hideMonitorLeg?: boolean) {
     const canvas = screenManager.uiCanvas;
 
     canvas.clear();
@@ -225,14 +225,18 @@ export class Puzzle {
     canvas.setColor(this.isSolved ? SOLVED_BACKGROUND : DEFAULT_BACKGROUND);
     canvas.fillRect(0, 0, PUZZLE_WINDOW_WIDTH, PUZZLE_WINDOW_WIDTH);
 
-    // Draw monitor leg
+    // Monitor outline color
     canvas.setColor("#222222");
-    canvas.fillRect(
-      PUZZLE_WINDOW_WIDTH / 4,
-      PUZZLE_WINDOW_WIDTH,
-      PUZZLE_WINDOW_WIDTH / 2,
-      PUZZLE_WINDOW_WIDTH
-    );
+
+    if (!hideMonitorLeg) {
+      // Draw monitor leg
+      canvas.fillRect(
+        PUZZLE_WINDOW_WIDTH / 4,
+        PUZZLE_WINDOW_WIDTH,
+        PUZZLE_WINDOW_WIDTH / 2,
+        PUZZLE_WINDOW_WIDTH
+      );
+    }
 
     // Draw monitor outline
     canvas.setLineWidth(UI_PIXEL_WIDTH * 8);

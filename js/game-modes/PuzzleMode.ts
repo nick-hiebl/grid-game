@@ -11,7 +11,9 @@ import {
   DEFAULT_BACKGROUND,
   GROUP_DEFAULT_BACKGROUND,
   GROUP_SOLVED_BACKGROUND,
+  ICON_SHAPES,
   N_CIRCLE_LAYOUT,
+  N_SQUARE_LAYOUT,
   PUZZLE_WINDOW_WIDTH,
   SOLVED_BACKGROUND,
 } from "../puzzle-manager/constants";
@@ -82,6 +84,7 @@ function placeGrouping(grouping: Grouping, hasBackOption: boolean): PuzzleOption
         box: rect,
         isHovered: false,
         puzzle: child.puzzle!,
+        display: child.display,
       });
     } else {
       options.push({
@@ -245,48 +248,110 @@ export class PuzzleMode implements Mode<SimpleScreen> {
     this.viewDirty = true;
   }
 
-  drawGroupShapeContents(uiCanvas: Canvas, shape: SubgroupOption) {
-    if (shape.display) {
-      if (shape.display.match(/circle\-\d+/)) {
-        const n = parseInt(shape.display.slice(7), 10);
+  drawDisplayOption(uiCanvas: Canvas, box: Rectangle, display: string): boolean {
+    if (display in ICON_SHAPES) {
+      const shapes = ICON_SHAPES[display];
 
-        if (0 <= n && n <= 8) {
-          uiCanvas.setColor("white");
-          for (const circle of N_CIRCLE_LAYOUT[n]) {
-            const pos = Vector.add(
-              shape.box.midpoint,
-              Vector.scale(circle.position, shape.box.width / 2),
-            );
-            const newCircle = new Circle(pos, circle.radius * shape.box.width / 2);
-            if (n === 0) {
-              uiCanvas.setLineWidth(circle.radius * shape.box.width * 0.5);
-              uiCanvas.strokeEllipse(
-                shape.box.midpoint.x,
-                shape.box.midpoint.y,
-                circle.radius * shape.box.width * 0.75,
-                circle.radius * shape.box.width * 0.75
-              );
-            } else {
-              newCircle.draw(uiCanvas);
-            }
-          }
-          return;
+      uiCanvas.setColor("white");
+      for (const shape of shapes) {
+        if (shape instanceof Circle) {
+          const pos = Vector.add(
+            box.midpoint,
+            Vector.scale(shape.position, box.width / 2),
+          );
+          const newCircle = new Circle(pos, shape.radius * box.width / 2);
+          newCircle.draw(uiCanvas);
+        } else if (shape instanceof Rectangle) {
+          const pos = Vector.add(
+            box.midpoint,
+            Vector.scale(shape.midpoint, box.width / 2),
+          );
+          const newSquare = Rectangle.centerForm(pos.x, pos.y, shape.width * box.width / 4, shape.height * box.width / 4);
+
+          newSquare.draw(uiCanvas);
         }
       }
-    } else {
-      for (const [rect, child] of zip(shape.childRects, shape.innerGrouping.children!)) {
-        uiCanvas.setColor(
-          child.isLeaf
-            ? child.puzzle?.isSolved
-              ? SOLVED_BACKGROUND
-              : DEFAULT_BACKGROUND
-            : child.isAllSolved
-              ? SOLVED_BACKGROUND
-              : DEFAULT_BACKGROUND,
-        );
-        rect.draw(uiCanvas);
+
+      return true;
+    }
+    if (display.match(/circle\-\d+/)) {
+      const n = parseInt(display.slice(7), 10);
+
+      if (0 <= n && n <= 8) {
+        uiCanvas.setColor("white");
+        for (const circle of N_CIRCLE_LAYOUT[n]) {
+          const pos = Vector.add(
+            box.midpoint,
+            Vector.scale(circle.position, box.width / 2),
+          );
+          const newCircle = new Circle(pos, circle.radius * box.width / 2);
+          if (n === 0) {
+            uiCanvas.setLineWidth(circle.radius * box.width / 2);
+            uiCanvas.strokeEllipse(
+              box.midpoint.x,
+              box.midpoint.y,
+              circle.radius * box.width * 0.75,
+              circle.radius * box.width * 0.75
+            );
+          } else {
+            newCircle.draw(uiCanvas);
+          }
+        }
+        return true;
+      }
+    } else if (display.match(/square\-\d+/)) {
+      const n = parseInt(display.slice(7), 10);
+
+      if (0 <= n && n <= 8) {
+        uiCanvas.setColor("white");
+        for (const square of N_SQUARE_LAYOUT[n]) {
+          const pos = Vector.add(
+            box.midpoint,
+            Vector.scale(square.midpoint, box.width / 2),
+          );
+          const newSquare = Rectangle.centerForm(pos.x, pos.y, square.width * box.width / 4, square.width * box.width / 4);
+
+          newSquare.draw(uiCanvas);
+        }
+        return true;
       }
     }
+
+    return false;
+  }
+
+  drawGroupShapeContents(uiCanvas: Canvas, shape: SubgroupOption) {
+    if (shape.display) {
+      const drawn = this.drawDisplayOption(uiCanvas, shape.box, shape.display);
+
+      if (drawn) {
+        return;
+      }
+    }
+
+    for (const [rect, child] of zip(shape.childRects, shape.innerGrouping.children!)) {
+      uiCanvas.setColor(
+        child.isLeaf
+          ? child.puzzle?.isSolved
+            ? SOLVED_BACKGROUND
+            : DEFAULT_BACKGROUND
+          : child.isAllSolved
+            ? SOLVED_BACKGROUND
+            : DEFAULT_BACKGROUND,
+      );
+      rect.draw(uiCanvas);
+    }
+  }
+
+  drawPuzzleShapeContents(uiCanvas: Canvas, shape: LeafOption) {
+    if (shape.display) {
+      const drawn = this.drawDisplayOption(uiCanvas, shape.box, shape.display);
+
+      if (drawn) {
+        return;
+      }
+    }
+    drawInnerPuzzle(uiCanvas, shape.box, shape.puzzle);
   }
 
   /**
@@ -305,7 +370,7 @@ export class PuzzleMode implements Mode<SimpleScreen> {
 
     // Draw puzzle if there is one
     if (this.currentPuzzle) {
-      this.currentPuzzle.draw(screenManager);
+      this.currentPuzzle.draw(screenManager, true);
     } else {
       if (!this.viewDirty) {
         return;
@@ -319,7 +384,8 @@ export class PuzzleMode implements Mode<SimpleScreen> {
           uiCanvas.setColor(shape.puzzle.isSolved ? SOLVED_BACKGROUND : DEFAULT_BACKGROUND);
 
           shape.box.draw(uiCanvas);
-          drawInnerPuzzle(uiCanvas, shape.box, shape.puzzle);
+
+          this.drawPuzzleShapeContents(screenManager.uiCanvas, shape);
         } else if (isBack(shape)) {
           uiCanvas.setColor("white");
 

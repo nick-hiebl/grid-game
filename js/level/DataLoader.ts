@@ -393,7 +393,6 @@ function buildGrouping(items: any): Grouping {
       children: items.map(buildGrouping),
     };
   } else if (typeof items === "object") {
-    console.log('parsing', items);
     const isLeaf = typeof items.children === "string";
     if (isLeaf) {
       return {
