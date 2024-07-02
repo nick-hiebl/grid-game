@@ -108,4 +108,11 @@ export const ICON_SHAPES: Record<string, (Rectangle | Circle)[]> = {
     Rectangle.centerForm(t0, -0.6, k/2, 0.1),
     Rectangle.centerForm(t1, -0.6, k/2, 0.1),
   ],
+  plus: [
+    Rectangle.centerForm(0, 0, 0.1, 0.8),
+    Rectangle.centerForm(0, 0, 0.8, 0.1),
+  ],
+  minus: [
+    Rectangle.centerForm(0, 0, 0.8, 0.1),
+  ],
 };

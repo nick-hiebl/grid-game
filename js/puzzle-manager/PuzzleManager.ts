@@ -50,6 +50,10 @@ class PuzzleManagerInstance {
 
     return puzzle;
   }
+
+  instantiate(rules: PuzzleRules): Puzzle {
+    return initPuzzle("placeholder", rules);
+  }
 }
 
 export const PuzzleManager = new PuzzleManagerInstance();

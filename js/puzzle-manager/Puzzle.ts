@@ -1,7 +1,6 @@
 import {
   UI_PIXEL_WIDTH,
   UI_CANVAS_HEIGHT,
-  UI_CANVAS_WIDTH,
 } from "../constants/ScreenConstants";
 import { ClickEvent, InputEvent, InputState } from "../InputManager";
 import { clamp } from "../math/Common";
@@ -26,6 +25,7 @@ import {
   PuzzleValues,
 } from "./types";
 import { SimpleScreen } from "../apps/SimpleScreen";
+import { EditorScreen } from "../apps/EditorScreen";
 
 const PARTIAL_RADIUS = 0.4;
 
@@ -185,7 +185,7 @@ export class Puzzle {
   canvasWidth: number = 0;
   canvasHeight: number = 0;
 
-  uiPosition(screenManager?: ScreenManager | SimpleScreen) {
+  uiPosition(screenManager?: ScreenManager | SimpleScreen | EditorScreen) {
     // Function with f(0) = 1, f(1) = 0, f"(1) = 0
     // Feel free to replace this with any other function moving those
     // parameters.
@@ -208,7 +208,7 @@ export class Puzzle {
    * Draw.
    * @param {ScreenManager} screenManager The screenManager to draw upon.
    */
-  draw(screenManager: ScreenManager | SimpleScreen, hideMonitorLeg?: boolean) {
+  draw(screenManager: ScreenManager | SimpleScreen | EditorScreen, hideMonitorLeg?: boolean) {
     const canvas = screenManager.uiCanvas;
 
     canvas.clear();

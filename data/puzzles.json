@@ -1,8 +1,9 @@
 {
   "puzzlesGrouping": [
     { "icon": "calendar", "children": [
-      { "icon": "square-2", "children": "dailies-0" },
-      { "icon": "square-1", "children": "dailies-1" }
+      "dailies-0",
+      "dailies-1",
+      "dailies-2"
     ] },
     [
       { "icon": "circle-1", "children": ["intro-1", "intro-2", "intro-3", "intro-4", "intro-secret"] },
@@ -33,6 +34,13 @@
           "rowCounts": [2, 3, null, 2],
           "columnGroups": [1, null, null],
           "forcedCells": [{ "row": 3, "col": 1, "on": false }]
+        },
+        "dailies-2": {
+          "rows": 4,
+          "cols": 4,
+          "columnCounts": [3, 1, 1, 4],
+          "rowGroups": [null, 1, null, null],
+          "forcedCells": [{ "row": 0, "col": 0, "on": false }]
         }
       }
     },

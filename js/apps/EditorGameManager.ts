@@ -1,20 +1,20 @@
-import { PuzzleMode } from "../game-modes/PuzzleMode";
+import { EditorMode } from "../game-modes/EditorMode";
 import { InputEvent, InputState } from "../InputManager";
 import { GameModeManagerEssentials, Mode } from "../types";
-import { SimpleScreen } from "./SimpleScreen";
+import { EditorScreen } from "./EditorScreen";
 
-export class SimpleGameManager implements GameModeManagerEssentials<SimpleScreen> {
-  puzzleMode: PuzzleMode;
+export class EditorGameManager implements GameModeManagerEssentials<EditorScreen> {
+  editorMode: EditorMode;
   // mapMode: MapMode;
 
-  currentMode: Mode<SimpleScreen>;
+  currentMode: Mode<EditorScreen>;
 
   constructor() {
-    this.puzzleMode = new PuzzleMode(this);
+    this.editorMode = new EditorMode(this);
 
     // Probably needs to initially be a menu mode eventually, or some dev-mode tooling
-    this.currentMode = this.puzzleMode;
-    this.puzzleMode.onStart();
+    this.currentMode = this.editorMode;
+    this.editorMode.onStart();
   }
 
   /**
@@ -26,7 +26,7 @@ export class SimpleGameManager implements GameModeManagerEssentials<SimpleScreen
     this.currentMode.update(deltaTime, inputState);
   }
 
-  switchToMode(mode: Mode<SimpleScreen>) {
+  switchToMode(mode: Mode<EditorScreen>) {
     this.currentMode = mode;
     mode.onStart();
   }
@@ -37,16 +37,7 @@ export class SimpleGameManager implements GameModeManagerEssentials<SimpleScreen
    */
   onInput(input: InputEvent) {
     let consumed = false;
-    if (this.currentMode === this.puzzleMode) {
-      // if (input.isForKey(Input.Map)) {
-      //   consumed = true;
-      //   this.switchToMode(this.mapMode);
-      // }
-    // } else if (this.currentMode === this.mapMode) {
-    //   if (input.isForKey(Input.Escape) || input.isForKey(Input.Map)) {
-    //     consumed = false;
-    //     this.switchToMode(this.playMode);
-    //   }
+    if (this.currentMode === this.editorMode) {
     }
 
     if (!consumed) {
@@ -58,7 +49,7 @@ export class SimpleGameManager implements GameModeManagerEssentials<SimpleScreen
    * Draw the current gamemode.
    * @param {ScreenManager} screenManager The screenManager object.
    */
-  draw(screenManager: SimpleScreen) {
+  draw(screenManager: EditorScreen) {
     this.currentMode.draw(screenManager);
   }
 }

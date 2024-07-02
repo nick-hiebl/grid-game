@@ -3,7 +3,53 @@ import { Rectangle } from "../math/Shapes";
 import { Vector } from "../math/Vector";
 import { Puzzle } from "../puzzle-manager/Puzzle";
 
-export function distributeRectangles(container: Rectangle, numPuzzles: number): Rectangle[] {
+export function distributeGrid(container: Rectangle, rows: number, columns: number, margin = 0.2): Rectangle[][] {
+  const spaceWidth = container.width;
+  const spaceHeight = container.height;
+
+  function spaceForN(n: number) {
+    return (1 + margin) * n - margin;
+  }
+
+  function offsetForN(n: number) {
+    return n * (1 + margin);
+  }
+
+  const boxSize = Math.min(spaceWidth / spaceForN(columns), spaceHeight / spaceForN(rows));
+
+  const innerContainer = Rectangle.centerForm(
+    container.midpoint.x,
+    container.midpoint.y,
+    (boxSize * spaceForN(columns)) / 2,
+    (boxSize * spaceForN(rows)) / 2,
+  );
+
+  const grid = [];
+
+  for (let i = 0; i < rows; i++) {
+    const row = [];
+    for (let j = 0; j < columns; j++) {
+      row.push(Rectangle.widthForm(
+        boxSize * offsetForN(j) + innerContainer.x1,
+        boxSize * offsetForN(i) + innerContainer.y1,
+        boxSize,
+        boxSize,
+      ));
+    }
+    grid.push(row);
+  }
+
+  return grid;
+}
+
+export function distributeShapesSquare(container: Rectangle, numPuzzles: number, margin: number): Rectangle[] {
+  const cols = Math.ceil(Math.sqrt(numPuzzles));
+  const rows = Math.ceil(numPuzzles / cols);
+
+  return distributeGrid(container, rows, cols, margin).flat().slice(0, numPuzzles);
+}
+
+export function distributeRectangles(container: Rectangle, numPuzzles: number, margin = 0.5): Rectangle[] {
   const scale = Math.floor(Math.sqrt(numPuzzles));
 
   const rows = Math.ceil(numPuzzles / scale);
@@ -13,11 +59,11 @@ export function distributeRectangles(container: Rectangle, numPuzzles: number): 
   const spaceHeight = container.height;
 
   function spaceForN(n: number) {
-    return 1.5 * n - 0.5;
+    return (1 + margin) * n - margin;
   }
 
   function offsetForN(n: number) {
-    return n * 1.5;
+    return n * (1 + margin);
   }
 
   const boxSize = Math.min(spaceWidth / spaceForN(columns), spaceHeight / spaceForN(rows));
