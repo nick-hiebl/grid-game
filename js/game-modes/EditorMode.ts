@@ -179,8 +179,10 @@ export class EditorMode implements Mode<EditorScreen> {
   }
 
   setPuzzle() {
+    const state = this.currentPuzzle.values;
     this.currentPuzzle = this.puzzleManager.instantiate(this.generateRulesFromState());
     this.currentPuzzle.open(1);
+    this.currentPuzzle.values = state;
 
     this.buttons = generateButtons(this.rows, this.cols);
   }
