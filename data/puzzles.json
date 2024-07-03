@@ -12,7 +12,7 @@
       { "icon": "circle-3", "children": ["multi-sol-1", "multi-sol-2", "multi-sol-3", "multi-sol-4", "multi-sol-5", "multi-sol-6", "multi-sol-7", "multi-sol-8", "multi-sol-9", "multi-sol-10", "multi-sol-to-ambiguity"] }
     ],
     ["ambiguity-1", "ambiguity-2", "ambiguity-3", "ambiguity-4", "ambiguity-5", "ambiguity-6", "ambiguity-7", "ambiguity-8"],
-    ["fixed-1", "fixed-2", "fixed-3", "fixed-4", "fixed-5", "fixed-6", "fixed-7", "fixed-8", "fixed-9", "fixed-10", "fixed-final", "fixed-shortcut"],
+    ["fixed-1", "fixed-2", "fixed-3", "fixed-shortcut", "fixed-4", "fixed-5", "fixed-6", "fixed-7", "fixed-8", "fixed-9", "fixed-10", "fixed-final"],
     "brick-secret"
   ],
   "puzzlesByLevel": {
