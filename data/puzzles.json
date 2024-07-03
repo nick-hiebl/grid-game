@@ -3,7 +3,8 @@
     { "icon": "calendar", "children": [
       "dailies-0",
       "dailies-1",
-      "dailies-2"
+      "dailies-2",
+      "dailies-3"
     ] },
     [
       { "icon": "circle-1", "children": ["intro-1", "intro-2", "intro-3", "intro-4", "intro-secret"] },
@@ -41,6 +42,18 @@
           "columnCounts": [3, 1, 1, 4],
           "rowGroups": [null, 1, null, null],
           "forcedCells": [{ "row": 0, "col": 0, "on": false }]
+        },
+        "dailies-3": {
+          "rows": 4,
+          "cols": 4,
+          "columnCounts": [1, null, 4, 3],
+          "rowCounts": [null, 3, null, null],
+          "columnGroups": [null, 1, null, null],
+          "rowGroups": [null, null, 2, null],
+          "forcedCells": [
+            { "row": 0, "col": 3, "on": false },
+            { "row": 2, "col": 1, "on": false }
+          ]
         }
       }
     },
