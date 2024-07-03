@@ -4,6 +4,9 @@ import { Canvas } from "../Canvas";
 
 const REAL_CANVAS = Symbol("real-canvas");
 
+const WIDTH = SQUARE_CANVAS_SIZE * 2;
+const HEIGHT = SQUARE_CANVAS_SIZE;
+
 function getRawCanvas(): HTMLCanvasElement {
   const rawCanvas = document.getElementById("canvas");
 
@@ -11,16 +14,17 @@ function getRawCanvas(): HTMLCanvasElement {
     throw new Error("Could not find canvas");
   }
 
-  rawCanvas.width = SQUARE_CANVAS_SIZE;
-  rawCanvas.height = SQUARE_CANVAS_SIZE;
+  rawCanvas.width = WIDTH;
+  rawCanvas.height = HEIGHT;
 
   return rawCanvas;
 }
 
-export class SimpleScreen {
+export class EditorScreen {
   [REAL_CANVAS]: Canvas;
   background: Canvas;
   uiCanvas: Canvas;
+  editorCanvas: Canvas;
 
   constructor() {
     const screenCanvas = new Canvas(getRawCanvas());
@@ -31,34 +35,32 @@ export class SimpleScreen {
 
     this[REAL_CANVAS] = screenCanvas;
 
-    this.background = Canvas.fromScratch(SQUARE_CANVAS_SIZE, SQUARE_CANVAS_SIZE);
-    this.uiCanvas = Canvas.fromScratch(
-      SQUARE_CANVAS_SIZE,
-      SQUARE_CANVAS_SIZE
-    );
+    this.background = Canvas.fromScratch(WIDTH, HEIGHT);
+    this.uiCanvas = Canvas.fromScratch(HEIGHT, HEIGHT);
+    this.editorCanvas = Canvas.fromScratch(HEIGHT, HEIGHT);
   }
 
   drawCanvas(
     canvas: Canvas,
-    width = SQUARE_CANVAS_SIZE,
-    height = SQUARE_CANVAS_SIZE
+    xOff = 0,
   ) {
     this[REAL_CANVAS].drawImage(
       canvas,
       0,
       0,
-      width,
-      height,
+      canvas.width,
+      canvas.height,
+      xOff,
       0,
-      0,
-      this[REAL_CANVAS].width,
+      this[REAL_CANVAS].height,
       this[REAL_CANVAS].height
     );
   }
 
   drawToScreen() {
     this.drawCanvas(this.background);
-    this.drawCanvas(this.uiCanvas);
+    this.drawCanvas(this.editorCanvas, 0);
+    this.drawCanvas(this.uiCanvas, HEIGHT);
   }
 
   static instance = null;
@@ -67,6 +69,6 @@ export class SimpleScreen {
       return this.instance;
     }
 
-    return new SimpleScreen();
+    return new EditorScreen();
   }
 }
