@@ -5,7 +5,8 @@
       "dailies-1",
       "dailies-2",
       "dailies-3",
-      "dailies-4"
+      "dailies-4",
+      "dailies-5"
     ] },
     [
       { "icon": "circle-1", "children": ["intro-1", "intro-2", "intro-3", "intro-4", "intro-secret"] },
@@ -62,6 +63,18 @@
           "columnCounts": [null, null, null, 3],
           "columnGroups": [2, 2, 1, null],
           "rowGroups": [2, 1, 2]
+        },
+        "dailies-5": {
+          "rows": 4,
+          "cols": 4,
+          "columnCounts": [4, null, null, 2],
+          "rowCounts": [null, null, 3, 2],
+          "columnGroups": [null, 2, 1, null],
+          "rowGroups": [null, 1, null, null],
+          "forcedCells": [
+            { "row": 2, "col": 2, "on": false },
+            { "row": 0, "col": 3, "on": false }
+          ]
         }
       }
     },
