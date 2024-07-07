@@ -3,7 +3,7 @@ import { ClickEvent, InputEvent, InputState } from "../InputManager";
 
 import { SimpleGameManager } from "../apps/SimpleGameManager";
 import { SimpleScreen } from "../apps/SimpleScreen";
-import { SQUARE_CANVAS_SIZE, UI_PIXEL_WIDTH } from "../constants/ScreenConstants";
+import { IS_MOBILE, SQUARE_CANVAS_SIZE, UI_PIXEL_WIDTH } from "../constants/ScreenConstants";
 import { DataLoader } from "../level/DataLoader";
 import { Circle, Rectangle } from "../math/Shapes";
 import { Vector } from "../math/Vector";
@@ -21,7 +21,7 @@ import { PuzzleManager } from "../puzzle-manager/PuzzleManager";
 import { Puzzle } from "../puzzle-manager/Puzzle";
 import { Grouping, Mode } from "../types";
 
-import { distributeRectangles, drawInnerPuzzle } from "./utils";
+import { distributeRectangles, drawIconShapes, drawInnerPuzzle } from "./utils";
 
 function zip<A, B>(as: A[], bs: B[]): [A, B][] {
   return as.map((a, index) => [a, bs[index]]);
@@ -151,7 +151,7 @@ export class PuzzleMode implements Mode<SimpleScreen> {
   update(deltaTime: number, inputState: InputState) {
     if (this.currentPuzzle) {
       this.currentPuzzle.update(deltaTime, inputState);
-    } else {
+    } else if (!IS_MOBILE) {
       for (const shape of this.shapes) {
         const isHovered = shape.box.intersectsPoint(inputState.mousePosition);
         if (isHovered !== shape.isHovered) {
@@ -249,31 +249,11 @@ export class PuzzleMode implements Mode<SimpleScreen> {
   }
 
   drawDisplayOption(uiCanvas: Canvas, box: Rectangle, display: string): boolean {
-    if (display in ICON_SHAPES) {
-      const shapes = ICON_SHAPES[display];
-
-      uiCanvas.setColor("white");
-      for (const shape of shapes) {
-        if (shape instanceof Circle) {
-          const pos = Vector.add(
-            box.midpoint,
-            Vector.scale(shape.position, box.width / 2),
-          );
-          const newCircle = new Circle(pos, shape.radius * box.width / 2);
-          newCircle.draw(uiCanvas);
-        } else if (shape instanceof Rectangle) {
-          const pos = Vector.add(
-            box.midpoint,
-            Vector.scale(shape.midpoint, box.width / 2),
-          );
-          const newSquare = Rectangle.centerForm(pos.x, pos.y, shape.width * box.width / 4, shape.height * box.width / 4);
-
-          newSquare.draw(uiCanvas);
-        }
-      }
-
+    const done = drawIconShapes(uiCanvas, box, display);
+    if (done) {
       return true;
     }
+
     if (display.match(/circle\-\d+/)) {
       const n = parseInt(display.slice(7), 10);
 
@@ -296,22 +276,6 @@ export class PuzzleMode implements Mode<SimpleScreen> {
           } else {
             newCircle.draw(uiCanvas);
           }
-        }
-        return true;
-      }
-    } else if (display.match(/square\-\d+/)) {
-      const n = parseInt(display.slice(7), 10);
-
-      if (0 <= n && n <= 8) {
-        uiCanvas.setColor("white");
-        for (const square of N_SQUARE_LAYOUT[n]) {
-          const pos = Vector.add(
-            box.midpoint,
-            Vector.scale(square.midpoint, box.width / 2),
-          );
-          const newSquare = Rectangle.centerForm(pos.x, pos.y, square.width * box.width / 4, square.width * box.width / 4);
-
-          newSquare.draw(uiCanvas);
         }
         return true;
       }

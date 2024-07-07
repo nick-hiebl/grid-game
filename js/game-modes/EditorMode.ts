@@ -18,7 +18,7 @@ import { EditorScreen } from "../apps/EditorScreen";
 import { EditorGameManager } from "../apps/EditorGameManager";
 import { PuzzleRules } from "../puzzle-manager/PuzzleFactory";
 
-import { distributeGrid, distributeShapesSquare } from "./utils";
+import { distributeGrid, distributeShapesSquare, drawIconShapes } from "./utils";
 
 function zip<A, B>(as: A[], bs: B[]): [A, B][] {
   return as.map((a, index) => [a, bs[index]]);
@@ -109,7 +109,6 @@ function generateButtons(rows: number, columns: number): Button[] {
 
   const basics = grid.slice(1, grid.length - 1).map((row) => row.slice(1, row.length - 1));
 
-  const basicButtons: BoxButton[] = basics.flat().map((cell) => ({ box: cell, simple: true }));
   const basicSmarts: ClickButton[] = basics.map((row, rowIndex) => {
     return row.map((cell, columnIndex) => {
       const [on, off, blank] = distributeGrid(cell, 2, 2, 0.2).flat();
@@ -133,7 +132,6 @@ function generateButtons(rows: number, columns: number): Button[] {
   ];
 
   return (actions as Button[])
-    // .concat(basicButtons)
     .concat(columnCells.map((box, index) => produceRowColumnOptions(box, index, false, columnDetails)).flat())
     .concat(rowCells.map((box, index) => produceRowColumnOptions(box, index, true, rowDetails)).flat())
     .concat(basicSmarts);
@@ -279,79 +277,9 @@ export class EditorMode implements Mode<EditorScreen> {
   }
 
   drawDisplayOption(uiCanvas: Canvas, box: Rectangle, display: string): boolean {
-    if (display in ICON_SHAPES) {
-      const shapes = ICON_SHAPES[display];
-
-      uiCanvas.setColor("white");
-      for (const shape of shapes) {
-        if (shape instanceof Circle) {
-          const pos = Vector.add(
-            box.midpoint,
-            Vector.scale(shape.position, box.width / 2),
-          );
-          const newCircle = new Circle(pos, shape.radius * box.width / 2);
-          newCircle.draw(uiCanvas);
-        } else if (shape instanceof Rectangle) {
-          const pos = Vector.add(
-            box.midpoint,
-            Vector.scale(shape.midpoint, box.width / 2),
-          );
-          const newSquare = Rectangle.centerForm(pos.x, pos.y, shape.width * box.width / 4, shape.height * box.width / 4);
-
-          newSquare.draw(uiCanvas);
-        }
-      }
-
+    const done = drawIconShapes(uiCanvas, box, display);
+    if (done) {
       return true;
-    }
-    if (display.match(/circle\-\d+/)) {
-      const n = parseInt(display.slice(7), 10);
-
-      if (0 <= n && n <= 8) {
-        uiCanvas.setColor("white");
-        for (const circle of N_CIRCLE_LAYOUT[n]) {
-          const pos = Vector.add(
-            box.midpoint,
-            Vector.scale(circle.position, box.width / 2),
-          );
-          const newCircle = new Circle(pos, circle.radius * box.width / 2);
-          if (n === 0) {
-            uiCanvas.setLineWidth(circle.radius * box.width / 2);
-            uiCanvas.strokeEllipse(
-              box.midpoint.x,
-              box.midpoint.y,
-              circle.radius * box.width * 0.75,
-              circle.radius * box.width * 0.75
-            );
-          } else {
-            newCircle.draw(uiCanvas);
-          }
-        }
-        return true;
-      }
-    } else if (display.match(/square\-\d+/) || display.match(/blank\-square\-\d+/)) {
-      const isBlankSquare = display.match(/blank\-square\-\d+/);
-      const n = parseInt(display.slice(isBlankSquare ? 13 : 7), 10);
-
-      if (0 <= n && n <= 8) {
-        uiCanvas.setColor("white");
-        for (const square of N_SQUARE_LAYOUT[n]) {
-          const pos = Vector.add(
-            box.midpoint,
-            Vector.scale(square.midpoint, box.width / 2),
-          );
-          const newSquare = Rectangle.centerForm(pos.x, pos.y, square.width * box.width / 4, square.width * box.width / 4);
-
-          if (isBlankSquare) {
-            uiCanvas.setLineDash([]);
-            uiCanvas.setLineWidth(newSquare.width / 4);
-            newSquare.stroke(uiCanvas);
-          } else {
-            newSquare.draw(uiCanvas);
-          }
-        }
-        return true;
-      }
     }
 
     return false;

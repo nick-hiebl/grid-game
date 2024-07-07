@@ -1,13 +1,20 @@
 {
   "puzzlesGrouping": [
     { "icon": "calendar", "children": [
-      "dailies-0",
-      "dailies-1",
-      "dailies-2",
-      "dailies-3",
-      "dailies-4",
-      "dailies-5",
-      "dailies-6"
+      { "icon": "square-3", "children": [
+        "dailies-0",
+        "dailies-1",
+        "dailies-2",
+        "dailies-3",
+        "dailies-4",
+        "dailies-5",
+        "dailies-6"
+      ] },
+      { "icon": "blank-square-3", "children": [
+        "dailies-7",
+        "dailies-8",
+        "dailies-9"
+      ] }
     ] },
     [
       { "icon": "circle-1", "children": ["intro-1", "intro-2", "intro-3", "intro-4", "intro-secret"] },
@@ -87,6 +94,28 @@
           "forcedCells": [
             { "row": 3, "col": 0, "on": true }
           ]
+        },
+        "dailies-7": {
+          "rows": 4,
+          "cols": 2,
+          "rowCounts": [2, null, 1, 1],
+          "columnBlankGroups": [1, 2]
+        },
+        "dailies-8": {
+          "rows": 3,
+          "cols": 3,
+          "columnCounts": [1, null, 2],
+          "rowCounts": [3, null, 1],
+          "rowGroups": [null, 1, null],
+          "columnBlankGroups": [null, 1, null]
+        },
+        "dailies-9": {
+          "rows": 3,
+          "cols": 3,
+          "columnCounts": [null, 1, 2],
+          "rowCounts": [1, null, 2],
+          "rowBlankGroups": [null, 2, null],
+          "columnBlankGroups": [1, null, null]
         }
       }
     },

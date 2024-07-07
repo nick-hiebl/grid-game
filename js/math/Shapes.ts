@@ -68,6 +68,15 @@ export class Circle {
       this.radius
     );
   }
+
+  stroke(canvas: Canvas) {
+    canvas.strokeEllipse(
+      this.position.x,
+      this.position.y,
+      this.radius,
+      this.radius,
+    );
+  }
 }
 
 export class Rectangle {
