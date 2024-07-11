@@ -13,7 +13,8 @@
       { "icon": "blank-square-3", "children": [
         "dailies-7",
         "dailies-8",
-        "dailies-9"
+        "dailies-9",
+        "dailies-10"
       ] }
     ] },
     [
@@ -116,6 +117,19 @@
           "rowCounts": [1, null, 2],
           "rowBlankGroups": [null, 2, null],
           "columnBlankGroups": [1, null, null]
+        },
+        "dailies-10": {
+          "rows": 5,
+          "cols": 5,
+          "columnCounts": [1, 4, null, null, null],
+          "rowCounts": [null, null, 5, null, null],
+          "columnGroups": [null, null, 2, 2, 1],
+          "rowGroups": [null, 2, null, null, null],
+          "rowBlankGroups": [3, null, null, null, 2],
+          "forcedCells": [
+            { "row": 4, "col": 1, "on": false },
+            { "row": 3, "col": 4, "on": true }
+          ]
         }
       }
     },
