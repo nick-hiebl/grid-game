@@ -1,7 +1,8 @@
 import { Canvas } from "../Canvas";
-import { Rectangle } from "../math/Shapes";
+import { Circle, Rectangle } from "../math/Shapes";
 import { Vector } from "../math/Vector";
 import { Puzzle } from "../puzzle-manager/Puzzle";
+import { ICON_SHAPES } from "../puzzle-manager/constants";
 
 export function distributeGrid(container: Rectangle, rows: number, columns: number, margin = 0.2): Rectangle[][] {
   const spaceWidth = container.width;
@@ -127,3 +128,43 @@ export function drawInnerPuzzle(canvas: Canvas, box: Rectangle, puzzle: Puzzle) 
 
   canvas.translate(-offset.x, -offset.y);
 }
+
+export const drawIconShapes = (uiCanvas: Canvas, box: Rectangle, display: string): boolean => {
+  if (display in ICON_SHAPES) {
+    const { shapes, inverted } = ICON_SHAPES[display];
+
+    uiCanvas.setColor("white");
+    for (const shape of shapes) {
+      if (shape instanceof Circle) {
+        const pos = Vector.add(
+          box.midpoint,
+          Vector.scale(shape.position, box.width / 2),
+        );
+        const newCircle = new Circle(pos, shape.radius * box.width / 2);
+        if (inverted) {
+          uiCanvas.setLineWidth(box.width / 10);
+          newCircle.stroke(uiCanvas);
+        } else {
+          newCircle.draw(uiCanvas);
+        }
+      } else if (shape instanceof Rectangle) {
+        const pos = Vector.add(
+          box.midpoint,
+          Vector.scale(shape.midpoint, box.width / 2),
+        );
+        const newSquare = Rectangle.centerForm(pos.x, pos.y, shape.width * box.width / 4, shape.height * box.width / 4);
+
+        if (inverted) {
+          uiCanvas.setLineWidth(box.width / 10);
+          newSquare.stroke(uiCanvas);
+        } else {
+          newSquare.draw(uiCanvas);
+        }
+      }
+    }
+
+    return true;
+  }
+
+  return false;
+};

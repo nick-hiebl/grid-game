@@ -1,9 +1,21 @@
 {
   "puzzlesGrouping": [
     { "icon": "calendar", "children": [
-      "dailies-0",
-      "dailies-1",
-      "dailies-2"
+      { "icon": "square-3", "children": [
+        "dailies-0",
+        "dailies-1",
+        "dailies-2",
+        "dailies-3",
+        "dailies-4",
+        "dailies-5",
+        "dailies-6"
+      ] },
+      { "icon": "blank-square-3", "children": [
+        "dailies-7",
+        "dailies-8",
+        "dailies-9",
+        "dailies-10"
+      ] }
     ] },
     [
       { "icon": "circle-1", "children": ["intro-1", "intro-2", "intro-3", "intro-4", "intro-secret"] },
@@ -13,7 +25,7 @@
       { "icon": "circle-3", "children": ["multi-sol-1", "multi-sol-2", "multi-sol-3", "multi-sol-4", "multi-sol-5", "multi-sol-6", "multi-sol-7", "multi-sol-8", "multi-sol-9", "multi-sol-10", "multi-sol-to-ambiguity"] }
     ],
     ["ambiguity-1", "ambiguity-2", "ambiguity-3", "ambiguity-4", "ambiguity-5", "ambiguity-6", "ambiguity-7", "ambiguity-8"],
-    ["fixed-1", "fixed-2", "fixed-3", "fixed-4", "fixed-5", "fixed-6", "fixed-7", "fixed-8", "fixed-9", "fixed-10", "fixed-final", "fixed-shortcut"],
+    ["fixed-1", "fixed-2", "fixed-3", "fixed-shortcut", "fixed-4", "fixed-5", "fixed-6", "fixed-7", "fixed-8", "fixed-9", "fixed-10", "fixed-final"],
     "brick-secret"
   ],
   "puzzlesByLevel": {
@@ -41,6 +53,83 @@
           "columnCounts": [3, 1, 1, 4],
           "rowGroups": [null, 1, null, null],
           "forcedCells": [{ "row": 0, "col": 0, "on": false }]
+        },
+        "dailies-3": {
+          "rows": 4,
+          "cols": 4,
+          "columnCounts": [1, null, 4, 3],
+          "rowCounts": [null, 3, null, null],
+          "columnGroups": [null, 1, null, null],
+          "rowGroups": [null, null, 2, null],
+          "forcedCells": [
+            { "row": 0, "col": 3, "on": false },
+            { "row": 2, "col": 1, "on": false }
+          ]
+        },
+        "dailies-4": {
+          "rows": 3,
+          "cols": 4,
+          "columnCounts": [null, null, null, 3],
+          "columnGroups": [2, 2, 1, null],
+          "rowGroups": [2, 1, 2]
+        },
+        "dailies-5": {
+          "rows": 4,
+          "cols": 4,
+          "columnCounts": [4, null, null, 2],
+          "rowCounts": [null, null, 3, 2],
+          "columnGroups": [null, 2, 1, null],
+          "rowGroups": [null, 1, null, null],
+          "forcedCells": [
+            { "row": 2, "col": 2, "on": false },
+            { "row": 0, "col": 3, "on": false }
+          ]
+        },
+        "dailies-6": {
+          "rows": 5,
+          "cols": 5,
+          "columnCounts": [null, 5, null, 3, null],
+          "rowCounts": [4, 1, null, null, null],
+          "columnGroups": [1, null, 2, null, 3],
+          "rowGroups": [null, null, 2, 2, 1],
+          "forcedCells": [
+            { "row": 3, "col": 0, "on": true }
+          ]
+        },
+        "dailies-7": {
+          "rows": 4,
+          "cols": 2,
+          "rowCounts": [2, null, 1, 1],
+          "columnBlankGroups": [1, 2]
+        },
+        "dailies-8": {
+          "rows": 3,
+          "cols": 3,
+          "columnCounts": [1, null, 2],
+          "rowCounts": [3, null, 1],
+          "rowGroups": [null, 1, null],
+          "columnBlankGroups": [null, 1, null]
+        },
+        "dailies-9": {
+          "rows": 3,
+          "cols": 3,
+          "columnCounts": [null, 1, 2],
+          "rowCounts": [1, null, 2],
+          "rowBlankGroups": [null, 2, null],
+          "columnBlankGroups": [1, null, null]
+        },
+        "dailies-10": {
+          "rows": 5,
+          "cols": 5,
+          "columnCounts": [1, 4, null, null, null],
+          "rowCounts": [null, null, 5, null, null],
+          "columnGroups": [null, null, 2, 2, 1],
+          "rowGroups": [null, 2, null, null, null],
+          "rowBlankGroups": [3, null, null, null, 2],
+          "forcedCells": [
+            { "row": 4, "col": 1, "on": false },
+            { "row": 3, "col": 4, "on": true }
+          ]
         }
       }
     },

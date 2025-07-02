@@ -89,8 +89,15 @@ const s = (1.6 - 4*k) / 5;
 const t0 = s/2 + k/2;
 const t1 = 3 * t0;
 
-export const ICON_SHAPES: Record<string, (Rectangle | Circle)[]> = {
-  calendar: [
+type ShapeList = (Rectangle | Circle)[];
+
+type ShapeData = { inverted: boolean, shapes: ShapeList };
+
+const inverted = (shapes: ShapeList): ShapeData => ({ inverted: true, shapes });
+const regular = (shapes: ShapeList): ShapeData => ({ inverted: false, shapes });
+
+export const ICON_SHAPES: Record<string, ShapeData> = {
+  calendar: regular([
     // new Rectangle(-0.8, -0.5, 0.8, 0.5),
     // top seg
     Rectangle.widthForm(-0.8, -0.55, 1.6, 0.2),
@@ -107,12 +114,29 @@ export const ICON_SHAPES: Record<string, (Rectangle | Circle)[]> = {
     Rectangle.centerForm(-t0, -0.6, k/2, 0.1),
     Rectangle.centerForm(t0, -0.6, k/2, 0.1),
     Rectangle.centerForm(t1, -0.6, k/2, 0.1),
-  ],
-  plus: [
+  ]),
+  plus: regular([
     Rectangle.centerForm(0, 0, 0.1, 0.8),
     Rectangle.centerForm(0, 0, 0.8, 0.1),
-  ],
-  minus: [
+  ]),
+  minus: regular([
     Rectangle.centerForm(0, 0, 0.8, 0.1),
-  ],
+  ]),
+  "circle-0": inverted(N_CIRCLE_LAYOUT[0]),
+  "circle-1": regular(N_CIRCLE_LAYOUT[1]),
+  "circle-2": regular(N_CIRCLE_LAYOUT[2]),
+  "circle-3": regular(N_CIRCLE_LAYOUT[3]),
+  "circle-4": regular(N_CIRCLE_LAYOUT[4]),
+  "circle-5": regular(N_CIRCLE_LAYOUT[5]),
+  "circle-6": regular(N_CIRCLE_LAYOUT[6]),
+  "circle-7": regular(N_CIRCLE_LAYOUT[7]),
+  "circle-8": regular(N_CIRCLE_LAYOUT[8]),
+  "square-1": regular(N_SQUARE_LAYOUT[1]),
+  "square-2": regular(N_SQUARE_LAYOUT[2]),
+  "square-3": regular(N_SQUARE_LAYOUT[3]),
+  "square-4": regular(N_SQUARE_LAYOUT[4]),
+  "blank-square-1": inverted(N_SQUARE_LAYOUT[1].map(s => s.inset(0.1))),
+  "blank-square-2": inverted(N_SQUARE_LAYOUT[2].map(s => s.inset(0.1))),
+  "blank-square-3": inverted(N_SQUARE_LAYOUT[3].map(s => s.inset(0.05))),
+  "blank-square-4": inverted(N_SQUARE_LAYOUT[4].map(s => s.inset(0.1))),
 };
