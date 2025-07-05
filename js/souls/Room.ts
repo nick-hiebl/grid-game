@@ -2,7 +2,7 @@ import { InputEvent, InputState } from "../InputManager";
 import { ScreenManager } from "../ScreenManager";
 import { Vector } from "../math/Vector";
 
-import { Enemy } from "./Enemy";
+import { Enemy } from "./enemy/Enemy";
 import { Player } from "./Player";
 
 const FLOOR_Y = 520;

@@ -1,54 +1,10 @@
-import { Canvas } from "../Canvas";
-import { Circle, Rectangle } from "../math/Shapes";
-import { Vector } from "../math/Vector";
+import { Canvas } from "../../Canvas";
+import { Rectangle } from "../../math/Shapes";
+import { Vector } from "../../math/Vector";
+import { Projectile } from "./Projectile";
 
 const RADIUS = 120;
 const VELOCITY = 240;
-
-const PARTICLE_RADIUS = 5;
-
-class Particle {
-  position: Vector;
-  velocity: Vector;
-
-  radius: number;
-  collider: Circle;
-
-  timeLeft: number;
-  dead: boolean;
-
-  constructor(position: Vector, velocity: Vector) {
-    this.position = position;
-    this.velocity = velocity;
-
-    this.radius = PARTICLE_RADIUS;
-    this.collider = new Circle(this.position, this.radius);
-
-    this.timeLeft = 1;
-    this.dead = false;
-  }
-
-  /**
-   * Update.
-   * @param {number} deltaTime The time elapsed since the last update.
-   */
-  update(deltaTime: number, playerPassed: boolean) {
-    if (playerPassed) {
-      this.timeLeft -= deltaTime;
-      if (this.timeLeft <= 0) {
-        this.dead = true;
-      }
-    }
-
-    this.position.add(Vector.scale(this.velocity, deltaTime));
-  }
-
-  draw(canvas: Canvas) {
-    canvas.setColorHSLA(180, 0.8, 0.9, this.timeLeft);
-    canvas.setColor('#88aaff');
-    canvas.fillEllipse(this.position.x, this.position.y, 4, 4);
-  }
-}
 
 export class Enemy {
   static radius = RADIUS;
@@ -56,7 +12,7 @@ export class Enemy {
   position: Vector;
   radius: number = RADIUS;
 
-  particles: Particle[];
+  particles: Projectile[];
 
   constructor(initialPosition: Vector) {
     this.position = initialPosition;
@@ -83,7 +39,7 @@ export class Enemy {
       const velocity = Vector.diff(targetPos, startPos);
       velocity.multiply(VELOCITY / velocity.magnitude);
 
-      this.particles.push(new Particle(startPos, velocity));
+      this.particles.push(new Projectile(startPos, velocity));
     }
 
     this.particles.forEach(particle => {
